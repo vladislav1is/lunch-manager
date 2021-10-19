@@ -10,12 +10,15 @@
     <packaging>war</packaging>
 
     <name>Lunch Manager</name>
-    <url>http://lunchmanager.herokuapp.com</url>
+    <url>http://lunch-manager.herokuapp.com</url>
 
     <properties>
-        <java.version>16</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
+        <!-- Java -->
+        <java.version>16</java.version>
+        <!-- Spring -->
+        <spring.version>5.3.8</spring.version>
     </properties>
 
     <build>
@@ -33,4 +36,12 @@
             </plugin>
         </plugins>
     </build>
+
+    <dependencies>
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-context</artifactId>
+            <version>${spring.version}</version>
+        </dependency>
+    </dependencies>
 </project>
