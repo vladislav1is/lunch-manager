@@ -1,0 +1,10 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
+
+    <bean class="com.redfox.lunchmanager.repository.inmemory.InMemoryUserRepository" id="inmemoryUserRepository"/>
+    <bean class="com.redfox.lunchmanager.repository.inmemory.InMemoryRestaurantRepository"
+          id="inmemoryRestaurantRepository"/>
+    <bean class="com.redfox.lunchmanager.repository.inmemory.InMemoryDishRepository" id="inMemoryDishRepository"/>
+    <bean class="com.redfox.lunchmanager.repository.inmemory.InMemoryVoteRepository" id="inMemoryVoteRepository"/>
+</beans>
