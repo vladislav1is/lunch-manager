@@ -3,8 +3,20 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd http://www.springframework.org/schema/context https://www.springframework.org/schema/context/spring-context.xsd">
 
     <bean class="com.redfox.lunchmanager.repository.inmemory.InMemoryUserRepository" id="inmemoryUserRepository"/>
+    <bean class="com.redfox.lunchmanager.service.UserService">
+        <constructor-arg name="repository" ref="inmemoryUserRepository"/>
+    </bean>
     <bean class="com.redfox.lunchmanager.repository.inmemory.InMemoryRestaurantRepository"
           id="inmemoryRestaurantRepository"/>
+    <bean class="com.redfox.lunchmanager.service.RestaurantService">
+        <constructor-arg name="repository" ref="inmemoryRestaurantRepository"/>
+    </bean>
     <bean class="com.redfox.lunchmanager.repository.inmemory.InMemoryDishRepository" id="inMemoryDishRepository"/>
+    <bean class="com.redfox.lunchmanager.service.DishService">
+        <constructor-arg name="repository" ref="inMemoryDishRepository"/>
+    </bean>
     <bean class="com.redfox.lunchmanager.repository.inmemory.InMemoryVoteRepository" id="inMemoryVoteRepository"/>
+    <bean class="com.redfox.lunchmanager.service.VoteService">
+        <constructor-arg name="repository" ref="inMemoryVoteRepository"/>
+    </bean>
 </beans>
