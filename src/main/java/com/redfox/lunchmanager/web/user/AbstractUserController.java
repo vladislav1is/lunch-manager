@@ -2,6 +2,7 @@ package com.redfox.lunchmanager.web.user;
 
 import com.redfox.lunchmanager.model.User;
 import com.redfox.lunchmanager.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
@@ -10,6 +11,7 @@ import static com.redfox.lunchmanager.util.ValidationUtil.checkNew;
 
 public abstract class AbstractUserController {
 
+    @Autowired
     private UserService service;
 
     public User create(User user) {

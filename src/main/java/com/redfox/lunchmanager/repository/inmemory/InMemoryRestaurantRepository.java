@@ -2,6 +2,7 @@ package com.redfox.lunchmanager.repository.inmemory;
 
 import com.redfox.lunchmanager.model.Restaurant;
 import com.redfox.lunchmanager.repository.RestaurantRepository;
+import org.springframework.stereotype.Repository;
 
 import java.util.Comparator;
 import java.util.List;
@@ -10,6 +11,7 @@ import java.util.stream.Collectors;
 
 import static com.redfox.lunchmanager.util.Restaurants.*;
 
+@Repository
 public class InMemoryRestaurantRepository extends InMemoryBaseRepository<Restaurant> implements RestaurantRepository {
 
     private static final AtomicInteger counter = new AtomicInteger(100_000);

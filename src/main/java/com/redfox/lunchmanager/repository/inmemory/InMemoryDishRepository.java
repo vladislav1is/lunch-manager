@@ -2,6 +2,7 @@ package com.redfox.lunchmanager.repository.inmemory;
 
 import com.redfox.lunchmanager.model.Dish;
 import com.redfox.lunchmanager.repository.DishRepository;
+import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.Collections;
@@ -16,6 +17,7 @@ import java.util.stream.Collectors;
 import static com.redfox.lunchmanager.util.Restaurants.*;
 import static com.redfox.lunchmanager.util.DateTimeUtil.isBetweenHalfOpen;
 
+@Repository
 public class InMemoryDishRepository implements DishRepository {
 
     private static final AtomicInteger counter = new AtomicInteger(100_000);

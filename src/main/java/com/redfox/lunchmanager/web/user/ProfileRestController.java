@@ -1,9 +1,11 @@
 package com.redfox.lunchmanager.web.user;
 
 import com.redfox.lunchmanager.model.User;
+import org.springframework.stereotype.Controller;
 
 import static com.redfox.lunchmanager.web.SecurityUtil.authUserId;
 
+@Controller
 public class ProfileRestController extends AbstractUserController {
 
     public User get() {

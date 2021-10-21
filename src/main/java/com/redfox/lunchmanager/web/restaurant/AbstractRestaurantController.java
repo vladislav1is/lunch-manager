@@ -2,6 +2,7 @@ package com.redfox.lunchmanager.web.restaurant;
 
 import com.redfox.lunchmanager.model.Restaurant;
 import com.redfox.lunchmanager.service.RestaurantService;
+import org.springframework.beans.factory.annotation.Autowired;
 
 import java.util.List;
 
@@ -10,6 +11,7 @@ import static com.redfox.lunchmanager.util.ValidationUtil.checkNew;
 
 public abstract class AbstractRestaurantController {
 
+    @Autowired
     private RestaurantService service;
 
     public Restaurant create(Restaurant restaurant) {

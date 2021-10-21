@@ -2,6 +2,7 @@ package com.redfox.lunchmanager.web.dish;
 
 import com.redfox.lunchmanager.model.Dish;
 import com.redfox.lunchmanager.service.DishService;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.lang.Nullable;
 
 import java.time.LocalDate;
@@ -12,6 +13,7 @@ import static com.redfox.lunchmanager.util.ValidationUtil.checkNew;
 
 public abstract class AbstractDishController {
 
+    @Autowired
     private DishService service;
 
     public Dish create(Dish dish, int restaurantId) {

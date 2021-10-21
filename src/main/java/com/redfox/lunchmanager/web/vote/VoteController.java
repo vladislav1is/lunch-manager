@@ -6,12 +6,14 @@ import com.redfox.lunchmanager.service.UserService;
 import com.redfox.lunchmanager.service.VoteService;
 import com.redfox.lunchmanager.web.SecurityUtil;
 import org.springframework.lang.Nullable;
+import org.springframework.stereotype.Controller;
 
 import java.time.LocalDate;
 import java.util.List;
 
 import static com.redfox.lunchmanager.util.ValidationUtil.*;
 
+@Controller
 public class VoteController {
 
     private final VoteService voteService;

@@ -2,11 +2,13 @@ package com.redfox.lunchmanager.service;
 
 import com.redfox.lunchmanager.model.Restaurant;
 import com.redfox.lunchmanager.repository.RestaurantRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 import static com.redfox.lunchmanager.util.ValidationUtil.checkNotFoundWithId;
 
+@Service
 public class RestaurantService {
 
     private final RestaurantRepository repository;

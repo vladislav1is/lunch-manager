@@ -2,12 +2,14 @@ package com.redfox.lunchmanager.service;
 
 import com.redfox.lunchmanager.model.User;
 import com.redfox.lunchmanager.repository.UserRepository;
+import org.springframework.stereotype.Service;
 
 import java.util.List;
 
 import static com.redfox.lunchmanager.util.ValidationUtil.checkNotFound;
 import static com.redfox.lunchmanager.util.ValidationUtil.checkNotFoundWithId;
 
+@Service
 public class UserService {
 
     private final UserRepository repository;

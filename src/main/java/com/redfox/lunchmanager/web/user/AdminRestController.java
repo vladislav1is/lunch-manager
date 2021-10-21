@@ -1,9 +1,11 @@
 package com.redfox.lunchmanager.web.user;
 
 import com.redfox.lunchmanager.model.User;
+import org.springframework.stereotype.Controller;
 
 import java.util.List;
 
+@Controller
 public class AdminRestController extends AbstractUserController {
 
     @Override

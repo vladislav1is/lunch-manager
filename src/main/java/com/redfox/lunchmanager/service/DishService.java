@@ -2,6 +2,7 @@ package com.redfox.lunchmanager.service;
 
 import com.redfox.lunchmanager.model.Dish;
 import com.redfox.lunchmanager.repository.DishRepository;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -10,6 +11,7 @@ import static com.redfox.lunchmanager.util.DateTimeUtil.atStartOfDayOrMin;
 import static com.redfox.lunchmanager.util.DateTimeUtil.atStartOfNextDayOrMax;
 import static com.redfox.lunchmanager.util.ValidationUtil.checkNotFoundWithId;
 
+@Service
 public class DishService {
 
     private final DishRepository repository;

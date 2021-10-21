@@ -1,10 +1,12 @@
 package com.redfox.lunchmanager.web.dish;
 
 import com.redfox.lunchmanager.model.Dish;
+import org.springframework.stereotype.Controller;
 
 import java.time.LocalDate;
 import java.util.List;
 
+@Controller
 public class AdminDishController extends AbstractDishController {
 
     @Override

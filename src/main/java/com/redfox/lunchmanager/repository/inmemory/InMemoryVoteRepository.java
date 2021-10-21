@@ -2,6 +2,7 @@ package com.redfox.lunchmanager.repository.inmemory;
 
 import com.redfox.lunchmanager.model.Vote;
 import com.redfox.lunchmanager.repository.VoteRepository;
+import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
 import java.util.Collections;
@@ -17,6 +18,7 @@ import static com.redfox.lunchmanager.util.Restaurants.*;
 import static com.redfox.lunchmanager.util.Users.*;
 import static com.redfox.lunchmanager.util.DateTimeUtil.isBetweenHalfOpen;
 
+@Repository
 public class InMemoryVoteRepository implements VoteRepository {
 
     private static final AtomicInteger counter = new AtomicInteger(100_000);

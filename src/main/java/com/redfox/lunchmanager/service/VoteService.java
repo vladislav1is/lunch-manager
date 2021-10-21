@@ -2,6 +2,7 @@ package com.redfox.lunchmanager.service;
 
 import com.redfox.lunchmanager.model.Vote;
 import com.redfox.lunchmanager.repository.VoteRepository;
+import org.springframework.stereotype.Service;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -11,6 +12,7 @@ import static com.redfox.lunchmanager.util.DateTimeUtil.atStartOfNextDayOrMax;
 import static com.redfox.lunchmanager.util.ValidationUtil.checkNotFound;
 import static com.redfox.lunchmanager.util.ValidationUtil.checkNotFoundWithId;
 
+@Service
 public class VoteService {
 
     private final VoteRepository repository;
