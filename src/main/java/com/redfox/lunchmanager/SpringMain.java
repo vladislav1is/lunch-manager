@@ -4,10 +4,11 @@ import com.redfox.lunchmanager.repository.inmemory.InMemoryDishRepository;
 import com.redfox.lunchmanager.repository.inmemory.InMemoryRestaurantRepository;
 import com.redfox.lunchmanager.repository.inmemory.InMemoryUserRepository;
 import com.redfox.lunchmanager.repository.inmemory.InMemoryVoteRepository;
-import com.redfox.lunchmanager.service.DishService;
-import com.redfox.lunchmanager.service.RestaurantService;
-import com.redfox.lunchmanager.service.UserService;
-import com.redfox.lunchmanager.service.VoteService;
+import com.redfox.lunchmanager.web.SecurityUtil;
+import com.redfox.lunchmanager.web.dish.AdminDishController;
+import com.redfox.lunchmanager.web.restaurant.AdminRestaurantController;
+import com.redfox.lunchmanager.web.user.AdminRestController;
+import com.redfox.lunchmanager.web.vote.VoteController;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
@@ -37,19 +38,16 @@ public class SpringMain {
             InMemoryVoteRepository voteRepository = appCtx.getBean(InMemoryVoteRepository.class);
             voteRepository.init();
 
-            UserService userService = appCtx.getBean(UserService.class);
-            RestaurantService restaurantService = appCtx.getBean(RestaurantService.class);
-            DishService dishService = appCtx.getBean(DishService.class);
-            VoteService voteService = appCtx.getBean(VoteService.class);
+            AdminRestController adminController = appCtx.getBean(AdminRestController.class);
+            AdminRestaurantController restaurantController = appCtx.getBean(AdminRestaurantController.class);
+            AdminDishController dishController = appCtx.getBean(AdminDishController.class);
+            VoteController voteController = appCtx.getBean(VoteController.class);
+            SecurityUtil.setAuthUserId(user1.getId());
 
-            System.out.println("UserService");
-            userService.getAll().forEach(System.out::println);
-            System.out.println("RestaurantService");
-            restaurantService.getAll().forEach(System.out::println);
-            System.out.println("DishService");
-            dishService.getAll(restaurant1.getId()).forEach(System.out::println);
-            System.out.println("VoteService");
-            System.out.println(voteService.getByDate(LocalDate.now(), user1.getId()));
+            adminController.getAll().forEach(System.out::println);
+            restaurantController.getAll().forEach(System.out::println);
+            dishController.getAll(restaurant1.getId()).forEach(System.out::println);
+            System.out.println(voteController.getByDate(LocalDate.now()));
         }
     }
 }
