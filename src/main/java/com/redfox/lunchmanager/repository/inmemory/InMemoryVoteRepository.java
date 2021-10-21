@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 import static com.redfox.lunchmanager.util.Restaurants.*;
 import static com.redfox.lunchmanager.util.Users.*;
-import static com.redfox.lunchmanager.util.TimeSection.isBetweenHalfOpen;
+import static com.redfox.lunchmanager.util.DateTimeUtil.isBetweenHalfOpen;
 
 public class InMemoryVoteRepository implements VoteRepository {
 
@@ -34,7 +34,6 @@ public class InMemoryVoteRepository implements VoteRepository {
         InMemoryBaseRepository<Vote> votes = usersVotes.computeIfAbsent(userId, uid -> new InMemoryBaseRepository<>(counter));
         return votes.save(vote);
     }
-
 
     @Override
     public boolean delete(int id, int userId) {

@@ -14,7 +14,7 @@ import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
 import static com.redfox.lunchmanager.util.Restaurants.*;
-import static com.redfox.lunchmanager.util.TimeSection.isBetweenHalfOpen;
+import static com.redfox.lunchmanager.util.DateTimeUtil.isBetweenHalfOpen;
 
 public class InMemoryDishRepository implements DishRepository {
 
