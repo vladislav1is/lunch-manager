@@ -14,7 +14,8 @@ import static com.redfox.lunchmanager.UserTestData.*;
 @Repository
 public class InMemoryUserRepository extends InMemoryBaseRepository<User> implements UserRepository {
 
-    private static final AtomicInteger counter = new AtomicInteger(100_000);
+    public static final int START_SEQ = 100_000;
+    private static final AtomicInteger counter = new AtomicInteger(START_SEQ);
 
     public InMemoryUserRepository() {
         this(counter);
@@ -25,9 +26,11 @@ public class InMemoryUserRepository extends InMemoryBaseRepository<User> impleme
     }
 
     public void init() {
-        save(user1);
-        save(user2);
-        save(user3);
+        map.clear();
+        map.put(USER_ID_1, user1);
+        map.put(USER_ID_2, user2);
+        map.put(USER_ID_3, user3);
+        counter.set(START_SEQ + 3);
     }
 
     @Override
