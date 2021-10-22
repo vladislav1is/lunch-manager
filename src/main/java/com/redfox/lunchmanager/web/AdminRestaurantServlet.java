@@ -1,7 +1,6 @@
 package com.redfox.lunchmanager.web;
 
 import com.redfox.lunchmanager.model.Restaurant;
-import com.redfox.lunchmanager.repository.inmemory.InMemoryRestaurantRepository;
 import com.redfox.lunchmanager.web.restaurant.AdminRestaurantController;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
@@ -23,8 +22,6 @@ public class AdminRestaurantServlet extends HttpServlet {
     public void init() {
         springContext = new ClassPathXmlApplicationContext("spring/spring-app.xml");
         restaurantController = springContext.getBean(AdminRestaurantController.class);
-        InMemoryRestaurantRepository restaurantRepository = springContext.getBean(InMemoryRestaurantRepository.class);
-        restaurantRepository.init();
     }
 
     @Override

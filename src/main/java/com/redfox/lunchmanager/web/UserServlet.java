@@ -2,7 +2,6 @@ package com.redfox.lunchmanager.web;
 
 import com.redfox.lunchmanager.model.Role;
 import com.redfox.lunchmanager.model.User;
-import com.redfox.lunchmanager.repository.inmemory.InMemoryUserRepository;
 import com.redfox.lunchmanager.web.user.AdminRestController;
 import org.slf4j.Logger;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -26,8 +25,6 @@ public class UserServlet extends HttpServlet {
     public void init() {
         springContext = new ClassPathXmlApplicationContext("spring/spring-app.xml");
         adminRestController = springContext.getBean(AdminRestController.class);
-        InMemoryUserRepository userRepository = springContext.getBean(InMemoryUserRepository.class);
-        userRepository.init();
     }
 
     @Override

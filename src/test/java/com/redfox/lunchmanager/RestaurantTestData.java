@@ -1,8 +1,8 @@
-package com.redfox.lunchmanager.util;
+package com.redfox.lunchmanager;
 
 import com.redfox.lunchmanager.model.Restaurant;
 
-public class Restaurants {
+public class RestaurantTestData {
 
     public static final Restaurant restaurant1 = new Restaurant("August");
     public static final Restaurant restaurant2 = new Restaurant("September");

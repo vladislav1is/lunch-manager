@@ -14,9 +14,9 @@ import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import static com.redfox.lunchmanager.util.Restaurants.*;
-import static com.redfox.lunchmanager.util.Users.*;
 import static com.redfox.lunchmanager.util.DateTimeUtil.isBetweenHalfOpen;
+import static com.redfox.lunchmanager.RestaurantTestData.*;
+import static com.redfox.lunchmanager.UserTestData.*;
 
 @Repository
 public class InMemoryVoteRepository implements VoteRepository {

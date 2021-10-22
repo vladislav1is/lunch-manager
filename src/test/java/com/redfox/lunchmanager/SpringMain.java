@@ -15,8 +15,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import java.time.LocalDate;
 import java.util.Arrays;
 
-import static com.redfox.lunchmanager.util.Restaurants.restaurant1;
-import static com.redfox.lunchmanager.util.Users.user1;
+import static com.redfox.lunchmanager.RestaurantTestData.restaurant1;
+import static com.redfox.lunchmanager.UserTestData.user1;
 
 /**
  * @see <a href="http://lunch-manager.herokuapp.com">Demo application</a>
