@@ -2,19 +2,19 @@ package com.redfox.lunchmanager.model;
 
 public class Restaurant extends AbstractNamedEntity {
 
-    public Restaurant(String title) {
-        this(null, title);
+    public Restaurant(String name) {
+        this(null, name);
     }
 
-    public Restaurant(Integer id, String title) {
-        super(id, title);
+    public Restaurant(Integer id, String name) {
+        super(id, name);
     }
 
     @Override
     public String toString() {
         return "Restaurant{" +
                 "id=" + id +
-                ", title='" + name + '\'' +
+                ", name='" + name + '\'' +
                 '}';
     }
 }
