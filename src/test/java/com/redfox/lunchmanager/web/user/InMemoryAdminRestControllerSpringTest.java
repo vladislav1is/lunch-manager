@@ -12,10 +12,9 @@ import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import static com.redfox.lunchmanager.UserTestData.*;
-import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 
-@ContextConfiguration("classpath:spring/spring-app.xml")
+@ContextConfiguration({"classpath:spring/spring-app.xml", "classpath:spring/inmemory.xml"})
 @RunWith(SpringRunner.class)
 @Ignore
 public class InMemoryAdminRestControllerSpringTest {
@@ -35,7 +34,7 @@ public class InMemoryAdminRestControllerSpringTest {
     public void create() {
         User expected = getNew();
         int id = controller.create(expected).getId();
-        assertEquals(expected, controller.get(id));
+        assertMatch(controller.get(id), expected);
     }
 
     @Test
@@ -56,7 +55,7 @@ public class InMemoryAdminRestControllerSpringTest {
 
     @Test
     public void get() {
-        assertEquals(user1, controller.get(USER_ID_1));
+        assertMatch(controller.get(USER_ID_1), user1);
     }
 
     @Test
@@ -66,7 +65,7 @@ public class InMemoryAdminRestControllerSpringTest {
 
     @Test
     public void getByMail() {
-        assertEquals(user3, controller.getByMail(user3.getEmail()));
+        assertMatch(controller.getByMail(user3.getEmail()), user3);
     }
 
     @Test
@@ -76,14 +75,14 @@ public class InMemoryAdminRestControllerSpringTest {
 
     @Test
     public void getAll() {
-        assertEquals(users, controller.getAll());
+        assertMatch(controller.getAll(), user1, user2, user3);
     }
 
     @Test
     public void update() {
         User user = getUpdated();
         controller.update(user, USER_ID_3);
-        assertEquals(user, controller.get(USER_ID_3));
+        assertMatch(controller.get(USER_ID_3), user);
     }
 
     @Test
