@@ -53,7 +53,7 @@ public class InMemoryVoteRepository implements VoteRepository {
     public Vote getByDate(LocalDate voteDate, int userId) {
         InMemoryBaseRepository<Vote> votes = usersVotes.get(userId);
         return votes == null ? null : votes.getCollection().stream()
-                .filter(vote -> voteDate.equals(vote.getVoteDate()))
+                .filter(vote -> voteDate.equals(vote.getRegistered()))
                 .findFirst()
                 .orElse(null);
     }
@@ -68,12 +68,12 @@ public class InMemoryVoteRepository implements VoteRepository {
         return votes == null ? Collections.emptyList() :
                 votes.getCollection().stream()
                         .filter(filter)
-                        .sorted(Comparator.comparing(Vote::getVoteDate).reversed())
+                        .sorted(Comparator.comparing(Vote::getRegistered).reversed())
                         .collect(Collectors.toList());
     }
 
     @Override
     public List<Vote> getBetweenHalfOpen(LocalDate startDate, LocalDate endDate, int userId) {
-        return filterByPredicate(userId, item -> isBetweenHalfOpen(item.getVoteDate(), startDate, endDate));
+        return filterByPredicate(userId, item -> isBetweenHalfOpen(item.getRegistered(), startDate, endDate));
     }
 }

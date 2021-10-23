@@ -62,12 +62,12 @@ public class InMemoryDishRepository implements DishRepository {
         return menu == null ? Collections.emptyList() :
                 menu.getCollection().stream()
                         .filter(filter)
-                        .sorted(Comparator.comparing(Dish::getRecordDate).reversed())
+                        .sorted(Comparator.comparing(Dish::getRegistered).reversed())
                         .collect(Collectors.toList());
     }
 
     @Override
     public List<Dish> getBetweenHalfOpen(LocalDate startDate, LocalDate endDate, int restaurantId) {
-        return filterByPredicate(restaurantId, item -> isBetweenHalfOpen(item.getRecordDate(), startDate, endDate));
+        return filterByPredicate(restaurantId, item -> isBetweenHalfOpen(item.getRegistered(), startDate, endDate));
     }
 }

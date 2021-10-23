@@ -5,16 +5,16 @@ import java.time.LocalDate;
 public class Dish extends AbstractNamedEntity {
 
     private long price;
-    private LocalDate recordDate;
+    private LocalDate registered;
 
-    public Dish(String name, long price, LocalDate recordDate) {
-        this(null, name, price, recordDate);
+    public Dish(String name, long price, LocalDate registered) {
+        this(null, name, price, registered);
     }
 
-    public Dish(Integer id, String name, long price, LocalDate recordDate) {
+    public Dish(Integer id, String name, long price, LocalDate registered) {
         super(id, name);
         this.price = price;
-        this.recordDate = recordDate;
+        this.registered = registered;
     }
 
     public long getPrice() {
@@ -25,12 +25,12 @@ public class Dish extends AbstractNamedEntity {
         this.price = price;
     }
 
-    public LocalDate getRecordDate() {
-        return recordDate;
+    public LocalDate getRegistered() {
+        return registered;
     }
 
-    public void setRecordDate(LocalDate recordDate) {
-        this.recordDate = recordDate;
+    public void setRegistered(LocalDate registered) {
+        this.registered = registered;
     }
 
     @Override
@@ -39,7 +39,7 @@ public class Dish extends AbstractNamedEntity {
                 "id=" + id +
                 ", name='" + name + '\'' +
                 ", price=" + price +
-                ", recordDate=" + recordDate +
+                ", registered=" + registered +
                 '}';
     }
 }
