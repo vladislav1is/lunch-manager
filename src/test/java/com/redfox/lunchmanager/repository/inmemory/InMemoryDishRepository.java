@@ -35,9 +35,9 @@ public class InMemoryDishRepository implements DishRepository {
     }
 
     @Override
-    public Dish save(Dish item, int restaurantId) {
+    public Dish save(Dish dish, int restaurantId) {
         InMemoryBaseRepository<Dish> menu = dishes.computeIfAbsent(restaurantId, rid -> new InMemoryBaseRepository<>(counter));
-        return menu.save(item);
+        return menu.save(dish);
     }
 
     @Override

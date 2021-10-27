@@ -2,6 +2,9 @@ package com.redfox.lunchmanager.model;
 
 public class Restaurant extends AbstractNamedEntity {
 
+    public Restaurant() {
+    }
+
     public Restaurant(String name) {
         this(null, name);
     }

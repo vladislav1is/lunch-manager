@@ -1,9 +1,5 @@
 package com.redfox.lunchmanager;
 
-import com.redfox.lunchmanager.repository.inmemory.InMemoryDishRepository;
-import com.redfox.lunchmanager.repository.inmemory.InMemoryRestaurantRepository;
-import com.redfox.lunchmanager.repository.inmemory.InMemoryUserRepository;
-import com.redfox.lunchmanager.repository.inmemory.InMemoryVoteRepository;
 import com.redfox.lunchmanager.web.SecurityUtil;
 import com.redfox.lunchmanager.web.dish.AdminDishController;
 import com.redfox.lunchmanager.web.restaurant.AdminRestaurantController;
@@ -26,17 +22,8 @@ public class SpringMain {
     public static void main(String[] args) {
         System.out.println("Hello Java Enterprise!");
         // java 7 automatic resource management (ARM)
-        try (ConfigurableApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/spring-app.xml")) {
+        try (ConfigurableApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/spring-app.xml", "spring/spring-db.xml")) {
             System.out.println("Bean definition names: " + Arrays.toString(appCtx.getBeanDefinitionNames()));
-
-            InMemoryUserRepository userRepository = appCtx.getBean(InMemoryUserRepository.class);
-            userRepository.init();
-            InMemoryRestaurantRepository restaurantRepository = appCtx.getBean(InMemoryRestaurantRepository.class);
-            restaurantRepository.init();
-            InMemoryDishRepository dishRepository = appCtx.getBean(InMemoryDishRepository.class);
-            dishRepository.init();
-            InMemoryVoteRepository voteRepository = appCtx.getBean(InMemoryVoteRepository.class);
-            voteRepository.init();
 
             AdminRestController adminController = appCtx.getBean(AdminRestController.class);
             AdminRestaurantController restaurantController = appCtx.getBean(AdminRestaurantController.class);

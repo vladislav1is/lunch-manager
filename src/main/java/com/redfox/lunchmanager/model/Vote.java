@@ -8,6 +8,9 @@ public class Vote extends AbstractBaseEntity {
     private Restaurant restaurant;
     private LocalDate registered;
 
+    public Vote() {
+    }
+
     public Vote(User user, Restaurant restaurant, LocalDate registered) {
         this(null, user, restaurant, registered);
     }

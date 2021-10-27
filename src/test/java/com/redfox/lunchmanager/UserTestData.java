@@ -24,7 +24,7 @@ public class UserTestData {
     public static final List<User> users = List.of(user1, user2, user3);
 
     public static User getNew() {
-        return new User(null, "Pete", "@mail.ru", "123", Role.USER);
+        return new User(null, "Pete", "@mail1.ru", "123", Role.USER);
     }
 
     public static User getUpdated() {

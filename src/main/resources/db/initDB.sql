@@ -9,7 +9,6 @@ DROP SEQUENCE IF EXISTS restaurants_global_seq;
 DROP SEQUENCE IF EXISTS dishs_global_seq;
 DROP SEQUENCE IF EXISTS votes_global_seq;
 
-
 CREATE SEQUENCE users_global_seq AS INTEGER START WITH 100000;
 
 CREATE TABLE users
@@ -22,8 +21,7 @@ CREATE TABLE users
     registered TIMESTAMP           DEFAULT now() NOT NULL
 );
 
-CREATE
-UNIQUE INDEX users_unique_email_idx ON USERS (email);
+CREATE UNIQUE INDEX users_unique_email_idx ON USERS (email);
 
 CREATE TABLE user_roles
 (
@@ -39,7 +37,7 @@ CREATE TABLE restaurants
 (
     id   INTEGER PRIMARY KEY DEFAULT nextval('restaurants_global_seq'),
     name VARCHAR(255) NOT NULL,
-    CONSTRAINT restaurant_title_idx UNIQUE (name)
+    CONSTRAINT restaurant_name_idx UNIQUE (name)
 );
 
 CREATE SEQUENCE dishs_global_seq AS INTEGER START WITH 100000;
@@ -49,9 +47,9 @@ CREATE TABLE dishes
     id            INTEGER PRIMARY KEY DEFAULT nextval('dishs_global_seq'),
     name          VARCHAR(255)                      NOT NULL,
     price         INTEGER                           NOT NULL,
-    registered    TIMESTAMP           DEFAULT now() NOT NULL,
+    registered    DATE                DEFAULT now() NOT NULL,
     restaurant_id INTEGER                           NOT NULL,
-    CONSTRAINT dish_name_idx UNIQUE (name),
+    CONSTRAINT dish_name_idx UNIQUE (name, registered, restaurant_id),
     FOREIGN KEY (restaurant_id) REFERENCES RESTAURANTS (id) ON DELETE CASCADE
 );
 
@@ -62,10 +60,9 @@ CREATE TABLE votes
     id            INTEGER PRIMARY KEY DEFAULT nextval('votes_global_seq'),
     user_id       INTEGER                           NOT NULL,
     restaurant_id INTEGER                           NOT NULL,
-    registered    TIMESTAMP           DEFAULT now() NOT NULL,
+    registered    DATE                DEFAULT now() NOT NULL,
     FOREIGN KEY (user_id) REFERENCES USERS (id) ON DELETE CASCADE,
     FOREIGN KEY (restaurant_id) REFERENCES RESTAURANTS (id) ON DELETE CASCADE
 );
 
-CREATE
-UNIQUE INDEX user_unique_vote_idx ON VOTES (user_id, registered);
+CREATE UNIQUE INDEX user_unique_vote_idx ON VOTES (user_id, registered);

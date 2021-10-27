@@ -14,7 +14,8 @@ import static com.redfox.lunchmanager.RestaurantTestData.*;
 @Repository
 public class InMemoryRestaurantRepository extends InMemoryBaseRepository<Restaurant> implements RestaurantRepository {
 
-    private static final AtomicInteger counter = new AtomicInteger(100_000);
+    public static final int START_SEQ = 100_000;
+    private static final AtomicInteger counter = new AtomicInteger(START_SEQ);
 
     public InMemoryRestaurantRepository() {
         this(counter);
@@ -25,11 +26,13 @@ public class InMemoryRestaurantRepository extends InMemoryBaseRepository<Restaur
     }
 
     public void init() {
-        save(restaurant1);
-        save(restaurant2);
-        save(restaurant3);
-        save(restaurant4);
-        save(restaurant5);
+        map.clear();
+        map.put(RESTAURANT_ID_1, restaurant1);
+        map.put(RESTAURANT_ID_2, restaurant2);
+        map.put(RESTAURANT_ID_3, restaurant3);
+        map.put(RESTAURANT_ID_4, restaurant4);
+        map.put(RESTAURANT_ID_5, restaurant5);
+        counter.set(START_SEQ + 5);
     }
 
     @Override

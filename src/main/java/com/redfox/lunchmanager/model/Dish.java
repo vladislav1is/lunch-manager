@@ -7,6 +7,9 @@ public class Dish extends AbstractNamedEntity {
     private long price;
     private LocalDate registered;
 
+    public Dish() {
+    }
+
     public Dish(String name, long price, LocalDate registered) {
         this(null, name, price, registered);
     }
