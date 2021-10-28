@@ -25,4 +25,13 @@
         <servlet-name>adminRestaurantServlet</servlet-name>
         <url-pattern>/admin/restaurants</url-pattern>
     </servlet-mapping>
+    <servlet>
+        <servlet-name>profileRestaurantServlet</servlet-name>
+        <servlet-class>com.redfox.lunchmanager.web.ProfileRestaurantServlet</servlet-class>
+        <load-on-startup>1</load-on-startup>
+    </servlet>
+    <servlet-mapping>
+        <servlet-name>profileRestaurantServlet</servlet-name>
+        <url-pattern>/profile/restaurants</url-pattern>
+    </servlet-mapping>
 </web-app>
