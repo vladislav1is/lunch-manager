@@ -28,7 +28,7 @@ public class UserTestData {
     }
 
     public static User getUpdated() {
-        return new User(USER_ID_3, "Pete", "@mail.ru", "123", Role.USER);
+        return new User(USER_ID_3, "Pete", "@mail2.ru", "123", Role.USER);
     }
 
     public static void assertMatch(User actual, User expected) {
