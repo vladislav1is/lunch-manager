@@ -3,10 +3,7 @@ package com.redfox.lunchmanager.web.user;
 import com.redfox.lunchmanager.model.User;
 import com.redfox.lunchmanager.repository.inmemory.InMemoryUserRepository;
 import com.redfox.lunchmanager.util.exception.NotFoundException;
-import org.junit.AfterClass;
-import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
+import org.junit.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -18,6 +15,7 @@ import static com.redfox.lunchmanager.UserTestData.*;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertThrows;
 
+@Ignore
 public class InMemoryAdminRestControllerTest {
 
     private static final Logger log = LoggerFactory.getLogger(InMemoryAdminRestControllerTest.class);
