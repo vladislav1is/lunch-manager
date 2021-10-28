@@ -6,6 +6,7 @@ import com.redfox.lunchmanager.service.UserService;
 import com.redfox.lunchmanager.util.exception.NotFoundException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
+import org.slf4j.bridge.SLF4JBridgeHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.test.context.ContextConfiguration;
@@ -25,6 +26,12 @@ import static org.junit.Assert.assertThrows;
 @RunWith(SpringRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 public class JdbcUserServiceTest {
+
+    static {
+        // Only for postgres driver logging
+        // It uses java.util.logging and logged via jul-to-slf4j bridge
+        SLF4JBridgeHandler.install();
+    }
 
     @Autowired
     private UserService service;
