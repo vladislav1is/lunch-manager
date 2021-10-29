@@ -40,7 +40,8 @@ public class RestaurantServiceTest {
         Integer newId = created.getId();
         Restaurant newRestaurant = getNew();
         newRestaurant.setId(newId);
-        assertMatch(created, newRestaurant);
+        MATCHER.assertMatch(created, newRestaurant);
+        MATCHER.assertMatch(service.get(newId), newRestaurant);
     }
 
     @Test
@@ -56,9 +57,14 @@ public class RestaurantServiceTest {
     }
 
     @Test
+    public void deletedNotFound() {
+        assertThrows(NotFoundException.class, () -> service.delete(NOT_FOUND));
+    }
+
+    @Test
     public void get() {
         Restaurant restaurant = service.get(RESTAURANT_ID_1);
-        assertMatch(restaurant, restaurant1);
+        MATCHER.assertMatch(restaurant, restaurant1);
     }
 
     @Test
@@ -69,14 +75,14 @@ public class RestaurantServiceTest {
     @Test
     public void getAll() {
         List<Restaurant> all = service.getAll();
-        assertMatch(all, restaurant1, restaurant5, restaurant4, restaurant3, restaurant2);
+        MATCHER.assertMatch(all, restaurant1, restaurant5, restaurant4, restaurant3, restaurant2);
     }
 
     @Test
     public void update() {
         Restaurant restaurant = getUpdated();
         service.update(restaurant);
-        assertMatch(service.get(RESTAURANT_ID_3), restaurant);
+        MATCHER.assertMatch(service.get(RESTAURANT_ID_3), getUpdated());
     }
 
     @Test

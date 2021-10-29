@@ -11,6 +11,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.util.List;
+
 import static com.redfox.lunchmanager.UserTestData.*;
 import static org.junit.Assert.assertThrows;
 
@@ -32,9 +34,12 @@ public class InMemoryAdminRestControllerSpringTest {
 
     @Test
     public void create() {
-        User expected = getNew();
-        int id = controller.create(expected).getId();
-        assertMatch(controller.get(id), expected);
+        User created = controller.create(getNew());
+        Integer newId = created.getId();
+        User newUser = getNew();
+        newUser.setId(newId);
+        MATCHER.assertMatch(created, newUser);
+        MATCHER.assertMatch(controller.get(newId), newUser);
     }
 
     @Test
@@ -55,7 +60,8 @@ public class InMemoryAdminRestControllerSpringTest {
 
     @Test
     public void get() {
-        assertMatch(controller.get(USER_ID_1), user1);
+        User user = controller.get(USER_ID_1);
+        MATCHER.assertMatch(user, user1);
     }
 
     @Test
@@ -65,7 +71,8 @@ public class InMemoryAdminRestControllerSpringTest {
 
     @Test
     public void getByMail() {
-        assertMatch(controller.getByMail(user3.getEmail()), user3);
+        User user = controller.getByMail(user3.getEmail());
+        MATCHER.assertMatch(user, user3);
     }
 
     @Test
@@ -75,14 +82,15 @@ public class InMemoryAdminRestControllerSpringTest {
 
     @Test
     public void getAll() {
-        assertMatch(controller.getAll(), user1, user2, user3);
+        List<User> all = controller.getAll();
+        MATCHER.assertMatch(all, users);
     }
 
     @Test
     public void update() {
         User user = getUpdated();
         controller.update(user, USER_ID_3);
-        assertMatch(controller.get(USER_ID_3), user);
+        MATCHER.assertMatch(controller.get(USER_ID_3), getUpdated());
     }
 
     @Test

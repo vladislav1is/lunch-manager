@@ -41,7 +41,8 @@ public class UserServiceTest {
         Integer newId = created.getId();
         User newUser = getNew();
         newUser.setId(newId);
-        assertMatch(created, newUser);
+        MATCHER.assertMatch(created, newUser);
+        MATCHER.assertMatch(service.get(newId), newUser);
     }
 
     @Test
@@ -56,11 +57,15 @@ public class UserServiceTest {
         assertThrows(NotFoundException.class, () -> service.get(USER_ID_1));
     }
 
+    @Test
+    public void deletedNotFound() {
+        assertThrows(NotFoundException.class, () -> service.delete(NOT_FOUND));
+    }
 
     @Test
     public void get() {
         User user = service.get(USER_ID_1);
-        assertMatch(user, user1);
+        MATCHER.assertMatch(user, user1);
     }
 
     @Test
@@ -71,7 +76,7 @@ public class UserServiceTest {
     @Test
     public void getByEmail() {
         User user = service.getByEmail(user3.getEmail());
-        assertMatch(user, user3);
+        MATCHER.assertMatch(user, user3);
     }
 
     @Test
@@ -82,14 +87,14 @@ public class UserServiceTest {
     @Test
     public void getAll() {
         List<User> all = service.getAll();
-        assertMatch(all, users);
+        MATCHER.assertMatch(all, users);
     }
 
     @Test
     public void update() {
         User user = getUpdated();
         service.update(user);
-        assertMatch(service.get(USER_ID_3), user);
+        MATCHER.assertMatch(service.get(USER_ID_3), getUpdated());
     }
 
     @Test

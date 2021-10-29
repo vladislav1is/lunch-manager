@@ -5,9 +5,9 @@ import com.redfox.lunchmanager.model.Restaurant;
 import java.util.List;
 
 import static com.redfox.lunchmanager.repository.inmemory.InMemoryRestaurantRepository.START_SEQ;
-import static org.assertj.core.api.Assertions.assertThat;
 
 public class RestaurantTestData {
+    public static final MatcherFactory<Restaurant> MATCHER = MatcherFactory.usingIgnoringFieldsComparator();
 
     public static final int RESTAURANT_ID_1 = START_SEQ + 1;
     public static final int RESTAURANT_ID_2 = START_SEQ + 2;
@@ -30,17 +30,5 @@ public class RestaurantTestData {
 
     public static Restaurant getUpdated() {
         return new Restaurant(RESTAURANT_ID_3, "Green");
-    }
-
-    public static void assertMatch(Restaurant actual, Restaurant expected) {
-        assertThat(actual).usingRecursiveComparison().isEqualTo(expected);
-    }
-
-    public static void assertMatch(Iterable<Restaurant> actual, Restaurant... expected) {
-        assertMatch(actual, List.of(expected));
-    }
-
-    public static void assertMatch(Iterable<Restaurant> actual, Iterable<Restaurant> expected) {
-        assertThat(actual).usingDefaultElementComparator().isEqualTo(expected);
     }
 }
