@@ -1,5 +1,7 @@
 package com.redfox.lunchmanager.model;
 
+import org.springframework.util.CollectionUtils;
+
 import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.EnumSet;
@@ -70,7 +72,7 @@ public class User extends AbstractNamedEntity {
     }
 
     public void setRoles(Collection<Role> roles) {
-        this.roles = roles.isEmpty() ? EnumSet.noneOf(Role.class) : EnumSet.copyOf(roles);
+        this.roles = CollectionUtils.isEmpty(roles) ? EnumSet.noneOf(Role.class) : EnumSet.copyOf(roles);
     }
 
     @Override

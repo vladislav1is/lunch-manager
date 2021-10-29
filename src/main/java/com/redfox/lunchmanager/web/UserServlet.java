@@ -8,6 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+import static com.redfox.lunchmanager.web.SecurityUtil.USER_ID_1;
 import static org.slf4j.LoggerFactory.getLogger;
 
 public class UserServlet extends HttpServlet {
@@ -18,7 +19,7 @@ public class UserServlet extends HttpServlet {
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int userId = Integer.parseInt(request.getParameter("userId"));
         SecurityUtil.setAuthUserId(userId);
-        if (userId == 100_001) {
+        if (userId == USER_ID_1) {
             response.sendRedirect("admin/restaurants");
         } else {
             response.sendRedirect("profile/restaurants");

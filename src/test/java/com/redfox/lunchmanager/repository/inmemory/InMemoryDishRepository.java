@@ -5,10 +5,7 @@ import com.redfox.lunchmanager.repository.DishRepository;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Predicate;
@@ -36,6 +33,7 @@ public class InMemoryDishRepository implements DishRepository {
 
     @Override
     public Dish save(Dish dish, int restaurantId) {
+        Objects.requireNonNull(dish, "dish must not be null");
         InMemoryBaseRepository<Dish> menu = dishes.computeIfAbsent(restaurantId, rid -> new InMemoryBaseRepository<>(counter));
         return menu.save(dish);
     }

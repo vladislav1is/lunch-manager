@@ -4,6 +4,7 @@ import com.redfox.lunchmanager.model.AbstractBaseEntity;
 
 import java.util.Collection;
 import java.util.Map;
+import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
@@ -17,6 +18,7 @@ public class InMemoryBaseRepository<T extends AbstractBaseEntity> {
     }
 
     public T save(T entity) {
+        Objects.requireNonNull(entity, "entity must not be null");
         if (entity.isNew()) {
             entity.setId(counter.incrementAndGet());
             map.put(entity.getId(), entity);

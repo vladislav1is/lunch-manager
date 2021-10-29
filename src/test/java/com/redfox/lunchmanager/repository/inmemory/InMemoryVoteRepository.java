@@ -5,10 +5,7 @@ import com.redfox.lunchmanager.repository.VoteRepository;
 import org.springframework.stereotype.Repository;
 
 import java.time.LocalDate;
-import java.util.Collections;
-import java.util.Comparator;
-import java.util.List;
-import java.util.Map;
+import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Predicate;
@@ -33,6 +30,7 @@ public class InMemoryVoteRepository implements VoteRepository {
 
     @Override
     public Vote save(Vote vote, int userId) {
+        Objects.requireNonNull(vote, "vote must not be null");
         InMemoryBaseRepository<Vote> votes = usersVotes.computeIfAbsent(userId, uid -> new InMemoryBaseRepository<>(counter));
         return votes.save(vote);
     }
@@ -51,6 +49,7 @@ public class InMemoryVoteRepository implements VoteRepository {
 
     @Override
     public Vote getByDate(LocalDate voteDate, int userId) {
+        Objects.requireNonNull(voteDate, "voteDate must not be null");
         InMemoryBaseRepository<Vote> votes = usersVotes.get(userId);
         return votes == null ? null : votes.getCollection().stream()
                 .filter(vote -> voteDate.equals(vote.getRegistered()))

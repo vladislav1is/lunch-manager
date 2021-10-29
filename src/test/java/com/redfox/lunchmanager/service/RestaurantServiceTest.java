@@ -4,7 +4,6 @@ import com.redfox.lunchmanager.model.Restaurant;
 import com.redfox.lunchmanager.util.exception.NotFoundException;
 import org.junit.Test;
 import org.junit.runner.RunWith;
-import org.slf4j.bridge.SLF4JBridgeHandler;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.test.context.ContextConfiguration;
@@ -25,19 +24,13 @@ import static org.junit.Assert.assertThrows;
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 public class RestaurantServiceTest {
 
-    static {
-        // Only for postgres driver logging
-        // It uses java.util.logging and logged via jul-to-slf4j bridge
-        SLF4JBridgeHandler.install();
-    }
-
     @Autowired
     private RestaurantService service;
 
     @Test
     public void create() {
         Restaurant created = service.create(getNew());
-        Integer newId = created.getId();
+        int newId = created.id();
         Restaurant newRestaurant = getNew();
         newRestaurant.setId(newId);
         MATCHER.assertMatch(created, newRestaurant);

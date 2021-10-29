@@ -3,7 +3,10 @@ package com.redfox.lunchmanager.util;
 import com.redfox.lunchmanager.model.AbstractBaseEntity;
 import com.redfox.lunchmanager.util.exception.NotFoundException;
 
-public class ValidationUtil {
+public final class ValidationUtil {
+
+    private ValidationUtil() {
+    }
 
     public static <T> T checkNotFoundWithId(T object, int id) {
         checkNotFoundWithId(object != null, id);

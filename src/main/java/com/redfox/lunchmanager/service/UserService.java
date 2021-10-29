@@ -3,6 +3,7 @@ package com.redfox.lunchmanager.service;
 import com.redfox.lunchmanager.model.User;
 import com.redfox.lunchmanager.repository.UserRepository;
 import org.springframework.stereotype.Service;
+import org.springframework.util.Assert;
 
 import java.util.List;
 
@@ -19,6 +20,7 @@ public class UserService {
     }
 
     public User create(User user) {
+        Assert.notNull(user, "user must not be null");
         return repository.save(user);
     }
 
@@ -31,6 +33,7 @@ public class UserService {
     }
 
     public User getByEmail(String email) {
+        Assert.notNull(email, "email must not be null");
         return checkNotFound(repository.getByEmail(email), "email=" + email);
     }
 
@@ -39,6 +42,7 @@ public class UserService {
     }
 
     public void update(User user) {
-        checkNotFoundWithId(repository.save(user), user.getId());
+        Assert.notNull(user, "user must not be null");
+        checkNotFoundWithId(repository.save(user), user.id());
     }
 }

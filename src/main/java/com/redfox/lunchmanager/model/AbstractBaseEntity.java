@@ -1,5 +1,7 @@
 package com.redfox.lunchmanager.model;
 
+import org.springframework.util.Assert;
+
 public abstract class AbstractBaseEntity {
 
     protected Integer id;
@@ -19,14 +21,23 @@ public abstract class AbstractBaseEntity {
         this.id = id;
     }
 
+    public int id() {
+        Assert.notNull(id, "Entity must have id");
+        return id;
+    }
+
     public boolean isNew() {
         return this.id == null;
     }
 
     @Override
     public boolean equals(Object o) {
-        if (this == o) return true;
-        if (o == null || getClass() != o.getClass()) return false;
+        if (this == o) {
+            return true;
+        }
+        if (o == null || getClass() != o.getClass()) {
+            return false;
+        }
 
         AbstractBaseEntity that = (AbstractBaseEntity) o;
 
