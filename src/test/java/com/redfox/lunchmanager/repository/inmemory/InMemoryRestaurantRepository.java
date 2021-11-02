@@ -6,24 +6,13 @@ import org.springframework.stereotype.Repository;
 
 import java.util.Comparator;
 import java.util.List;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 import static com.redfox.lunchmanager.RestaurantTestData.*;
+import static com.redfox.lunchmanager.model.AbstractBaseEntity.START_SEQ;
 
 @Repository
 public class InMemoryRestaurantRepository extends InMemoryBaseRepository<Restaurant> implements RestaurantRepository {
-
-    public static final int START_SEQ = 100_000;
-    private static final AtomicInteger counter = new AtomicInteger(START_SEQ);
-
-    public InMemoryRestaurantRepository() {
-        this(counter);
-    }
-
-    private InMemoryRestaurantRepository(AtomicInteger counter) {
-        super(counter);
-    }
 
     public void init() {
         map.clear();

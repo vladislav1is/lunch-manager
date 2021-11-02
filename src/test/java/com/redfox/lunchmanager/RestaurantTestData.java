@@ -4,16 +4,16 @@ import com.redfox.lunchmanager.model.Restaurant;
 
 import java.util.List;
 
-import static com.redfox.lunchmanager.repository.inmemory.InMemoryRestaurantRepository.START_SEQ;
+import static com.redfox.lunchmanager.model.AbstractBaseEntity.START_SEQ;
 
 public class RestaurantTestData {
     public static final MatcherFactory<Restaurant> MATCHER = MatcherFactory.usingIgnoringFieldsComparator();
 
-    public static final int RESTAURANT_ID_1 = START_SEQ + 1;
-    public static final int RESTAURANT_ID_2 = START_SEQ + 2;
-    public static final int RESTAURANT_ID_3 = START_SEQ + 3;
-    public static final int RESTAURANT_ID_4 = START_SEQ + 4;
-    public static final int RESTAURANT_ID_5 = START_SEQ + 5;
+    public static final int RESTAURANT_ID_1 = START_SEQ + 4;
+    public static final int RESTAURANT_ID_2 = START_SEQ + 5;
+    public static final int RESTAURANT_ID_3 = START_SEQ + 6;
+    public static final int RESTAURANT_ID_4 = START_SEQ + 7;
+    public static final int RESTAURANT_ID_5 = START_SEQ + 8;
     public static final int NOT_FOUND = START_SEQ;
 
     public static final Restaurant restaurant1 = new Restaurant(RESTAURANT_ID_1, "August");

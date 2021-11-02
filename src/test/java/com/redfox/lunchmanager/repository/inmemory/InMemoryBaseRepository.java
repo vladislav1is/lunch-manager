@@ -8,14 +8,12 @@ import java.util.Objects;
 import java.util.concurrent.ConcurrentHashMap;
 import java.util.concurrent.atomic.AtomicInteger;
 
+import static com.redfox.lunchmanager.model.AbstractBaseEntity.START_SEQ;
+
 public class InMemoryBaseRepository<T extends AbstractBaseEntity> {
 
-    private final AtomicInteger counter;
+    protected final AtomicInteger counter = new AtomicInteger(START_SEQ);
     protected final Map<Integer, T> map = new ConcurrentHashMap<>();
-
-    public InMemoryBaseRepository(AtomicInteger counter) {
-        this.counter = counter;
-    }
 
     public T save(T entity) {
         Objects.requireNonNull(entity, "entity must not be null");

@@ -5,9 +5,9 @@ import com.redfox.lunchmanager.model.User;
 
 import java.util.List;
 
+import static com.redfox.lunchmanager.model.AbstractBaseEntity.START_SEQ;
 import static com.redfox.lunchmanager.model.Role.ADMIN;
 import static com.redfox.lunchmanager.model.Role.USER;
-import static com.redfox.lunchmanager.repository.inmemory.InMemoryUserRepository.START_SEQ;
 
 public class UserTestData {
     public static final MatcherFactory<User> MATCHER = MatcherFactory.usingIgnoringFieldsComparator("registered", "roles");

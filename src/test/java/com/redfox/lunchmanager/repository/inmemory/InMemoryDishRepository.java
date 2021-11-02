@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
@@ -17,7 +16,6 @@ import static com.redfox.lunchmanager.util.DateTimeUtil.isBetweenHalfOpen;
 @Repository
 public class InMemoryDishRepository implements DishRepository {
 
-    private static final AtomicInteger counter = new AtomicInteger(100_000);
     // Map restaurantId -> dishes
     private final Map<Integer, InMemoryBaseRepository<Dish>> dishes = new ConcurrentHashMap<>();
 
@@ -34,7 +32,7 @@ public class InMemoryDishRepository implements DishRepository {
     @Override
     public Dish save(Dish dish, int restaurantId) {
         Objects.requireNonNull(dish, "dish must not be null");
-        InMemoryBaseRepository<Dish> menu = dishes.computeIfAbsent(restaurantId, rid -> new InMemoryBaseRepository<>(counter));
+        InMemoryBaseRepository<Dish> menu = dishes.computeIfAbsent(restaurantId, rid -> new InMemoryBaseRepository<>());
         return menu.save(dish);
     }
 

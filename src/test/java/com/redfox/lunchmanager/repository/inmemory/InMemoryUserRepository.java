@@ -7,24 +7,13 @@ import org.springframework.stereotype.Repository;
 import java.util.Comparator;
 import java.util.List;
 import java.util.Objects;
-import java.util.concurrent.atomic.AtomicInteger;
 import java.util.stream.Collectors;
 
 import static com.redfox.lunchmanager.UserTestData.*;
+import static com.redfox.lunchmanager.model.AbstractBaseEntity.START_SEQ;
 
 @Repository
 public class InMemoryUserRepository extends InMemoryBaseRepository<User> implements UserRepository {
-
-    public static final int START_SEQ = 100_000;
-    private static final AtomicInteger counter = new AtomicInteger(START_SEQ);
-
-    public InMemoryUserRepository() {
-        this(counter);
-    }
-
-    private InMemoryUserRepository(AtomicInteger counter) {
-        super(counter);
-    }
 
     public void init() {
         map.clear();

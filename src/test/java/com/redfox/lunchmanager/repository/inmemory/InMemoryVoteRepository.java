@@ -18,7 +18,6 @@ import static com.redfox.lunchmanager.UserTestData.*;
 @Repository
 public class InMemoryVoteRepository implements VoteRepository {
 
-    private static final AtomicInteger counter = new AtomicInteger(100_000);
     // Map userId -> votes
     private final Map<Integer, InMemoryBaseRepository<Vote>> usersVotes = new ConcurrentHashMap<>();
 
@@ -31,7 +30,7 @@ public class InMemoryVoteRepository implements VoteRepository {
     @Override
     public Vote save(Vote vote, int userId) {
         Objects.requireNonNull(vote, "vote must not be null");
-        InMemoryBaseRepository<Vote> votes = usersVotes.computeIfAbsent(userId, uid -> new InMemoryBaseRepository<>(counter));
+        InMemoryBaseRepository<Vote> votes = usersVotes.computeIfAbsent(userId, uid -> new InMemoryBaseRepository<>());
         return votes.save(vote);
     }
 
