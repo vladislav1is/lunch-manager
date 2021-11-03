@@ -12,9 +12,11 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import java.time.Month;
 import java.util.List;
 
 import static com.redfox.lunchmanager.UserTestData.*;
+import static java.time.LocalDateTime.of;
 import static org.junit.Assert.assertThrows;
 
 @ContextConfiguration({
@@ -41,7 +43,7 @@ public class UserServiceTest {
     @Test
     public void duplicateMailCreate() {
         assertThrows(DataAccessException.class, () ->
-                service.create(new User(null, "Duplicate", "@mail.ru", "newPass", Role.USER)));
+                service.create(new User(null, "Duplicate", user2.getEmail(), "newPass", of(2021, Month.NOVEMBER, 2, 21, 45), Role.USER)));
     }
 
     @Test

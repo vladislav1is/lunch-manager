@@ -1,11 +1,41 @@
 package com.redfox.lunchmanager.model;
 
+import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
+@NamedQueries({
+        @NamedQuery(name = Vote.DELETE, query = "DELETE FROM Vote v WHERE v.id=:id AND v.user.id=:userId"),
+        @NamedQuery(name = Vote.BY_DATE, query = "SELECT v FROM Vote v WHERE v.registered=:voteDate AND v.user.id=:userId"),
+        @NamedQuery(name = Vote.ALL_SORTED, query = "SELECT v FROM Vote v WHERE v.user.id=:userId ORDER BY v.registered DESC"),
+        @NamedQuery(name = Vote.GET_BETWEEN, query = """
+                    SELECT v FROM Vote v 
+                    WHERE v.user.id=:userId AND v.registered >= :startDate AND v.registered < :endDate ORDER BY v.registered DESC
+                """),
+})
+@Entity
+@Table(name = "votes", uniqueConstraints = {
+        @UniqueConstraint(columnNames = {"user_id", "registered"}, name = "votes_key")
+})
 public class Vote extends AbstractBaseEntity {
 
+    public static final String DELETE = "Vote.delete";
+    public static final String BY_DATE = "Vote.getByDate";
+    public static final String ALL_SORTED = "Vote.getAll";
+    public static final String GET_BETWEEN = "Vote.getBetween";
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "user_id", nullable = false)
+    @NotNull
     private User user;
+
+    @ManyToOne(fetch = FetchType.EAGER)
+    @JoinColumn(name = "restaurant_id", nullable = false)
+    @NotNull
     private Restaurant restaurant;
+
+    @Column(name = "registered", nullable = false, columnDefinition = "date default now()")
+    @NotNull
     private LocalDate registered;
 
     public Vote() {

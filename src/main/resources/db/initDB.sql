@@ -39,7 +39,7 @@ CREATE TABLE dishes
 (
     id            INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
     name          VARCHAR(255)                      NOT NULL,
-    price         INTEGER                           NOT NULL,
+    price         BIGINT                            NOT NULL,
     registered    DATE                DEFAULT now() NOT NULL,
     restaurant_id INTEGER                           NOT NULL,
     CONSTRAINT dishes_idx UNIQUE (name, registered, restaurant_id),

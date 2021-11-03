@@ -29,6 +29,8 @@ public class RestaurantTestData {
     }
 
     public static Restaurant getUpdated() {
-        return new Restaurant(RESTAURANT_ID_3, "Green");
+        Restaurant updated = new Restaurant(restaurant3);
+        updated.setName("Green");
+        return updated;
     }
 }
