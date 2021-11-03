@@ -31,6 +31,10 @@
         <!-- DB -->
         <postgresql.version>42.2.21</postgresql.version>
         <hsqldb.version>2.4.1</hsqldb.version>
+        <!-- Hibernate -->
+        <hibernate.version>5.5.2.Final</hibernate.version>
+        <hibernate-validator.version>6.2.0.Final</hibernate-validator.version>
+        <javax-el.version>3.0.1-b12</javax-el.version>
     </properties>
 
     <build>
@@ -68,7 +72,7 @@
         </dependency>
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>spring-jdbc</artifactId>
+            <artifactId>spring-orm</artifactId>
             <version>${spring.version}</version>
         </dependency>
 
@@ -136,6 +140,26 @@
             <artifactId>hsqldb</artifactId>
             <version>${hsqldb.version}</version>
             <scope>test</scope>
+        </dependency>
+
+        <!-- ORM -->
+        <dependency>
+            <groupId>org.hibernate</groupId>
+            <artifactId>hibernate-core</artifactId>
+            <version>${hibernate.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.hibernate.validator</groupId>
+            <artifactId>hibernate-validator</artifactId>
+            <version>${hibernate-validator.version}</version>
+        </dependency>
+
+        <!--http://hibernate.org/validator/documentation/getting-started/#unified-expression-language-el-->
+        <dependency>
+            <groupId>org.glassfish</groupId>
+            <artifactId>javax.el</artifactId>
+            <version>${javax-el.version}</version>
+            <scope>provided</scope>
         </dependency>
     </dependencies>
 </project>
