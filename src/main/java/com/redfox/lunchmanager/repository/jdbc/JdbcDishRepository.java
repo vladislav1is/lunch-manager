@@ -43,9 +43,9 @@ public class JdbcDishRepository implements DishRepository {
         if (dish.isNew()) {
             Number newKey = insertDish.executeAndReturnKey(map);
             dish.setId(newKey.intValue());
-        } else if (namedParameterJdbcTemplate.update(
-                "UPDATE dishes SET name=:name, price=:price, registered=:registered " +
-                        "WHERE id=:id AND restaurant_id=:restaurant_id", map) == 0) {
+        } else if (namedParameterJdbcTemplate.update("""
+                UPDATE dishes SET name=:name, price=:price, registered=:registered
+                WHERE id=:id AND restaurant_id=:restaurant_id""", map) == 0) {
             return null;
         }
         return dish;
@@ -58,7 +58,7 @@ public class JdbcDishRepository implements DishRepository {
 
     @Override
     public Dish get(int id, int restaurantId) {
-        List<Dish> dishes = jdbcTemplate.query("SELECT * FROM dishes WHERE id=? AND restaurant_id=?",
+        var dishes = jdbcTemplate.query("SELECT * FROM dishes WHERE id=? AND restaurant_id=?",
                 ROW_MAPPER, id, restaurantId);
         return DataAccessUtils.singleResult(dishes);
     }
@@ -71,8 +71,8 @@ public class JdbcDishRepository implements DishRepository {
 
     @Override
     public List<Dish> getBetweenHalfOpen(LocalDate startDate, LocalDate endDate, int restaurantId) {
-        return jdbcTemplate.query("SELECT * FROM dishes WHERE restaurant_id=? AND registered >= ? AND registered < ? " +
-                        "ORDER BY registered DESC",
-                ROW_MAPPER, restaurantId, startDate, endDate);
+        return jdbcTemplate.query("""
+                SELECT * FROM dishes WHERE restaurant_id=? AND registered >= ? AND registered < ? 
+                ORDER BY registered DESC""", ROW_MAPPER, restaurantId, startDate, endDate);
     }
 }

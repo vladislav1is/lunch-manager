@@ -4,7 +4,6 @@ import com.redfox.lunchmanager.model.User;
 import com.redfox.lunchmanager.repository.inmemory.InMemoryUserRepository;
 import com.redfox.lunchmanager.util.exception.NotFoundException;
 import org.junit.Before;
-import org.junit.Ignore;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,6 @@ import static org.junit.Assert.assertThrows;
 
 @ContextConfiguration({"classpath:spring/spring-app.xml", "classpath:spring/inmemory.xml"})
 @RunWith(SpringRunner.class)
-@Ignore
 public class InMemoryAdminRestControllerSpringTest {
 
     @Autowired

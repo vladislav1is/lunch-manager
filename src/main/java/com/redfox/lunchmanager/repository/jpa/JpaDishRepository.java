@@ -42,7 +42,7 @@ public class JpaDishRepository implements DishRepository {
 
     @Override
     public Dish get(int id, int restaurantId) {
-        Dish dish = em.find(Dish.class, id);
+        var dish = em.find(Dish.class, id);
         return dish != null && dish.getRestaurant().getId() == restaurantId ? dish : null;
     }
 

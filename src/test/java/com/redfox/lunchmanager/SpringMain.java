@@ -8,11 +8,11 @@ import com.redfox.lunchmanager.web.vote.VoteController;
 import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
-import java.time.LocalDate;
 import java.util.Arrays;
 
 import static com.redfox.lunchmanager.RestaurantTestData.restaurant1;
 import static com.redfox.lunchmanager.UserTestData.user1;
+import static java.time.LocalDate.now;
 
 /**
  * @see <a href="http://lunch-manager.herokuapp.com">Demo application</a>
@@ -25,16 +25,16 @@ public class SpringMain {
         try (ConfigurableApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/spring-app.xml", "spring/spring-db.xml")) {
             System.out.println("Bean definition names: " + Arrays.toString(appCtx.getBeanDefinitionNames()));
 
-            AdminRestController adminController = appCtx.getBean(AdminRestController.class);
-            AdminRestaurantController restaurantController = appCtx.getBean(AdminRestaurantController.class);
-            AdminDishController dishController = appCtx.getBean(AdminDishController.class);
-            VoteController voteController = appCtx.getBean(VoteController.class);
+            var adminController = appCtx.getBean(AdminRestController.class);
+            var restaurantController = appCtx.getBean(AdminRestaurantController.class);
+            var dishController = appCtx.getBean(AdminDishController.class);
+            var voteController = appCtx.getBean(VoteController.class);
             SecurityUtil.setAuthUserId(user1.getId());
 
             adminController.getAll().forEach(System.out::println);
             restaurantController.getAll().forEach(System.out::println);
             dishController.getAll(restaurant1.getId()).forEach(System.out::println);
-            System.out.println(voteController.getByDate(LocalDate.now()));
+            System.out.println(voteController.getByDate(now()));
         }
     }
 }

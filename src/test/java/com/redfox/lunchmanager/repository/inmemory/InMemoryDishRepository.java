@@ -12,6 +12,7 @@ import java.util.stream.Collectors;
 
 import static com.redfox.lunchmanager.RestaurantTestData.*;
 import static com.redfox.lunchmanager.util.DateTimeUtil.isBetweenHalfOpen;
+import static java.time.LocalDate.now;
 
 @Repository
 public class InMemoryDishRepository implements DishRepository {
@@ -19,32 +20,32 @@ public class InMemoryDishRepository implements DishRepository {
     // Map restaurantId -> dishes
     private final Map<Integer, InMemoryBaseRepository<Dish>> dishes = new ConcurrentHashMap<>();
 
-    public void init() {
-        save(new Dish("roast pork", 250, LocalDate.now()), restaurant1.getId());
-        save(new Dish("fish and chips", 350, LocalDate.now()), restaurant1.getId());
-        save(new Dish("roast vegetables", 130, LocalDate.now()), restaurant2.getId());
-        save(new Dish("roast turkey", 210, LocalDate.now()), restaurant2.getId());
-        save(new Dish("tomato soup", 150, LocalDate.now()), restaurant3.getId());
-        save(new Dish("pizza", 180, LocalDate.now()), restaurant3.getId());
-        save(new Dish("pasta", 175, LocalDate.now()), restaurant3.getId());
+    {
+        save(new Dish("roast pork", 250, now()), restaurant1.getId());
+        save(new Dish("fish and chips", 350, now()), restaurant1.getId());
+        save(new Dish("roast vegetables", 130, now()), restaurant2.getId());
+        save(new Dish("roast turkey", 210, now()), restaurant2.getId());
+        save(new Dish("tomato soup", 150, now()), restaurant3.getId());
+        save(new Dish("pizza", 180, now()), restaurant3.getId());
+        save(new Dish("pasta", 175, now()), restaurant3.getId());
     }
 
     @Override
     public Dish save(Dish dish, int restaurantId) {
         Objects.requireNonNull(dish, "dish must not be null");
-        InMemoryBaseRepository<Dish> menu = dishes.computeIfAbsent(restaurantId, rid -> new InMemoryBaseRepository<>());
+        var menu = dishes.computeIfAbsent(restaurantId, rid -> new InMemoryBaseRepository<>());
         return menu.save(dish);
     }
 
     @Override
     public boolean delete(int id, int restaurantId) {
-        InMemoryBaseRepository<Dish> menu = dishes.get(restaurantId);
+        var menu = dishes.get(restaurantId);
         return menu != null && menu.delete(id);
     }
 
     @Override
     public Dish get(int id, int restaurantId) {
-        InMemoryBaseRepository<Dish> menu = dishes.get(restaurantId);
+        var menu = dishes.get(restaurantId);
         return menu == null ? null : menu.get(id);
     }
 
@@ -54,7 +55,7 @@ public class InMemoryDishRepository implements DishRepository {
     }
 
     private List<Dish> filterByPredicate(int restaurantId, Predicate<Dish> filter) {
-        InMemoryBaseRepository<Dish> menu = dishes.get(restaurantId);
+        var menu = dishes.get(restaurantId);
         return menu == null ? Collections.emptyList() :
                 menu.getCollection().stream()
                         .filter(filter)

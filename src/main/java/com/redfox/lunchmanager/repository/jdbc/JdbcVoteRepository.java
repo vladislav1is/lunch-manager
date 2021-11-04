@@ -42,9 +42,9 @@ public class JdbcVoteRepository implements VoteRepository {
         if (vote.isNew()) {
             Number newKey = insertVote.executeAndReturnKey(map);
             vote.setId(newKey.intValue());
-        } else if (namedParameterJdbcTemplate.update(
-                "UPDATE votes SET user_id=:user_id, restaurant_id=:restaurant_id, registered=:registered " +
-                        "WHERE id=:id AND user_id=:user_id", map) == 0) {
+        } else if (namedParameterJdbcTemplate.update("""
+                UPDATE votes SET user_id=:user_id, restaurant_id=:restaurant_id, registered=:registered
+                WHERE id=:id AND user_id=:user_id""", map) == 0) {
             return null;
         }
         return vote;
@@ -57,14 +57,14 @@ public class JdbcVoteRepository implements VoteRepository {
 
     @Override
     public Vote get(int id, int userId) {
-        List<Vote> votes = jdbcTemplate.query("SELECT * FROM votes WHERE id=? AND user_id=?",
+        var votes = jdbcTemplate.query("SELECT * FROM votes WHERE id=? AND user_id=?",
                 ROW_MAPPER, id, userId);
         return DataAccessUtils.singleResult(votes);
     }
 
     @Override
     public Vote getByDate(LocalDate voteDate, int userId) {
-        List<Vote> votes = jdbcTemplate.query("SELECT * FROM votes WHERE votes.registered=? AND user_id=?",
+        var votes = jdbcTemplate.query("SELECT * FROM votes WHERE votes.registered=? AND user_id=?",
                 ROW_MAPPER, voteDate, userId);
         return DataAccessUtils.singleResult(votes);
     }

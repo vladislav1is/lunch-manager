@@ -5,7 +5,7 @@ import com.redfox.lunchmanager.repository.RestaurantRepository;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
@@ -33,14 +33,12 @@ public class JdbcRestaurantRepository implements RestaurantRepository {
 
     @Override
     public Restaurant save(Restaurant restaurant) {
-        MapSqlParameterSource map = new MapSqlParameterSource()
-                .addValue("id", restaurant.getId())
-                .addValue("name", restaurant.getName());
+        BeanPropertySqlParameterSource parameterSource = new BeanPropertySqlParameterSource(restaurant);
         if (restaurant.isNew()) {
-            Number newKey = insertRestaurant.executeAndReturnKey(map);
+            Number newKey = insertRestaurant.executeAndReturnKey(parameterSource);
             restaurant.setId(newKey.intValue());
-        } else if (namedParameterJdbcTemplate.update(
-                "UPDATE restaurants SET name=:name WHERE id=:id", map) == 0) {
+        } else if (namedParameterJdbcTemplate.update("""
+                UPDATE restaurants SET name=:name WHERE id=:id""", parameterSource) == 0) {
             return null;
         }
         return restaurant;
@@ -53,7 +51,7 @@ public class JdbcRestaurantRepository implements RestaurantRepository {
 
     @Override
     public Restaurant get(int id) {
-        List<Restaurant> restaurants = jdbcTemplate.query("SELECT * FROM restaurants WHERE id=?", ROW_MAPPER, id);
+        var restaurants = jdbcTemplate.query("SELECT * FROM restaurants WHERE id=?", ROW_MAPPER, id);
         return DataAccessUtils.singleResult(restaurants);
     }
 

@@ -43,13 +43,13 @@ public class JpaVoteRepository implements VoteRepository {
 
     @Override
     public Vote get(int id, int userId) {
-        Vote vote = em.find(Vote.class, id);
+        var vote = em.find(Vote.class, id);
         return vote != null && vote.getUser().getId() == userId ? vote : null;
     }
 
     @Override
     public Vote getByDate(LocalDate voteDate, int userId) {
-        List<Vote> votes = em.createNamedQuery(Vote.BY_DATE, Vote.class)
+        var votes = em.createNamedQuery(Vote.BY_DATE, Vote.class)
                 .setParameter("voteDate", voteDate)
                 .setParameter("userId", userId)
                 .getResultList();
