@@ -2,8 +2,13 @@ package com.redfox.lunchmanager.service;
 
 import com.redfox.lunchmanager.model.Restaurant;
 import com.redfox.lunchmanager.util.exception.NotFoundException;
+import org.junit.AfterClass;
+import org.junit.Rule;
 import org.junit.Test;
+import org.junit.rules.Stopwatch;
+import org.junit.runner.Description;
 import org.junit.runner.RunWith;
+import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.test.context.ContextConfiguration;
@@ -12,9 +17,11 @@ import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit4.SpringRunner;
 
 import java.util.List;
+import java.util.concurrent.TimeUnit;
 
 import static com.redfox.lunchmanager.RestaurantTestData.*;
 import static org.junit.Assert.assertThrows;
+import static org.slf4j.LoggerFactory.getLogger;
 
 @ContextConfiguration({
         "classpath:spring/spring-app.xml",
@@ -24,8 +31,30 @@ import static org.junit.Assert.assertThrows;
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
 public class RestaurantServiceTest {
 
+    private static final Logger log = getLogger("result");
+    private static final StringBuilder results = new StringBuilder();
+
+    @Rule
+    public final Stopwatch stopwatch = new Stopwatch() {
+        @Override
+        protected void finished(long nanos, Description description) {
+            String result = String.format("\n%-25s %7d", description.getMethodName(), TimeUnit.NANOSECONDS.toMillis(nanos));
+            results.append(result);
+            log.info(result + " ms\n");
+        }
+    };
+
     @Autowired
     private RestaurantService service;
+
+    @AfterClass
+    public static void printResult() {
+        log.info("\n---------------------------------" +
+                "\nTest                 Duration, ms" +
+                "\n---------------------------------" +
+                results +
+                "\n---------------------------------");
+    }
 
     @Test
     public void create() {
