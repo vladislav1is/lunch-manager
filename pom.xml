@@ -135,6 +135,14 @@
             <scope>test</scope>
         </dependency>
 
+        <!-- Java Common Annotations-->
+        <!-- deprecated in Java v9 and was removed in java v11-->
+        <dependency>
+            <groupId>javax.annotation</groupId>
+            <artifactId>javax.annotation-api</artifactId>
+            <version>1.3.2</version>
+        </dependency>
+
         <!-- DataBase -->
         <dependency>
             <groupId>org.postgresql</groupId>
