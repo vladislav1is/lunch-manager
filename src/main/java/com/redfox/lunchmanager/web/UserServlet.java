@@ -1,6 +1,10 @@
 package com.redfox.lunchmanager.web;
 
+import com.redfox.lunchmanager.model.Role;
+import com.redfox.lunchmanager.web.user.AdminRestController;
 import org.slf4j.Logger;
+import org.springframework.context.ConfigurableApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -8,18 +12,33 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
-import static com.redfox.lunchmanager.web.SecurityUtil.USER_ID_1;
 import static org.slf4j.LoggerFactory.getLogger;
 
 public class UserServlet extends HttpServlet {
 
     private static final Logger log = getLogger(UserServlet.class);
 
+    private ConfigurableApplicationContext springContext;
+    private AdminRestController adminRestController;
+
+    @Override
+    public void init() {
+        springContext = new ClassPathXmlApplicationContext("spring/spring-app.xml", "spring/spring-db.xml");
+        adminRestController = springContext.getBean(AdminRestController.class);
+    }
+
+    @Override
+    public void destroy() {
+        springContext.close();
+        super.destroy();
+    }
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int userId = Integer.parseInt(request.getParameter("userId"));
+        var user = adminRestController.get(userId);
         SecurityUtil.setAuthUserId(userId);
-        if (userId == USER_ID_1) {
+        if (user.getRoles().contains(Role.ADMIN)) {
             response.sendRedirect("admin/restaurants");
         } else {
             response.sendRedirect("profile/restaurants");

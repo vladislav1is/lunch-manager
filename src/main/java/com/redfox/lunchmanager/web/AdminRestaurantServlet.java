@@ -40,7 +40,7 @@ public class AdminRestaurantServlet extends HttpServlet {
             }
             case "update", "create" -> {
                 request.setAttribute("action", action);
-                final Restaurant restaurant = "create".equals(action) ? new Restaurant("") :
+                final var restaurant = "create".equals(action) ? new Restaurant("") :
                         restaurantController.get(getId(request));
                 request.setAttribute("restaurant", restaurant);
                 request.getRequestDispatcher("/restaurant-form.jsp").forward(request, response);
@@ -55,7 +55,7 @@ public class AdminRestaurantServlet extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         request.setCharacterEncoding("UTF-8");
-        Restaurant restaurant = new Restaurant(request.getParameter("title"));
+        var restaurant = new Restaurant(request.getParameter("title"));
         if (StringUtils.hasLength(request.getParameter("id"))) {
             restaurantController.update(restaurant, getId(request));
         } else {
