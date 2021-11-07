@@ -1,6 +1,6 @@
 package com.redfox.lunchmanager.service;
 
-import com.redfox.lunchmanager.Profiles;
+import com.redfox.lunchmanager.ActiveDbProfileResolver;
 import com.redfox.lunchmanager.model.Role;
 import com.redfox.lunchmanager.model.User;
 import com.redfox.lunchmanager.util.exception.NotFoundException;
@@ -34,7 +34,7 @@ import static org.slf4j.LoggerFactory.getLogger;
 })
 @RunWith(SpringRunner.class)
 @Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
-@ActiveProfiles(Profiles.ACTIVE_DB)
+@ActiveProfiles(resolver = ActiveDbProfileResolver.class)
 public class UserServiceTest {
 
     private static final Logger log = getLogger("result");
