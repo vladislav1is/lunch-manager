@@ -5,8 +5,7 @@ import com.redfox.lunchmanager.web.dish.AdminDishController;
 import com.redfox.lunchmanager.web.restaurant.AdminRestaurantController;
 import com.redfox.lunchmanager.web.user.AdminRestController;
 import com.redfox.lunchmanager.web.vote.VoteController;
-import org.springframework.context.ConfigurableApplicationContext;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.context.support.GenericXmlApplicationContext;
 
 import java.util.Arrays;
 
@@ -22,7 +21,11 @@ public class SpringMain {
     public static void main(String[] args) {
         System.out.println("Hello Java Enterprise!");
         // java 7 automatic resource management (ARM)
-        try (ConfigurableApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/spring-app.xml", "spring/spring-db.xml")) {
+        try (GenericXmlApplicationContext appCtx = new GenericXmlApplicationContext()) {
+
+            appCtx.getEnvironment().setActiveProfiles(Profiles.ACTIVE_DB);
+            appCtx.load("spring/spring-app.xml", "spring/spring-db.xml");
+            appCtx.refresh();
             System.out.println("Bean definition names: " + Arrays.toString(appCtx.getBeanDefinitionNames()));
 
             var adminController = appCtx.getBean(AdminRestController.class);
