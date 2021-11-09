@@ -15,9 +15,9 @@ public interface DishRepository {
     // null if dish do not belong to restaurantId
     Dish get(int id, int restaurantId);
 
-    // ORDERED dateTime desc
+    // ORDERED date desc
     List<Dish> getAll(int restaurantId);
 
-    // ORDERED dateTime desc
+    // ORDERED date desc
     List<Dish> getBetweenHalfOpen(LocalDate startDate, LocalDate endDate, int restaurantId);
 }

@@ -1,6 +1,7 @@
 package com.redfox.lunchmanager.model;
 
 import org.hibernate.Hibernate;
+import org.springframework.data.domain.Persistable;
 import org.springframework.util.Assert;
 
 import javax.persistence.*;
@@ -8,7 +9,7 @@ import javax.persistence.*;
 @MappedSuperclass
 // http://stackoverflow.com/questions/594597/hibernate-annotations-which-is-better-field-or-property-access
 @Access(AccessType.FIELD)
-public abstract class AbstractBaseEntity {
+public abstract class AbstractBaseEntity implements Persistable<Integer> {
     public static final int START_SEQ = 100_000;
 
     @Id
@@ -25,6 +26,7 @@ public abstract class AbstractBaseEntity {
         this.id = id;
     }
 
+    @Override
     public Integer getId() {
         return id;
     }
@@ -38,6 +40,7 @@ public abstract class AbstractBaseEntity {
         return id;
     }
 
+    @Override
     public boolean isNew() {
         return this.id == null;
     }
