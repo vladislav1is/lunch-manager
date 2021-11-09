@@ -9,6 +9,7 @@ import org.springframework.context.support.GenericXmlApplicationContext;
 
 import java.util.Arrays;
 
+import static com.redfox.lunchmanager.Profiles.*;
 import static com.redfox.lunchmanager.RestaurantTestData.restaurant1;
 import static com.redfox.lunchmanager.UserTestData.user1;
 import static java.time.LocalDate.now;
@@ -23,7 +24,7 @@ public class SpringMain {
         // java 7 automatic resource management (ARM)
         try (GenericXmlApplicationContext appCtx = new GenericXmlApplicationContext()) {
 
-            appCtx.getEnvironment().setActiveProfiles(Profiles.getActiveDbProfile());
+            appCtx.getEnvironment().setActiveProfiles(getActiveDbProfile(), REPOSITORY_IMPLEMENTATION);
             appCtx.load("spring/spring-app.xml", "spring/spring-db.xml");
             appCtx.refresh();
             System.out.println("Bean definition names: " + Arrays.toString(appCtx.getBeanDefinitionNames()));
