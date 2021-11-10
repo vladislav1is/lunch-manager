@@ -35,6 +35,7 @@
         <!-- DB -->
         <postgresql.version>42.2.21</postgresql.version>
         <hsqldb.version>2.4.1</hsqldb.version>
+        <jboss-logging.version>3.4.2.Final</jboss-logging.version>
         <!-- Hibernate -->
         <hibernate.version>5.5.2.Final</hibernate.version>
         <hibernate-validator.version>6.2.0.Final</hibernate-validator.version>
@@ -77,7 +78,7 @@
         <!-- Spring -->
         <dependency>
             <groupId>org.springframework</groupId>
-            <artifactId>spring-context</artifactId>
+            <artifactId>spring-context-support</artifactId>
         </dependency>
         <dependency>
             <groupId>org.springframework.data</groupId>
@@ -130,8 +131,8 @@
             <scope>test</scope>
         </dependency>
 
-        <!-- Java Common Annotations-->
-        <!-- deprecated in Java v9 and was removed in java v11-->
+        <!-- Java Common Annotations -->
+        <!-- deprecated in Java v9 and was removed in java v11 -->
         <dependency>
             <groupId>javax.annotation</groupId>
             <artifactId>javax.annotation-api</artifactId>
@@ -143,14 +144,31 @@
             <groupId>org.hibernate</groupId>
             <artifactId>hibernate-core</artifactId>
             <version>${hibernate.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.jboss.logging</groupId>
+                    <artifactId>jboss-logging</artifactId>
+                </exclusion>
+            </exclusions>
         </dependency>
         <dependency>
             <groupId>org.hibernate.validator</groupId>
             <artifactId>hibernate-validator</artifactId>
             <version>${hibernate-validator.version}</version>
+            <exclusions>
+                <exclusion>
+                    <groupId>org.jboss.logging</groupId>
+                    <artifactId>jboss-logging</artifactId>
+                </exclusion>
+            </exclusions>
+        </dependency>
+        <dependency>
+            <groupId>org.jboss.logging</groupId>
+            <artifactId>jboss-logging</artifactId>
+            <version>${jboss-logging.version}</version>
         </dependency>
 
-        <!--http://hibernate.org/validator/documentation/getting-started/#unified-expression-language-el-->
+        <!-- http://hibernate.org/validator/documentation/getting-started/#unified-expression-language-el -->
         <dependency>
             <groupId>org.glassfish</groupId>
             <artifactId>javax.el</artifactId>
