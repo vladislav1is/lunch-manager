@@ -2,8 +2,10 @@ package com.redfox.lunchmanager.service;
 
 import com.redfox.lunchmanager.model.Restaurant;
 import com.redfox.lunchmanager.util.exception.NotFoundException;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
 import org.springframework.dao.DataAccessException;
 
 import java.util.List;
@@ -11,9 +13,16 @@ import java.util.List;
 import static com.redfox.lunchmanager.RestaurantTestData.*;
 import static org.junit.Assert.assertThrows;
 
-public class AbstractRestaurantServiceTest extends AbstractServiceTest {
+public abstract class AbstractRestaurantServiceTest extends AbstractServiceTest {
     @Autowired
     private RestaurantService service;
+    @Autowired
+    private CacheManager cacheManager;
+
+    @Before
+    public void setup() {
+        cacheManager.getCache("restaurants").clear();
+    }
 
     @Test
     public void create() {

@@ -3,8 +3,10 @@ package com.redfox.lunchmanager.service;
 import com.redfox.lunchmanager.model.Role;
 import com.redfox.lunchmanager.model.User;
 import com.redfox.lunchmanager.util.exception.NotFoundException;
+import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.cache.CacheManager;
 import org.springframework.dao.DataAccessException;
 
 import java.time.Month;
@@ -17,6 +19,13 @@ import static org.junit.Assert.assertThrows;
 public abstract class AbstractUserServiceTest extends AbstractServiceTest {
     @Autowired
     private UserService service;
+    @Autowired
+    private CacheManager cacheManager;
+
+    @Before
+    public void setup() {
+        cacheManager.getCache("users").clear();
+    }
 
     @Test
     public void create() {
