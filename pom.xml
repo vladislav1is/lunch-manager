@@ -35,11 +35,14 @@
         <!-- DB -->
         <postgresql.version>42.2.21</postgresql.version>
         <hsqldb.version>2.4.1</hsqldb.version>
-        <jboss-logging.version>3.4.2.Final</jboss-logging.version>
         <!-- Hibernate -->
         <hibernate.version>5.5.2.Final</hibernate.version>
         <hibernate-validator.version>6.2.0.Final</hibernate-validator.version>
+        <jboss-logging.version>3.4.2.Final</jboss-logging.version>
         <javax-el.version>3.0.1-b12</javax-el.version>
+        <!-- Cache -->
+        <cache.version>1.1.0</cache.version>
+        <ehcache.version>3.9.4</ehcache.version>
     </properties>
 
     <build>
@@ -175,6 +178,25 @@
             <version>${javax-el.version}</version>
             <scope>provided</scope>
         </dependency>
+
+        <!-- Cache -->
+        <dependency>
+            <groupId>javax.cache</groupId>
+            <artifactId>cache-api</artifactId>
+            <version>${cache.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>org.ehcache</groupId>
+            <artifactId>ehcache</artifactId>
+            <scope>runtime</scope>
+            <version>${ehcache.version}</version>
+        </dependency>
+
+        <!-- https://medium.com/criciumadev/its-time-migrating-to-java-11-5eb3868354f9 -->
+        <dependency>
+            <groupId>org.glassfish.jaxb</groupId>
+            <artifactId>jaxb-runtime</artifactId>
+        </dependency>
     </dependencies>
 
     <profiles>
@@ -233,6 +255,13 @@
                 <groupId>org.slf4j</groupId>
                 <artifactId>slf4j-api</artifactId>
                 <version>${slf4j.version}</version>
+                <type>pom</type>
+                <scope>import</scope>
+            </dependency>
+            <dependency>
+                <groupId>org.glassfish.jaxb</groupId>
+                <artifactId>jaxb-runtime</artifactId>
+                <version>2.4.0-b180830.0438</version>
                 <type>pom</type>
                 <scope>import</scope>
             </dependency>
