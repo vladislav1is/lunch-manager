@@ -34,7 +34,7 @@
         <assertj.version>3.19.0</assertj.version>
         <!-- DB -->
         <postgresql.version>42.2.21</postgresql.version>
-        <hsqldb.version>2.4.1</hsqldb.version>
+        <hsqldb.version>2.6.0</hsqldb.version>
         <!-- Hibernate -->
         <hibernate.version>5.5.2.Final</hibernate.version>
         <hibernate-validator.version>6.2.0.Final</hibernate-validator.version>
