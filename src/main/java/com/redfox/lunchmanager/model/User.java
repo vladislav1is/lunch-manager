@@ -1,5 +1,6 @@
 package com.redfox.lunchmanager.model;
 
+import org.hibernate.annotations.BatchSize;
 import org.springframework.util.CollectionUtils;
 
 import javax.persistence.*;
@@ -15,7 +16,7 @@ import java.util.Set;
 @NamedQueries({
         @NamedQuery(name = User.DELETE, query = "DELETE FROM User u WHERE u.id=:id"),
         @NamedQuery(name = User.BY_EMAIL, query = "SELECT DISTINCT u FROM User u LEFT JOIN FETCH u.roles WHERE u.email=?1"),
-        @NamedQuery(name = User.ALL_SORTED, query = "SELECT DISTINCT u FROM User u LEFT JOIN FETCH u.roles ORDER BY u.name, u.email"),
+        @NamedQuery(name = User.ALL_SORTED, query = "SELECT DISTINCT u FROM User u ORDER BY u.name, u.email"),
 })
 @Entity
 @Table(name = "users", uniqueConstraints = {
@@ -50,6 +51,8 @@ public class User extends AbstractNamedEntity {
             uniqueConstraints = {@UniqueConstraint(columnNames = {"user_id", "role"}, name = "user_roles_idx")})
     @Column(name = "role")
     @ElementCollection(fetch = FetchType.EAGER)
+    //    @Fetch(FetchMode.SUBSELECT)
+    @BatchSize(size = 200)
     private Set<Role> roles;
 
     public User() {
