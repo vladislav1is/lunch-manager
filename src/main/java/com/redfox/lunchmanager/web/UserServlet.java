@@ -1,9 +1,9 @@
 package com.redfox.lunchmanager.web;
 
+import com.redfox.lunchmanager.Profiles;
 import com.redfox.lunchmanager.model.Role;
 import com.redfox.lunchmanager.web.user.AdminRestController;
 import org.slf4j.Logger;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import javax.servlet.ServletException;
@@ -18,12 +18,15 @@ public class UserServlet extends HttpServlet {
 
     private static final Logger log = getLogger(UserServlet.class);
 
-    private ConfigurableApplicationContext springContext;
+    private ClassPathXmlApplicationContext springContext;
     private AdminRestController adminRestController;
 
     @Override
     public void init() {
-        springContext = new ClassPathXmlApplicationContext("spring/spring-app.xml", "spring/spring-db.xml");
+        springContext = new ClassPathXmlApplicationContext(new String[]{"spring/spring-app.xml", "spring/spring-db.xml"}, false);
+//       springContext.setConfigLocations("spring/spring-app.xml", "spring/spring-db.xml");
+        springContext.getEnvironment().setActiveProfiles(Profiles.getActiveDbProfile(), Profiles.REPOSITORY_IMPLEMENTATION);
+        springContext.refresh();
         adminRestController = springContext.getBean(AdminRestController.class);
     }
 

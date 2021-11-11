@@ -1,7 +1,7 @@
 package com.redfox.lunchmanager.web;
 
+import com.redfox.lunchmanager.Profiles;
 import com.redfox.lunchmanager.web.restaurant.ProfileRestaurantController;
-import org.springframework.context.ConfigurableApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import javax.servlet.ServletException;
@@ -12,12 +12,15 @@ import java.io.IOException;
 
 public class ProfileRestaurantServlet extends HttpServlet {
 
-    private ConfigurableApplicationContext springContext;
+    private ClassPathXmlApplicationContext springContext;
     private ProfileRestaurantController restaurantController;
 
     @Override
     public void init() {
-        springContext = new ClassPathXmlApplicationContext("spring/spring-app.xml", "spring/spring-db.xml");
+        springContext = new ClassPathXmlApplicationContext(new String[]{"spring/spring-app.xml", "spring/spring-db.xml"}, false);
+//       springContext.setConfigLocations("spring/spring-app.xml", "spring/spring-db.xml");
+        springContext.getEnvironment().setActiveProfiles(Profiles.getActiveDbProfile(), Profiles.REPOSITORY_IMPLEMENTATION);
+        springContext.refresh();
         restaurantController = springContext.getBean(ProfileRestaurantController.class);
     }
 

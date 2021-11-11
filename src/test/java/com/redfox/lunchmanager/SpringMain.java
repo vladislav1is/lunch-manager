@@ -9,7 +9,6 @@ import org.springframework.context.support.GenericXmlApplicationContext;
 
 import java.util.Arrays;
 
-import static com.redfox.lunchmanager.Profiles.*;
 import static com.redfox.lunchmanager.RestaurantTestData.restaurant1;
 import static com.redfox.lunchmanager.UserTestData.user1;
 import static java.time.LocalDate.now;
@@ -24,7 +23,7 @@ public class SpringMain {
         // java 7 automatic resource management (ARM)
         try (GenericXmlApplicationContext appCtx = new GenericXmlApplicationContext()) {
 
-            appCtx.getEnvironment().setActiveProfiles(getActiveDbProfile(), REPOSITORY_IMPLEMENTATION);
+            appCtx.getEnvironment().setActiveProfiles(Profiles.getActiveDbProfile(), Profiles.REPOSITORY_IMPLEMENTATION);
             appCtx.load("spring/spring-app.xml", "spring/spring-db.xml");
             appCtx.refresh();
             System.out.println("Bean definition names: " + Arrays.toString(appCtx.getBeanDefinitionNames()));
@@ -33,11 +32,11 @@ public class SpringMain {
             var restaurantController = appCtx.getBean(AdminRestaurantController.class);
             var dishController = appCtx.getBean(AdminDishController.class);
             var voteController = appCtx.getBean(VoteController.class);
-            SecurityUtil.setAuthUserId(user1.getId());
+            SecurityUtil.setAuthUserId(user1.id());
 
             adminController.getAll().forEach(System.out::println);
             restaurantController.getAll().forEach(System.out::println);
-            dishController.getAll(restaurant1.getId()).forEach(System.out::println);
+            dishController.getAll(restaurant1.id()).forEach(System.out::println);
             System.out.println(voteController.getByDate(now()));
         }
     }
