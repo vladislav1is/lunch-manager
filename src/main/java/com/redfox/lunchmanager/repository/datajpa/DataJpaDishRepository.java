@@ -39,7 +39,7 @@ public class DataJpaDishRepository implements DishRepository {
     @Override
     public Dish get(int id, int restaurantId) {
         return crudDishRepository.findById(id)
-                .filter(dish -> dish.getRestaurant().getId() == restaurantId)
+                .filter(dish -> dish.getRestaurant().id() == restaurantId)
                 .orElse(null);
     }
 
@@ -51,5 +51,10 @@ public class DataJpaDishRepository implements DishRepository {
     @Override
     public List<Dish> getBetweenHalfOpen(LocalDate startDate, LocalDate endDate, int restaurantId) {
         return crudDishRepository.getBetweenHalfOpen(startDate, endDate, restaurantId);
+    }
+
+    @Override
+    public Dish getWithRestaurant(int id, int restaurantId) {
+        return crudDishRepository.getWithRestaurant(id, restaurantId);
     }
 }

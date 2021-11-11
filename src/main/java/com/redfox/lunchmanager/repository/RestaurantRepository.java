@@ -16,4 +16,8 @@ public interface RestaurantRepository {
 
     // ORDERED name
     List<Restaurant> getAll();
+
+    default Restaurant getWithDishes(int id) {
+        throw new UnsupportedOperationException();
+    }
 }

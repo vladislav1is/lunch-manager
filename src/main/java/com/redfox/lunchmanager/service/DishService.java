@@ -41,6 +41,10 @@ public class DishService {
     }
 
     public void update(Dish dish, int restaurantId) {
-        checkNotFoundWithId(repository.save(dish, restaurantId), dish.getId());
+        checkNotFoundWithId(repository.save(dish, restaurantId), dish.id());
+    }
+
+    public Dish getWithRestaurant(int id, int restaurantId) {
+        return checkNotFoundWithId(repository.getWithRestaurant(id, restaurantId), id);
     }
 }

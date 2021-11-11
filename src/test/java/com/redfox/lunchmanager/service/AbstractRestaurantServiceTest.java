@@ -15,7 +15,7 @@ import static org.junit.Assert.assertThrows;
 
 public abstract class AbstractRestaurantServiceTest extends AbstractServiceTest {
     @Autowired
-    private RestaurantService service;
+    protected RestaurantService service;
     @Autowired
     private CacheManager cacheManager;
 

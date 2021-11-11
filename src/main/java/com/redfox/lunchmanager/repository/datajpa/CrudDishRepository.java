@@ -22,4 +22,7 @@ public interface CrudDishRepository extends JpaRepository<Dish, Integer> {
 
     @Query(name = Dish.GET_BETWEEN)
     List<Dish> getBetweenHalfOpen(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate, @Param("restaurantId") int restaurantId);
+
+    @Query("SELECT d FROM Dish d JOIN FETCH d.restaurant WHERE d.id = ?1 and d.restaurant.id = ?2")
+    Dish getWithRestaurant(int id, int restaurantId);
 }

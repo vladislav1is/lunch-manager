@@ -42,4 +42,8 @@ public class RestaurantService {
     public void update(Restaurant restaurant) {
         checkNotFoundWithId(repository.save(restaurant), restaurant.getId());
     }
+
+    public Restaurant getWithDishes(int id) {
+        return checkNotFoundWithId(repository.getWithDishes(id), id);
+    }
 }

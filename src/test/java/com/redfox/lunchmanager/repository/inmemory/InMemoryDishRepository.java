@@ -10,9 +10,9 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
+import static com.redfox.lunchmanager.DishTestData.*;
 import static com.redfox.lunchmanager.RestaurantTestData.*;
 import static com.redfox.lunchmanager.util.DateTimeUtil.isBetweenHalfOpen;
-import static java.time.LocalDate.now;
 
 @Repository
 public class InMemoryDishRepository implements DishRepository {
@@ -21,13 +21,13 @@ public class InMemoryDishRepository implements DishRepository {
     private final Map<Integer, InMemoryBaseRepository<Dish>> dishes = new ConcurrentHashMap<>();
 
     {
-        save(new Dish("roast pork", 250, now()), restaurant1.getId());
-        save(new Dish("fish and chips", 350, now()), restaurant1.getId());
-        save(new Dish("roast vegetables", 130, now()), restaurant2.getId());
-        save(new Dish("roast turkey", 210, now()), restaurant2.getId());
-        save(new Dish("tomato soup", 150, now()), restaurant3.getId());
-        save(new Dish("pizza", 180, now()), restaurant3.getId());
-        save(new Dish("pasta", 175, now()), restaurant3.getId());
+        save(dish1, restaurant1.getId());
+        save(dish2, restaurant1.getId());
+        save(dish3, restaurant2.getId());
+        save(dish4, restaurant2.getId());
+        save(dish5, restaurant3.getId());
+        save(dish6, restaurant3.getId());
+        save(dish7, restaurant3.getId());
     }
 
     @Override

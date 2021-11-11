@@ -31,7 +31,7 @@ public class Dish extends AbstractNamedEntity {
     private LocalDate registered;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "restaurant_id")
+    @JoinColumn(name = "restaurant_id", nullable = false)
     @NotNull
     private Restaurant restaurant;
 
