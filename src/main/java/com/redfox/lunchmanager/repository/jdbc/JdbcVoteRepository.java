@@ -2,6 +2,7 @@ package com.redfox.lunchmanager.repository.jdbc;
 
 import com.redfox.lunchmanager.model.Vote;
 import com.redfox.lunchmanager.repository.VoteRepository;
+import com.redfox.lunchmanager.util.ValidationUtil;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -34,6 +35,8 @@ public class JdbcVoteRepository implements VoteRepository {
 
     @Override
     public Vote save(Vote vote, int userId) {
+        ValidationUtil.validate(vote);
+
         MapSqlParameterSource map = new MapSqlParameterSource()
                 .addValue("id", vote.getId())
                 .addValue("user_id", vote.getUser().getId())

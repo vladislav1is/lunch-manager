@@ -2,6 +2,7 @@ package com.redfox.lunchmanager.repository.jdbc;
 
 import com.redfox.lunchmanager.model.Dish;
 import com.redfox.lunchmanager.repository.DishRepository;
+import com.redfox.lunchmanager.util.ValidationUtil;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -34,6 +35,8 @@ public class JdbcDishRepository implements DishRepository {
 
     @Override
     public Dish save(Dish dish, int restaurantId) {
+        ValidationUtil.validate(dish);
+
         MapSqlParameterSource map = new MapSqlParameterSource()
                 .addValue("id", dish.getId())
                 .addValue("name", dish.getName())

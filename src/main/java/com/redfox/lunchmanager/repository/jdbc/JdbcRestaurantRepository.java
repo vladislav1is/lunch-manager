@@ -2,6 +2,7 @@ package com.redfox.lunchmanager.repository.jdbc;
 
 import com.redfox.lunchmanager.model.Restaurant;
 import com.redfox.lunchmanager.repository.RestaurantRepository;
+import com.redfox.lunchmanager.util.ValidationUtil;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -33,6 +34,8 @@ public class JdbcRestaurantRepository implements RestaurantRepository {
 
     @Override
     public Restaurant save(Restaurant restaurant) {
+        ValidationUtil.validate(restaurant);
+
         BeanPropertySqlParameterSource parameterSource = new BeanPropertySqlParameterSource(restaurant);
         if (restaurant.isNew()) {
             Number newKey = insertRestaurant.executeAndReturnKey(parameterSource);

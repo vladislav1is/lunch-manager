@@ -2,6 +2,7 @@ package com.redfox.lunchmanager.repository.jdbc;
 
 import com.redfox.lunchmanager.model.User;
 import com.redfox.lunchmanager.repository.UserRepository;
+import com.redfox.lunchmanager.util.ValidationUtil;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
@@ -33,6 +34,8 @@ public class JdbcUserRepository implements UserRepository {
 
     @Override
     public User save(User user) {
+        ValidationUtil.validate(user);
+
         MapSqlParameterSource map = new MapSqlParameterSource()
                 .addValue("id", user.getId())
                 .addValue("name", user.getName())

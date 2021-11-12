@@ -9,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.dao.DataAccessException;
 
+import javax.validation.ConstraintViolationException;
+import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.List;
 
@@ -95,5 +97,15 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest {
         User user = getUpdated();
         user.setId(NOT_FOUND);
         assertThrows(NotFoundException.class, () -> service.update(user));
+    }
+
+    @Test
+    public void createWithException() throws Exception {
+        validateRootCause(ConstraintViolationException.class,
+                () -> service.create(new User("  ", "mail@yandex.ru", "password", LocalDateTime.now(), Role.USER)));
+        validateRootCause(ConstraintViolationException.class,
+                () -> service.create(new User("User", "  ", "password", LocalDateTime.now(), Role.USER)));
+        validateRootCause(ConstraintViolationException.class,
+                () -> service.create(new User("User", "mail@yandex.ru", "  ", LocalDateTime.now(), Role.USER)));
     }
 }

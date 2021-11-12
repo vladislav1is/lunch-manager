@@ -8,6 +8,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
 import org.springframework.dao.DataAccessException;
 
+import javax.validation.ConstraintViolationException;
 import java.util.List;
 
 import static com.redfox.lunchmanager.RestaurantTestData.*;
@@ -80,5 +81,13 @@ public abstract class AbstractRestaurantServiceTest extends AbstractServiceTest 
         Restaurant restaurant = getUpdated();
         restaurant.setId(NOT_FOUND);
         assertThrows(NotFoundException.class, () -> service.update(restaurant));
+    }
+
+    @Test
+    public void createWithException() throws Exception {
+        validateRootCause(ConstraintViolationException.class,
+                () -> service.create(new Restaurant("  ")));
+        validateRootCause(ConstraintViolationException.class,
+                () -> service.create(new Restaurant("R")));
     }
 }

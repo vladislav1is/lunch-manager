@@ -13,6 +13,9 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit4.SpringRunner;
 
+import static com.redfox.lunchmanager.util.ValidationUtil.getRootCause;
+import static org.junit.Assert.assertThrows;
+
 @ContextConfiguration({
         "classpath:spring/spring-app.xml",
         "classpath:spring/spring-db.xml"
@@ -25,4 +28,15 @@ public abstract class AbstractServiceTest {
     public static ExternalResource summary = TimingRules.SUMMARY;
     @Rule
     public Stopwatch stopwatch = TimingRules.STOPWATCH;
+
+    //  Check root cause in JUnit: https://github.com/junit-team/junit4/pull/778
+    protected <T extends Throwable> void validateRootCause(Class<T> rootExceptionClass, Runnable runnable) {
+        assertThrows(rootExceptionClass, () -> {
+            try {
+                runnable.run();
+            } catch (Exception e) {
+                throw getRootCause(e);
+            }
+        });
+    }
 }
