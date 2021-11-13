@@ -2,11 +2,14 @@ package com.redfox.lunchmanager.service;
 
 import com.redfox.lunchmanager.model.Role;
 import com.redfox.lunchmanager.model.User;
+import com.redfox.lunchmanager.repository.JpaUtil;
 import com.redfox.lunchmanager.util.exception.NotFoundException;
+import org.junit.Assume;
 import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.CacheManager;
+import org.springframework.context.annotation.Lazy;
 import org.springframework.dao.DataAccessException;
 
 import javax.validation.ConstraintViolationException;
@@ -23,10 +26,16 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest {
     protected UserService service;
     @Autowired
     private CacheManager cacheManager;
+    @Autowired
+    @Lazy
+    private JpaUtil jpaUtil;
 
     @Before
     public void setup() {
         cacheManager.getCache("users").clear();
+        if (isJpaBased()) {
+            jpaUtil.clear2ndLevelHibernateCache();
+        }
     }
 
     @Test
@@ -101,6 +110,7 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest {
 
     @Test
     public void createWithException() throws Exception {
+        Assume.assumeTrue("Validation not supported (JPA only)", isJpaBased());
         validateRootCause(ConstraintViolationException.class,
                 () -> service.create(new User("  ", "mail@yandex.ru", "password", LocalDateTime.now(), Role.USER)));
         validateRootCause(ConstraintViolationException.class,
