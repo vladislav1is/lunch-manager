@@ -1,10 +1,10 @@
 package com.redfox.lunchmanager.web;
 
-import com.redfox.lunchmanager.Profiles;
 import com.redfox.lunchmanager.model.Restaurant;
 import com.redfox.lunchmanager.web.restaurant.AdminRestaurantController;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
 import org.springframework.util.StringUtils;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -15,22 +15,12 @@ import java.util.Objects;
 
 public class AdminRestaurantServlet extends HttpServlet {
 
-    private ClassPathXmlApplicationContext springContext;
     private AdminRestaurantController restaurantController;
 
     @Override
-    public void init() {
-        springContext = new ClassPathXmlApplicationContext(new String[]{"spring/spring-app.xml", "spring/spring-db.xml"}, false);
-//       springContext.setConfigLocations("spring/spring-app.xml", "spring/spring-db.xml");
-        springContext.getEnvironment().setActiveProfiles(Profiles.getActiveDbProfile(), Profiles.REPOSITORY_IMPLEMENTATION);
-        springContext.refresh();
+    public void init() throws ServletException {
+        WebApplicationContext springContext = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
         restaurantController = springContext.getBean(AdminRestaurantController.class);
-    }
-
-    @Override
-    public void destroy() {
-        springContext.close();
-        super.destroy();
     }
 
     @Override

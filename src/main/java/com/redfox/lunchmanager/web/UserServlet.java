@@ -1,11 +1,12 @@
 package com.redfox.lunchmanager.web;
 
-import com.redfox.lunchmanager.Profiles;
 import com.redfox.lunchmanager.model.Role;
 import com.redfox.lunchmanager.web.user.AdminRestController;
 import org.slf4j.Logger;
-import org.springframework.context.support.ClassPathXmlApplicationContext;
+import org.springframework.web.context.WebApplicationContext;
+import org.springframework.web.context.support.WebApplicationContextUtils;
 
+import javax.servlet.ServletConfig;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -15,31 +16,21 @@ import java.io.IOException;
 import static org.slf4j.LoggerFactory.getLogger;
 
 public class UserServlet extends HttpServlet {
-
     private static final Logger log = getLogger(UserServlet.class);
 
-    private ClassPathXmlApplicationContext springContext;
-    private AdminRestController adminRestController;
+    private AdminRestController adminController;
 
     @Override
-    public void init() {
-        springContext = new ClassPathXmlApplicationContext(new String[]{"spring/spring-app.xml", "spring/spring-db.xml"}, false);
-//       springContext.setConfigLocations("spring/spring-app.xml", "spring/spring-db.xml");
-        springContext.getEnvironment().setActiveProfiles(Profiles.getActiveDbProfile(), Profiles.REPOSITORY_IMPLEMENTATION);
-        springContext.refresh();
-        adminRestController = springContext.getBean(AdminRestController.class);
-    }
-
-    @Override
-    public void destroy() {
-        springContext.close();
-        super.destroy();
+    public void init(ServletConfig config) throws ServletException {
+        super.init(config);
+        WebApplicationContext springContext = WebApplicationContextUtils.getRequiredWebApplicationContext(getServletContext());
+        adminController = springContext.getBean(AdminRestController.class);
     }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
         int userId = Integer.parseInt(request.getParameter("userId"));
-        var user = adminRestController.get(userId);
+        var user = adminController.get(userId);
         SecurityUtil.setAuthUserId(userId);
         if (user.getRoles().contains(Role.ADMIN)) {
             response.sendRedirect("admin/restaurants");
@@ -50,7 +41,8 @@ public class UserServlet extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-        log.debug("forward to users");
+        log.debug("getAll");
+        request.setAttribute("users", adminController.getAll());
         request.getRequestDispatcher("/users.jsp").forward(request, response);
     }
 }
