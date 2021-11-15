@@ -28,14 +28,14 @@ VALUES ('August'),
        ('November'),
        ('December');
 
-INSERT INTO dishes (name, price, restaurant_id)
-VALUES ('roast pork', 250, 100004),
-       ('fish and chips', 350, 100004),
-       ('roast vegetables', 130, 100005),
-       ('roast turkey', 210, 100005),
-       ('tomato soup', 150, 100006),
-       ('pizza', 180, 100006),
-       ('pasta', 175, 100006);
+INSERT INTO dishes (name, price, registered, restaurant_id)
+VALUES ('roast pork', 250, '2021-11-11', 100004),
+       ('fish and chips', 350, '2021-11-11', 100004),
+       ('roast vegetables', 130, '2021-11-11', 100005),
+       ('roast turkey', 210, '2021-11-11', 100005),
+       ('tomato soup', 150, '2021-11-11', 100006),
+       ('pizza', 180, '2021-11-11', 100006),
+       ('pasta', 175, '2021-11-11', 100006);
 
 INSERT INTO votes (restaurant_id, user_id)
 VALUES (100004, 100001),

@@ -15,7 +15,7 @@ import java.util.List;
 import static com.redfox.lunchmanager.UserTestData.*;
 import static org.junit.Assert.assertThrows;
 
-@ContextConfiguration({"classpath:spring/spring-app.xml", "classpath:spring/inmemory.xml"})
+@ContextConfiguration({"classpath:spring/inmemory.xml"})
 @RunWith(SpringRunner.class)
 public class InMemoryAdminRestControllerSpringTest {
 
