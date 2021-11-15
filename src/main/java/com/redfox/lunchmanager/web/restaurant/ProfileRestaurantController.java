@@ -1,20 +1,17 @@
 package com.redfox.lunchmanager.web.restaurant;
 
-import com.redfox.lunchmanager.model.Restaurant;
 import org.springframework.stereotype.Controller;
-
-import java.util.List;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("/profile/restaurants")
 public class ProfileRestaurantController extends AbstractRestaurantController {
 
-    @Override
-    public Restaurant get(int id) {
-        return super.get(id);
-    }
-
-    @Override
-    public List<Restaurant> getAll() {
-        return super.getAll();
+    @GetMapping
+    public String getRestaurants(Model model) {
+        model.addAttribute("restaurants", super.getAll());
+        return "profile-restaurants";
     }
 }

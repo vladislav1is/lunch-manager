@@ -7,12 +7,16 @@
 <fmt:setBundle basename="messages.app"/>
 
 <html>
-<jsp:include page="fragments/headTag.jsp"/>
+<head>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title><fmt:message key="user.title"/></title>
+    <link rel="stylesheet" href="resources/css/style.css">
+</head>
 <body>
 <jsp:include page="fragments/bodyHeader.jsp"/>
 <section>
     <h3><fmt:message key="user.title"/></h3>
-
+    <hr/>
     <table border="1" cellpadding="8" cellspacing="0">
         <thead>
         <tr>
@@ -33,7 +37,7 @@
                 </td>
                 <fmt:parseDate value="${fns:formatDateTime(user.registered)}" pattern="yyyy-MM-dd HH:mm"
                                var="myParseDate"/>
-                <td><fmt:formatDate value="${myParseDate}" pattern="dd-MM-yyyy"/></td>
+                <td><fmt:formatDate value="${myParseDate}" pattern="dd-MMMM-yyyy"/></td>
             </tr>
         </c:forEach>
     </table>

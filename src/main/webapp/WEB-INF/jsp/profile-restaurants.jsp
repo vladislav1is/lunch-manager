@@ -2,25 +2,25 @@
 <%--@elvariable id="restaurant" type="com.redfox.lunchmanager.model.Restaurant"--%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jstl/fmt" %>
+
+<fmt:setBundle basename="messages.app"/>
+
 <html>
 <head>
-    <title>Restaurants list</title>
-    <link rel="stylesheet" href="css/style.css">
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <title><fmt:message key="restaurant.title"/></title>
+    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
 </head>
 <body>
+<jsp:include page="fragments/bodyHeader.jsp"/>
 <section>
-    <h3><a href="../index.jsp">Home</a></h3>
+    <h3><fmt:message key="restaurant.title"/></h3>
     <hr/>
-    <h2>Restaurants</h2>
-    <hr/>
-    <p>
-        <a href="restaurants?action=create">Add Restaurant</a><br>
-    </p>
     <table border="1" cellpadding="8" cellspacing="0">
         <thead>
         <tr>
-            <th>Name</th>
-            <th colspan="2"></th>
+            <th><fmt:message key="restaurant.name"/></th>
         </tr>
         </thead>
         <tbody>
@@ -28,12 +28,11 @@
             <c:set var="id" value="${restaurant.id}"/>
             <tr>
                 <td>${restaurant.name}</td>
-                <td><a href="restaurants?action=update&id=${id}">Update</a></td>
-                <td><a href="restaurants?action=delete&id=${id}">Delete</a></td>
             </tr>
         </c:forEach>
         </tbody>
     </table>
 </section>
+<jsp:include page="fragments/footer.jsp"/>
 </body>
 </html>

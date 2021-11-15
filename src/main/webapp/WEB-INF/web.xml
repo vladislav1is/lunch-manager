@@ -1,7 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns="https://jakarta.ee/xml/ns/jakartaee"
          xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
+         xsi:schemaLocation="https://jakarta.ee/xml/ns/jakartaee
+         https://jakarta.ee/xml/ns/jakartaee/web-app_5_0.xsd"
          version="5.0">
 
     <display-name>Lunch Manager</display-name>
@@ -18,36 +19,21 @@
         </param-value>
     </context-param>
 
+    <!-- Spring MVC -->
     <listener>
         <listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
     </listener>
-
     <servlet>
-        <servlet-name>userServlet</servlet-name>
-        <servlet-class>com.redfox.lunchmanager.web.UserServlet</servlet-class>
-        <load-on-startup>0</load-on-startup>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>userServlet</servlet-name>
-        <url-pattern>/users</url-pattern>
-    </servlet-mapping>
-
-    <servlet>
-        <servlet-name>adminRestaurantServlet</servlet-name>
-        <servlet-class>com.redfox.lunchmanager.web.AdminRestaurantServlet</servlet-class>
+        <servlet-name>mvc-dispatcher</servlet-name>
+        <servlet-class>org.springframework.web.servlet.DispatcherServlet</servlet-class>
+        <init-param>
+            <param-name>contextConfigLocation</param-name>
+            <param-value>classpath:spring/spring-mvc.xml</param-value>
+        </init-param>
         <load-on-startup>1</load-on-startup>
     </servlet>
     <servlet-mapping>
-        <servlet-name>adminRestaurantServlet</servlet-name>
-        <url-pattern>/admin/restaurants</url-pattern>
-    </servlet-mapping>
-    <servlet>
-        <servlet-name>profileRestaurantServlet</servlet-name>
-        <servlet-class>com.redfox.lunchmanager.web.ProfileRestaurantServlet</servlet-class>
-        <load-on-startup>1</load-on-startup>
-    </servlet>
-    <servlet-mapping>
-        <servlet-name>profileRestaurantServlet</servlet-name>
-        <url-pattern>/profile/restaurants</url-pattern>
+        <servlet-name>mvc-dispatcher</servlet-name>
+        <url-pattern>/</url-pattern>
     </servlet-mapping>
 </web-app>

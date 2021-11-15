@@ -2,34 +2,57 @@ package com.redfox.lunchmanager.web.restaurant;
 
 import com.redfox.lunchmanager.model.Restaurant;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 
-import java.util.List;
+import javax.servlet.http.HttpServletRequest;
+import java.util.Objects;
 
 @Controller
+@RequestMapping("/admin/restaurants")
 public class AdminRestaurantController extends AbstractRestaurantController {
 
-    @Override
-    public Restaurant create(Restaurant restaurant) {
-        return super.create(restaurant);
+    @GetMapping
+    public String getRestaurants(Model model) {
+        model.addAttribute("restaurants", super.getAll());
+        return "admin-restaurants";
     }
 
-    @Override
-    public void delete(int id) {
-        super.delete(id);
+    @GetMapping("/delete")
+    public String delete(HttpServletRequest request) {
+        super.delete(getId(request));
+        return "redirect:/admin/restaurants";
     }
 
-    @Override
-    public Restaurant get(int id) {
-        return super.get(id);
+    @GetMapping("/update")
+    public String update(HttpServletRequest request, Model model) {
+        var restaurant = super.get(getId(request));
+        model.addAttribute("restaurant", restaurant);
+        return "restaurant-form";
     }
 
-    @Override
-    public List<Restaurant> getAll() {
-        return super.getAll();
+    @GetMapping("/create")
+    public String create(Model model) {
+        var restaurant = new Restaurant("");
+        model.addAttribute("restaurant", restaurant);
+        return "restaurant-form";
     }
 
-    @Override
-    public void update(Restaurant restaurant, int id) {
-        super.update(restaurant, id);
+    @PostMapping
+    public String updateOrCreate(HttpServletRequest request) {
+        var restaurant = new Restaurant(request.getParameter("title"));
+        if (request.getParameter("id").isEmpty()) {
+            super.create(restaurant);
+        } else {
+            super.update(restaurant, getId(request));
+        }
+        return "redirect:/admin/restaurants";
+    }
+
+    private int getId(HttpServletRequest request) {
+        String paramId = Objects.requireNonNull(request.getParameter("id"));
+        return Integer.parseInt(paramId);
     }
 }
