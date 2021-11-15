@@ -1,9 +1,8 @@
 <%@page contentType="text/html" pageEncoding="UTF-8" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
-
-<fmt:setBundle basename="messages.app"/>
+<%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
 <header>
-    <a href="${pageContext.request.contextPath}/profile/restaurants/"><fmt:message key="app.title"/></a> | <a href="${pageContext.request.contextPath}/users"><fmt:message
-        key="user.title"/></a> | <a href="${pageContext.request.contextPath}"><fmt:message key="app.home"/></a>
+    <a href="${pageContext.request.contextPath}/profile/restaurants/"><spring:message code="app.title"/></a> | <a
+        href="${pageContext.request.contextPath}/users"><spring:message code="user.title"/></a> | <a
+        href="${pageContext.request.contextPath}"><spring:message code="app.home"/></a>
 </header>
