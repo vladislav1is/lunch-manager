@@ -7,7 +7,8 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
      <title><spring:message code="${restaurant.isNew() ? 'restaurant.create' : 'restaurant.edit'}"/></title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
+    <base href="${pageContext.request.contextPath}/"/>
+    <link rel="stylesheet" href="resources/css/style.css">
 </head>
 <body>
 <jsp:include page="fragments/bodyHeader.jsp"/>
@@ -16,7 +17,7 @@
     <form method="post" action="${pageContext.request.contextPath}/admin/restaurants">
         <input type="hidden" name="id" value="${restaurant.id}" required>
         <dl>
-            <dt>Name:</dt>
+            <dt><spring:message code="restaurant.name"/>:</dt>
             <dd>
                 <label>
                     <input type="text" value="${restaurant.name}" size=40 name="title" required>

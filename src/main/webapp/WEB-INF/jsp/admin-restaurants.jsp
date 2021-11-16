@@ -8,7 +8,8 @@
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title><spring:message code="restaurant.title"/></title>
-    <link rel="stylesheet" href="${pageContext.request.contextPath}/resources/css/style.css">
+    <base href="${pageContext.request.contextPath}/"/>
+    <link rel="stylesheet" href="resources/css/style.css">
 </head>
 <body>
 <jsp:include page="fragments/bodyHeader.jsp"/>
@@ -16,7 +17,7 @@
     <h3><spring:message code="restaurant.title"/></h3>
     <hr/>
     <p>
-        <a href="${pageContext.request.contextPath}/admin/restaurants/create"><spring:message
+        <a href="admin/restaurants/create"><spring:message
                 code="restaurant.add"/></a><br>
     </p>
     <table border="1" cellpadding="8" cellspacing="0">
@@ -31,10 +32,8 @@
             <c:set var="id" value="${restaurant.id}"/>
             <tr>
                 <td>${restaurant.name}</td>
-                <td><a href="${pageContext.request.contextPath}/admin/restaurants/update?id=${id}"><spring:message
-                        code="restaurant.update"/></a></td>
-                <td><a href="${pageContext.request.contextPath}/admin/restaurants/delete?id=${id}"><spring:message
-                        code="restaurant.delete"/></a></td>
+                <td><a href="admin/restaurants/update?id=${id}"><spring:message code="restaurant.update"/></a></td>
+                <td><a href="admin/restaurants/delete?id=${id}"><spring:message code="restaurant.delete"/></a></td>
             </tr>
         </c:forEach>
         </tbody>
