@@ -32,9 +32,9 @@ public class RootController {
         var user = service.get(userId);
         SecurityUtil.setAuthUserId(userId);
         if (user.getRoles().contains(Role.ADMIN)) {
-            return "redirect:admin/restaurants";
+            return "redirect:/admin/restaurants";
         } else {
-            return "redirect:profile/restaurants";
+            return "redirect:/profile/restaurants";
         }
     }
 }
