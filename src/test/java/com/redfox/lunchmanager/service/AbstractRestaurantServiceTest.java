@@ -2,11 +2,8 @@ package com.redfox.lunchmanager.service;
 
 import com.redfox.lunchmanager.model.Restaurant;
 import com.redfox.lunchmanager.util.exception.NotFoundException;
-import org.junit.Assume;
-import org.junit.Before;
 import org.junit.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.cache.CacheManager;
 import org.springframework.dao.DataAccessException;
 
 import javax.validation.ConstraintViolationException;
@@ -18,13 +15,6 @@ import static org.junit.Assert.assertThrows;
 public abstract class AbstractRestaurantServiceTest extends AbstractServiceTest {
     @Autowired
     protected RestaurantService service;
-    @Autowired
-    private CacheManager cacheManager;
-
-    @Before
-    public void setup() {
-        cacheManager.getCache("restaurants").clear();
-    }
 
     @Test
     public void create() {
@@ -86,7 +76,6 @@ public abstract class AbstractRestaurantServiceTest extends AbstractServiceTest 
 
     @Test
     public void createWithException() throws Exception {
-        Assume.assumeTrue("Validation not supported (JPA only)", isJpaBased());
         validateRootCause(ConstraintViolationException.class,
                 () -> service.create(new Restaurant("  ")));
         validateRootCause(ConstraintViolationException.class,
