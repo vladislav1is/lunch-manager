@@ -6,15 +6,17 @@ import com.redfox.lunchmanager.util.ValidationUtil;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDate;
 import java.util.List;
 
 @Repository
+@Transactional(readOnly = true)
 public class JdbcDishRepository implements DishRepository {
 
     private static final BeanPropertyRowMapper<Dish> ROW_MAPPER = BeanPropertyRowMapper.newInstance(Dish.class);
@@ -34,27 +36,24 @@ public class JdbcDishRepository implements DishRepository {
     }
 
     @Override
+    @Transactional
     public Dish save(Dish dish, int restaurantId) {
         ValidationUtil.validate(dish);
 
-        MapSqlParameterSource map = new MapSqlParameterSource()
-                .addValue("id", dish.getId())
-                .addValue("name", dish.getName())
-                .addValue("price", dish.getPrice())
-                .addValue("registered", dish.getRegistered())
-                .addValue("restaurant_id", restaurantId);
+        BeanPropertySqlParameterSource parameterSource = new BeanPropertySqlParameterSource(dish);
         if (dish.isNew()) {
-            Number newKey = insertDish.executeAndReturnKey(map);
+            Number newKey = insertDish.executeAndReturnKey(parameterSource);
             dish.setId(newKey.intValue());
         } else if (namedParameterJdbcTemplate.update("""
                 UPDATE dishes SET name=:name, price=:price, registered=:registered
-                WHERE id=:id AND restaurant_id=:restaurant_id""", map) == 0) {
+                WHERE id=:id AND restaurant_id=:restaurant_id""", parameterSource) == 0) {
             return null;
         }
         return dish;
     }
 
     @Override
+    @Transactional
     public boolean delete(int id, int restaurantId) {
         return jdbcTemplate.update("DELETE FROM dishes WHERE id=? AND restaurant_id=?", id, restaurantId) != 0;
     }
