@@ -6,5 +6,5 @@ import org.springframework.test.context.ActiveProfiles;
 import static com.redfox.lunchmanager.Profiles.JPA;
 
 @ActiveProfiles(JPA)
-public class JpaUserServiceTest extends AbstractUserServiceTest {
+class JpaUserServiceTest extends AbstractUserServiceTest {
 }

@@ -1,6 +1,6 @@
 package com.redfox.lunchmanager.web;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
@@ -8,10 +8,10 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-public class ResourceControllerTest extends AbstractControllerTest {
+class ResourceControllerTest extends AbstractControllerTest {
 
     @Test
-    public void resources() throws Exception {
+    void resources() throws Exception {
         perform(get("/resources/css/style.css"))
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.valueOf("text/css")))

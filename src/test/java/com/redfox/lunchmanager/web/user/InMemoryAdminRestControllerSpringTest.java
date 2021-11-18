@@ -3,35 +3,33 @@ package com.redfox.lunchmanager.web.user;
 import com.redfox.lunchmanager.model.User;
 import com.redfox.lunchmanager.repository.inmemory.InMemoryUserRepository;
 import com.redfox.lunchmanager.util.exception.NotFoundException;
-import org.junit.Before;
-import org.junit.Test;
-import org.junit.runner.RunWith;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.junit4.SpringRunner;
+import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 import java.util.List;
 
 import static com.redfox.lunchmanager.UserTestData.*;
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertNull;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-@ContextConfiguration({"classpath:spring/inmemory.xml"})
-@RunWith(SpringRunner.class)
-public class InMemoryAdminRestControllerSpringTest {
+@SpringJUnitConfig(locations = {"classpath:spring/inmemory.xml"})
+class InMemoryAdminRestControllerSpringTest {
 
     @Autowired
     private AdminRestController controller;
     @Autowired
     private InMemoryUserRepository repository;
 
-    @Before
-    public void setup() {
+    @BeforeEach
+    void setup() {
         // re-initialize
         repository.init();
     }
 
     @Test
-    public void create() {
+    void create() {
         User created = controller.create(getNew());
         Integer newId = created.getId();
         User newUser = getNew();
@@ -41,58 +39,58 @@ public class InMemoryAdminRestControllerSpringTest {
     }
 
     @Test
-    public void createNotNew() {
+    void createNotNew() {
         assertThrows(IllegalArgumentException.class, () -> controller.create(getUpdated()));
     }
 
     @Test
-    public void delete() {
+    void delete() {
         controller.delete(USER_ID_1);
-        assertThrows(NotFoundException.class, () -> controller.get(USER_ID_1));
+        assertNull(repository.get(USER_ID_1));
     }
 
     @Test
-    public void deleteNotFound() {
+    void deleteNotFound() {
         assertThrows(NotFoundException.class, () -> controller.delete(NOT_FOUND));
     }
 
     @Test
-    public void get() {
+    void get() {
         User user = controller.get(USER_ID_1);
         MATCHER.assertMatch(user, user1);
     }
 
     @Test
-    public void getNotFound() {
+    void getNotFound() {
         assertThrows(NotFoundException.class, () -> controller.get(NOT_FOUND));
     }
 
     @Test
-    public void getByMail() {
+    void getByMail() {
         User user = controller.getByMail(user3.getEmail());
         MATCHER.assertMatch(user, user3);
     }
 
     @Test
-    public void getByMailNotFound() {
+    void getByMailNotFound() {
         assertThrows(NotFoundException.class, () -> controller.getByMail("mail"));
     }
 
     @Test
-    public void getAll() {
+    void getAll() {
         List<User> all = controller.getAll();
         MATCHER.assertMatch(all, users);
     }
 
     @Test
-    public void update() {
+    void update() {
         User user = getUpdated();
         controller.update(user, USER_ID_3);
         MATCHER.assertMatch(controller.get(USER_ID_3), getUpdated());
     }
 
     @Test
-    public void updateAssureIdConsistent() {
+    void updateAssureIdConsistent() {
         assertThrows(IllegalArgumentException.class, () -> controller.update(getUpdated(), NOT_FOUND));
     }
 }

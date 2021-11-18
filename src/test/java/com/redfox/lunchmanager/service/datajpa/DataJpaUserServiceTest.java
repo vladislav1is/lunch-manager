@@ -7,5 +7,5 @@ import static com.redfox.lunchmanager.Profiles.DATAJPA;
 
 
 @ActiveProfiles(DATAJPA)
-public class DataJpaUserServiceTest extends AbstractUserServiceTest {
+class DataJpaUserServiceTest extends AbstractUserServiceTest {
 }

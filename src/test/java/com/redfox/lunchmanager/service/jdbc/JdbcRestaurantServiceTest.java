@@ -6,5 +6,5 @@ import org.springframework.test.context.ActiveProfiles;
 import static com.redfox.lunchmanager.Profiles.JDBC;
 
 @ActiveProfiles(JDBC)
-public class JdbcRestaurantServiceTest extends AbstractRestaurantServiceTest {
+class JdbcRestaurantServiceTest extends AbstractRestaurantServiceTest {
 }

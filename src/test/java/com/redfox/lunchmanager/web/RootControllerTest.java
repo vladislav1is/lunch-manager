@@ -1,6 +1,6 @@
 package com.redfox.lunchmanager.web;
 
-import org.junit.Test;
+import org.junit.jupiter.api.Test;
 
 import static com.redfox.lunchmanager.UserTestData.USER_ID_1;
 import static com.redfox.lunchmanager.UserTestData.user1;
@@ -9,10 +9,10 @@ import static org.springframework.test.web.servlet.request.MockMvcRequestBuilder
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-public class RootControllerTest extends AbstractControllerTest {
+class RootControllerTest extends AbstractControllerTest {
 
     @Test
-    public void getUsers() throws Exception {
+    void getUsers() throws Exception {
         perform(get("/users"))
                 .andDo(print())
                 .andExpect(status().isOk())

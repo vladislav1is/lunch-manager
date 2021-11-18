@@ -3,7 +3,7 @@ package com.redfox.lunchmanager.web.user;
 import com.redfox.lunchmanager.model.User;
 import com.redfox.lunchmanager.repository.inmemory.InMemoryUserRepository;
 import com.redfox.lunchmanager.util.exception.NotFoundException;
-import org.junit.*;
+import org.junit.jupiter.api.*;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.context.ConfigurableApplicationContext;
@@ -12,11 +12,11 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import java.util.Arrays;
 
 import static com.redfox.lunchmanager.UserTestData.*;
-import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertThrows;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertThrows;
 
-@Ignore
-public class InMemoryAdminRestControllerTest {
+@Disabled
+class InMemoryAdminRestControllerTest {
 
     private static final Logger log = LoggerFactory.getLogger(InMemoryAdminRestControllerTest.class);
 
@@ -24,23 +24,23 @@ public class InMemoryAdminRestControllerTest {
     private static AdminRestController controller;
     private static InMemoryUserRepository repository;
 
-    @BeforeClass
-    public static void beforeClass() {
+    @BeforeAll
+    static void beforeClass() {
         appCtx = new ClassPathXmlApplicationContext("spring/inmemory.xml");
         log.info("\n{}\n", Arrays.toString(appCtx.getBeanDefinitionNames()));
         controller = appCtx.getBean(AdminRestController.class);
         repository = appCtx.getBean(InMemoryUserRepository.class);
     }
 
-    @AfterClass
-    public static void afterClass() {
+    @AfterAll
+    static void afterClass() {
 //        May cause during JUnit "Cache is not alive (STATUS_SHUTDOWN)" as JUnit share Spring context for speed
 //        http://stackoverflow.com/questions/16281802/ehcache-shutdown-causing-an-exception-while-running-test-suite
 //        appCtx.close();
     }
 
-    @Before
-    public void setup() {
+    @BeforeEach
+    void setup() {
         // re-initialize
         repository.init();
     }
@@ -60,7 +60,7 @@ public class InMemoryAdminRestControllerTest {
     @Test
     public void delete() {
         controller.delete(USER_ID_1);
-        assertThrows(NotFoundException.class, () -> controller.get(USER_ID_1));
+        Assertions.assertNull(repository.get(USER_ID_1));
     }
 
     @Test
