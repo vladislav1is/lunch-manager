@@ -1,6 +1,6 @@
-package com.redfox.lunchmanager.web.user;
+package com.redfox.lunchmanager.web.restaurant;
 
-import com.redfox.lunchmanager.model.User;
+import com.redfox.lunchmanager.model.Restaurant;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -11,10 +11,10 @@ import java.net.URI;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = AdminRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-public class AdminRestController extends AbstractUserController {
+@RequestMapping(value = AdminRestRestaurantController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+public class AdminRestRestaurantController extends AbstractRestaurantController {
 
-    protected static final String REST_URL = "/rest/admin/users";
+    protected static final String REST_URL = "/rest/admin/restaurants";
 
     @Override
     @DeleteMapping("/{id}")
@@ -25,32 +25,26 @@ public class AdminRestController extends AbstractUserController {
 
     @Override
     @GetMapping("/{id}")
-    public User get(@PathVariable int id) {
+    public Restaurant get(@PathVariable int id) {
         return super.get(id);
     }
 
     @Override
-    @GetMapping("/by")
-    public User getByMail(@RequestParam String email) {
-        return super.getByMail(email);
-    }
-
-    @Override
     @GetMapping
-    public List<User> getAll() {
+    public List<Restaurant> getAll() {
         return super.getAll();
     }
 
     @Override
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@RequestBody User user, @PathVariable int id) {
-        super.update(user, id);
+    public void update(@RequestBody Restaurant restaurant, @PathVariable int id) {
+        super.update(restaurant, id);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> createWithLocation(@RequestBody User user) {
-        User created = super.create(user);
+    public ResponseEntity<Restaurant> createWithLocation(@RequestBody Restaurant restaurant) {
+        var created = super.create(restaurant);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL + "/{id}")
                 .buildAndExpand(created.getId()).toUri();
