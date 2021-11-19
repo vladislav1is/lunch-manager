@@ -27,6 +27,8 @@
         <!-- Web -->
         <tomcat.version>9.0.48</tomcat.version>
         <jstl.version>1.2</jstl.version>
+        <!-- JSON -->
+        <jackson.version>2.12.5</jackson.version>
         <!-- Tests -->
         <junit.jupiter.version>5.7.2</junit.jupiter.version>
         <assertj.version>3.19.0</assertj.version>
@@ -159,6 +161,13 @@
         <dependency>
             <groupId>org.springframework</groupId>
             <artifactId>spring-webmvc</artifactId>
+        </dependency>
+
+        <!-- JSON -->
+        <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-databind</artifactId>
+            <version>${jackson.version}</version>
         </dependency>
 
         <!-- Test -->

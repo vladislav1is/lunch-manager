@@ -1,5 +1,7 @@
 package com.redfox.lunchmanager.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import java.util.List;
 
@@ -14,11 +16,12 @@ public class Restaurant extends AbstractNamedEntity {
     public static final String DELETE = "Restaurant.delete";
     public static final String ALL_SORTED = "Restaurant.getAllSorted";
 
-    //   https://stackoverflow.com/questions/18813341/what-is-the-difference-between-cascadetype-remove-and-orphanremoval-in-jpa#answer-18813411
+    //  https://stackoverflow.com/questions/18813341/what-is-the-difference-between-cascadetype-remove-and-orphanremoval-in-jpa#answer-18813411
     @OneToMany(fetch = FetchType.LAZY, mappedBy = "restaurant")  //, cascade = CascadeType.REMOVE, orphanRemoval = true)
     @OrderBy("registered DESC")
-    //   https://stackoverflow.com/questions/11938253/jpa-joincolumn-vs-mappedby#answer-11939045
-    //   https://en.wikibooks.org/wiki/Java_Persistence/OneToMany#Unidirectional_OneToMany.2C_No_Inverse_ManyToOne.2C_No_Join_Table_.28JPA_2.x_ONLY.29
+    //  https://stackoverflow.com/questions/11938253/jpa-joincolumn-vs-mappedby#answer-11939045
+    //  https://en.wikibooks.org/wiki/Java_Persistence/OneToMany#Unidirectional_OneToMany.2C_No_Inverse_ManyToOne.2C_No_Join_Table_.28JPA_2.x_ONLY.29
+    @JsonIgnore
     private List<Dish> dishes;
 
     public Restaurant() {
