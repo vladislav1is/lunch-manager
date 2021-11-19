@@ -1,11 +1,14 @@
 package com.redfox.lunchmanager.web.restaurant;
 
+import com.redfox.lunchmanager.model.Restaurant;
 import com.redfox.lunchmanager.web.AbstractControllerTest;
+import org.assertj.core.matcher.AssertionMatcher;
 import org.junit.jupiter.api.Test;
 
-import static com.redfox.lunchmanager.RestaurantTestData.RESTAURANT_ID_1;
-import static com.redfox.lunchmanager.RestaurantTestData.restaurant1;
-import static org.hamcrest.Matchers.*;
+import java.util.List;
+
+import static com.redfox.lunchmanager.RestaurantTestData.MATCHER;
+import static com.redfox.lunchmanager.RestaurantTestData.restaurants;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -19,12 +22,13 @@ class ProfileRestaurantControllerTest extends AbstractControllerTest {
                 .andExpect(status().isOk())
                 .andExpect(view().name("profile-restaurants"))
                 .andExpect(forwardedUrl("/WEB-INF/jsp/profile-restaurants.jsp"))
-                .andExpect(model().attribute("restaurants", hasSize(5)))
-                .andExpect(model().attribute("restaurants", hasItem(
-                        allOf(
-                                hasProperty("id", is(RESTAURANT_ID_1)),
-                                hasProperty("name", is(restaurant1.getName()))
-                        )
-                )));
+                .andExpect(model().attribute("restaurants",
+                        new AssertionMatcher<List<Restaurant>>() {
+                            @Override
+                            public void assertion(List<Restaurant> actual) throws AssertionError {
+                                MATCHER.assertMatch(actual, restaurants);
+                            }
+                        }
+                ));
     }
 }

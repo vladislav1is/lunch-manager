@@ -7,7 +7,7 @@ import java.util.List;
 import static com.redfox.lunchmanager.model.AbstractBaseEntity.START_SEQ;
 
 public class RestaurantTestData {
-    public static final MatcherFactory<Restaurant> MATCHER = MatcherFactory.usingIgnoringFieldsComparator("dishes");
+    public static final MatcherFactory<Restaurant> MATCHER = MatcherFactory.usingIgnoringFieldsComparator(Restaurant.class, "dishes");
 
     public static final int RESTAURANT_ID_1 = START_SEQ + 4;
     public static final int RESTAURANT_ID_2 = START_SEQ + 5;
@@ -22,7 +22,7 @@ public class RestaurantTestData {
     public static final Restaurant restaurant4 = new Restaurant(RESTAURANT_ID_4, "November");
     public static final Restaurant restaurant5 = new Restaurant(RESTAURANT_ID_5, "December");
 
-    public static final List<Restaurant> restaurants = List.of(restaurant1, restaurant2, restaurant3, restaurant4, restaurant5);
+    public static final List<Restaurant> restaurants = List.of(restaurant1, restaurant5, restaurant4, restaurant3, restaurant2);
 
     public static Restaurant getNew() {
         return new Restaurant("Red");

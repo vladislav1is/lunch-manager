@@ -13,7 +13,7 @@ import static com.redfox.lunchmanager.model.Role.USER;
 import static java.time.LocalDateTime.of;
 
 public class UserTestData {
-    public static final MatcherFactory<User> MATCHER = MatcherFactory.usingIgnoringFieldsComparator("registered");
+    public static final MatcherFactory<User> MATCHER = MatcherFactory.usingIgnoringFieldsComparator(User.class, "registered");
 
     public static final int USER_ID_1 = START_SEQ + 1;
     public static final int USER_ID_2 = START_SEQ + 2;

@@ -1,10 +1,10 @@
 package com.redfox.lunchmanager.web;
 
+import com.redfox.lunchmanager.model.AbstractBaseEntity;
+
 public final class SecurityUtil {
 
-    private static int id = 1;
-
-    public static final int USER_ID_1 = 100_001;
+    private static int id = AbstractBaseEntity.START_SEQ + 3;
 
     private SecurityUtil() {
     }

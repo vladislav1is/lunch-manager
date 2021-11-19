@@ -1,6 +1,7 @@
 package com.redfox.lunchmanager;
 
 import com.redfox.lunchmanager.model.Dish;
+import com.redfox.lunchmanager.model.User;
 
 import java.time.Month;
 import java.util.List;
@@ -9,7 +10,7 @@ import static com.redfox.lunchmanager.model.AbstractBaseEntity.START_SEQ;
 import static java.time.LocalDate.of;
 
 public class DishTestData {
-    public static final MatcherFactory<Dish> MATCHER = MatcherFactory.usingIgnoringFieldsComparator("restaurant");
+    public static final MatcherFactory<Dish> MATCHER = MatcherFactory.usingIgnoringFieldsComparator(Dish.class, "restaurant");
 
     public static final int DISH_ID_1 = START_SEQ + 9;
     public static final int DISH_ID_2 = START_SEQ + 10;
