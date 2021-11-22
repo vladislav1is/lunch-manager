@@ -29,8 +29,8 @@ VALUES ('August'),
        ('December');
 
 INSERT INTO dishes (name, price, registered, restaurant_id)
-VALUES ('roast pork', 250, '2021-11-11', 100004),
-       ('fish and chips', 350, '2021-11-11', 100004),
+VALUES ('roast pork', 250, now(), 100004),
+       ('fish and chips', 350, now(), 100004),
        ('roast vegetables', 130, '2021-11-11', 100005),
        ('roast turkey', 210, '2021-11-11', 100005),
        ('tomato soup', 150, '2021-11-11', 100006),

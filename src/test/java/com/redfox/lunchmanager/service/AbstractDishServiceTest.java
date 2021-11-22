@@ -9,7 +9,6 @@ import org.springframework.dao.DataAccessException;
 
 import javax.validation.ConstraintViolationException;
 import java.time.LocalDate;
-import java.time.Month;
 
 import static com.redfox.lunchmanager.DishTestData.*;
 import static com.redfox.lunchmanager.RestaurantTestData.RESTAURANT_ID_1;
@@ -75,10 +74,7 @@ public abstract class AbstractDishServiceTest extends AbstractServiceTest {
 
     @Test
     void getBetweenHalfOpen() {
-        MATCHER.assertMatch(service.getBetweenHalfOpen(
-                LocalDate.of(2021, Month.NOVEMBER, 11),
-                LocalDate.of(2021, Month.NOVEMBER, 11), RESTAURANT_ID_1),
-                dish1, dish2);
+        MATCHER.assertMatch(service.getBetweenHalfOpen(LocalDate.now(), LocalDate.now(), RESTAURANT_ID_1), dish1, dish2);
     }
 
     @Test
