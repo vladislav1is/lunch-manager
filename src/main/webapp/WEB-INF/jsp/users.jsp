@@ -1,7 +1,6 @@
 <%--@elvariable id="users" type="java.util.List"--%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
-<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@ taglib prefix="fns" uri="http://lunch-manager.redfox.com/functions" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 
@@ -33,11 +32,10 @@
                 <td><c:out value="${user.name}"/></td>
                 <td><a href="mailto:${user.email}">${user.email}</a></td>
                 <td>${user.roles}</td>
-                <td><%=user.isEnabled()%>
+                <td>
+                    <%=user.isEnabled()%>
                 </td>
-                <fmt:parseDate value="${fns:formatDateTime(user.registered)}" pattern="yyyy-MM-dd HH:mm"
-                               var="myParseDate"/>
-                <td><fmt:formatDate value="${myParseDate}" pattern="dd-MMMM-yyyy"/></td>
+                <td>${fns:formatDateTime(user.registered)}</td>
             </tr>
         </c:forEach>
     </table>

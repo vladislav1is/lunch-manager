@@ -3,6 +3,7 @@ package com.redfox.lunchmanager.model;
 
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.hibernate.validator.constraints.Range;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -27,6 +28,7 @@ public class Dish extends AbstractNamedEntity {
     public static final String GET_BETWEEN = "Dish.getBetween";
 
     @Column(name = "price", nullable = false)
+    @Range(min = 10, max = 10000)
     private long price;
 
     @Column(name = "registered", nullable = false, columnDefinition = "date default now()")

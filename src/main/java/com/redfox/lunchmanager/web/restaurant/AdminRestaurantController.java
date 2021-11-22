@@ -6,6 +6,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.Objects;
@@ -21,14 +22,14 @@ public class AdminRestaurantController extends AbstractRestaurantController {
     }
 
     @GetMapping("/delete")
-    public String delete(HttpServletRequest request) {
-        super.delete(getId(request));
+    public String delete(@RequestParam String id) {
+        super.delete(Integer.parseInt(id));
         return "redirect:/admin/restaurants";
     }
 
     @GetMapping("/update")
-    public String update(HttpServletRequest request, Model model) {
-        var restaurant = super.get(getId(request));
+    public String update(@RequestParam String id, Model model) {
+        var restaurant = super.get(Integer.parseInt(id));
         model.addAttribute("restaurant", restaurant);
         return "restaurant-form";
     }

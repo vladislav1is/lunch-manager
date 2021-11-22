@@ -26,7 +26,7 @@
         <c:forEach var="restaurant" items="${restaurants}" varStatus="status">
             <c:set var="id" value="${restaurant.id}"/>
             <tr>
-                <td>${restaurant.name}</td>
+                <td><a href="profile/restaurants/${id}/dishes">${restaurant.name}</a></td>
             </tr>
         </c:forEach>
         </tbody>

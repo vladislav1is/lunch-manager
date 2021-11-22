@@ -1,21 +1,21 @@
 package com.redfox.lunchmanager.web.dish;
 
-import com.redfox.lunchmanager.model.Dish;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
 
 import java.time.LocalDate;
-import java.util.List;
 
 @Controller
+@RequestMapping("/profile/restaurants/{restaurantId}/dishes")
 public class ProfileDishController extends AbstractDishController {
 
-    @Override
-    public Dish get(int id, int restaurantId) {
-        return super.get(id, restaurantId);
-    }
-
-    @Override
-    public List<Dish> getBetween(LocalDate startDate, LocalDate endDate, int restaurantId) {
-        return super.getBetween(startDate, endDate, restaurantId);
+    @GetMapping
+    public String getDishes(@PathVariable int restaurantId, Model model) {
+        model.addAttribute("dishes", super.getBetween(LocalDate.now(), LocalDate.now(), restaurantId));
+        model.addAttribute("restaurantId", restaurantId);
+        return "profile-dishes";
     }
 }

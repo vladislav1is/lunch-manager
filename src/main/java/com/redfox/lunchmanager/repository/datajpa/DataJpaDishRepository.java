@@ -39,7 +39,7 @@ public class DataJpaDishRepository implements DishRepository {
     @Override
     public Dish get(int id, int restaurantId) {
         return crudDishRepository.findById(id)
-                .filter(dish -> dish.getRestaurant().id() == restaurantId)
+                .filter(dish -> dish.getRestaurant().getId() == restaurantId)
                 .orElse(null);
     }
 

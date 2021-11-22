@@ -7,8 +7,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-
-import javax.servlet.http.HttpServletRequest;
+import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 public class RootController {
@@ -27,10 +26,10 @@ public class RootController {
     }
 
     @PostMapping("/users")
-    public String setUser(HttpServletRequest request) {
-        int userId = Integer.parseInt(request.getParameter("userId"));
-        var user = service.get(userId);
-        SecurityUtil.setAuthUserId(userId);
+    public String setUser(@RequestParam String userId) {
+        int id = Integer.parseInt(userId);
+        var user = service.get(id);
+        SecurityUtil.setAuthUserId(id);
         if (user.getRoles().contains(Role.ADMIN)) {
             return "redirect:/admin/restaurants";
         } else {
