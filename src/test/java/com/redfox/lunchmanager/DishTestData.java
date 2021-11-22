@@ -1,9 +1,10 @@
 package com.redfox.lunchmanager;
 
 import com.redfox.lunchmanager.model.Dish;
-import com.redfox.lunchmanager.model.User;
 
+import java.time.LocalDate;
 import java.time.Month;
+import java.time.temporal.ChronoUnit;
 import java.util.List;
 
 import static com.redfox.lunchmanager.model.AbstractBaseEntity.START_SEQ;
@@ -29,5 +30,13 @@ public class DishTestData {
     public static final Dish dish6 = new Dish(DISH_ID_6, "pizza", 180, of(2021, Month.NOVEMBER, 11));
     public static final Dish dish7 = new Dish(DISH_ID_7, "pasta", 175, of(2021, Month.NOVEMBER, 11));
 
-    public static final List<Dish> dishes = List.of(dish1, dish2, dish3, dish4, dish5, dish6, dish7);
+    public static final List<Dish> dishes = List.of(dish1, dish2);
+
+    public static Dish getNew() {
+        return new Dish("newDish", 300, LocalDate.of(2020, Month.NOVEMBER, 22));
+    }
+
+    public static Dish getUpdated() {
+        return new Dish(DISH_ID_3, "updateDish", 1000, dish3.getRegistered().plus(2, ChronoUnit.DAYS));
+    }
 }

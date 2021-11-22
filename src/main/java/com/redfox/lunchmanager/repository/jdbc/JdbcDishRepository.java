@@ -6,7 +6,7 @@ import com.redfox.lunchmanager.util.ValidationUtil;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
+import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
@@ -40,13 +40,18 @@ public class JdbcDishRepository implements DishRepository {
     public Dish save(Dish dish, int restaurantId) {
         ValidationUtil.validate(dish);
 
-        BeanPropertySqlParameterSource parameterSource = new BeanPropertySqlParameterSource(dish);
+        MapSqlParameterSource map = new MapSqlParameterSource()
+                .addValue("id", dish.getId())
+                .addValue("name", dish.getName())
+                .addValue("price", dish.getPrice())
+                .addValue("registered", dish.getRegistered())
+                .addValue("restaurant_id", restaurantId);
         if (dish.isNew()) {
-            Number newKey = insertDish.executeAndReturnKey(parameterSource);
+            Number newKey = insertDish.executeAndReturnKey(map);
             dish.setId(newKey.intValue());
         } else if (namedParameterJdbcTemplate.update("""
                 UPDATE dishes SET name=:name, price=:price, registered=:registered
-                WHERE id=:id AND restaurant_id=:restaurant_id""", parameterSource) == 0) {
+                WHERE id=:id AND restaurant_id=:restaurant_id""", map) == 0) {
             return null;
         }
         return dish;
