@@ -1,7 +1,7 @@
 package com.redfox.lunchmanager.web.user;
 
-import com.redfox.lunchmanager.model.User;
 import com.redfox.lunchmanager.repository.inmemory.InMemoryUserRepository;
+import com.redfox.lunchmanager.to.UserTo;
 import com.redfox.lunchmanager.util.exception.NotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -11,6 +11,8 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 import java.util.List;
 
 import static com.redfox.lunchmanager.UserTestData.*;
+import static com.redfox.lunchmanager.util.Users.convertToDto;
+import static com.redfox.lunchmanager.util.Users.getTos;
 import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -30,17 +32,17 @@ class InMemoryAdminRestControllerSpringTest {
 
     @Test
     void create() {
-        User created = controller.create(getNew());
+        UserTo created = controller.create(convertToDto(getNew()));
         Integer newId = created.getId();
-        User newUser = getNew();
+        UserTo newUser = convertToDto(getNew());
         newUser.setId(newId);
-        MATCHER.assertMatch(created, newUser);
-        MATCHER.assertMatch(controller.get(newId), newUser);
+        TO_MATCHER.assertMatch(created, newUser);
+        TO_MATCHER.assertMatch(controller.get(newId), newUser);
     }
 
     @Test
     void createNotNew() {
-        assertThrows(IllegalArgumentException.class, () -> controller.create(getUpdated()));
+        assertThrows(IllegalArgumentException.class, () -> controller.create(convertToDto(getUpdated())));
     }
 
     @Test
@@ -56,8 +58,8 @@ class InMemoryAdminRestControllerSpringTest {
 
     @Test
     void get() {
-        User user = controller.get(USER_ID_1);
-        MATCHER.assertMatch(user, user1);
+        UserTo user = controller.get(USER_ID_1);
+        TO_MATCHER.assertMatch(user, convertToDto(user1));
     }
 
     @Test
@@ -67,8 +69,8 @@ class InMemoryAdminRestControllerSpringTest {
 
     @Test
     void getByMail() {
-        User user = controller.getByMail(user3.getEmail());
-        MATCHER.assertMatch(user, user3);
+        UserTo user = controller.getByMail(user3.getEmail());
+        TO_MATCHER.assertMatch(user, convertToDto(user3));
     }
 
     @Test
@@ -78,19 +80,19 @@ class InMemoryAdminRestControllerSpringTest {
 
     @Test
     void getAll() {
-        List<User> all = controller.getAll();
-        MATCHER.assertMatch(all, users);
+        List<UserTo> all = controller.getAll();
+        TO_MATCHER.assertMatch(all, getTos(users));
     }
 
     @Test
     void update() {
-        User user = getUpdated();
+        UserTo user = convertToDto(getUpdated());
         controller.update(user, USER_ID_3);
-        MATCHER.assertMatch(controller.get(USER_ID_3), getUpdated());
+        TO_MATCHER.assertMatch(controller.get(USER_ID_3), convertToDto(getUpdated()));
     }
 
     @Test
     void updateAssureIdConsistent() {
-        assertThrows(IllegalArgumentException.class, () -> controller.update(getUpdated(), NOT_FOUND));
+        assertThrows(IllegalArgumentException.class, () -> controller.update(convertToDto(getUpdated()), NOT_FOUND));
     }
 }

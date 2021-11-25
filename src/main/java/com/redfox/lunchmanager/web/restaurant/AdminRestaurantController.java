@@ -1,6 +1,6 @@
 package com.redfox.lunchmanager.web.restaurant;
 
-import com.redfox.lunchmanager.model.Restaurant;
+import com.redfox.lunchmanager.to.RestaurantTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -36,14 +36,14 @@ public class AdminRestaurantController extends AbstractRestaurantController {
 
     @GetMapping("/create")
     public String create(Model model) {
-        var restaurant = new Restaurant("");
+        var restaurant = new RestaurantTo(null, "");
         model.addAttribute("restaurant", restaurant);
         return "restaurant-form";
     }
 
     @PostMapping
     public String updateOrCreate(HttpServletRequest request) {
-        var restaurant = new Restaurant(request.getParameter("title"));
+        var restaurant = new RestaurantTo(null, request.getParameter("title"));
         if (request.getParameter("id").isEmpty()) {
             super.create(restaurant);
         } else {

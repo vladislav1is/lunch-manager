@@ -1,6 +1,6 @@
 package com.redfox.lunchmanager.web.dish;
 
-import com.redfox.lunchmanager.model.Dish;
+import com.redfox.lunchmanager.to.DishTo;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -27,19 +27,19 @@ public class AdminDishRestController extends AbstractDishController {
 
     @Override
     @GetMapping("/{id}")
-    public Dish get(@PathVariable int id, @PathVariable int restaurantId) {
+    public DishTo get(@PathVariable int id, @PathVariable int restaurantId) {
         return super.get(id, restaurantId);
     }
 
     @Override
     @GetMapping
-    public List<Dish> getAll(@PathVariable int restaurantId) {
+    public List<DishTo> getAll(@PathVariable int restaurantId) {
         return super.getAll(restaurantId);
     }
 
     @Override
     @GetMapping("/between")
-    public List<Dish> getBetween(
+    public List<DishTo> getBetween(
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
             @PathVariable int restaurantId) {
@@ -49,12 +49,12 @@ public class AdminDishRestController extends AbstractDishController {
     @Override
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@RequestBody Dish dish, @PathVariable int id, @PathVariable int restaurantId) {
+    public void update(@RequestBody DishTo dish, @PathVariable int id, @PathVariable int restaurantId) {
         super.update(dish, id, restaurantId);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<Dish> createWithLocation(@RequestBody Dish dish, @PathVariable int restaurantId) {
+    public ResponseEntity<DishTo> createWithLocation(@RequestBody DishTo dish, @PathVariable int restaurantId) {
         var created = super.create(dish, restaurantId);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL + "/{id}")

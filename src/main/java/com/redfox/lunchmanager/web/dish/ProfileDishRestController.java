@@ -1,6 +1,6 @@
 package com.redfox.lunchmanager.web.dish;
 
-import com.redfox.lunchmanager.model.Dish;
+import com.redfox.lunchmanager.to.DishTo;
 import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.MediaType;
 import org.springframework.web.bind.annotation.*;
@@ -16,13 +16,13 @@ public class ProfileDishRestController extends AbstractDishController {
 
     @Override
     @GetMapping("/{id}")
-    public Dish get(@PathVariable int id, @PathVariable int restaurantId) {
+    public DishTo get(@PathVariable int id, @PathVariable int restaurantId) {
         return super.get(id, restaurantId);
     }
 
     @Override
     @GetMapping("/between")
-    public List<Dish> getBetween(
+    public List<DishTo> getBetween(
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate startDate,
             @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate endDate,
             @PathVariable int restaurantId) {

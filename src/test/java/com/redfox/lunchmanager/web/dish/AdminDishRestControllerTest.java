@@ -1,7 +1,7 @@
 package com.redfox.lunchmanager.web.dish;
 
-import com.redfox.lunchmanager.model.Dish;
 import com.redfox.lunchmanager.service.DishService;
+import com.redfox.lunchmanager.to.DishTo;
 import com.redfox.lunchmanager.util.exception.NotFoundException;
 import com.redfox.lunchmanager.web.AbstractControllerTest;
 import com.redfox.lunchmanager.web.json.JsonUtil;
@@ -14,6 +14,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static com.redfox.lunchmanager.DishTestData.*;
 import static com.redfox.lunchmanager.RestaurantTestData.RESTAURANT_ID_2;
+import static com.redfox.lunchmanager.util.Dishes.convertToDto;
+import static com.redfox.lunchmanager.util.Dishes.getTos;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -39,7 +41,7 @@ class AdminDishRestControllerTest extends AbstractControllerTest {
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(MATCHER.contentJson(dish3));
+                .andExpect(TO_MATCHER.contentJson(convertToDto(dish3)));
     }
 
     @Test
@@ -48,7 +50,7 @@ class AdminDishRestControllerTest extends AbstractControllerTest {
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(MATCHER.contentJson(dish3, dish4));
+                .andExpect(TO_MATCHER.contentJson(getTos(dish3, dish4)));
     }
 
     @Test
@@ -56,31 +58,31 @@ class AdminDishRestControllerTest extends AbstractControllerTest {
         perform(MockMvcRequestBuilders.get(REST_URL + "between?startDate=2021-11-11&endDate=2021-11-11"))
                 .andExpect(status().isOk())
                 .andDo(print())
-                .andExpect(MATCHER.contentJson(dish3, dish4));
+                .andExpect(TO_MATCHER.contentJson(getTos(dish3, dish4)));
     }
 
     @Test
     void update() throws Exception {
-        Dish updated = getUpdated();
+        DishTo updated = convertToDto(getUpdated());
         perform(MockMvcRequestBuilders.put(REST_URL + DISH_ID_3).contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(updated)))
                 .andExpect(status().isNoContent());
 
-        MATCHER.assertMatch(dishService.get(DISH_ID_3, RESTAURANT_ID_2), updated);
+        TO_MATCHER.assertMatch(convertToDto(dishService.get(DISH_ID_3, RESTAURANT_ID_2)), updated);
     }
 
     @Test
     void createWithLocation() throws Exception {
-        Dish newDish = getNew();
+        DishTo newDish = convertToDto(getNew());
         ResultActions action = perform(MockMvcRequestBuilders.post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(newDish)))
                 .andExpect(status().isCreated());
 
-        Dish created = MATCHER.readFromJson(action);
-        int newId = created.id();
+        DishTo created = TO_MATCHER.readFromJson(action);
+        int newId = created.getId();
         newDish.setId(newId);
-        MATCHER.assertMatch(created, newDish);
-        MATCHER.assertMatch(dishService.get(newId, RESTAURANT_ID_2), newDish);
+        TO_MATCHER.assertMatch(created, newDish);
+        TO_MATCHER.assertMatch(convertToDto(dishService.get(newId, RESTAURANT_ID_2)), newDish);
     }
 }

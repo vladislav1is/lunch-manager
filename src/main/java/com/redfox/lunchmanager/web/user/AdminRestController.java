@@ -1,6 +1,6 @@
 package com.redfox.lunchmanager.web.user;
 
-import com.redfox.lunchmanager.model.User;
+import com.redfox.lunchmanager.to.UserTo;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -25,32 +25,32 @@ public class AdminRestController extends AbstractUserController {
 
     @Override
     @GetMapping("/{id}")
-    public User get(@PathVariable int id) {
+    public UserTo get(@PathVariable int id) {
         return super.get(id);
     }
 
     @Override
     @GetMapping("/by")
-    public User getByMail(@RequestParam String email) {
+    public UserTo getByMail(@RequestParam String email) {
         return super.getByMail(email);
     }
 
     @Override
     @GetMapping
-    public List<User> getAll() {
+    public List<UserTo> getAll() {
         return super.getAll();
     }
 
     @Override
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@RequestBody User user, @PathVariable int id) {
+    public void update(@RequestBody UserTo user, @PathVariable int id) {
         super.update(user, id);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<User> createWithLocation(@RequestBody User user) {
-        User created = super.create(user);
+    public ResponseEntity<UserTo> createWithLocation(@RequestBody UserTo user) {
+        var created = super.create(user);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL + "/{id}")
                 .buildAndExpand(created.getId()).toUri();

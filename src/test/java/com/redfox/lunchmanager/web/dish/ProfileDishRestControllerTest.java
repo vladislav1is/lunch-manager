@@ -8,6 +8,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static com.redfox.lunchmanager.DishTestData.*;
 import static com.redfox.lunchmanager.RestaurantTestData.RESTAURANT_ID_2;
+import static com.redfox.lunchmanager.util.Dishes.convertToDto;
+import static com.redfox.lunchmanager.util.Dishes.getTos;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -22,7 +24,7 @@ class ProfileDishRestControllerTest extends AbstractControllerTest {
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(MATCHER.contentJson(dish3));
+                .andExpect(TO_MATCHER.contentJson(convertToDto(dish3)));
     }
 
     @Test
@@ -30,6 +32,6 @@ class ProfileDishRestControllerTest extends AbstractControllerTest {
         perform(MockMvcRequestBuilders.get(REST_URL + "between?startDate=2021-11-11&endDate=2021-11-11"))
                 .andExpect(status().isOk())
                 .andDo(print())
-                .andExpect(MATCHER.contentJson(dish3, dish4));
+                .andExpect(TO_MATCHER.contentJson(getTos(dish3, dish4)));
     }
 }

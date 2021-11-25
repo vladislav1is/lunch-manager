@@ -1,6 +1,6 @@
 package com.redfox.lunchmanager.web.dish;
 
-import com.redfox.lunchmanager.model.Dish;
+import com.redfox.lunchmanager.to.DishTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -37,7 +37,7 @@ public class AdminDishController extends AbstractDishController {
 
     @GetMapping("/create")
     public String create(@PathVariable int restaurantId, Model model) {
-        var dish = new Dish("", 0, LocalDate.now());
+        var dish = new DishTo(null, "", 0, LocalDate.now());
         model.addAttribute("dish", dish);
         model.addAttribute("restaurantId", restaurantId);
         return "dish-form";
@@ -45,7 +45,7 @@ public class AdminDishController extends AbstractDishController {
 
     @PostMapping
     public String updateOrCreate(@PathVariable int restaurantId, HttpServletRequest request) {
-        var dish = new Dish(request.getParameter("name"),
+        var dish = new DishTo(null, request.getParameter("name"),
                 Long.parseLong(request.getParameter("price")),
                 LocalDate.parse(request.getParameter("registered")));
         if (request.getParameter("id").isEmpty()) {

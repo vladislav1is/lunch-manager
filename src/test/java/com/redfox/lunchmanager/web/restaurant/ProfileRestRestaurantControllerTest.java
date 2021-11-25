@@ -6,6 +6,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static com.redfox.lunchmanager.RestaurantTestData.*;
+import static com.redfox.lunchmanager.util.Restaurants.convertToDto;
+import static com.redfox.lunchmanager.util.Restaurants.getTos;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
@@ -20,7 +22,7 @@ class ProfileRestRestaurantControllerTest extends AbstractControllerTest {
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(MATCHER.contentJson(restaurant1));
+                .andExpect(TO_MATCHER.contentJson(convertToDto(restaurant1)));
     }
 
     @Test
@@ -28,6 +30,6 @@ class ProfileRestRestaurantControllerTest extends AbstractControllerTest {
         perform(MockMvcRequestBuilders.get(REST_URL))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(MATCHER.contentJson(restaurants));
+                .andExpect(TO_MATCHER.contentJson(getTos(restaurants)));
     }
 }

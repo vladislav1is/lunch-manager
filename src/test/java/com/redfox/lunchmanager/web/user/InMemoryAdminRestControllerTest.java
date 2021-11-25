@@ -1,7 +1,7 @@
 package com.redfox.lunchmanager.web.user;
 
-import com.redfox.lunchmanager.model.User;
 import com.redfox.lunchmanager.repository.inmemory.InMemoryUserRepository;
+import com.redfox.lunchmanager.to.UserTo;
 import com.redfox.lunchmanager.util.exception.NotFoundException;
 import org.junit.jupiter.api.*;
 import org.slf4j.Logger;
@@ -12,6 +12,8 @@ import org.springframework.context.support.ClassPathXmlApplicationContext;
 import java.util.Arrays;
 
 import static com.redfox.lunchmanager.UserTestData.*;
+import static com.redfox.lunchmanager.util.Users.convertToDto;
+import static com.redfox.lunchmanager.util.Users.getTos;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
@@ -47,14 +49,14 @@ class InMemoryAdminRestControllerTest {
 
     @Test
     public void create() {
-        User expected = getNew();
+        UserTo expected = convertToDto(getNew());
         int id = controller.create(expected).getId();
         assertEquals(expected, controller.get(id));
     }
 
     @Test
     public void createNotNew() {
-        assertThrows(IllegalArgumentException.class, () -> controller.create(getUpdated()));
+        assertThrows(IllegalArgumentException.class, () -> controller.create(convertToDto(getUpdated())));
     }
 
     @Test
@@ -70,7 +72,7 @@ class InMemoryAdminRestControllerTest {
 
     @Test
     public void get() {
-        assertEquals(user1, controller.get(USER_ID_1));
+        assertEquals(convertToDto(user1), controller.get(USER_ID_1));
     }
 
     @Test
@@ -80,7 +82,7 @@ class InMemoryAdminRestControllerTest {
 
     @Test
     public void getByMail() {
-        assertEquals(user3, controller.getByMail(user3.getEmail()));
+        assertEquals(convertToDto(user3), controller.getByMail(user3.getEmail()));
     }
 
     @Test
@@ -90,18 +92,18 @@ class InMemoryAdminRestControllerTest {
 
     @Test
     public void getAll() {
-        assertEquals(users, controller.getAll());
+        assertEquals(getTos(users), controller.getAll());
     }
 
     @Test
     public void update() {
-        User user = getUpdated();
+        UserTo user = convertToDto(getUpdated());
         controller.update(user, USER_ID_3);
         assertEquals(user, controller.get(USER_ID_3));
     }
 
     @Test
     public void updateAssureIdConsistent() {
-        assertThrows(IllegalArgumentException.class, () -> controller.update(getUpdated(), NOT_FOUND));
+        assertThrows(IllegalArgumentException.class, () -> controller.update(convertToDto(getUpdated()), NOT_FOUND));
     }
 }

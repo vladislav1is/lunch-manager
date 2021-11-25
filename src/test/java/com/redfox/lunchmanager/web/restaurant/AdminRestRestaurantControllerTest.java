@@ -1,8 +1,8 @@
 package com.redfox.lunchmanager.web.restaurant;
 
 import com.redfox.lunchmanager.RestaurantTestData;
-import com.redfox.lunchmanager.model.Restaurant;
 import com.redfox.lunchmanager.service.RestaurantService;
+import com.redfox.lunchmanager.to.RestaurantTo;
 import com.redfox.lunchmanager.util.exception.NotFoundException;
 import com.redfox.lunchmanager.web.AbstractControllerTest;
 import com.redfox.lunchmanager.web.json.JsonUtil;
@@ -13,6 +13,8 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static com.redfox.lunchmanager.RestaurantTestData.*;
+import static com.redfox.lunchmanager.util.Restaurants.convertToDto;
+import static com.redfox.lunchmanager.util.Restaurants.getTos;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -39,7 +41,7 @@ class AdminRestRestaurantControllerTest extends AbstractControllerTest {
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(MATCHER.contentJson(restaurant1));
+                .andExpect(TO_MATCHER.contentJson(convertToDto(restaurant1)));
     }
 
     @Test
@@ -47,32 +49,32 @@ class AdminRestRestaurantControllerTest extends AbstractControllerTest {
         perform(MockMvcRequestBuilders.get(REST_URL))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(MATCHER.contentJson(restaurants));
+                .andExpect(TO_MATCHER.contentJson(getTos(restaurants)));
     }
 
     @Test
     void update() throws Exception {
-        Restaurant updated = RestaurantTestData.getUpdated();
+        RestaurantTo updated = convertToDto(RestaurantTestData.getUpdated());
         perform(MockMvcRequestBuilders.put(REST_URL + RESTAURANT_ID_3)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(updated)))
                 .andExpect(status().isNoContent());
 
-        MATCHER.assertMatch(restaurantService.get(RESTAURANT_ID_3), updated);
+        TO_MATCHER.assertMatch(convertToDto(restaurantService.get(RESTAURANT_ID_3)), updated);
     }
 
     @Test
     void createWithLocation() throws Exception {
-        Restaurant newRestaurant = RestaurantTestData.getNew();
+        RestaurantTo newRestaurant = convertToDto(RestaurantTestData.getNew());
         ResultActions action = perform(MockMvcRequestBuilders.post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(newRestaurant)))
                 .andExpect(status().isCreated());
 
-        Restaurant created = MATCHER.readFromJson(action);
-        int newId = created.id();
+        RestaurantTo created = TO_MATCHER.readFromJson(action);
+        int newId = created.getId();
         newRestaurant.setId(newId);
-        MATCHER.assertMatch(created, newRestaurant);
-        MATCHER.assertMatch(restaurantService.get(newId), newRestaurant);
+        TO_MATCHER.assertMatch(created, newRestaurant);
+        TO_MATCHER.assertMatch(convertToDto(restaurantService.get(newId)), newRestaurant);
     }
 }

@@ -1,6 +1,7 @@
 package com.redfox.lunchmanager;
 
 import com.redfox.lunchmanager.model.Restaurant;
+import com.redfox.lunchmanager.to.RestaurantTo;
 
 import java.util.List;
 
@@ -8,6 +9,7 @@ import static com.redfox.lunchmanager.model.AbstractBaseEntity.START_SEQ;
 
 public class RestaurantTestData {
     public static final MatcherFactory<Restaurant> MATCHER = MatcherFactory.usingIgnoringFieldsComparator(Restaurant.class, "dishes");
+    public static MatcherFactory<RestaurantTo> TO_MATCHER = MatcherFactory.usingIgnoringFieldsComparator(RestaurantTo.class, "dishes");
 
     public static final int RESTAURANT_ID_1 = START_SEQ + 4;
     public static final int RESTAURANT_ID_2 = START_SEQ + 5;

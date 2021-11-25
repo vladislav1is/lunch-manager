@@ -1,8 +1,7 @@
 package com.redfox.lunchmanager.web.user;
 
-import com.redfox.lunchmanager.UserTestData;
-import com.redfox.lunchmanager.model.User;
 import com.redfox.lunchmanager.service.UserService;
+import com.redfox.lunchmanager.to.UserTo;
 import com.redfox.lunchmanager.util.exception.NotFoundException;
 import com.redfox.lunchmanager.web.AbstractControllerTest;
 import com.redfox.lunchmanager.web.json.JsonUtil;
@@ -13,6 +12,8 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static com.redfox.lunchmanager.UserTestData.*;
+import static com.redfox.lunchmanager.util.Users.convertToDto;
+import static com.redfox.lunchmanager.util.Users.getTos;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
@@ -32,7 +33,7 @@ class AdminRestControllerTest extends AbstractControllerTest {
                 .andDo(print())
                 //  https://jira.spring.io/browse/SPR-14472
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(MATCHER.contentJson(user1));
+                .andExpect(TO_MATCHER.contentJson(convertToDto(user1)));
     }
 
     @Test
@@ -40,7 +41,7 @@ class AdminRestControllerTest extends AbstractControllerTest {
         perform(MockMvcRequestBuilders.get(REST_URL + "by?email=" + user1.getEmail()))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(MATCHER.contentJson(user1));
+                .andExpect(TO_MATCHER.contentJson(convertToDto(user1)));
     }
 
     @Test
@@ -53,28 +54,28 @@ class AdminRestControllerTest extends AbstractControllerTest {
 
     @Test
     void update() throws Exception {
-        User updated = UserTestData.getUpdated();
+        UserTo updated = convertToDto(getUpdated());
         perform(MockMvcRequestBuilders.put(REST_URL + USER_ID_3)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(updated)))
                 .andExpect(status().isNoContent());
 
-        MATCHER.assertMatch(userService.get(USER_ID_3), updated);
+        TO_MATCHER.assertMatch(convertToDto(userService.get(USER_ID_3)), updated);
     }
 
     @Test
     void createWithLocation() throws Exception {
-        User newUser = UserTestData.getNew();
+        UserTo newUser = convertToDto(getNew());
         ResultActions action = perform(MockMvcRequestBuilders.post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(newUser)))
                 .andExpect(status().isCreated());
 
-        User created = MATCHER.readFromJson(action);
-        int newId = created.id();
+        UserTo created = TO_MATCHER.readFromJson(action);
+        int newId = created.getId();
         newUser.setId(newId);
-        MATCHER.assertMatch(created, newUser);
-        MATCHER.assertMatch(userService.get(newId), newUser);
+        TO_MATCHER.assertMatch(created, newUser);
+        TO_MATCHER.assertMatch(convertToDto(userService.get(newId)), newUser);
     }
 
     @Test
@@ -82,6 +83,6 @@ class AdminRestControllerTest extends AbstractControllerTest {
         perform(MockMvcRequestBuilders.get(REST_URL))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(MATCHER.contentJson(user1, user2, user3));
+                .andExpect(TO_MATCHER.contentJson(getTos(user1, user2, user3)));
     }
 }
