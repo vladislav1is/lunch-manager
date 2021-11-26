@@ -29,9 +29,18 @@ class ProfileDishRestControllerTest extends AbstractControllerTest {
 
     @Test
     void getBetween() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL + "between?startDate=2021-11-11&endDate=2021-11-11"))
+        perform(MockMvcRequestBuilders.get(REST_URL + "filter")
+                .param("startDate", "2021-11-11")
+                .param("endDate", "2021-11-11"))
                 .andExpect(status().isOk())
                 .andDo(print())
+                .andExpect(TO_MATCHER.contentJson(getTos(dish3, dish4)));
+    }
+
+    @Test
+    void getBetweenAll() throws Exception {
+        perform(MockMvcRequestBuilders.get(REST_URL + "filter?startDate=&endDate="))
+                .andExpect(status().isOk())
                 .andExpect(TO_MATCHER.contentJson(getTos(dish3, dish4)));
     }
 }

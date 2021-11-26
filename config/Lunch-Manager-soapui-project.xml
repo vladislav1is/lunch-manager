@@ -623,7 +623,7 @@
                                 </con:request>
                             </con:method>
                         </con:resource>
-                        <con:resource name="between" path="between" id="0831b343-0ed1-4edc-b144-4ca336cdba1e">
+                        <con:resource name="between" path="filter" id="0831b343-0ed1-4edc-b144-4ca336cdba1e">
                             <con:settings/>
                             <con:parameters>
                                 <con:parameter>
@@ -954,7 +954,7 @@
             <con:resource name="restaurants" path="/rest/profile/restaurants" id="f1d115b0-fce8-4c2a-810a-1ffb2425200a">
                 <con:settings/>
                 <con:parameters/>
-                <con:resource name="100004" path="100004/dishes/between" id="b2f09db7-f692-4268-af8c-ce86f2b10192">
+                <con:resource name="100004" path="100004/dishes/filter" id="b2f09db7-f692-4268-af8c-ce86f2b10192">
                     <con:settings/>
                     <con:parameters>
                         <con:parameter>
