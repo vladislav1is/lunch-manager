@@ -28,7 +28,7 @@ public class ProfileRestRestaurantController extends AbstractRestaurantControlle
     }
 
     @Override
-    @GetMapping("/{id}/with-meals")
+    @GetMapping("/{id}/with-dishes")
     public RestaurantTo getWithDishes(@PathVariable int id) {
         return super.getWithDishes(id);
     }

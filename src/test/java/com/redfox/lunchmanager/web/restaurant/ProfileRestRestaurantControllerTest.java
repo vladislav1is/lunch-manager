@@ -32,4 +32,14 @@ class ProfileRestRestaurantControllerTest extends AbstractControllerTest {
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(TO_MATCHER.contentJson(getTos(restaurants)));
     }
+
+    @Test
+    void getWithDishes() throws Exception {
+        assumeDataJpa();
+        perform(MockMvcRequestBuilders.get(REST_URL + RESTAURANT_ID_1 + "/with-dishes"))
+                .andExpect(status().isOk())
+                .andDo(print())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(TO_MATCHER.contentJson(convertToDto(restaurant1, restaurant1.getDishes())));
+    }
 }

@@ -1,7 +1,6 @@
 package com.redfox.lunchmanager.web.dish;
 
 import com.redfox.lunchmanager.to.DishTo;
-import com.redfox.lunchmanager.util.Dishes;
 import com.redfox.lunchmanager.web.AbstractControllerTest;
 import org.assertj.core.api.Assertions;
 import org.assertj.core.matcher.AssertionMatcher;

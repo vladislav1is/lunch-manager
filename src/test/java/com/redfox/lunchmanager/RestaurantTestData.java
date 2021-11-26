@@ -5,11 +5,12 @@ import com.redfox.lunchmanager.to.RestaurantTo;
 
 import java.util.List;
 
+import static com.redfox.lunchmanager.DishTestData.*;
 import static com.redfox.lunchmanager.model.AbstractBaseEntity.START_SEQ;
 
 public class RestaurantTestData {
-    public static final MatcherFactory<Restaurant> MATCHER = MatcherFactory.usingIgnoringFieldsComparator(Restaurant.class, "dishes");
-    public static MatcherFactory<RestaurantTo> TO_MATCHER = MatcherFactory.usingIgnoringFieldsComparator(RestaurantTo.class, "dishes");
+    public static final MatcherFactory.Matcher<Restaurant> MATCHER = MatcherFactory.usingIgnoringFieldsComparator(Restaurant.class, "dishes");
+    public static MatcherFactory.Matcher<RestaurantTo> TO_MATCHER = MatcherFactory.usingEqualsComparator(RestaurantTo.class);
 
     public static final int RESTAURANT_ID_1 = START_SEQ + 4;
     public static final int RESTAURANT_ID_2 = START_SEQ + 5;
@@ -25,6 +26,12 @@ public class RestaurantTestData {
     public static final Restaurant restaurant5 = new Restaurant(RESTAURANT_ID_5, "December");
 
     public static final List<Restaurant> restaurants = List.of(restaurant1, restaurant5, restaurant4, restaurant3, restaurant2);
+
+    static {
+        restaurant1.setDishes(List.of(dish1, dish2));
+        restaurant2.setDishes(List.of(dish3, dish4));
+        restaurant3.setDishes(List.of(dish5, dish6, dish7));
+    }
 
     public static Restaurant getNew() {
         return new Restaurant("Red");

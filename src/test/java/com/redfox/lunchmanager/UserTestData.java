@@ -14,8 +14,8 @@ import static com.redfox.lunchmanager.model.Role.USER;
 import static java.time.LocalDateTime.of;
 
 public class UserTestData {
-    public static final MatcherFactory<User> MATCHER = MatcherFactory.usingIgnoringFieldsComparator(User.class, "registered");
-    public static MatcherFactory<UserTo> TO_MATCHER = MatcherFactory.usingIgnoringFieldsComparator(UserTo.class);
+    public static final MatcherFactory.Matcher<User> MATCHER = MatcherFactory.usingIgnoringFieldsComparator(User.class, "registered");
+    public static MatcherFactory.Matcher<UserTo> TO_MATCHER = MatcherFactory.usingEqualsComparator(UserTo.class);
 
     public static final int USER_ID_1 = START_SEQ + 1;
     public static final int USER_ID_2 = START_SEQ + 2;
