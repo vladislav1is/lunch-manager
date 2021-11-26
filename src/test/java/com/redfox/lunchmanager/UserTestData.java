@@ -32,13 +32,13 @@ public class UserTestData {
     public static final List<User> users = List.of(user1, user2, user3);
 
     public static User getNew() {
-        return new User(null, "Pete", "user4@mail.ru", "123456",
+        return new User(null, "CreatedUser", "user4@mail.ru", "123456",
                 of(2021, Month.NOVEMBER, 2, 21, 45), Role.USER);
     }
 
     public static User getUpdated() {
         User updated = new User(user3);
-        updated.setName("UpdatedName");
+        updated.setName("UpdatedUser");
         updated.setEmail("user3@mail.ru");
         updated.setPassword("newPass");
         updated.setRegistered(of(2021, Month.NOVEMBER, 2, 21, 45));

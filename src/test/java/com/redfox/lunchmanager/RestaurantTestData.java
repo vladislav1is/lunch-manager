@@ -34,12 +34,12 @@ public class RestaurantTestData {
     }
 
     public static Restaurant getNew() {
-        return new Restaurant("Red");
+        return new Restaurant("CreatedRestaurant");
     }
 
     public static Restaurant getUpdated() {
         Restaurant updated = new Restaurant(restaurant3);
-        updated.setName("Green");
+        updated.setName("UpdatedRestaurant");
         return updated;
     }
 }

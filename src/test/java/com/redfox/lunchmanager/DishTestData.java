@@ -35,10 +35,10 @@ public class DishTestData {
     public static final List<Dish> dishes = List.of(dish1, dish2);
 
     public static Dish getNew() {
-        return new Dish("newDish", 300, LocalDate.of(2020, Month.NOVEMBER, 22));
+        return new Dish("CreatedDish", 300, LocalDate.of(2020, Month.NOVEMBER, 22));
     }
 
     public static Dish getUpdated() {
-        return new Dish(DISH_ID_3, "updateDish", 1000, dish3.getRegistered().plus(2, ChronoUnit.DAYS));
+        return new Dish(DISH_ID_3, "UpdatedDish", 1000, dish3.getRegistered().plus(2, ChronoUnit.DAYS));
     }
 }

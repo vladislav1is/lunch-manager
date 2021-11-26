@@ -1,0 +1,252 @@
+###### curl samples (application deployed at application context `lunch-manager`).
+###    > For windows use `Git Bash`
+########################################################################################################################
+### Profile resources
+########################################################################################################################
+
+### test UTF
+# curl -X GET --location "http://localhost:8080/lunch-manager/rest/profile/text"
+GET http://localhost:8080/lunch-manager/rest/profile/text
+
+### get User
+# curl -X GET --location "http://localhost:8080/lunch-manager/rest/profile"
+GET http://localhost:8080/lunch-manager/rest/profile
+
+### update User
+# curl -X PUT --location "http://localhost:8080/lunch-manager/rest/profile"
+#    -H "Content-Type: application/json"
+#    -d "{
+#          \"name\": \"UpdatedName\",
+#          \"email\": \"user3@mail.ru\",
+#          \"password\": \"newPass\",
+#          \"enabled\": true,
+#          \"registered\": \"2021-11-02T21:45:00\",
+#          \"roles\": [
+#            \"ADMIN\"
+#          ]
+#        }"
+PUT http://localhost:8080/lunch-manager/rest/profile
+Content-Type: application/json
+
+{
+  "name": "UpdatedName",
+  "email": "user3@mail.ru",
+  "password": "newPass",
+  "enabled": true,
+  "registered": "2021-11-02T21:45:00",
+  "roles": [
+    "ADMIN"
+  ]
+}
+
+### delete User
+# curl -X DELETE --location "http://localhost:8080/lunch-manager/rest/profile"
+DELETE http://localhost:8080/lunch-manager/rest/profile
+
+########################################################################################################################
+###### Restaurant resources
+########################################################################################################################
+
+### get Restaurant:100004
+# curl -X GET --location "http://localhost:8080/lunch-manager/rest/profile/restaurants/100004"
+GET http://localhost:8080/lunch-manager/rest/profile/restaurants/100004
+
+### get All Restaurants
+# curl -X GET --location "http://localhost:8080/lunch-manager/rest/profile/restaurants"
+GET http://localhost:8080/lunch-manager/rest/profile/restaurants
+
+### get Restaurant:100004 with Dishes
+# curl -X GET --location "http://localhost:8080/lunch-manager/rest/profile/restaurants/100004/with-dishes"
+GET http://localhost:8080/lunch-manager/rest/profile/restaurants/100004/with-dishes
+
+########################################################################################################################
+######### Dish resources
+########################################################################################################################
+
+### get Dish:100009
+# curl -X GET --location "http://localhost:8080/lunch-manager/rest/profile/restaurants/100004/dishes/100009"
+GET http://localhost:8080/lunch-manager/rest/profile/restaurants/100004/dishes/100009
+
+### get All Dishes
+# curl -X GET --location "http://localhost:8080/lunch-manager/rest/profile/restaurants/100004/dishes"
+GET http://localhost:8080/lunch-manager/rest/profile/restaurants/100004/dishes
+
+########################################################################################################################
+### Admin resources
+########################################################################################################################
+
+### create User
+# curl -X POST --location "http://localhost:8080/lunch-manager/rest/admin/users"
+#    -H "Content-Type: application/json"
+#    -d "{
+#          \"name\": \"CreatedUser\",
+#          \"email\": \"user4@mail.ru\",
+#          \"password\": \"123456\",
+#          \"enabled\": false,
+#          \"registered\": \"2021-11-02T21:45:00\",
+#          \"roles\": [
+#            \"USER\"
+#          ]
+#        }"
+POST http://localhost:8080/lunch-manager/rest/admin/users
+Content-Type: application/json
+
+{
+  "name": "CreatedUser",
+  "email": "user4@mail.ru",
+  "password": "123456",
+  "enabled": false,
+  "registered": "2021-11-02T21:45:00",
+  "roles": [
+    "USER"
+  ]
+}
+
+### delete User:100019
+# curl -X DELETE --location "http://localhost:8080/lunch-manager/rest/admin/users/100019"
+DELETE http://localhost:8080/lunch-manager/rest/admin/users/100019
+
+### update User:100001
+# curl -X PUT --location "http://localhost:8080/lunch-manager/rest/admin/users/100001"
+#    -H "Content-Type: application/json"
+#    -d "{
+#          \"name\": \"UpdatedUser\",
+#          \"email\": \"user1@yandex.ru\",
+#          \"password\": \"newPass\",
+#          \"enabled\": true,
+#          \"registered\": \"2021-11-02T21:45:00\",
+#          \"roles\": [
+#            \"ADMIN\"
+#          ]
+#        }"
+PUT http://localhost:8080/lunch-manager/rest/admin/users/100001
+Content-Type: application/json
+
+{
+  "name": "UpdatedUser",
+  "email": "user1@yandex.ru",
+  "password": "newPass",
+  "enabled": true,
+  "registered": "2021-11-02T21:45:00",
+  "roles": [
+    "ADMIN"
+  ]
+}
+
+### get User:user1@yandex.ru
+# curl -X GET --location "http://localhost:8080/lunch-manager/rest/admin/users/by?email=user1@yandex.ru"
+GET http://localhost:8080/lunch-manager/rest/admin/users/by?email=user1@yandex.ru
+
+### get User:100001
+# curl -X GET --location "http://localhost:8080/lunch-manager/rest/admin/users/100001"
+GET http://localhost:8080/lunch-manager/rest/admin/users/100001
+
+### get All Users
+# curl -X GET --location "http://localhost:8080/lunch-manager/rest/admin/users"
+GET http://localhost:8080/lunch-manager/rest/admin/users
+
+########################################################################################################################
+###### Restaurant resources
+########################################################################################################################
+
+### create Restaurant
+# curl -X POST --location "http://localhost:8080/lunch-manager/rest/admin/restaurants"
+#    -H "Content-Type: application/json"
+#    -d "{
+#          \"name\": \"CreatedRestaurant\",
+#          \"dishes\": null
+#        }"
+POST http://localhost:8080/lunch-manager/rest/admin/restaurants
+Content-Type: application/json
+
+{
+  "name": "CreatedRestaurant",
+  "dishes": null
+}
+
+### delete Restaurant:100006
+# curl -X DELETE --location "http://localhost:8080/lunch-manager/rest/admin/restaurants/100006"
+DELETE http://localhost:8080/lunch-manager/rest/admin/restaurants/100006
+
+### update Restaurant:100005
+# curl -X PUT --location "http://localhost:8080/lunch-manager/rest/admin/restaurants/100005"
+#    -H "Content-Type: application/json"
+#    -d "{
+#          \"name\": \"UpdatedRestaurant\",
+#          \"dishes\": null
+#        }"
+PUT http://localhost:8080/lunch-manager/rest/admin/restaurants/100005
+Content-Type: application/json
+
+{
+  "name": "UpdatedRestaurant",
+  "dishes": null
+}
+
+### get Restaurant:100004
+# curl -X GET --location "http://localhost:8080/lunch-manager/rest/admin/restaurants/100004"
+GET http://localhost:8080/lunch-manager/rest/admin/restaurants/100004
+
+### get All Restaurants
+# curl -X GET --location "http://localhost:8080/lunch-manager/rest/admin/restaurants"
+GET http://localhost:8080/lunch-manager/rest/admin/restaurants
+
+### get Restaurant:100004 with dishes
+# curl -X GET --location "http://localhost:8080/lunch-manager/rest/admin/restaurants/100004/with-dishes"
+GET http://localhost:8080/lunch-manager/rest/admin/restaurants/100004/with-dishes
+
+########################################################################################################################
+######### Dish resources
+########################################################################################################################
+
+### create Dish
+# curl -X POST --location "http://localhost:8080/lunch-manager/rest/admin/restaurants/100004/dishes"
+#    -H "Content-Type: application/json"
+#    -d "{
+#          \"name\": \"CreatedDish\",
+#          \"price\": 111,
+#          \"registered\": \"2021-11-27\"
+#        }"
+POST http://localhost:8080/lunch-manager/rest/admin/restaurants/100004/dishes
+Content-Type: application/json
+
+{
+  "name": "CreatedDish",
+  "price": 111,
+  "registered": "2021-11-27"
+}
+
+### delete Dish:100019
+# curl -X DELETE --location "http://localhost:8080/lunch-manager/rest/admin/restaurants/100004/dishes/100019"
+DELETE http://localhost:8080/lunch-manager/rest/admin/restaurants/100004/dishes/100019
+
+### update Dish:100009
+# curl -X PUT --location "http://localhost:8080/lunch-manager/rest/admin/restaurants/100004/dishes/100009"
+#    -H "Content-Type: application/json"
+#    -d "{
+#          \"name\": \"UpdatedDish\",
+#          \"price\": 1000,
+#          \"registered\": \"2021-11-13\"
+#        }"
+PUT http://localhost:8080/lunch-manager/rest/admin/restaurants/100004/dishes/100009
+Content-Type: application/json
+
+{
+  "name": "UpdatedDish",
+  "price": 1000,
+  "registered": "2021-11-13"
+}
+
+### get Dish:100009
+# curl -X GET --location "http://localhost:8080/lunch-manager/rest/admin/restaurants/100004/dishes/100009"
+GET http://localhost:8080/lunch-manager/rest/admin/restaurants/100004/dishes/100009
+
+### get All Dishes
+# curl -X GET --location "http://localhost:8080/lunch-manager/rest/admin/restaurants/100004/dishes"
+GET http://localhost:8080/lunch-manager/rest/admin/restaurants/100004/dishes
+
+### get Dishes Between:2021-11-27&2021-11-27
+# curl -X GET --location "http://localhost:8080/lunch-manager/rest/admin/restaurants/100004/dishes/filter?startDate=2021-11-27&endDate=2021-11-27"
+GET http://localhost:8080/lunch-manager/rest/admin/restaurants/100004/dishes/filter?startDate=2021-11-27&endDate=2021-11-27
+
+########################################################################################################################
