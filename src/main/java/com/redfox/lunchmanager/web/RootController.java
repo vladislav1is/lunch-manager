@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import static com.redfox.lunchmanager.util.Users.getTos;
+
 @Controller
 public class RootController {
     @Autowired
@@ -21,7 +23,7 @@ public class RootController {
 
     @GetMapping("/users")
     public String getUsers(Model model) {
-        model.addAttribute("users", service.getAll());
+        model.addAttribute("users", getTos(service.getAll()));
         return "users";
     }
 
