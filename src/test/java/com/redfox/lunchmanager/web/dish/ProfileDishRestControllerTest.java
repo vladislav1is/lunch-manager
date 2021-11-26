@@ -7,7 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static com.redfox.lunchmanager.DishTestData.*;
-import static com.redfox.lunchmanager.RestaurantTestData.RESTAURANT_ID_2;
+import static com.redfox.lunchmanager.RestaurantTestData.RESTAURANT_ID_1;
 import static com.redfox.lunchmanager.util.Dishes.convertToDto;
 import static com.redfox.lunchmanager.util.Dishes.getTos;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -16,31 +16,23 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class ProfileDishRestControllerTest extends AbstractControllerTest {
 
-    private static final String REST_URL = ProfileRestRestaurantController.REST_URL + '/' + RESTAURANT_ID_2 + "/dishes/";
+    private static final String REST_URL = ProfileRestRestaurantController.REST_URL + '/' + RESTAURANT_ID_1 + "/dishes/";
 
     @Test
     void get() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL + DISH_ID_3))
+        perform(MockMvcRequestBuilders.get(REST_URL + DISH_ID_1))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(TO_MATCHER.contentJson(convertToDto(dish3)));
+                .andExpect(TO_MATCHER.contentJson(convertToDto(dish1)));
     }
 
     @Test
-    void getBetween() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL + "filter")
-                .param("startDate", "2021-11-11")
-                .param("endDate", "2021-11-11"))
+    void getAll() throws Exception {
+        perform(MockMvcRequestBuilders.get(REST_URL))
                 .andExpect(status().isOk())
                 .andDo(print())
-                .andExpect(TO_MATCHER.contentJson(getTos(dish3, dish4)));
-    }
-
-    @Test
-    void getBetweenAll() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL + "filter?startDate=&endDate="))
-                .andExpect(status().isOk())
-                .andExpect(TO_MATCHER.contentJson(getTos(dish3, dish4)));
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(TO_MATCHER.contentJson(getTos(dish1, dish2)));
     }
 }

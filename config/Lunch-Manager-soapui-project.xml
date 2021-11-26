@@ -381,7 +381,7 @@
                             </con:settings>
                             <con:endpoint>http://localhost:8080</con:endpoint>
                             <con:request>{
-                                "name": "UpdatedName",
+                                "name": "UpdatedUser",
                                 "email": "user1@yandex.ru",
                                 "password": "newPass",
                                 "enabled": true,
@@ -502,7 +502,7 @@
                         </con:settings>
                         <con:endpoint>http://localhost:8080</con:endpoint>
                         <con:request>{
-                            "name": "Pete",
+                            "name": "CreatedUser",
                             "email": "user4@mail.ru",
                             "password": "123456",
                             "enabled": false,
@@ -597,6 +597,36 @@
                                     <con:params/>
                                     <con:element>data</con:element>
                                 </con:representation>
+                                <con:representation type="FAULT">
+                                    <con:mediaType>text/html;charset=utf-8</con:mediaType>
+                                    <con:status>400 500</con:status>
+                                    <con:params/>
+                                    <con:element>html</con:element>
+                                </con:representation>
+                                <con:representation type="RESPONSE">
+                                    <con:mediaType xsi:nil="true"/>
+                                    <con:status>204</con:status>
+                                    <con:params/>
+                                    <con:element>data</con:element>
+                                </con:representation>
+                                <con:representation type="RESPONSE">
+                                    <con:mediaType xsi:nil="true"/>
+                                    <con:status>204</con:status>
+                                    <con:params/>
+                                    <con:element>data</con:element>
+                                </con:representation>
+                                <con:representation type="RESPONSE">
+                                    <con:mediaType xsi:nil="true"/>
+                                    <con:status>204</con:status>
+                                    <con:params/>
+                                    <con:element>data</con:element>
+                                </con:representation>
+                                <con:representation type="RESPONSE">
+                                    <con:mediaType xsi:nil="true"/>
+                                    <con:status>204</con:status>
+                                    <con:params/>
+                                    <con:element>data</con:element>
+                                </con:representation>
                                 <con:request name="Update" id="c947ed48-a853-4b5a-b827-62bf232c53f1"
                                              mediaType="application/json" postQueryString="false">
                                     <con:settings>
@@ -604,11 +634,9 @@
                                     </con:settings>
                                     <con:endpoint>http://localhost:8080</con:endpoint>
                                     <con:request>{
-                                        "id": 100011,
-                                        "name": "updatedDish",
+                                        "name": "UpdatedDish",
                                         "price": 1000,
-                                        "registered": "2021-11-13",
-                                        "restaurant": null
+                                        "registered": "2021-11-13"
                                         }
                                     </con:request>
                                     <con:originalUri>
@@ -737,7 +765,7 @@
                                 </con:settings>
                                 <con:endpoint>http://localhost:8080</con:endpoint>
                                 <con:request>{
-                                    "name": "newDish",
+                                    "name": "CreatedDish",
                                     "price": 111,
                                     "registered": "2021-11-11",
                                     "restaurant": null
@@ -937,7 +965,7 @@
                         </con:settings>
                         <con:endpoint>http://localhost:8080</con:endpoint>
                         <con:request>{
-                            "name": "NewRestaurant",
+                            "name": "CreatedRestaurant",
                             "dishes": null
                             }
                         </con:request>
@@ -954,20 +982,11 @@
             <con:resource name="restaurants" path="/rest/profile/restaurants" id="f1d115b0-fce8-4c2a-810a-1ffb2425200a">
                 <con:settings/>
                 <con:parameters/>
-                <con:resource name="100004" path="100004/dishes/filter" id="b2f09db7-f692-4268-af8c-ce86f2b10192">
+                <con:resource name="100004" path="100004/dishes" id="b2f09db7-f692-4268-af8c-ce86f2b10192">
                     <con:settings/>
                     <con:parameters>
-                        <con:parameter>
-                            <con:name>startDate</con:name>
-                            <con:style>QUERY</con:style>
-                        </con:parameter>
-                        <con:parameter>
-                            <con:name>endDate</con:name>
-                            <con:value/>
-                            <con:style>QUERY</con:style>
-                            <con:default/>
-                            <con:description xsi:nil="true"/>
-                        </con:parameter>
+
+
                     </con:parameters>
 
                     <con:method name="" id="c478f840-6ef6-42d3-b4eb-f226cca5e7fb" method="GET">
@@ -979,7 +998,13 @@
                             <con:params/>
                             <con:element>Response</con:element>
                         </con:representation>
-                        <con:request name="GetBetween" id="5982b48e-9764-4d11-80b2-41265d37592e"
+                        <con:representation type="FAULT">
+                            <con:mediaType>text/html;charset=utf-8</con:mediaType>
+                            <con:status>404</con:status>
+                            <con:params/>
+                            <con:element>html</con:element>
+                        </con:representation>
+                        <con:request name="GetAll" id="5982b48e-9764-4d11-80b2-41265d37592e"
                                      mediaType="application/json">
                             <con:settings>
                                 <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
@@ -994,14 +1019,8 @@
                             </con:credentials>
                             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
                             <con:jmsPropertyConfig/>
-                            <con:parameters>
-                                <con:entry key="endDate" value="2021-11-23"/>
-                                <con:entry key="startDate" value="2021-11-23"/>
-                            </con:parameters>
-                            <con:parameterOrder>
-                                <con:entry>startDate</con:entry>
-                                <con:entry>endDate</con:entry>
-                            </con:parameterOrder>
+                            <con:parameters/>
+                            <con:parameterOrder/>
                         </con:request>
                     </con:method>
                 </con:resource>

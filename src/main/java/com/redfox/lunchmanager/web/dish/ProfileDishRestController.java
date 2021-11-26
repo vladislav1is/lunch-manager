@@ -2,8 +2,10 @@ package com.redfox.lunchmanager.web.dish;
 
 import com.redfox.lunchmanager.to.DishTo;
 import org.springframework.http.MediaType;
-import org.springframework.lang.Nullable;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -21,11 +23,8 @@ public class ProfileDishRestController extends AbstractDishController {
     }
 
     @Override
-    @GetMapping("/filter")
-    public List<DishTo> getBetween(
-            @RequestParam @Nullable LocalDate startDate,
-            @RequestParam @Nullable LocalDate endDate,
-            @PathVariable int restaurantId) {
-        return super.getBetween(startDate, endDate, restaurantId);
+    @GetMapping
+    public List<DishTo> getAll(@PathVariable int restaurantId) {
+        return super.getBetween(LocalDate.now(), LocalDate.now(), restaurantId);
     }
 }
