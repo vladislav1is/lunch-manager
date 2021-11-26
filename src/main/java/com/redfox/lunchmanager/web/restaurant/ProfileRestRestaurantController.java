@@ -26,4 +26,10 @@ public class ProfileRestRestaurantController extends AbstractRestaurantControlle
     public List<RestaurantTo> getAll() {
         return super.getAll();
     }
+
+    @Override
+    @GetMapping("/{id}/with-meals")
+    public RestaurantTo getWithDishes(@PathVariable int id) {
+        return super.getWithDishes(id);
+    }
 }

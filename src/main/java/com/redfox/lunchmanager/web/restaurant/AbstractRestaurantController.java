@@ -50,4 +50,10 @@ public abstract class AbstractRestaurantController {
         assureIdConsistent(restaurant, id);
         service.update(restaurant);
     }
+
+    public RestaurantTo getWithDishes(int id) {
+        log.info("getWithMeals {}", id);
+        Restaurant restaurant = service.getWithDishes(id);
+        return convertToDto(restaurant, restaurant.getDishes());
+    }
 }

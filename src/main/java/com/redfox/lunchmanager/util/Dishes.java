@@ -31,4 +31,10 @@ public class Dishes {
                 .map(Dishes::convertToDto)
                 .toList();
     }
+
+    public static List<Dish> getEntities(Collection<DishTo> dishes) {
+        return dishes.stream()
+                .map(Dishes::convertToEntity)
+                .toList();
+    }
 }

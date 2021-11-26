@@ -36,14 +36,14 @@ public class AdminRestaurantController extends AbstractRestaurantController {
 
     @GetMapping("/create")
     public String create(Model model) {
-        var restaurant = new RestaurantTo(null, "");
+        var restaurant = new RestaurantTo(null, "", null);
         model.addAttribute("restaurant", restaurant);
         return "restaurant-form";
     }
 
     @PostMapping
     public String updateOrCreate(HttpServletRequest request) {
-        var restaurant = new RestaurantTo(null, request.getParameter("title"));
+        var restaurant = new RestaurantTo(null, request.getParameter("title"), null);
         if (request.getParameter("id").isEmpty()) {
             super.create(restaurant);
         } else {
