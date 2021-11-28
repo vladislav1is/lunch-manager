@@ -7,9 +7,17 @@ import java.util.List;
 
 import static com.redfox.lunchmanager.DishTestData.*;
 import static com.redfox.lunchmanager.model.AbstractBaseEntity.START_SEQ;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class RestaurantTestData {
     public static final MatcherFactory.Matcher<Restaurant> MATCHER = MatcherFactory.usingIgnoringFieldsComparator(Restaurant.class, "dishes");
+    public static final MatcherFactory.Matcher<Restaurant> WITH_DISHES_MATCHER = MatcherFactory.usingAssertions(Restaurant.class,
+            //  No need use ignoringAllOverriddenEquals, see https://assertj.github.io/doc/#breaking-changes
+            (a, e) -> assertThat(a).usingRecursiveComparison()
+                    .ignoringFields("dishes.restaurant").isEqualTo(e),
+            (a, e) -> {
+                throw new UnsupportedOperationException();
+            });
     public static MatcherFactory.Matcher<RestaurantTo> TO_MATCHER = MatcherFactory.usingEqualsComparator(RestaurantTo.class);
 
     public static final int RESTAURANT_ID_1 = START_SEQ + 4;
