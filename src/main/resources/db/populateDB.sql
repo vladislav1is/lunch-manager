@@ -37,7 +37,8 @@ VALUES ('roast pork', 250, now(), 100004),
        ('pizza', 180, '2021-11-11', 100006),
        ('pasta', 175, '2021-11-11', 100006);
 
-INSERT INTO votes (restaurant_id, user_id)
-VALUES (100004, 100001),
-       (100007, 100002),
-       (100006, 100003);
+INSERT INTO votes (restaurant_id, user_id, registered)
+VALUES (100004, 100001, now()),
+       (100004, 100001, '2021-11-11'),
+       (100004, 100002, now()),
+       (100006, 100003, now());

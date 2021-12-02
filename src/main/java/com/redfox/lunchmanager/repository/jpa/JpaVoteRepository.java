@@ -1,8 +1,10 @@
 package com.redfox.lunchmanager.repository.jpa;
 
+import com.redfox.lunchmanager.model.Restaurant;
 import com.redfox.lunchmanager.model.User;
 import com.redfox.lunchmanager.model.Vote;
 import com.redfox.lunchmanager.repository.VoteRepository;
+import com.redfox.lunchmanager.web.SecurityUtil;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
@@ -21,12 +23,13 @@ public class JpaVoteRepository implements VoteRepository {
 
     @Override
     @Transactional
-    public Vote save(Vote vote, int userId) {
-        vote.setUser(em.getReference(User.class, userId));
+    public Vote save(Vote vote, int restaurantId) {
+        vote.setUser(em.getReference(User.class, SecurityUtil.authUserId()));
+        vote.setRestaurant(em.getReference(Restaurant.class, restaurantId));
         if (vote.isNew()) {
             em.persist(vote);
             return vote;
-        } else if (get(vote.id(), userId) == null) {
+        } else if (em.find(Vote.class, vote.getId()) == null) {
             return null;
         }
         return em.merge(vote);
@@ -34,17 +37,17 @@ public class JpaVoteRepository implements VoteRepository {
 
     @Override
     @Transactional
-    public boolean delete(int id, int userId) {
+    public boolean delete(int id, int restaurantId) {
         return em.createNamedQuery(Vote.DELETE)
                 .setParameter("id", id)
-                .setParameter("userId", userId)
+                .setParameter("restaurantId", restaurantId)
                 .executeUpdate() != 0;
     }
 
     @Override
-    public Vote get(int id, int userId) {
+    public Vote get(int id, int restaurantId) {
         var vote = em.find(Vote.class, id);
-        return vote != null && vote.getUser().getId() == userId ? vote : null;
+        return vote != null && vote.getRestaurant().id() == restaurantId ? vote : null;
     }
 
     @Override
@@ -57,16 +60,16 @@ public class JpaVoteRepository implements VoteRepository {
     }
 
     @Override
-    public List<Vote> getAll(int userId) {
+    public List<Vote> getAll(int restaurantId) {
         return em.createNamedQuery(Vote.ALL_SORTED, Vote.class)
-                .setParameter("userId", userId)
+                .setParameter("restaurantId", restaurantId)
                 .getResultList();
     }
 
     @Override
-    public List<Vote> getBetweenHalfOpen(LocalDate startDate, LocalDate endDate, int userId) {
+    public List<Vote> getBetweenHalfOpen(LocalDate startDate, LocalDate endDate, int restaurantId) {
         return em.createNamedQuery(Vote.GET_BETWEEN, Vote.class)
-                .setParameter("userId", userId)
+                .setParameter("restaurantId", restaurantId)
                 .setParameter("startDate", startDate)
                 .setParameter("endDate", endDate)
                 .getResultList();

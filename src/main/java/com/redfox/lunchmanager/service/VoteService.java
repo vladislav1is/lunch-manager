@@ -9,7 +9,6 @@ import java.util.List;
 
 import static com.redfox.lunchmanager.util.DateTimeUtil.atStartOfDayOrMin;
 import static com.redfox.lunchmanager.util.DateTimeUtil.atStartOfNextDayOrMax;
-import static com.redfox.lunchmanager.util.ValidationUtil.checkNotFound;
 import static com.redfox.lunchmanager.util.ValidationUtil.checkNotFoundWithId;
 
 @Service
@@ -21,31 +20,35 @@ public class VoteService {
         this.repository = repository;
     }
 
-    public Vote create(Vote vote, int userId) {
-        return repository.save(vote, userId);
+    public Vote create(Vote vote, int restaurantId) {
+        return repository.save(vote, restaurantId);
     }
 
-    public void delete(int id, int userId) {
-        checkNotFoundWithId(repository.delete(id, userId), id);
+    public void delete(int id, int restaurantId) {
+        checkNotFoundWithId(repository.delete(id, restaurantId), id);
     }
 
-    public Vote get(int id, int userId) {
-        return checkNotFoundWithId(repository.get(id, userId), id);
+    public Vote get(int id, int restaurantId) {
+        return checkNotFoundWithId(repository.get(id, restaurantId), id);
     }
 
     public Vote getByDate(LocalDate localDate, int userId) {
-        return checkNotFound(repository.getByDate(localDate, userId), "localDate=" + localDate);
+        return repository.getByDate(localDate, userId);
     }
 
-    public List<Vote> getAll(int userId) {
-        return repository.getAll(userId);
+    public List<Vote> getAll(int restaurantId) {
+        return repository.getAll(restaurantId);
     }
 
-    public List<Vote> getBetweenHalfOpen(LocalDate startDate, LocalDate endDate, int userId) {
-        return repository.getBetweenHalfOpen(atStartOfDayOrMin(startDate), atStartOfNextDayOrMax(endDate), userId);
+    public List<Vote> getBetweenHalfOpen(LocalDate startDate, LocalDate endDate, int restaurantId) {
+        return repository.getBetweenHalfOpen(atStartOfDayOrMin(startDate), atStartOfNextDayOrMax(endDate), restaurantId);
     }
 
-    public void update(Vote vote, int userId) {
-        checkNotFoundWithId(repository.save(vote, userId), vote.getId());
+    public void update(Vote vote, int restaurantId) {
+        checkNotFoundWithId(repository.save(vote, restaurantId), vote.id());
+    }
+
+    public Vote getWithRestaurant(int id, int restaurantId) {
+        return checkNotFoundWithId(repository.getWithRestaurant(id, restaurantId), id);
     }
 }

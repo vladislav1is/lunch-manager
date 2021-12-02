@@ -8,17 +8,17 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @NamedQueries({
-        @NamedQuery(name = Vote.DELETE, query = "DELETE FROM Vote v WHERE v.id=:id AND v.user.id=:userId"),
+        @NamedQuery(name = Vote.DELETE, query = "DELETE FROM Vote v WHERE v.id=:id AND v.restaurant.id=:restaurantId"),
         @NamedQuery(name = Vote.BY_DATE, query = "SELECT v FROM Vote v WHERE v.registered=:voteDate AND v.user.id=:userId"),
-        @NamedQuery(name = Vote.ALL_SORTED, query = "SELECT v FROM Vote v WHERE v.user.id=:userId ORDER BY v.registered DESC"),
+        @NamedQuery(name = Vote.ALL_SORTED, query = "SELECT v FROM Vote v WHERE v.restaurant.id=:restaurantId ORDER BY v.registered DESC"),
         @NamedQuery(name = Vote.GET_BETWEEN, query = """
                     SELECT v FROM Vote v 
-                    WHERE v.user.id=:userId AND v.registered >= :startDate AND v.registered < :endDate ORDER BY v.registered DESC
+                    WHERE v.restaurant.id=:restaurantId AND v.registered >= :startDate AND v.registered < :endDate ORDER BY v.registered DESC
                 """),
 })
 @Entity
 @Table(name = "votes", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"user_id", "registered"}, name = "votes_key")
+        @UniqueConstraint(columnNames = {"user_id", "registered"}, name = "votes_idx")
 })
 public class Vote extends AbstractBaseEntity {
 
@@ -27,15 +27,12 @@ public class Vote extends AbstractBaseEntity {
     public static final String ALL_SORTED = "Vote.getAll";
     public static final String GET_BETWEEN = "Vote.getBetween";
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id", nullable = false)
-    @NotNull
-    @OnDelete(action = OnDeleteAction.CASCADE)
     private User user;
 
-    @ManyToOne(fetch = FetchType.EAGER)
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "restaurant_id", nullable = false)
-    @NotNull
     @OnDelete(action = OnDeleteAction.CASCADE)
     private Restaurant restaurant;
 
