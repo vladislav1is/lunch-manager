@@ -4,7 +4,7 @@ import com.redfox.lunchmanager.web.SecurityUtil;
 import com.redfox.lunchmanager.web.dish.AdminDishController;
 import com.redfox.lunchmanager.web.restaurant.AdminRestaurantController;
 import com.redfox.lunchmanager.web.user.AdminRestController;
-import com.redfox.lunchmanager.web.vote.VoteController;
+import com.redfox.lunchmanager.web.vote.AbstractVoteController;
 import org.springframework.context.support.GenericXmlApplicationContext;
 
 import java.util.Arrays;
@@ -31,7 +31,7 @@ public class SpringMain {
             var adminController = appCtx.getBean(AdminRestController.class);
             var restaurantController = appCtx.getBean(AdminRestaurantController.class);
             var dishController = appCtx.getBean(AdminDishController.class);
-            var voteController = appCtx.getBean(VoteController.class);
+            var voteController = appCtx.getBean(AbstractVoteController.class);
             SecurityUtil.setAuthUserId(user1.id());
 
             adminController.getAll().forEach(System.out::println);
