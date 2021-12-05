@@ -1,5 +1,7 @@
 package com.redfox.lunchmanager.web.dish;
 
+import com.redfox.lunchmanager.model.Restaurant;
+import com.redfox.lunchmanager.service.RestaurantService;
 import com.redfox.lunchmanager.to.DishTo;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -10,15 +12,23 @@ import java.time.LocalDate;
 import java.util.Objects;
 
 import static com.redfox.lunchmanager.util.DateTimeUtil.parseLocalDate;
+import static com.redfox.lunchmanager.util.Restaurants.convertToDto;
 
 @Controller
 @RequestMapping("/admin/restaurants/{restaurantId}/dishes")
 public class AdminDishController extends AbstractDishController {
 
+    private final RestaurantService restaurantService;
+
+    public AdminDishController(RestaurantService restaurantService) {
+        this.restaurantService = restaurantService;
+    }
+
     @GetMapping
     public String getDishes(@PathVariable int restaurantId, Model model) {
         model.addAttribute("dishes", super.getAll(restaurantId));
-        model.addAttribute("restaurantId", restaurantId);
+        Restaurant restaurant = restaurantService.get(restaurantId);
+        model.addAttribute("restaurant", convertToDto(restaurant));
         return "admin-dishes";
     }
 
@@ -61,6 +71,8 @@ public class AdminDishController extends AbstractDishController {
         LocalDate startDate = parseLocalDate(request.getParameter("startDate"));
         LocalDate endDate = parseLocalDate(request.getParameter("endDate"));
         model.addAttribute("dishes", super.getBetween(startDate, endDate, restaurantId));
+        Restaurant restaurant = restaurantService.get(restaurantId);
+        model.addAttribute("restaurant", convertToDto(restaurant));
         return "admin-dishes";
     }
 

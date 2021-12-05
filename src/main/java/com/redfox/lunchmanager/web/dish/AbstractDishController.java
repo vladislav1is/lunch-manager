@@ -32,12 +32,12 @@ public abstract class AbstractDishController {
     }
 
     public void delete(int id, int restaurantId) {
-        log.info("delete dishTo {} for restaurant {}", id, restaurantId);
+        log.info("delete dish {} for restaurant {}", id, restaurantId);
         service.delete(id, restaurantId);
     }
 
     public DishTo get(int id, int restaurantId) {
-        log.info("get dishTo {} for restaurant {}", id, restaurantId);
+        log.info("get dish {} for restaurant {}", id, restaurantId);
         return convertToDto(service.get(id, restaurantId));
     }
 

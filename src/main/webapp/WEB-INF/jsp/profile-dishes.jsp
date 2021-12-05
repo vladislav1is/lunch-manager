@@ -1,4 +1,5 @@
 <%--@elvariable id="restaurants" type="com.redfox.lunchmanager.model.java.util.List"--%>
+<%--@elvariable id="restaurant" type="com.redfox.lunchmanager.to.RestaurantTo"--%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
@@ -8,14 +9,14 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title><spring:message code="restaurant.title"/></title>
+    <title><spring:message code="dish.title"/>&nbsp${restaurant.name}</title>
     <base href="${pageContext.request.contextPath}/"/>
     <link rel="stylesheet" href="resources/css/style.css">
 </head>
 <body>
 <jsp:include page="fragments/bodyHeader.jsp"/>
 <section>
-    <h3><spring:message code="dish.title"/></h3>
+    <h3><spring:message code="dish.title"/>&nbsp${restaurant.name}</h3>
     <hr/>
     <table border="1" cellpadding="8" cellspacing="0">
         <thead>
