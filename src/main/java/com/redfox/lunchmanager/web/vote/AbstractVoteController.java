@@ -45,7 +45,12 @@ public abstract class AbstractVoteController {
     public VoteTo getByDate(LocalDate localDate) {
         log.info("getByDate {}", localDate);
         int userId = SecurityUtil.authUserId();
-        return convertToDto(service.getByDate(localDate, userId));
+        Vote vote = service.getByDate(localDate, userId);
+        if (vote != null) {
+            return convertToDto(vote);
+        } else {
+            return null;
+        }
     }
 
     public List<VoteTo> getAll(int restaurantId) {
