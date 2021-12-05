@@ -12,13 +12,16 @@ public class RestaurantTo implements Persistable<Integer> {
 
     private final String name;
 
-    private List<DishTo> dishes;
+    private final VoteTo vote;
 
-    @ConstructorProperties({"id", "name", "dishes"})
+    private final List<DishTo> dishes;
+
+    @ConstructorProperties({"id", "name", "vote", "dishes"})
     //  https://www.logicbig.com/tutorials/misc/jackson/constructor-properties.html
-    public RestaurantTo(Integer id, String name, List<DishTo> dishes) {
+    public RestaurantTo(Integer id, String name, VoteTo vote, List<DishTo> dishes) {
         this.id = id;
         this.name = name;
+        this.vote = vote;
         this.dishes = dishes;
     }
 
@@ -35,12 +38,12 @@ public class RestaurantTo implements Persistable<Integer> {
         return name;
     }
 
-    public List<DishTo> getDishes() {
-        return dishes;
+    public VoteTo getVote() {
+        return vote;
     }
 
-    public void setDishes(List<DishTo> dishes) {
-        this.dishes = dishes;
+    public List<DishTo> getDishes() {
+        return dishes;
     }
 
     @Override
@@ -53,12 +56,15 @@ public class RestaurantTo implements Persistable<Integer> {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         RestaurantTo that = (RestaurantTo) o;
-        return Objects.equals(id, that.id) && name.equals(that.name) && Objects.equals(dishes, that.dishes);
+        return Objects.equals(id, that.id) &&
+                name.equals(that.name) &&
+                Objects.equals(vote, that.vote) &&
+                Objects.equals(dishes, that.dishes);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, dishes);
+        return Objects.hash(id, name, vote, dishes);
     }
 
     @Override
@@ -66,6 +72,7 @@ public class RestaurantTo implements Persistable<Integer> {
         return "RestaurantTo{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
+                ", vote=" + vote +
                 ", dishes=" + dishes +
                 '}';
     }

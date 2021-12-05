@@ -17,13 +17,14 @@
     <h3><spring:message code="restaurant.title"/></h3>
     <hr/>
     <p>
-        <a href="admin/restaurants/create"><spring:message
-                code="restaurant.add"/></a><br>
+        <a href="admin/restaurants/create">
+            <spring:message code="restaurant.add"/></a><br>
     </p>
     <table border="1" cellpadding="8" cellspacing="0">
         <thead>
         <tr>
             <th><spring:message code="restaurant.name"/></th>
+            <th><spring:message code="common.menu"/></th>
             <th colspan="2"></th>
         </tr>
         </thead>
@@ -31,7 +32,11 @@
         <c:forEach var="restaurant" items="${restaurants}" varStatus="status">
             <c:set var="id" value="${restaurant.id}"/>
             <tr>
-                <td><a href="admin/restaurants/${id}/dishes">${restaurant.name}</a></td>
+                <td>${restaurant.name}</td>
+                <td>
+                    <button type="button" onclick="window.location.href='admin/restaurants/${id}/dishes'">
+                        <spring:message code="common.edit"/></button>
+                </td>
                 <td><a href="admin/restaurants/update?id=${id}"><spring:message code="common.update"/></a></td>
                 <td><a href="admin/restaurants/delete?id=${id}"><spring:message code="common.delete"/></a></td>
             </tr>

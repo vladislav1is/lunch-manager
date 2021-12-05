@@ -9,6 +9,7 @@ import java.util.List;
 
 import static com.redfox.lunchmanager.RestaurantTestData.TO_MATCHER;
 import static com.redfox.lunchmanager.RestaurantTestData.restaurants;
+import static com.redfox.lunchmanager.VoteTestData.vote4;
 import static com.redfox.lunchmanager.util.Restaurants.getTos;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -27,7 +28,7 @@ class AdminRestaurantControllerTest extends AbstractControllerTest {
                         new AssertionMatcher<List<RestaurantTo>>() {
                             @Override
                             public void assertion(List<RestaurantTo> actual) throws AssertionError {
-                                TO_MATCHER.assertMatch(actual, getTos(restaurants));
+                                TO_MATCHER.assertMatch(actual, getTos(restaurants, vote4));
                             }
                         }
                 ));

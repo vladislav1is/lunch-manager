@@ -1,8 +1,10 @@
 <%--@elvariable id="restaurants" type="com.redfox.lunchmanager.model.java.util.List"--%>
 <%--@elvariable id="restaurant" type="com.redfox.lunchmanager.to.RestaurantTo"--%>
+<%--@elvariable id="restaurant" type="com.redfox.lunchmanager.to.VoteTo"--%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="fn" uri="http://lunch-manager.redfox.com/functions" %>
 
 <html>
 <head>
@@ -20,13 +22,18 @@
         <thead>
         <tr>
             <th><spring:message code="restaurant.name"/></th>
+            <th><spring:message code="common.menu"/></th>
         </tr>
         </thead>
         <tbody>
         <c:forEach var="restaurant" items="${restaurants}" varStatus="status">
             <c:set var="id" value="${restaurant.id}"/>
-            <tr>
-                <td><a href="profile/restaurants/${id}/dishes">${restaurant.name}</a></td>
+            <tr data-voted="${restaurant.vote != null ? true : false}">
+                <td><a href="profile/restaurants/${id}/votes">${restaurant.name}</a></td>
+                <td>
+                    <button type="button" onclick="window.location.href='profile/restaurants/${id}/dishes'">
+                        <spring:message code="common.view"/></button>
+                </td>
             </tr>
         </c:forEach>
         </tbody>

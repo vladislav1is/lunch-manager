@@ -1,11 +1,15 @@
 package com.redfox.lunchmanager.web.restaurant;
 
 import com.redfox.lunchmanager.model.Restaurant;
+import com.redfox.lunchmanager.model.Vote;
 import com.redfox.lunchmanager.service.RestaurantService;
+import com.redfox.lunchmanager.service.VoteService;
 import com.redfox.lunchmanager.to.RestaurantTo;
+import com.redfox.lunchmanager.web.SecurityUtil;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static com.redfox.lunchmanager.util.Restaurants.*;
@@ -18,42 +22,61 @@ public abstract class AbstractRestaurantController {
     private static final Logger log = getLogger(AbstractRestaurantController.class);
 
     @Autowired
-    private RestaurantService service;
+    private RestaurantService restaurantService;
+
+    @Autowired
+    private VoteService voteService;
 
     public RestaurantTo create(RestaurantTo restaurantTo) {
         Restaurant restaurant = convertToEntity(restaurantTo);
         log.info("create {}", restaurant);
         checkNew(restaurant);
-        service.create(restaurant);
+        restaurantService.create(restaurant);
         restaurantTo.setId(restaurant.id());
         return restaurantTo;
     }
 
     public void delete(int id) {
         log.info("delete {}", id);
-        service.delete(id);
+        restaurantService.delete(id);
     }
 
     public RestaurantTo get(int id) {
         log.info("get {}", id);
-        return convertToDto(service.get(id));
+        Restaurant restaurant = restaurantService.get(id);
+        Vote vote = voteService.getByDate(LocalDate.now(), SecurityUtil.authUserId());
+        if (vote != null) {
+            return convertToDto(restaurant, vote);
+        } else {
+            return convertToDto(restaurant);
+        }
     }
 
     public List<RestaurantTo> getAll() {
         log.info("getAll");
-        return getTos(service.getAll());
+        Vote vote = voteService.getByDate(LocalDate.now(), SecurityUtil.authUserId());
+        if (vote != null) {
+            return getTos(restaurantService.getAll(), vote);
+        } else {
+            return getTos(restaurantService.getAll());
+        }
     }
 
     public void update(RestaurantTo restaurantTo, int id) {
         Restaurant restaurant = convertToEntity(restaurantTo);
         log.info("update {} with id={}", restaurant, id);
         assureIdConsistent(restaurant, id);
-        service.update(restaurant);
+        restaurantService.update(restaurant);
     }
 
     public RestaurantTo getWithDishes(int id) {
         log.info("getWithMeals {}", id);
-        Restaurant restaurant = service.getWithDishes(id);
-        return convertToDto(restaurant, restaurant.getDishes());
+        Restaurant restaurant = restaurantService.getWithDishes(id);
+        Vote vote = voteService.getByDate(LocalDate.now(), SecurityUtil.authUserId());
+        if (vote != null) {
+            return convertToDto(restaurant, vote, restaurant.getDishes());
+        } else {
+            return convertToDto(restaurant, restaurant.getDishes());
+        }
     }
 }

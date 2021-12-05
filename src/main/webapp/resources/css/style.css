@@ -22,3 +22,11 @@ header, footer {
     padding: 5px 20px;
     margin: 6px 0;
 }
+
+tr[data-voted="false"] {
+    background: #ffe7e7;
+}
+
+tr[data-voted="true"] {
+    background: #edffda;
+}
