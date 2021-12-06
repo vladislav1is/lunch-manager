@@ -767,8 +767,7 @@
                                 <con:request>{
                                     "name": "CreatedDish",
                                     "price": 111,
-                                    "registered": "2021-11-11",
-                                    "restaurant": null
+                                    "registered": "2021-11-27"
                                     }
                                 </con:request>
                                 <con:originalUri>http://localhost/lunch-manager/rest/admin/restaurants/100005/dishes
@@ -982,81 +981,8 @@
             <con:resource name="restaurants" path="/rest/profile/restaurants" id="f1d115b0-fce8-4c2a-810a-1ffb2425200a">
                 <con:settings/>
                 <con:parameters/>
-                <con:resource name="100004" path="100004/dishes" id="b2f09db7-f692-4268-af8c-ce86f2b10192">
-                    <con:settings/>
-                    <con:parameters>
 
 
-                    </con:parameters>
-
-                    <con:method name="" id="c478f840-6ef6-42d3-b4eb-f226cca5e7fb" method="GET">
-                        <con:settings/>
-                        <con:parameters/>
-                        <con:representation type="RESPONSE">
-                            <con:mediaType>application/json;charset=UTF-8</con:mediaType>
-                            <con:status>200</con:status>
-                            <con:params/>
-                            <con:element>Response</con:element>
-                        </con:representation>
-                        <con:representation type="FAULT">
-                            <con:mediaType>text/html;charset=utf-8</con:mediaType>
-                            <con:status>404</con:status>
-                            <con:params/>
-                            <con:element>html</con:element>
-                        </con:representation>
-                        <con:request name="GetAll" id="5982b48e-9764-4d11-80b2-41265d37592e"
-                                     mediaType="application/json">
-                            <con:settings>
-                                <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
-                            </con:settings>
-                            <con:endpoint>http://localhost:8080</con:endpoint>
-                            <con:request/>
-                            <con:originalUri>
-                                http://localhost/lunch-manager/rest/profile/restaurants/100004/dishes/between
-                            </con:originalUri>
-                            <con:credentials>
-                                <con:authType>No Authorization</con:authType>
-                            </con:credentials>
-                            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
-                            <con:jmsPropertyConfig/>
-                            <con:parameters/>
-                            <con:parameterOrder/>
-                        </con:request>
-                    </con:method>
-                </con:resource>
-                <con:resource name="100009" path="100004/dishes/100009" id="2ad37574-8574-48a5-b8a4-51ea5eb846d8">
-                    <con:settings/>
-                    <con:parameters/>
-                    <con:method name="" id="702ff56f-b052-470b-b056-ebd3670897b0" method="GET">
-                        <con:settings/>
-                        <con:parameters/>
-                        <con:representation type="RESPONSE">
-                            <con:mediaType>application/json;charset=UTF-8</con:mediaType>
-                            <con:status>200</con:status>
-                            <con:params/>
-                            <con:element
-                                    xmlns:ns="http://localhost/lunch-manager/rest/profile/restaurants/100004/dishes/100009">
-                                ns:Response
-                            </con:element>
-                        </con:representation>
-                        <con:request name="Get" id="0e5953e8-e0b7-4146-8579-dc9c71d3052d" mediaType="application/json">
-                            <con:settings>
-                                <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
-                            </con:settings>
-                            <con:endpoint>http://localhost:8080</con:endpoint>
-                            <con:request/>
-                            <con:originalUri>
-                                http://localhost/lunch-manager/rest/profile/restaurants/100004/dishes/100009
-                            </con:originalUri>
-                            <con:credentials>
-                                <con:authType>No Authorization</con:authType>
-                            </con:credentials>
-                            <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
-                            <con:jmsPropertyConfig/>
-                            <con:parameters/>
-                        </con:request>
-                    </con:method>
-                </con:resource>
                 <con:resource name="100004" path="100004" id="d9b120d0-c759-4a3e-8037-0dec26966390">
                     <con:settings/>
                     <con:parameters/>
@@ -1084,6 +1010,306 @@
                                 <con:request/>
                                 <con:originalUri>
                                     http://localhost/lunch-manager/rest/profile/restaurants/100004/with-dishes
+                                </con:originalUri>
+                                <con:credentials>
+                                    <con:authType>No Authorization</con:authType>
+                                </con:credentials>
+                                <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+                                <con:jmsPropertyConfig/>
+                                <con:parameters/>
+                            </con:request>
+                        </con:method>
+                    </con:resource>
+                    <con:resource name="votes" path="votes" id="13afce6a-cb50-47de-b6d3-1ca6c790c591">
+                        <con:settings/>
+                        <con:parameters/>
+                        <con:resource name="100016" path="100016" id="56743442-d8a4-441e-83e3-802b48feb572">
+                            <con:settings/>
+                            <con:parameters/>
+                            <con:method name="" id="97ecc459-e310-4814-9234-26b9ce7f94df" method="GET">
+                                <con:settings/>
+                                <con:parameters/>
+                                <con:representation type="RESPONSE">
+                                    <con:mediaType>application/json;charset=UTF-8</con:mediaType>
+                                    <con:status>200</con:status>
+                                    <con:params/>
+                                    <con:element
+                                            xmlns:ns="http://localhost/lunch-manager/rest/profile/restaurants/100004/votes/100016">
+                                        ns:Response
+                                    </con:element>
+                                </con:representation>
+                                <con:representation type="FAULT">
+                                    <con:mediaType>text/html;charset=utf-8</con:mediaType>
+                                    <con:status>500</con:status>
+                                    <con:params/>
+                                    <con:element>html</con:element>
+                                </con:representation>
+                                <con:request name="Get" id="25726405-24f7-4fac-909f-fb78bab30641"
+                                             mediaType="application/json">
+                                    <con:settings>
+                                        <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+                                    </con:settings>
+                                    <con:endpoint>http://localhost:8080</con:endpoint>
+                                    <con:request/>
+                                    <con:originalUri>
+                                        http://localhost/lunch-manager/rest/profile/restaurants/100004/votes/100016
+                                    </con:originalUri>
+                                    <con:credentials>
+                                        <con:authType>No Authorization</con:authType>
+                                    </con:credentials>
+                                    <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+                                    <con:jmsPropertyConfig/>
+                                    <con:parameters/>
+                                </con:request>
+                            </con:method>
+                            <con:method name="" id="b0fad8b0-1869-4dc1-9681-b4531f65679a" method="PUT">
+                                <con:settings/>
+                                <con:parameters/>
+                                <con:representation type="REQUEST">
+                                    <con:mediaType>application/json</con:mediaType>
+                                    <con:params/>
+                                </con:representation>
+                                <con:representation type="RESPONSE">
+                                    <con:mediaType xsi:nil="true"/>
+                                    <con:status>204</con:status>
+                                    <con:params/>
+                                    <con:element>data</con:element>
+                                </con:representation>
+                                <con:representation type="RESPONSE">
+                                    <con:mediaType xsi:nil="true"/>
+                                    <con:status>204</con:status>
+                                    <con:params/>
+                                    <con:element>data</con:element>
+                                </con:representation>
+                                <con:representation type="RESPONSE">
+                                    <con:mediaType xsi:nil="true"/>
+                                    <con:status>204</con:status>
+                                    <con:params/>
+                                    <con:element>data</con:element>
+                                </con:representation>
+                                <con:request name="Update" id="33c646cf-131c-4b03-9935-a32db94cc4fa"
+                                             mediaType="application/json" postQueryString="false">
+                                    <con:settings>
+                                        <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+                                    </con:settings>
+                                    <con:endpoint>http://localhost:8080</con:endpoint>
+                                    <con:request>{
+                                        "registered": "2021-10-06"
+                                        }
+                                    </con:request>
+                                    <con:originalUri>
+                                        http://localhost/lunch-manager/rest/profile/restaurants/100004/votes/100016
+                                    </con:originalUri>
+                                    <con:credentials>
+                                        <con:authType>No Authorization</con:authType>
+                                    </con:credentials>
+                                    <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+                                    <con:jmsPropertyConfig/>
+                                    <con:parameters/>
+                                </con:request>
+                            </con:method>
+                            <con:method name="" id="a34878f4-e8be-49fa-b071-59988711caea" method="DELETE">
+                                <con:settings/>
+                                <con:parameters/>
+                                <con:representation type="RESPONSE">
+                                    <con:mediaType xsi:nil="true"/>
+                                    <con:status>204</con:status>
+                                    <con:params/>
+                                    <con:element>data</con:element>
+                                </con:representation>
+                                <con:representation type="REQUEST">
+                                    <con:mediaType>application/json</con:mediaType>
+                                    <con:params/>
+                                </con:representation>
+                                <con:request name="Delete" id="150970f6-fd2f-47fc-9777-a6f46b124de1"
+                                             mediaType="application/json" postQueryString="false">
+                                    <con:settings>
+                                        <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+                                    </con:settings>
+                                    <con:endpoint>http://localhost:8080</con:endpoint>
+                                    <con:request/>
+                                    <con:originalUri>
+                                        http://localhost/lunch-manager/rest/profile/restaurants/100004/votes/100016
+                                    </con:originalUri>
+                                    <con:credentials>
+                                        <con:authType>No Authorization</con:authType>
+                                    </con:credentials>
+                                    <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+                                    <con:jmsPropertyConfig/>
+                                    <con:parameters/>
+                                </con:request>
+                            </con:method>
+                        </con:resource>
+                        <con:resource name="between" path="filter" id="b869108b-bec8-4692-964a-ccbd5fe12f23">
+                            <con:settings/>
+                            <con:parameters>
+                                <con:parameter>
+                                    <con:name>startDate</con:name>
+                                    <con:value/>
+                                    <con:style>QUERY</con:style>
+                                    <con:default/>
+                                    <con:description xsi:nil="true"/>
+                                </con:parameter>
+                                <con:parameter>
+                                    <con:name>endDate</con:name>
+                                    <con:value/>
+                                    <con:style>QUERY</con:style>
+                                    <con:default/>
+                                    <con:description xsi:nil="true"/>
+                                </con:parameter>
+                            </con:parameters>
+                            <con:method name="" id="1714b51b-36c5-4590-91e9-0fd99301ec3e" method="GET">
+                                <con:settings/>
+                                <con:parameters/>
+                                <con:representation type="RESPONSE">
+                                    <con:mediaType>application/json;charset=UTF-8</con:mediaType>
+                                    <con:status>200</con:status>
+                                    <con:params/>
+                                    <con:element>Response</con:element>
+                                </con:representation>
+                                <con:request name="GetBetween" id="13efade7-4640-474c-833f-00ecbb9fafdb"
+                                             mediaType="application/json">
+                                    <con:settings>
+                                        <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+                                    </con:settings>
+                                    <con:endpoint>http://localhost:8080</con:endpoint>
+                                    <con:request/>
+                                    <con:originalUri>
+                                        http://localhost/lunch-manager/rest/profile/restaurants/100004/votes/filter
+                                    </con:originalUri>
+                                    <con:credentials>
+                                        <con:authType>No Authorization</con:authType>
+                                    </con:credentials>
+                                    <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+                                    <con:jmsPropertyConfig/>
+                                    <con:parameters>
+                                        <con:entry key="endDate" value="2021-11-11"/>
+                                        <con:entry key="startDate" value="2021-11-11"/>
+                                    </con:parameters>
+                                    <con:parameterOrder>
+                                        <con:entry>startDate</con:entry>
+                                        <con:entry>endDate</con:entry>
+                                    </con:parameterOrder>
+                                </con:request>
+                            </con:method>
+                        </con:resource>
+                        <con:method name="" id="5d91f235-2eb3-4b62-9b90-ffa13ed1e8ca" method="GET">
+                            <con:settings/>
+                            <con:parameters/>
+                            <con:representation type="RESPONSE">
+                                <con:mediaType>application/json;charset=UTF-8</con:mediaType>
+                                <con:status>200</con:status>
+                                <con:params/>
+                                <con:element>Response</con:element>
+                            </con:representation>
+                            <con:request name="GetAll" id="76d2039f-3f18-4a14-8f54-f0f7d8fd3b26"
+                                         mediaType="application/json">
+                                <con:settings>
+                                    <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+                                </con:settings>
+                                <con:endpoint>http://localhost:8080</con:endpoint>
+                                <con:request/>
+                                <con:originalUri>http://localhost/lunch-manager/rest/profile/restaurants/100004/votes
+                                </con:originalUri>
+                                <con:credentials>
+                                    <con:authType>No Authorization</con:authType>
+                                </con:credentials>
+                                <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+                                <con:jmsPropertyConfig/>
+                                <con:parameters/>
+                            </con:request>
+                        </con:method>
+                        <con:method name="" id="d89ec2d0-8063-4ac7-bf96-42802e06d952" method="POST">
+                            <con:settings/>
+                            <con:parameters/>
+                            <con:representation type="REQUEST">
+                                <con:mediaType>application/json</con:mediaType>
+                                <con:params/>
+                            </con:representation>
+                            <con:representation type="RESPONSE">
+                                <con:mediaType>application/json;charset=UTF-8</con:mediaType>
+                                <con:status>201</con:status>
+                                <con:params/>
+                                <con:element
+                                        xmlns:vot="http://localhost/lunch-manager/rest/profile/restaurants/100004/votes">
+                                    vot:Response
+                                </con:element>
+                            </con:representation>
+                            <con:request name="Create" id="ab18c464-5729-47c1-93ca-3d018d19f4f9"
+                                         mediaType="application/json" postQueryString="false">
+                                <con:settings>
+                                    <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+                                </con:settings>
+                                <con:endpoint>http://localhost:8080</con:endpoint>
+                                <con:request>{
+                                    "registered": "2021-11-06"
+                                    }
+                                </con:request>
+                                <con:originalUri>http://localhost/lunch-manager/rest/profile/restaurants/100004/votes
+                                </con:originalUri>
+                                <con:credentials>
+                                    <con:authType>No Authorization</con:authType>
+                                </con:credentials>
+                                <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+                                <con:jmsPropertyConfig/>
+                                <con:parameters/>
+                            </con:request>
+                        </con:method>
+                    </con:resource>
+                    <con:resource name="dishes" path="dishes" id="ee4d4c91-84ed-4270-94a5-1d71df7b54c3">
+                        <con:settings/>
+                        <con:parameters/>
+                        <con:resource name="100009" path="100009" id="f8ed513b-c46c-4afe-ad09-d2162969df55">
+                            <con:settings/>
+                            <con:parameters/>
+                            <con:method name="" id="187f6ca5-d85f-43cf-9ec2-cb998d452680" method="GET">
+                                <con:settings/>
+                                <con:parameters/>
+                                <con:representation type="RESPONSE">
+                                    <con:mediaType>application/json;charset=UTF-8</con:mediaType>
+                                    <con:status>200</con:status>
+                                    <con:params/>
+                                    <con:element
+                                            xmlns:ns="http://localhost/lunch-manager/rest/profile/restaurants/100004/dishes/100009">
+                                        ns:Response
+                                    </con:element>
+                                </con:representation>
+                                <con:request name="Get" id="450302af-492d-4a07-9b99-dbe6df376cfd"
+                                             mediaType="application/json">
+                                    <con:settings>
+                                        <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+                                    </con:settings>
+                                    <con:endpoint>http://localhost:8080</con:endpoint>
+                                    <con:request/>
+                                    <con:originalUri>
+                                        http://localhost/lunch-manager/rest/profile/restaurants/100004/dishes/100009
+                                    </con:originalUri>
+                                    <con:credentials>
+                                        <con:authType>No Authorization</con:authType>
+                                    </con:credentials>
+                                    <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
+                                    <con:jmsPropertyConfig/>
+                                    <con:parameters/>
+                                </con:request>
+                            </con:method>
+                        </con:resource>
+                        <con:method name="" id="1ff84893-87bd-490c-a275-bc7aef30c48a" method="GET">
+                            <con:settings/>
+                            <con:parameters/>
+                            <con:representation type="RESPONSE">
+                                <con:mediaType>application/json;charset=UTF-8</con:mediaType>
+                                <con:status>200</con:status>
+                                <con:params/>
+                                <con:element>Response</con:element>
+                            </con:representation>
+                            <con:request name="GetAll" id="5ba07d0d-019a-4fb4-90e7-ce7ac8997286"
+                                         mediaType="application/json">
+                                <con:settings>
+                                    <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
+                                </con:settings>
+                                <con:endpoint>http://localhost:8080</con:endpoint>
+                                <con:request/>
+                                <con:originalUri>http://localhost/lunch-manager/rest/profile/restaurants/100004/dishes
                                 </con:originalUri>
                                 <con:credentials>
                                     <con:authType>No Authorization</con:authType>

@@ -72,6 +72,52 @@ GET http://localhost:8080/lunch-manager/rest/profile/restaurants/100004/dishes/1
 GET http://localhost:8080/lunch-manager/rest/profile/restaurants/100004/dishes
 
 ########################################################################################################################
+############ Vote resources
+########################################################################################################################
+
+### create Vote
+# curl -X POST --location "http://localhost:8080/lunch-manager/rest/profile/restaurants/100004/votes"
+#    -H "Content-Type: application/json"
+#    -d "{
+#          \"registered\": \"2021-11-06\"
+#        }"
+POST http://localhost:8080/lunch-manager/rest/profile/restaurants/100004/votes
+Content-Type: application/json
+
+{
+  "registered": "2021-11-06"
+}
+
+### delete Vote:100020
+# curl -X DELETE --location "http://localhost:8080/lunch-manager/rest/profile/restaurants/100004/votes/100020"
+DELETE http://localhost:8080/lunch-manager/rest/profile/restaurants/100004/votes/100020
+
+### update Vote:100016
+# curl -X PUT --location "http://localhost:8080/lunch-manager/rest/profile/restaurants/100004/votes/100016"
+#    -H "Content-Type: application/json"
+#    -d "{
+#          \"registered\": \"2021-10-06\"
+#        }"
+PUT http://localhost:8080/lunch-manager/rest/profile/restaurants/100004/votes/100016
+Content-Type: application/json
+
+{
+  "registered": "2021-10-06"
+}
+
+### get Vote:100017
+# curl -X GET --location "http://localhost:8080/lunch-manager/rest/profile/restaurants/100004/votes/100017"
+GET http://localhost:8080/lunch-manager/rest/profile/restaurants/100004/votes/100017
+
+### get All Votes
+# curl -X GET --location "http://localhost:8080/lunch-manager/rest/profile/restaurants/100004/votes"
+GET http://localhost:8080/lunch-manager/rest/profile/restaurants/100004/votes
+
+### get Votes Between:2021-11-11&2021-11-11
+# curl -X GET --location "http://localhost:8080/lunch-manager/rest/profile/restaurants/100004/votes/filter?startDate=2021-11-11&endDate=2021-11-11"
+GET http://localhost:8080/lunch-manager/rest/profile/restaurants/100004/votes/filter?startDate=2021-11-11&endDate=2021-11-11
+
+########################################################################################################################
 ### Admin resources
 ########################################################################################################################
 

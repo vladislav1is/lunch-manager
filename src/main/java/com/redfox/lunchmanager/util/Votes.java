@@ -4,6 +4,7 @@ import com.redfox.lunchmanager.model.Vote;
 import com.redfox.lunchmanager.to.VoteTo;
 
 import java.time.LocalTime;
+import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
@@ -26,6 +27,12 @@ public class Votes {
 
     public static List<VoteTo> getTos(Collection<Vote> votes) {
         return votes.stream()
+                .map(Votes::convertToDto)
+                .toList();
+    }
+
+    public static List<VoteTo> getTos(Vote... votes) {
+        return Arrays.stream(votes)
                 .map(Votes::convertToDto)
                 .toList();
     }
