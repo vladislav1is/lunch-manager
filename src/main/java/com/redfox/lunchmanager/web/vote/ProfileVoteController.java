@@ -10,7 +10,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
-import javax.servlet.http.HttpServletRequest;
 import java.time.LocalDate;
 
 import static com.redfox.lunchmanager.util.Restaurants.convertToDto;
@@ -34,7 +33,7 @@ public class ProfileVoteController extends AbstractVoteController {
     }
 
     @PostMapping
-    public String updateOrCreate(@PathVariable int restaurantId, HttpServletRequest request) {
+    public String updateOrCreate(@PathVariable int restaurantId) {
         var newVote = new VoteTo(null, LocalDate.now());
         VoteTo currentVote = super.getByDate(LocalDate.now());
         if (currentVote != null) {
