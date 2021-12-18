@@ -11,59 +11,73 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title><spring:message code="dish.title"/>&nbsp${restaurant.name}</title>
     <base href="${pageContext.request.contextPath}/"/>
-    <link rel="stylesheet" href="resources/css/style.css">
+
+    <link rel="stylesheet" href="resources/css/style.css?v=2">
+    <link rel="stylesheet" href="webjars/bootstrap/4.6.0-1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="webjars/noty/3.1.4/demo/font-awesome/css/font-awesome.min.css">
+    <link rel="shortcut icon" href="resources/images/icon-fox.png">
 </head>
 <body>
 <jsp:include page="fragments/bodyHeader.jsp"/>
-<section>
-    <h3><spring:message code="dish.title"/>&nbsp${restaurant.name}</h3>
-    <form method="get" action="admin/restaurants/${restaurantId}/dishes/filter">
-        <dl>
-            <dt><spring:message code="dish.startDate"/>:</dt>
-            <dd><input type="date" name="startDate" value="${param.startDate}"></dd>
-        </dl>
-        <dl>
-            <dt><spring:message code="dish.endDate"/>:</dt>
-            <dd><input type="date" name="endDate" value="${param.endDate}"></dd>
-        </dl>
-        <button type="submit"><spring:message code="dish.filter"/></button>
-    </form>
-    <hr/>
-    <p>
-        <a href="admin/restaurants/${restaurant.id}/dishes/create"><spring:message
-                code="dish.add"/></a><br>
-    </p>
-    <table border="1" cellpadding="8" cellspacing="0">
-        <thead>
-        <tr>
-            <th><spring:message code="dish.registered"/></th>
-            <th><spring:message code="dish.name"/></th>
-            <th><spring:message code="dish.price"/></th>
-            <th colspan="2"></th>
-        </tr>
-        </thead>
-        <tbody>
-        <c:forEach var="dish" items="${dishes}" varStatus="status">
-            <c:set var="id" value="${dish.id}"/>
+<div class="jumbotron pt-4">
+    <div class="container">
+        <h3 class="text-center"><spring:message code="dish.title"/>&nbsp${restaurant.name}</h3>
+
+        <form method="get" action="admin/restaurants/${restaurantId}/dishes/filter">
+            <div class="form-group row">
+                <label for="startDate" class="col-sm-1 col-form-label"><spring:message code="dish.startDate"/>:</label>
+                <div class="col-sm-3">
+                    <input id="startDate" type="date" name="startDate" value="${param.startDate}" class="form-control">
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="endDate" class="col-sm-1 col-form-label"><spring:message code="dish.endDate"/>:</label>
+                <div class="col-sm-3">
+                    <input id="endDate" type="date" name="endDate" value="${param.endDate}" class="form-control">
+                </div>
+            </div>
+            <button type="button" onclick="location.href='admin/restaurants/${restaurant.id}/dishes/create'"
+                    class="btn btn-primary">
+                <span class="fa fa-plus"></span>
+                <spring:message code="dish.add"/>
+            </button>
+            <button type="submit" class="btn btn-primary">
+                <spring:message code="dish.filter"/>
+            </button>
+        </form>
+
+        <table class="table table-striped mt-3">
+            <thead>
             <tr>
-                <td>${fns:formatDate(dish.registered)}</td>
-                <td>${dish.name}</td>
-                <td>${dish.price}</td>
-                <td>
-                    <a href="admin/restaurants/${restaurant.id}/dishes/update?id=${id}">
-                        <spring:message code="common.update"/>
-                    </a>
-                </td>
-                <td>
-                    <a href="admin/restaurants/${restaurant.id}/dishes/delete?id=${id}">
-                        <spring:message code="common.delete"/>
-                    </a>
-                </td>
+                <th><spring:message code="dish.registered"/></th>
+                <th><spring:message code="dish.name"/></th>
+                <th><spring:message code="dish.price"/></th>
+                <th colspan="2"></th>
             </tr>
-        </c:forEach>
-        </tbody>
-    </table>
-</section>
+            </thead>
+            <tbody>
+            <c:forEach var="dish" items="${dishes}">
+                <c:set var="id" value="${dish.id}"/>
+                <tr>
+                    <td>${fns:formatDate(dish.registered)}</td>
+                    <td>${dish.name}</td>
+                    <td>${dish.price}</td>
+                    <td>
+                        <a href="admin/restaurants/${restaurant.id}/dishes/update?id=${id}">
+                            <span class="fa text-dark fa-pencil"></span>
+                        </a>
+                    </td>
+                    <td>
+                        <a href="admin/restaurants/${restaurant.id}/dishes/delete?id=${id}">
+                            <span class="fa text-dark fa-remove"></span>
+                        </a>
+                    </td>
+                </tr>
+            </c:forEach>
+            </tbody>
+        </table>
+    </div>
+</div>
 <jsp:include page="fragments/footer.jsp"/>
 </body>
 </html>

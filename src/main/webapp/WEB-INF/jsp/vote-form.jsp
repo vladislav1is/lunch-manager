@@ -11,39 +11,48 @@
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
     <title><spring:message code="vote.title"/>&nbsp${restaurant.name}</title>
     <base href="${pageContext.request.contextPath}/"/>
-    <link rel="stylesheet" href="resources/css/style.css">
-</head>
+
+    <link rel="stylesheet" href="resources/css/style.css?v=2">
+    <link rel="stylesheet" href="webjars/bootstrap/4.6.0-1/css/bootstrap.min.css">
+    <link rel="stylesheet" href="webjars/noty/3.1.4/demo/font-awesome/css/font-awesome.min.css">
+    <link rel="shortcut icon" href="resources/images/icon-fox.png"></head>
 <body>
 <jsp:include page="fragments/bodyHeader.jsp"/>
-<section>
-    <h3><spring:message code="vote.title"/>&nbsp${restaurant.name}</h3>
-    <hr/>
-    <c:set var="allowed" value="${fn:canRevoteBefore(15, 0) ? '' : 'disabled'}" scope="page"/>
-    <form method="post" action="profile/restaurants/${restaurant.id}/votes">
-        <table border="1" cellpadding="8" cellspacing="0">
-            <thead>
-            <tr>
-                <th><spring:message code="restaurant.name"/></th>
-                <th><spring:message code="common.menu"/></th>
-                <th><spring:message code="vote.votes"/></th>
-            </tr>
-            </thead>
-            <tbody>
-            <tr>
-                <td>${restaurant.name}</td>
-                <td>
-                    <button type="button" onclick="window.location.href='profile/restaurants/${restaurant.id}/dishes'">
-                        <spring:message code="common.view"/></button>
-                </td>
-                <td>${fns:length(votes)}</td>
-            </tr>
-            </tbody>
-        </table>
-        <br>
-        <button type="submit" ${allowed}><spring:message code="common.vote"/></button>
-        <button onclick="window.history.back()" type="button"><spring:message code="common.cancel"/></button>
-    </form>
-</section>
+<div class="jumbotron pt-4">
+    <div class="container">
+        <h3><spring:message code="vote.title"/>&nbsp${restaurant.name}</h3>
+
+        <c:set var="allowed" value="${fn:canRevoteBefore(15, 0) ? '' : 'disabled'}" scope="page"/>
+        <form method="post" action="profile/restaurants/${restaurant.id}/votes">
+            <table class="table table-striped mt-3">
+                <thead>
+                <tr>
+                    <th><spring:message code="restaurant.name"/></th>
+                    <th><spring:message code="common.menu"/></th>
+                    <th><spring:message code="common.visitors"/></th>
+                </tr>
+                </thead>
+                <tbody>
+                <tr>
+                    <td>${restaurant.name}</td>
+                    <td>
+                        <button type="button" onclick="window.location.href='profile/restaurants/${restaurant.id}/dishes'"
+                                class="btn btn-sm btn-secondary">
+                            <spring:message code="common.view"/></button>
+                    </td>
+                    <td>${fns:length(votes)}</td>
+                </tr>
+                </tbody>
+            </table>
+            <button type="submit" ${allowed} class="btn btn-primary">
+                <spring:message code="common.vote"/>
+            </button>
+            <button type="button" onclick="window.history.back()" class="btn btn-primary">
+                <spring:message code="common.cancel"/>
+            </button>
+        </form>
+    </div>
+</div>
 <jsp:include page="fragments/footer.jsp"/>
 </body>
 </html>

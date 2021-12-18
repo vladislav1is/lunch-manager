@@ -7,17 +7,19 @@
 <body>
 <jsp:include page="fragments/bodyHeader.jsp"/>
 <br>
-<section>
-    <form method="post" action="users">
-        <spring:message code="app.login"/>: <label> <select name="userId">
-        <option value="100001">Admin1</option>
-        <option value="100002">Admin2</option>
-        <option value="100003" selected>User</option>
-    </select>
-    </label>
-        <button type="submit"><spring:message code="common.select"/></button>
-    </form>
-</section>
+<div class="jumbotron">
+    <div class="container">
+        <form method="post" action="users" class="form-inline">
+            <label><spring:message code="app.login"/></label>
+            <select name="userId" class="form-control mx-3">
+                <option value="100001">Admin1</option>
+                <option value="100002">Admin2</option>
+                <option value="100003" selected>User</option>
+            </select>
+            <button type="submit" class="btn btn-primary"><spring:message code="common.select"/></button>
+        </form>
+    </div>
+</div>
 <jsp:include page="fragments/footer.jsp"/>
 </body>
 </html>
