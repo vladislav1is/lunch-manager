@@ -1,11 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<con:soapui-project id="2383245b-2ab6-49cf-96fb-b384b9c611a3" activeEnvironment="Default" name="Lunch Manager"
-                    resourceRoot="" soapui-version="5.6.0" abortOnError="false" runType="SEQUENTIAL"
-                    xmlns:con="http://eviware.com/soapui/config">
+<con:soapui-project id="2383245b-2ab6-49cf-96fb-b384b9c611a3" activeEnvironment="Default" name="Lunch Manager" resourceRoot="" soapui-version="5.6.0" abortOnError="false" runType="SEQUENTIAL" xmlns:con="http://eviware.com/soapui/config">
     <con:settings/>
-    <con:interface xsi:type="con:RestService" id="86e3ee01-1e67-49f7-949a-1b5be4c85d60"
-                   wadlVersion="http://wadl.dev.java.net/2009/02" name="http://localhost:8080" type="rest"
-                   xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
+    <con:interface xsi:type="con:RestService" id="86e3ee01-1e67-49f7-949a-1b5be4c85d60" wadlVersion="http://wadl.dev.java.net/2009/02" name="http://localhost:8080" type="rest" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance">
         <con:settings/>
         <con:definitionCache/>
         <con:endpoints>
@@ -36,7 +32,7 @@
                             <con:request/>
                             <con:originalUri>http://localhost/lunch-manager/rest/profile/text</con:originalUri>
                             <con:credentials>
-                                <con:authType>No Authorization</con:authType>
+                                <con:username>user@yandex.ru</con:username><con:password>password</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
                             </con:credentials>
                             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
                             <con:jmsPropertyConfig/>
@@ -49,7 +45,7 @@
                     <con:parameters/>
                     <con:representation type="FAULT">
                         <con:mediaType>text/html;charset=utf-8</con:mediaType>
-                        <con:status>404</con:status>
+                        <con:status>404 401</con:status>
                         <con:params/>
                         <con:element>html</con:element>
                     </con:representation>
@@ -68,7 +64,7 @@
                         <con:request/>
                         <con:originalUri>http://localhost/lunch-manager/rest/profile</con:originalUri>
                         <con:credentials>
-                            <con:authType>No Authorization</con:authType>
+                            <con:username>user@yandex.ru</con:username><con:password>password</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
                         </con:credentials>
                         <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
                         <con:jmsPropertyConfig/>
@@ -101,8 +97,7 @@
                         <con:params/>
                         <con:element>data</con:element>
                     </con:representation>
-                    <con:request name="Delete" id="277279c5-1c73-47be-8353-8d8c9e5958ef" mediaType="application/json"
-                                 postQueryString="false">
+                    <con:request name="Delete" id="277279c5-1c73-47be-8353-8d8c9e5958ef" mediaType="application/json" postQueryString="false">
                         <con:settings>
                             <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
                         </con:settings>
@@ -110,7 +105,7 @@
                         <con:request/>
                         <con:originalUri>http://localhost/lunch-manager/rest/profile</con:originalUri>
                         <con:credentials>
-                            <con:authType>No Authorization</con:authType>
+                            <con:username>user@yandex.ru</con:username><con:password>password</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
                         </con:credentials>
                         <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
                         <con:jmsPropertyConfig/>
@@ -221,8 +216,7 @@
                         <con:params/>
                         <con:element>data</con:element>
                     </con:representation>
-                    <con:request name="Update" id="d9fc3b22-e586-410f-9d41-fd170e6c06e9" mediaType="application/json"
-                                 postQueryString="false">
+                    <con:request name="Update" id="d9fc3b22-e586-410f-9d41-fd170e6c06e9" mediaType="application/json" postQueryString="false">
                         <con:settings>
                             <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
                         </con:settings>
@@ -238,7 +232,7 @@
                         </con:request>
                         <con:originalUri>http://localhost/lunch-manager/rest/profile</con:originalUri>
                         <con:credentials>
-                            <con:authType>No Authorization</con:authType>
+                            <con:username>user@yandex.ru</con:username><con:password>password</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
                         </con:credentials>
                         <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
                         <con:jmsPropertyConfig/>
@@ -271,7 +265,7 @@
                             <con:request/>
                             <con:originalUri>http://localhost/lunch-manager/rest/admin/users/100001</con:originalUri>
                             <con:credentials>
-                                <con:authType>No Authorization</con:authType>
+                                <con:username>admin@gmail.com</con:username><con:password>admin</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
                             </con:credentials>
                             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
                             <con:jmsPropertyConfig/>
@@ -300,8 +294,7 @@
                             <con:params/>
                             <con:element>html</con:element>
                         </con:representation>
-                        <con:request name="Delete" id="932f7495-a004-4dec-906f-d1ae2763756c"
-                                     mediaType="application/json" postQueryString="false">
+                        <con:request name="Delete" id="932f7495-a004-4dec-906f-d1ae2763756c" mediaType="application/json" postQueryString="false">
                             <con:settings>
                                 <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
                             </con:settings>
@@ -309,7 +302,7 @@
                             <con:request/>
                             <con:originalUri>http://localhost/lunch-manager/rest/admin/users/100001</con:originalUri>
                             <con:credentials>
-                                <con:authType>No Authorization</con:authType>
+                                <con:username>admin@gmail.com</con:username><con:password>admin</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
                             </con:credentials>
                             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
                             <con:jmsPropertyConfig/>
@@ -374,8 +367,7 @@
                             <con:params/>
                             <con:element>data</con:element>
                         </con:representation>
-                        <con:request name="Update" id="78dde81e-c94e-47c5-bf06-97b94ec9455b"
-                                     mediaType="application/json" postQueryString="false">
+                        <con:request name="Update" id="78dde81e-c94e-47c5-bf06-97b94ec9455b" mediaType="application/json" postQueryString="false">
                             <con:settings>
                                 <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
                             </con:settings>
@@ -391,7 +383,7 @@
                             </con:request>
                             <con:originalUri>http://localhost/lunch-manager/rest/admin/users/100001</con:originalUri>
                             <con:credentials>
-                                <con:authType>No Authorization</con:authType>
+                                <con:username>admin@gmail.com</con:username><con:password>admin</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
                             </con:credentials>
                             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
                             <con:jmsPropertyConfig/>
@@ -429,8 +421,7 @@
                             <con:params/>
                             <con:element>html</con:element>
                         </con:representation>
-                        <con:request name="GetBy" id="1021921b-80e2-4203-b524-624b2d366c45"
-                                     mediaType="application/json">
+                        <con:request name="GetBy" id="1021921b-80e2-4203-b524-624b2d366c45" mediaType="application/json">
                             <con:settings>
                                 <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
                             </con:settings>
@@ -438,7 +429,7 @@
                             <con:request/>
                             <con:originalUri>http://localhost/lunch-manager/rest/admin/users/by</con:originalUri>
                             <con:credentials>
-                                <con:authType>No Authorization</con:authType>
+                                <con:username>admin@gmail.com</con:username><con:password>admin</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
                             </con:credentials>
                             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
                             <con:jmsPropertyConfig/>
@@ -468,7 +459,7 @@
                         <con:request/>
                         <con:originalUri>http://localhost/lunch-manager/rest/admin/users</con:originalUri>
                         <con:credentials>
-                            <con:authType>No Authorization</con:authType>
+                            <con:username>admin@gmail.com</con:username><con:password>admin</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
                         </con:credentials>
                         <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
                         <con:jmsPropertyConfig/>
@@ -495,8 +486,7 @@
                         <con:params/>
                         <con:element>html</con:element>
                     </con:representation>
-                    <con:request name="Create" id="d0fb42b1-f890-477c-af17-dae100451817" mediaType="application/json"
-                                 postQueryString="false">
+                    <con:request name="Create" id="d0fb42b1-f890-477c-af17-dae100451817" mediaType="application/json" postQueryString="false">
                         <con:settings>
                             <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
                         </con:settings>
@@ -512,7 +502,7 @@
                         </con:request>
                         <con:originalUri>http://localhost/lunch-manager/rest/admin/users</con:originalUri>
                         <con:credentials>
-                            <con:authType>No Authorization</con:authType>
+                            <con:username>admin@gmail.com</con:username><con:password>admin</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
                         </con:credentials>
                         <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
                         <con:jmsPropertyConfig/>
@@ -539,13 +529,11 @@
                                     <con:mediaType>application/json;charset=UTF-8</con:mediaType>
                                     <con:status>200</con:status>
                                     <con:params/>
-                                    <con:element
-                                            xmlns:ns="http://localhost/lunch-manager/rest/admin/restaurants/100005/dishes/100011">
+                                    <con:element xmlns:ns="http://localhost/lunch-manager/rest/admin/restaurants/100005/dishes/100011">
                                         ns:Response
                                     </con:element>
                                 </con:representation>
-                                <con:request name="Get" id="10882102-d2f9-4afd-a6e8-c3267adcb2fa"
-                                             mediaType="application/json">
+                                <con:request name="Get" id="10882102-d2f9-4afd-a6e8-c3267adcb2fa" mediaType="application/json">
                                     <con:settings>
                                         <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
                                     </con:settings>
@@ -555,7 +543,7 @@
                                         http://localhost/lunch-manager/rest/admin/restaurants/100005/dishes/100011
                                     </con:originalUri>
                                     <con:credentials>
-                                        <con:authType>No Authorization</con:authType>
+                                        <con:username>admin@gmail.com</con:username><con:password>admin</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
                                     </con:credentials>
                                     <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
                                     <con:jmsPropertyConfig/>
@@ -565,13 +553,12 @@
                             <con:method name="" id="949462c6-8e51-4810-8d8c-6d5408e0dd41" method="DELETE">
                                 <con:settings/>
                                 <con:parameters/>
-                                <con:request name="Delete" id="9c3612c2-966e-4f9e-8cee-56677636cc06"
-                                             mediaType="application/json" postQueryString="false">
-                                    <con:settings/>
+                                <con:request name="Delete" id="9c3612c2-966e-4f9e-8cee-56677636cc06" mediaType="application/json" postQueryString="false">
+                                    <con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings>
                                     <con:endpoint>http://localhost:8080</con:endpoint>
                                     <con:request/>
                                     <con:credentials>
-                                        <con:authType>No Authorization</con:authType>
+                                        <con:username>admin@gmail.com</con:username><con:password>admin</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
                                     </con:credentials>
                                     <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
                                     <con:jmsPropertyConfig/>
@@ -627,8 +614,7 @@
                                     <con:params/>
                                     <con:element>data</con:element>
                                 </con:representation>
-                                <con:request name="Update" id="c947ed48-a853-4b5a-b827-62bf232c53f1"
-                                             mediaType="application/json" postQueryString="false">
+                                <con:request name="Update" id="c947ed48-a853-4b5a-b827-62bf232c53f1" mediaType="application/json" postQueryString="false">
                                     <con:settings>
                                         <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
                                     </con:settings>
@@ -643,7 +629,7 @@
                                         http://localhost/lunch-manager/rest/admin/restaurants/100005/dishes/100011
                                     </con:originalUri>
                                     <con:credentials>
-                                        <con:authType>No Authorization</con:authType>
+                                        <con:username>admin@gmail.com</con:username><con:password>admin</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
                                     </con:credentials>
                                     <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
                                     <con:jmsPropertyConfig/>
@@ -678,8 +664,7 @@
                                     <con:params/>
                                     <con:element>Response</con:element>
                                 </con:representation>
-                                <con:request name="GetBetween" id="9f5a647e-0baa-43fe-abb0-91147fdc6722"
-                                             mediaType="application/json">
+                                <con:request name="GetBetween" id="9f5a647e-0baa-43fe-abb0-91147fdc6722" mediaType="application/json">
                                     <con:settings>
                                         <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
                                     </con:settings>
@@ -689,7 +674,7 @@
                                         http://localhost/lunch-manager/rest/admin/restaurants/100005/dishes/between
                                     </con:originalUri>
                                     <con:credentials>
-                                        <con:authType>No Authorization</con:authType>
+                                        <con:username>admin@gmail.com</con:username><con:password>admin</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
                                     </con:credentials>
                                     <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
                                     <con:jmsPropertyConfig/>
@@ -713,8 +698,7 @@
                                 <con:params/>
                                 <con:element>Response</con:element>
                             </con:representation>
-                            <con:request name="GetAll" id="f4bae5fd-d39b-459c-9900-5a14ba62ac8b"
-                                         mediaType="application/json">
+                            <con:request name="GetAll" id="f4bae5fd-d39b-459c-9900-5a14ba62ac8b" mediaType="application/json">
                                 <con:settings>
                                     <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
                                 </con:settings>
@@ -723,7 +707,7 @@
                                 <con:originalUri>http://localhost/lunch-manager/rest/admin/restaurants/100005/dishes
                                 </con:originalUri>
                                 <con:credentials>
-                                    <con:authType>No Authorization</con:authType>
+                                    <con:username>admin@gmail.com</con:username><con:password>admin</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
                                 </con:credentials>
                                 <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
                                 <con:jmsPropertyConfig/>
@@ -753,13 +737,11 @@
                                 <con:mediaType>application/json;charset=UTF-8</con:mediaType>
                                 <con:status>201</con:status>
                                 <con:params/>
-                                <con:element
-                                        xmlns:dis="http://localhost/lunch-manager/rest/admin/restaurants/100005/dishes">
+                                <con:element xmlns:dis="http://localhost/lunch-manager/rest/admin/restaurants/100005/dishes">
                                     dis:Response
                                 </con:element>
                             </con:representation>
-                            <con:request name="Create" id="dfa6ded1-a162-4d89-8c97-7b87e0ddc2ce"
-                                         mediaType="application/json" postQueryString="false">
+                            <con:request name="Create" id="dfa6ded1-a162-4d89-8c97-7b87e0ddc2ce" mediaType="application/json" postQueryString="false">
                                 <con:settings>
                                     <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
                                 </con:settings>
@@ -773,7 +755,7 @@
                                 <con:originalUri>http://localhost/lunch-manager/rest/admin/restaurants/100005/dishes
                                 </con:originalUri>
                                 <con:credentials>
-                                    <con:authType>No Authorization</con:authType>
+                                    <con:username>admin@gmail.com</con:username><con:password>admin</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
                                 </con:credentials>
                                 <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
                                 <con:jmsPropertyConfig/>
@@ -791,13 +773,11 @@
                                 <con:mediaType>application/json;charset=UTF-8</con:mediaType>
                                 <con:status>200</con:status>
                                 <con:params/>
-                                <con:element
-                                        xmlns:with="http://localhost/lunch-manager/rest/admin/restaurants/100005/with-dishes">
+                                <con:element xmlns:with="http://localhost/lunch-manager/rest/admin/restaurants/100005/with-dishes">
                                     with:Response
                                 </con:element>
                             </con:representation>
-                            <con:request name="GetWithDishes" id="a01d78be-a86b-4393-a18b-93228e82cb7b"
-                                         mediaType="application/json">
+                            <con:request name="GetWithDishes" id="a01d78be-a86b-4393-a18b-93228e82cb7b" mediaType="application/json">
                                 <con:settings>
                                     <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
                                 </con:settings>
@@ -807,7 +787,7 @@
                                     http://localhost/lunch-manager/rest/admin/restaurants/100005/with-dishes
                                 </con:originalUri>
                                 <con:credentials>
-                                    <con:authType>No Authorization</con:authType>
+                                    <con:username>admin@gmail.com</con:username><con:password>admin</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
                                 </con:credentials>
                                 <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
                                 <con:jmsPropertyConfig/>
@@ -835,7 +815,7 @@
                             <con:originalUri>http://localhost/lunch-manager/rest/admin/restaurants/100005
                             </con:originalUri>
                             <con:credentials>
-                                <con:authType>No Authorization</con:authType>
+                                <con:username>admin@gmail.com</con:username><con:password>admin</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
                             </con:credentials>
                             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
                             <con:jmsPropertyConfig/>
@@ -867,8 +847,7 @@
                             <con:params/>
                             <con:element>data</con:element>
                         </con:representation>
-                        <con:request name="Update" id="e002bbad-8aa4-4688-93ef-8b4de60f69cf"
-                                     mediaType="application/json" postQueryString="false">
+                        <con:request name="Update" id="e002bbad-8aa4-4688-93ef-8b4de60f69cf" mediaType="application/json" postQueryString="false">
                             <con:settings>
                                 <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
                             </con:settings>
@@ -881,7 +860,7 @@
                             <con:originalUri>http://localhost/lunch-manager/rest/admin/restaurants/100005
                             </con:originalUri>
                             <con:credentials>
-                                <con:authType>No Authorization</con:authType>
+                                <con:username>admin@gmail.com</con:username><con:password>admin</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
                             </con:credentials>
                             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
                             <con:jmsPropertyConfig/>
@@ -901,8 +880,7 @@
                             <con:mediaType>application/json</con:mediaType>
                             <con:params/>
                         </con:representation>
-                        <con:request name="Delete" id="dec9c53a-dd82-435f-9746-fbb0bba0fe63"
-                                     mediaType="application/json" postQueryString="false">
+                        <con:request name="Delete" id="dec9c53a-dd82-435f-9746-fbb0bba0fe63" mediaType="application/json" postQueryString="false">
                             <con:settings>
                                 <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
                             </con:settings>
@@ -911,7 +889,7 @@
                             <con:originalUri>http://localhost/lunch-manager/rest/admin/restaurants/100005
                             </con:originalUri>
                             <con:credentials>
-                                <con:authType>No Authorization</con:authType>
+                                <con:username>admin@gmail.com</con:username><con:password>admin</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
                             </con:credentials>
                             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
                             <con:jmsPropertyConfig/>
@@ -936,7 +914,7 @@
                         <con:request/>
                         <con:originalUri>http://localhost/lunch-manager/rest/admin/restaurants</con:originalUri>
                         <con:credentials>
-                            <con:authType>No Authorization</con:authType>
+                            <con:username>admin@gmail.com</con:username><con:password>admin</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
                         </con:credentials>
                         <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
                         <con:jmsPropertyConfig/>
@@ -957,8 +935,7 @@
                         <con:mediaType>application/json</con:mediaType>
                         <con:params/>
                     </con:representation>
-                    <con:request name="Create" id="0e14b8b2-40d4-4456-bd48-350079390cbe" mediaType="application/json"
-                                 postQueryString="false">
+                    <con:representation type="FAULT"><con:mediaType>text/html;charset=utf-8</con:mediaType><con:status>401</con:status><con:params/><con:element>html</con:element></con:representation><con:request name="Create" id="0e14b8b2-40d4-4456-bd48-350079390cbe" mediaType="application/json" postQueryString="false">
                         <con:settings>
                             <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
                         </con:settings>
@@ -970,7 +947,7 @@
                         </con:request>
                         <con:originalUri>http://localhost/lunch-manager/rest/admin/restaurants</con:originalUri>
                         <con:credentials>
-                            <con:authType>No Authorization</con:authType>
+                            <con:username>admin@gmail.com</con:username><con:password>admin</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
                         </con:credentials>
                         <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
                         <con:jmsPropertyConfig/>
@@ -996,13 +973,11 @@
                                 <con:mediaType>application/json;charset=UTF-8</con:mediaType>
                                 <con:status>200</con:status>
                                 <con:params/>
-                                <con:element
-                                        xmlns:with="http://localhost/lunch-manager/rest/profile/restaurants/100004/with-dishes">
+                                <con:element xmlns:with="http://localhost/lunch-manager/rest/profile/restaurants/100004/with-dishes">
                                     with:Response
                                 </con:element>
                             </con:representation>
-                            <con:request name="GetWithDishes" id="ce008692-0fae-4982-8261-dc5bc2310d27"
-                                         mediaType="application/json">
+                            <con:request name="GetWithDishes" id="ce008692-0fae-4982-8261-dc5bc2310d27" mediaType="application/json">
                                 <con:settings>
                                     <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
                                 </con:settings>
@@ -1012,7 +987,7 @@
                                     http://localhost/lunch-manager/rest/profile/restaurants/100004/with-dishes
                                 </con:originalUri>
                                 <con:credentials>
-                                    <con:authType>No Authorization</con:authType>
+                                    <con:username>user@yandex.ru</con:username><con:password>password</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
                                 </con:credentials>
                                 <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
                                 <con:jmsPropertyConfig/>
@@ -1033,8 +1008,7 @@
                                     <con:mediaType>application/json;charset=UTF-8</con:mediaType>
                                     <con:status>200</con:status>
                                     <con:params/>
-                                    <con:element
-                                            xmlns:ns="http://localhost/lunch-manager/rest/profile/restaurants/100004/votes/100016">
+                                    <con:element xmlns:ns="http://localhost/lunch-manager/rest/profile/restaurants/100004/votes/100016">
                                         ns:Response
                                     </con:element>
                                 </con:representation>
@@ -1044,8 +1018,7 @@
                                     <con:params/>
                                     <con:element>html</con:element>
                                 </con:representation>
-                                <con:request name="Get" id="25726405-24f7-4fac-909f-fb78bab30641"
-                                             mediaType="application/json">
+                                <con:request name="Get" id="25726405-24f7-4fac-909f-fb78bab30641" mediaType="application/json">
                                     <con:settings>
                                         <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
                                     </con:settings>
@@ -1055,7 +1028,7 @@
                                         http://localhost/lunch-manager/rest/profile/restaurants/100004/votes/100016
                                     </con:originalUri>
                                     <con:credentials>
-                                        <con:authType>No Authorization</con:authType>
+                                        <con:username>user@yandex.ru</con:username><con:password>password</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
                                     </con:credentials>
                                     <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
                                     <con:jmsPropertyConfig/>
@@ -1087,8 +1060,7 @@
                                     <con:params/>
                                     <con:element>data</con:element>
                                 </con:representation>
-                                <con:request name="Update" id="33c646cf-131c-4b03-9935-a32db94cc4fa"
-                                             mediaType="application/json" postQueryString="false">
+                                <con:request name="Update" id="33c646cf-131c-4b03-9935-a32db94cc4fa" mediaType="application/json" postQueryString="false">
                                     <con:settings>
                                         <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
                                     </con:settings>
@@ -1101,7 +1073,7 @@
                                         http://localhost/lunch-manager/rest/profile/restaurants/100004/votes/100016
                                     </con:originalUri>
                                     <con:credentials>
-                                        <con:authType>No Authorization</con:authType>
+                                        <con:username>user@yandex.ru</con:username><con:password>password</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
                                     </con:credentials>
                                     <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
                                     <con:jmsPropertyConfig/>
@@ -1121,8 +1093,7 @@
                                     <con:mediaType>application/json</con:mediaType>
                                     <con:params/>
                                 </con:representation>
-                                <con:request name="Delete" id="150970f6-fd2f-47fc-9777-a6f46b124de1"
-                                             mediaType="application/json" postQueryString="false">
+                                <con:request name="Delete" id="150970f6-fd2f-47fc-9777-a6f46b124de1" mediaType="application/json" postQueryString="false">
                                     <con:settings>
                                         <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
                                     </con:settings>
@@ -1132,7 +1103,7 @@
                                         http://localhost/lunch-manager/rest/profile/restaurants/100004/votes/100016
                                     </con:originalUri>
                                     <con:credentials>
-                                        <con:authType>No Authorization</con:authType>
+                                        <con:username>user@yandex.ru</con:username><con:password>password</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
                                     </con:credentials>
                                     <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
                                     <con:jmsPropertyConfig/>
@@ -1167,8 +1138,7 @@
                                     <con:params/>
                                     <con:element>Response</con:element>
                                 </con:representation>
-                                <con:request name="GetBetween" id="13efade7-4640-474c-833f-00ecbb9fafdb"
-                                             mediaType="application/json">
+                                <con:request name="GetBetween" id="13efade7-4640-474c-833f-00ecbb9fafdb" mediaType="application/json">
                                     <con:settings>
                                         <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
                                     </con:settings>
@@ -1178,7 +1148,7 @@
                                         http://localhost/lunch-manager/rest/profile/restaurants/100004/votes/filter
                                     </con:originalUri>
                                     <con:credentials>
-                                        <con:authType>No Authorization</con:authType>
+                                        <con:username>user@yandex.ru</con:username><con:password>password</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
                                     </con:credentials>
                                     <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
                                     <con:jmsPropertyConfig/>
@@ -1202,8 +1172,7 @@
                                 <con:params/>
                                 <con:element>Response</con:element>
                             </con:representation>
-                            <con:request name="GetAll" id="76d2039f-3f18-4a14-8f54-f0f7d8fd3b26"
-                                         mediaType="application/json">
+                            <con:request name="GetAll" id="76d2039f-3f18-4a14-8f54-f0f7d8fd3b26" mediaType="application/json">
                                 <con:settings>
                                     <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
                                 </con:settings>
@@ -1212,7 +1181,7 @@
                                 <con:originalUri>http://localhost/lunch-manager/rest/profile/restaurants/100004/votes
                                 </con:originalUri>
                                 <con:credentials>
-                                    <con:authType>No Authorization</con:authType>
+                                    <con:username>user@yandex.ru</con:username><con:password>password</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
                                 </con:credentials>
                                 <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
                                 <con:jmsPropertyConfig/>
@@ -1230,13 +1199,11 @@
                                 <con:mediaType>application/json;charset=UTF-8</con:mediaType>
                                 <con:status>201</con:status>
                                 <con:params/>
-                                <con:element
-                                        xmlns:vot="http://localhost/lunch-manager/rest/profile/restaurants/100004/votes">
+                                <con:element xmlns:vot="http://localhost/lunch-manager/rest/profile/restaurants/100004/votes">
                                     vot:Response
                                 </con:element>
                             </con:representation>
-                            <con:request name="Create" id="ab18c464-5729-47c1-93ca-3d018d19f4f9"
-                                         mediaType="application/json" postQueryString="false">
+                            <con:request name="Create" id="ab18c464-5729-47c1-93ca-3d018d19f4f9" mediaType="application/json" postQueryString="false">
                                 <con:settings>
                                     <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
                                 </con:settings>
@@ -1248,7 +1215,7 @@
                                 <con:originalUri>http://localhost/lunch-manager/rest/profile/restaurants/100004/votes
                                 </con:originalUri>
                                 <con:credentials>
-                                    <con:authType>No Authorization</con:authType>
+                                    <con:username>user@yandex.ru</con:username><con:password>password</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
                                 </con:credentials>
                                 <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
                                 <con:jmsPropertyConfig/>
@@ -1269,13 +1236,11 @@
                                     <con:mediaType>application/json;charset=UTF-8</con:mediaType>
                                     <con:status>200</con:status>
                                     <con:params/>
-                                    <con:element
-                                            xmlns:ns="http://localhost/lunch-manager/rest/profile/restaurants/100004/dishes/100009">
+                                    <con:element xmlns:ns="http://localhost/lunch-manager/rest/profile/restaurants/100004/dishes/100009">
                                         ns:Response
                                     </con:element>
                                 </con:representation>
-                                <con:request name="Get" id="450302af-492d-4a07-9b99-dbe6df376cfd"
-                                             mediaType="application/json">
+                                <con:request name="Get" id="450302af-492d-4a07-9b99-dbe6df376cfd" mediaType="application/json">
                                     <con:settings>
                                         <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
                                     </con:settings>
@@ -1285,7 +1250,7 @@
                                         http://localhost/lunch-manager/rest/profile/restaurants/100004/dishes/100009
                                     </con:originalUri>
                                     <con:credentials>
-                                        <con:authType>No Authorization</con:authType>
+                                        <con:username>user@yandex.ru</con:username><con:password>password</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
                                     </con:credentials>
                                     <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
                                     <con:jmsPropertyConfig/>
@@ -1302,8 +1267,7 @@
                                 <con:params/>
                                 <con:element>Response</con:element>
                             </con:representation>
-                            <con:request name="GetAll" id="5ba07d0d-019a-4fb4-90e7-ce7ac8997286"
-                                         mediaType="application/json">
+                            <con:request name="GetAll" id="5ba07d0d-019a-4fb4-90e7-ce7ac8997286" mediaType="application/json">
                                 <con:settings>
                                     <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
                                 </con:settings>
@@ -1312,7 +1276,7 @@
                                 <con:originalUri>http://localhost/lunch-manager/rest/profile/restaurants/100004/dishes
                                 </con:originalUri>
                                 <con:credentials>
-                                    <con:authType>No Authorization</con:authType>
+                                    <con:username>user@yandex.ru</con:username><con:password>password</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
                                 </con:credentials>
                                 <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
                                 <con:jmsPropertyConfig/>
@@ -1346,7 +1310,7 @@
                             <con:originalUri>http://localhost/lunch-manager/rest/profile/restaurants/100004
                             </con:originalUri>
                             <con:credentials>
-                                <con:authType>No Authorization</con:authType>
+                                <con:username>user@yandex.ru</con:username><con:password>password</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
                             </con:credentials>
                             <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
                             <con:jmsPropertyConfig/>
@@ -1363,7 +1327,7 @@
                         <con:params/>
                         <con:element>Response</con:element>
                     </con:representation>
-                    <con:request name="GetAll" id="f8c04633-dd49-459f-b76d-567ba63d70d1" mediaType="application/json">
+                    <con:representation type="FAULT"><con:mediaType>text/html;charset=utf-8</con:mediaType><con:status>401</con:status><con:params/><con:element>html</con:element></con:representation><con:request name="GetAll" id="f8c04633-dd49-459f-b76d-567ba63d70d1" mediaType="application/json">
                         <con:settings>
                             <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
                         </con:settings>
@@ -1371,7 +1335,7 @@
                         <con:request/>
                         <con:originalUri>http://localhost/lunch-manager/rest/profile/restaurants</con:originalUri>
                         <con:credentials>
-                            <con:authType>No Authorization</con:authType>
+                            <con:username>user@yandex.ru</con:username><con:password>password</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType>
                         </con:credentials>
                         <con:jmsConfig JMSDeliveryMode="PERSISTENT"/>
                         <con:jmsPropertyConfig/>

@@ -37,7 +37,17 @@
         <url-pattern>/</url-pattern>
     </servlet-mapping>
 
-<!--    https://stackoverflow.com/questions/5649329/utf-8-encoding-problem-in-spring-mvc#answer-51474450 -->
+    <!-- Spring Security -->
+    <filter>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <filter-class>org.springframework.web.filter.DelegatingFilterProxy</filter-class>
+    </filter>
+    <filter-mapping>
+        <filter-name>springSecurityFilterChain</filter-name>
+        <url-pattern>/*</url-pattern>
+    </filter-mapping>
+
+    <!-- https://stackoverflow.com/questions/5649329/utf-8-encoding-problem-in-spring-mvc#answer-51474450 -->
     <filter>
         <filter-name>encodingFilter</filter-name>
         <filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
