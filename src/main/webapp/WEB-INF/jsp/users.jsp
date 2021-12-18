@@ -14,12 +14,14 @@
     <link rel="stylesheet" href="webjars/bootstrap/4.6.0-1/css/bootstrap.min.css">
     <link rel="stylesheet" href="webjars/noty/3.1.4/demo/font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="webjars/datatables/1.10.25/css/dataTables.bootstrap4.min.css">
+    <link rel="stylesheet" href="webjars/noty/3.1.4/lib/noty.css"/>
     <link rel="shortcut icon" href="resources/images/icon-fox.png">
 
     <%-- http://stackoverflow.com/a/24070373/548473 --%>
     <script src="webjars/jquery/3.6.0/jquery.min.js" defer></script>
     <script src="webjars/bootstrap/4.6.0-1/js/bootstrap.min.js" defer></script>
     <script src="webjars/datatables/1.10.25/js/jquery.dataTables.min.js" defer></script>
+    <script src="webjars/noty/3.1.4/lib/noty.min.js" defer></script>
     <script src="webjars/datatables/1.10.25/js/dataTables.bootstrap4.min.js" defer></script>
 </head>
 <body>
@@ -70,7 +72,7 @@
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title"><spring:message code="user.add"/></h4>
-                <button type="button" class="close" data-dismiss="modal">&times;</button>
+                <button type="button" class="close" data-dismiss="modal" onclick="closeNoty()">&times;</button>
             </div>
             <div class="modal-body">
                 <form id="detailsForm">
@@ -96,7 +98,7 @@
                 </form>
             </div>
             <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-dismiss="modal">
+                <button type="button" class="btn btn-secondary" data-dismiss="modal" onclick="closeNoty()">
                     <span class="fa fa-close"></span>
                     <spring:message code="common.cancel"/>
                 </button>
