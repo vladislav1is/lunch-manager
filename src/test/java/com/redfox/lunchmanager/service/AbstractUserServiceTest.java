@@ -14,7 +14,7 @@ import java.util.List;
 
 import static com.redfox.lunchmanager.UserTestData.*;
 import static java.time.LocalDateTime.of;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public abstract class AbstractUserServiceTest extends AbstractServiceTest {
     @Autowired
@@ -98,5 +98,13 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest {
                 () -> service.create(new User("User", "  ", "password", LocalDateTime.now(), Role.USER)));
         validateRootCause(ConstraintViolationException.class,
                 () -> service.create(new User("User", "mail@yandex.ru", "  ", LocalDateTime.now(), Role.USER)));
+    }
+
+    @Test
+    void enable() {
+        service.enable(USER_ID_1, false);
+        assertFalse(service.get(USER_ID_1).isEnabled());
+        service.enable(USER_ID_1, true);
+        assertTrue(service.get(USER_ID_1).isEnabled());
     }
 }

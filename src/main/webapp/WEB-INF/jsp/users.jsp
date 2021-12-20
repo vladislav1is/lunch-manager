@@ -52,11 +52,12 @@
             <tbody>
             <c:forEach items="${users}" var="user">
                 <jsp:useBean id="user" type="com.redfox.lunchmanager.to.UserTo"/>
-                <tr>
+                <tr data-user-enabled="${user.enabled}">
                     <td><c:out value="${user.name}"/></td>
                     <td><a href="mailto:${user.email}">${user.email}</a></td>
                     <td>${user.roles}</td>
-                    <td><input type="checkbox" <c:if test="${user.enabled}">checked</c:if>/></td>
+                    <td><input type="checkbox"
+                               <c:if test="${user.enabled}">checked</c:if> onclick="enable($(this), ${user.id})"/></td>
                     <td>${fns:formatDateTime(user.registered)}</td>
                     <td><a><span class="fa text-dark fa-pencil"></span></a></td>
                     <td><a onclick="deleteRow(${user.id})"><span class="fa text-dark fa-remove"></span></a></td>

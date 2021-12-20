@@ -2,6 +2,10 @@
     cursor: pointer;
 }
 
+tr[data-user-enabled="false"] {
+    opacity: 0.3;
+}
+
 /*https://getbootstrap.com/docs/4.0/examples/sticky-footer/sticky-footer.css*/
 html {
     position: relative;
