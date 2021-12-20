@@ -13,7 +13,7 @@ import java.time.LocalDate;
 import static com.redfox.lunchmanager.util.Restaurants.convertToDto;
 
 @Controller
-@RequestMapping("/profile/restaurants/{restaurantId}/dishes")
+@RequestMapping("/restaurants/{restaurantId}/dishes")
 public class ProfileDishController extends AbstractDishController {
 
     private final RestaurantService restaurantService;
@@ -23,10 +23,10 @@ public class ProfileDishController extends AbstractDishController {
     }
 
     @GetMapping
-    public String getDishes(@PathVariable int restaurantId, Model model) {
+    public String getDishesForToday(@PathVariable int restaurantId, Model model) {
         model.addAttribute("dishes", super.getBetween(LocalDate.now(), LocalDate.now(), restaurantId));
         Restaurant restaurant = restaurantService.get(restaurantId);
         model.addAttribute("restaurant", convertToDto(restaurant));
-        return "profile-dishes";
+        return "dishes";
     }
 }

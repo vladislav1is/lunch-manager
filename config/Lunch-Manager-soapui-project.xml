@@ -955,7 +955,7 @@
                     </con:request>
                 </con:method>
             </con:resource>
-            <con:resource name="restaurants" path="/rest/profile/restaurants" id="f1d115b0-fce8-4c2a-810a-1ffb2425200a">
+            <con:resource name="restaurants" path="/rest/restaurants" id="f1d115b0-fce8-4c2a-810a-1ffb2425200a">
                 <con:settings/>
                 <con:parameters/>
 
@@ -1327,7 +1327,7 @@
                         <con:params/>
                         <con:element>Response</con:element>
                     </con:representation>
-                    <con:representation type="FAULT"><con:mediaType>text/html;charset=utf-8</con:mediaType><con:status>401</con:status><con:params/><con:element>html</con:element></con:representation><con:request name="GetAll" id="f8c04633-dd49-459f-b76d-567ba63d70d1" mediaType="application/json">
+                    <con:representation type="FAULT"><con:mediaType>text/html;charset=utf-8</con:mediaType><con:status>401 404</con:status><con:params/><con:element>html</con:element></con:representation><con:request name="GetAll" id="f8c04633-dd49-459f-b76d-567ba63d70d1" mediaType="application/json">
                         <con:settings>
                             <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
                         </con:settings>

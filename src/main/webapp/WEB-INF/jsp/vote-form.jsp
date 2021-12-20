@@ -23,7 +23,7 @@
         <h3><spring:message code="vote.title"/>&nbsp${restaurant.name}</h3>
 
         <c:set var="allowed" value="${fn:canRevoteBefore(15, 0) ? '' : 'disabled'}" scope="page"/>
-        <form method="post" action="profile/restaurants/${restaurant.id}/votes">
+        <form method="post" action="restaurants/${restaurant.id}/votes">
             <table class="table table-striped mt-3">
                 <thead>
                 <tr>
@@ -36,7 +36,7 @@
                 <tr>
                     <td>${restaurant.name}</td>
                     <td>
-                        <button type="button" onclick="window.location.href='profile/restaurants/${restaurant.id}/dishes'"
+                        <button type="button" onclick="window.location.href='restaurants/${restaurant.id}/dishes'"
                                 class="btn btn-sm btn-secondary">
                             <spring:message code="common.view"/></button>
                     </td>

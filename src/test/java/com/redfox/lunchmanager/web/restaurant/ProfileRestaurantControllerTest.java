@@ -19,11 +19,11 @@ class ProfileRestaurantControllerTest extends AbstractControllerTest {
 
     @Test
     void getRestaurants() throws Exception {
-        perform(get("/profile/restaurants"))
+        perform(get("/restaurants"))
                 .andDo(print())
                 .andExpect(status().isOk())
-                .andExpect(view().name("profile-restaurants"))
-                .andExpect(forwardedUrl("/WEB-INF/jsp/profile-restaurants.jsp"))
+                .andExpect(view().name("restaurants"))
+                .andExpect(forwardedUrl("/WEB-INF/jsp/restaurants.jsp"))
                 .andExpect(model().attribute("restaurants",
                         new AssertionMatcher<List<RestaurantTo>>() {
                             @Override

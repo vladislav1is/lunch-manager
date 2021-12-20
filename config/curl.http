@@ -49,41 +49,41 @@ DELETE http://localhost:8080/lunch-manager/rest/profile
 ########################################################################################################################
 
 ### get Restaurant:100004
-# curl -X GET --location "http://localhost:8080/lunch-manager/rest/profile/restaurants/100004" --user user@yandex.ru:password
-GET http://localhost:8080/lunch-manager/rest/profile/restaurants/100004
+# curl -X GET --location "http://localhost:8080/lunch-manager/rest/restaurants/100004" --user user@yandex.ru:password
+GET http://localhost:8080/lunch-manager/rest/restaurants/100004
 
 ### get All Restaurants
-# curl -X GET --location "http://localhost:8080/lunch-manager/rest/profile/restaurants" --user user@yandex.ru:password
-GET http://localhost:8080/lunch-manager/rest/profile/restaurants
+# curl -X GET --location "http://localhost:8080/lunch-manager/rest/restaurants" --user user@yandex.ru:password
+GET http://localhost:8080/lunch-manager/rest/restaurants
 
 ### get Restaurant:100004 with Dishes
-# curl -X GET --location "http://localhost:8080/lunch-manager/rest/profile/restaurants/100004/with-dishes" --user user@yandex.ru:password
-GET http://localhost:8080/lunch-manager/rest/profile/restaurants/100004/with-dishes
+# curl -X GET --location "http://localhost:8080/lunch-manager/rest/restaurants/100004/with-dishes" --user user@yandex.ru:password
+GET http://localhost:8080/lunch-manager/rest/restaurants/100004/with-dishes
 
 ########################################################################################################################
 ######### Dish resources
 ########################################################################################################################
 
 ### get Dish:100009
-# curl -X GET --location "http://localhost:8080/lunch-manager/rest/profile/restaurants/100004/dishes/100009" --user user@yandex.ru:password
-GET http://localhost:8080/lunch-manager/rest/profile/restaurants/100004/dishes/100009
+# curl -X GET --location "http://localhost:8080/lunch-manager/rest/restaurants/100004/dishes/100009" --user user@yandex.ru:password
+GET http://localhost:8080/lunch-manager/rest/restaurants/100004/dishes/100009
 
 ### get All Dishes
-# curl -X GET --location "http://localhost:8080/lunch-manager/rest/profile/restaurants/100004/dishes" --user user@yandex.ru:password
-GET http://localhost:8080/lunch-manager/rest/profile/restaurants/100004/dishes
+# curl -X GET --location "http://localhost:8080/lunch-manager/rest/restaurants/100004/dishes" --user user@yandex.ru:password
+GET http://localhost:8080/lunch-manager/rest/restaurants/100004/dishes
 
 ########################################################################################################################
 ############ Vote resources
 ########################################################################################################################
 
 ### create Vote
-# curl -X POST --location "http://localhost:8080/lunch-manager/rest/profile/restaurants/100004/votes"
+# curl -X POST --location "http://localhost:8080/lunch-manager/rest/restaurants/100004/votes"
 #    -H "Content-Type: application/json"
 #    -d "{
 #          \"registered\": \"2021-11-06\"
 #        }"
 #    --user user@yandex.ru:password
-POST http://localhost:8080/lunch-manager/rest/profile/restaurants/100004/votes
+POST http://localhost:8080/lunch-manager/rest/restaurants/100004/votes
 Content-Type: application/json
 
 {
@@ -91,17 +91,17 @@ Content-Type: application/json
 }
 
 ### delete Vote:100020
-# curl -X DELETE --location "http://localhost:8080/lunch-manager/rest/profile/restaurants/100004/votes/100020 --user user@yandex.ru:password"
-DELETE http://localhost:8080/lunch-manager/rest/profile/restaurants/100004/votes/100020
+# curl -X DELETE --location "http://localhost:8080/lunch-manager/rest/restaurants/100004/votes/100020 --user user@yandex.ru:password"
+DELETE http://localhost:8080/lunch-manager/rest/restaurants/100004/votes/100020
 
 ### update Vote:100016
-# curl -X PUT --location "http://localhost:8080/lunch-manager/rest/profile/restaurants/100004/votes/100016"
+# curl -X PUT --location "http://localhost:8080/lunch-manager/rest/restaurants/100004/votes/100016"
 #    -H "Content-Type: application/json"
 #    -d "{
 #          \"registered\": \"2021-10-06\"
 #        }"
 #    --user user@yandex.ru:password
-PUT http://localhost:8080/lunch-manager/rest/profile/restaurants/100004/votes/100016
+PUT http://localhost:8080/lunch-manager/rest/restaurants/100004/votes/100016
 Content-Type: application/json
 
 {
@@ -109,16 +109,16 @@ Content-Type: application/json
 }
 
 ### get Vote:100017
-# curl -X GET --location "http://localhost:8080/lunch-manager/rest/profile/restaurants/100004/votes/100017" --user user@yandex.ru:password
-GET http://localhost:8080/lunch-manager/rest/profile/restaurants/100004/votes/100017
+# curl -X GET --location "http://localhost:8080/lunch-manager/rest/restaurants/100004/votes/100017" --user user@yandex.ru:password
+GET http://localhost:8080/lunch-manager/rest/restaurants/100004/votes/100017
 
 ### get All Votes
-# curl -X GET --location "http://localhost:8080/lunch-manager/rest/profile/restaurants/100004/votes" --user user@yandex.ru:password
-GET http://localhost:8080/lunch-manager/rest/profile/restaurants/100004/votes
+# curl -X GET --location "http://localhost:8080/lunch-manager/rest/restaurants/100004/votes" --user user@yandex.ru:password
+GET http://localhost:8080/lunch-manager/rest/restaurants/100004/votes
 
 ### get Votes Between:2021-11-11&2021-11-11
-# curl -X GET --location "http://localhost:8080/lunch-manager/rest/profile/restaurants/100004/votes/filter?startDate=2021-11-11&endDate=2021-11-11" --user user@yandex.ru:password
-GET http://localhost:8080/lunch-manager/rest/profile/restaurants/100004/votes/filter?startDate=2021-11-11&endDate=2021-11-11
+# curl -X GET --location "http://localhost:8080/lunch-manager/rest/restaurants/100004/votes/filter?startDate=2021-11-11&endDate=2021-11-11" --user user@yandex.ru:password
+GET http://localhost:8080/lunch-manager/rest/restaurants/100004/votes/filter?startDate=2021-11-11&endDate=2021-11-11
 
 ########################################################################################################################
 ### Admin resources

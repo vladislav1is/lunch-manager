@@ -2,7 +2,6 @@ package com.redfox.lunchmanager.web;
 
 import com.redfox.lunchmanager.model.Role;
 import com.redfox.lunchmanager.service.UserService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -13,8 +12,12 @@ import static com.redfox.lunchmanager.util.Users.getTos;
 
 @Controller
 public class RootController {
-    @Autowired
-    private UserService service;
+
+    private final UserService service;
+
+    public RootController(UserService service) {
+        this.service = service;
+    }
 
     @GetMapping("/")
     public String root() {
@@ -35,7 +38,7 @@ public class RootController {
         if (user.getRoles().contains(Role.ADMIN)) {
             return "redirect:/admin/restaurants";
         } else {
-            return "redirect:/profile/restaurants";
+            return "redirect:/restaurants";
         }
     }
 }

@@ -16,7 +16,7 @@ import java.util.List;
 @RequestMapping(value = ProfileVoteRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class ProfileVoteRestController extends AbstractVoteController {
 
-    protected static final String REST_URL = "/rest/profile/restaurants/{restaurantId}/votes";
+    protected static final String REST_URL = "/rest/restaurants/{restaurantId}/votes";
 
     @Override
     @DeleteMapping("/{id}")

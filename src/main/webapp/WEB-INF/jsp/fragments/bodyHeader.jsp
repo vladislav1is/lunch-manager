@@ -4,7 +4,7 @@
 <header>
     <nav class="navbar navbar-dark bg-dark py-0">
         <div class="container">
-            <a href="profile/restaurants" title="<spring:message code="app.title"/>" class="navbar-brand">
+            <a href="restaurants" title="<spring:message code="app.title"/>" class="navbar-brand">
                 <img src="resources/images/icon-fox.png" width="50" alt="<spring:message code="app.title"/>">
                 <spring:message code="app.title"/>
             </a>

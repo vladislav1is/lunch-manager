@@ -15,7 +15,7 @@ import java.time.LocalDate;
 import static com.redfox.lunchmanager.util.Restaurants.convertToDto;
 
 @Controller
-@RequestMapping("/profile/restaurants/{restaurantId}/votes")
+@RequestMapping("/restaurants/{restaurantId}/votes")
 public class ProfileVoteController extends AbstractVoteController {
 
     private final RestaurantService restaurantService;
@@ -25,7 +25,7 @@ public class ProfileVoteController extends AbstractVoteController {
     }
 
     @GetMapping
-    public String getVotes(@PathVariable int restaurantId, Model model) {
+    public String getVotesForToday(@PathVariable int restaurantId, Model model) {
         model.addAttribute("votes", super.getBetween(LocalDate.now(), LocalDate.now(), restaurantId));
         Restaurant restaurant = restaurantService.get(restaurantId);
         model.addAttribute("restaurant", convertToDto(restaurant));
@@ -41,6 +41,6 @@ public class ProfileVoteController extends AbstractVoteController {
         } else {
             super.create(newVote, restaurantId);
         }
-        return "redirect:/profile/restaurants";
+        return "redirect:/restaurants";
     }
 }

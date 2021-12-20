@@ -18,8 +18,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 class ProfileVoteControllerTest extends AbstractControllerTest {
 
     @Test
-    void getVotes() throws Exception {
-        perform(get("/profile/restaurants/100004/votes"))
+    void getVotesForToday() throws Exception {
+        perform(get("/restaurants/100004/votes"))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(view().name("vote-form"))

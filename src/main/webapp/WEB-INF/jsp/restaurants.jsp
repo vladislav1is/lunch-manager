@@ -37,13 +37,13 @@
                 <tr data-voted="${restaurant.vote != null ? true : false}">
                     <td>${restaurant.name}</td>
                     <td>
-                        <button type="button" onclick="window.location.href='profile/restaurants/${id}/dishes'"
+                        <button type="button" onclick="window.location.href='restaurants/${id}/dishes'"
                                 class="btn btn-sm btn-secondary">
                             <spring:message code="common.view"/>
                         </button>
                     </td>
                     <td>
-                        <button type="button" onclick="window.location.href='profile/restaurants/${id}/votes'"
+                        <button type="button" onclick="window.location.href='restaurants/${id}/votes'"
                                 class="btn btn-sm btn-secondary">
                             <span class="fa text-light fa-plus"></span>
                             <span class="fa text-white-50 fa-users"></span>
