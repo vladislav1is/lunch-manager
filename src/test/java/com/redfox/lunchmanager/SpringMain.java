@@ -1,10 +1,10 @@
 package com.redfox.lunchmanager;
 
 import com.redfox.lunchmanager.web.SecurityUtil;
-import com.redfox.lunchmanager.web.dish.AdminDishController;
-import com.redfox.lunchmanager.web.restaurant.AdminRestaurantController;
+import com.redfox.lunchmanager.web.dish.AdminDishRestController;
+import com.redfox.lunchmanager.web.restaurant.AdminRestRestaurantController;
 import com.redfox.lunchmanager.web.user.AdminRestController;
-import com.redfox.lunchmanager.web.vote.AbstractVoteController;
+import com.redfox.lunchmanager.web.vote.ProfileVoteController;
 import org.springframework.context.support.GenericXmlApplicationContext;
 
 import java.util.Arrays;
@@ -29,9 +29,9 @@ public class SpringMain {
             System.out.println("Bean definition names: " + Arrays.toString(appCtx.getBeanDefinitionNames()));
 
             var adminController = appCtx.getBean(AdminRestController.class);
-            var restaurantController = appCtx.getBean(AdminRestaurantController.class);
-            var dishController = appCtx.getBean(AdminDishController.class);
-            var voteController = appCtx.getBean(AbstractVoteController.class);
+            var restaurantController = appCtx.getBean(AdminRestRestaurantController.class);
+            var dishController = appCtx.getBean(AdminDishRestController.class);
+            var voteController = appCtx.getBean(ProfileVoteController.class);
             SecurityUtil.setAuthUserId(user1.id());
 
             adminController.getAll().forEach(System.out::println);

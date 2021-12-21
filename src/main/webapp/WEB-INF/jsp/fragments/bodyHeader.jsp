@@ -9,7 +9,7 @@
                 <spring:message code="app.title"/>
             </a>
             <div class="btn-group ">
-                <button type="button" onclick="location.href='admin/restaurants';" class="btn btn-secondary">
+                <button type="button" onclick="location.href='restaurants/editor';" class="btn btn-secondary">
                     <spring:message code="app.editor"/>
                 </button>
                 <button type="button" onclick="location.href='users';" class="btn btn-secondary">

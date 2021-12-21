@@ -15,7 +15,9 @@ function makeEditable(datatableApi) {
 function add() {
     form.find(":input").val("");
     let $select = $('#role');
-    $select.val("USER");
+    if ($select.length > 0) {
+        $select.val("USER");
+    }
     $("#editRow").modal();
 }
 
@@ -25,7 +27,7 @@ function updateRow(id) {
         $.each(data, function (key, value) {
             if (Object.is("roles", key)) {
                 let $select = $('#role');
-                if (Object.values(value).length > 1) {
+                if (value.length > 1) {
                     $select.val("ADMIN");
                 } else {
                     $select.val("USER");
