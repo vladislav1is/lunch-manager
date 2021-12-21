@@ -1,14 +1,10 @@
 package com.redfox.lunchmanager.to;
 
-import org.springframework.data.domain.Persistable;
-
 import java.beans.ConstructorProperties;
 import java.util.List;
 import java.util.Objects;
 
-public class RestaurantTo implements Persistable<Integer> {
-
-    private Integer id;
+public class RestaurantTo extends BaseTo {
 
     private final String name;
 
@@ -19,19 +15,10 @@ public class RestaurantTo implements Persistable<Integer> {
     @ConstructorProperties({"id", "name", "vote", "dishes"})
     //  https://www.logicbig.com/tutorials/misc/jackson/constructor-properties.html
     public RestaurantTo(Integer id, String name, VoteTo vote, List<DishTo> dishes) {
-        this.id = id;
+        super(id);
         this.name = name;
         this.vote = vote;
         this.dishes = dishes;
-    }
-
-    @Override
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -44,11 +31,6 @@ public class RestaurantTo implements Persistable<Integer> {
 
     public List<DishTo> getDishes() {
         return dishes;
-    }
-
-    @Override
-    public boolean isNew() {
-        return this.id == null;
     }
 
     @Override

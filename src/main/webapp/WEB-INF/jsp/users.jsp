@@ -59,8 +59,8 @@
                     <td><input type="checkbox"
                                <c:if test="${user.enabled}">checked</c:if> onclick="enable($(this), ${user.id})"/></td>
                     <td>${fns:formatDateTime(user.registered)}</td>
-                    <td><a><span class="fa text-dark fa-pencil"></span></a></td>
-                    <td><a onclick="deleteRow(${user.id})"><span class="fa text-dark fa-remove"></span></a></td>
+                    <td><a onclick=updateRow(${user.id})><span class="fa fa-pencil"></span></a></td>
+                    <td><a onclick="deleteRow(${user.id})"><span class="fa fa-remove"></span></a></td>
                 </tr>
             </c:forEach>
             </tbody>
@@ -95,6 +95,14 @@
                         <label for="password" class="col-form-label"><spring:message code="user.password"/></label>
                         <input type="password" class="form-control" id="password" name="password"
                                placeholder="<spring:message code="user.password"/>">
+                    </div>
+
+                    <div class="form-group">
+                        <label for="role">Select role</label>
+                        <select class="form-control" id="role" name="role">
+                            <option value="USER" selected>USER</option>
+                            <option value="ADMIN">ADMIN</option>
+                        </select>
                     </div>
                 </form>
             </div>

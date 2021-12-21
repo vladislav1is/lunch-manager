@@ -14,7 +14,28 @@ function makeEditable(datatableApi) {
 
 function add() {
     form.find(":input").val("");
+    let $select = $('#role');
+    $select.val("USER");
     $("#editRow").modal();
+}
+
+function updateRow(id) {
+    form.find(":input").val("");
+    $.get(ctx.ajaxUrl + id, function (data) {
+        $.each(data, function (key, value) {
+            if (Object.is("roles", key)) {
+                let $select = $('#role');
+                if (Object.values(value).length > 1) {
+                    $select.val("ADMIN");
+                } else {
+                    $select.val("USER");
+                }
+            } else {
+                form.find("input[name='" + key + "']").val(value);
+            }
+        });
+        $('#editRow').modal();
+    });
 }
 
 function deleteRow(id) {

@@ -6,7 +6,6 @@
 <jsp:include page="fragments/headTag.jsp"/>
 <body>
 <jsp:include page="fragments/bodyHeader.jsp"/>
-<br>
 <div class="jumbotron">
     <div class="container">
         <form method="post" action="users" class="form-inline">

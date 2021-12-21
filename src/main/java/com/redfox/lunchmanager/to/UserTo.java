@@ -7,9 +7,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Set;
 
-public class UserTo {
-
-    private Integer id;
+public class UserTo extends BaseTo {
 
     private final String name;
 
@@ -25,21 +23,13 @@ public class UserTo {
 
     @ConstructorProperties({"id", "name", "email", "password", "enabled", "registered", "roles"})
     public UserTo(Integer id, String name, String email, String password, boolean enabled, LocalDateTime registered, Set<Role> roles) {
-        this.id = id;
+        super(id);
         this.name = name;
         this.email = email;
         this.password = password;
         this.enabled = enabled;
         this.registered = registered;
         this.roles = roles;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getName() {

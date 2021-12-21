@@ -4,24 +4,14 @@ import java.beans.ConstructorProperties;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class VoteTo {
-
-    private Integer id;
+public class VoteTo extends BaseTo {
 
     private final LocalDate registered;
 
     @ConstructorProperties({"id", "registered"})
     public VoteTo(Integer id, LocalDate registered) {
-        this.id = id;
+        super(id);
         this.registered = registered;
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public LocalDate getRegistered() {

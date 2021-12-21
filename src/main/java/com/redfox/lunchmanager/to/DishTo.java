@@ -1,14 +1,10 @@
 package com.redfox.lunchmanager.to;
 
-import org.springframework.data.domain.Persistable;
-
 import java.beans.ConstructorProperties;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class DishTo implements Persistable<Integer> {
-
-    private Integer id;
+public class DishTo extends BaseTo {
 
     private final String name;
 
@@ -18,19 +14,10 @@ public class DishTo implements Persistable<Integer> {
 
     @ConstructorProperties({"id", "name", "price", "registered"})
     public DishTo(Integer id, String name, long price, LocalDate registered) {
-        this.id = id;
+        super(id);
         this.name = name;
         this.price = price;
         this.registered = registered;
-    }
-
-    @Override
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getName() {
@@ -43,11 +30,6 @@ public class DishTo implements Persistable<Integer> {
 
     public LocalDate getRegistered() {
         return registered;
-    }
-
-    @Override
-    public boolean isNew() {
-        return this.id == null;
     }
 
     @Override
