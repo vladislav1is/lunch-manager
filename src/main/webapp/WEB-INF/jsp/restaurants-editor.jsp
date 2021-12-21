@@ -40,7 +40,7 @@
             <thead>
             <tr>
                 <th><spring:message code="restaurant.name"/></th>
-                <th><spring:message code="common.menu"/></th>
+                <th><spring:message code="restaurant.menu"/></th>
                 <th></th>
                 <th></th>
             </tr>
@@ -51,7 +51,7 @@
                 <tr>
                     <td>${restaurant.name}</td>
                     <td>
-                        <button type="button" onclick="window.location.href='admin/restaurants/${id}/dishes'"
+                        <button type="button" onclick="window.location.href='restaurants/${id}/dishes/editor'"
                                 class="btn btn-sm btn-secondary">
                             <spring:message code="common.edit"/>
                         </button>

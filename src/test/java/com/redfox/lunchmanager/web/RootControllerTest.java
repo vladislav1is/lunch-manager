@@ -1,9 +1,12 @@
 package com.redfox.lunchmanager.web;
 
+import com.redfox.lunchmanager.DishTestData;
 import com.redfox.lunchmanager.RestaurantTestData;
 import com.redfox.lunchmanager.UserTestData;
+import com.redfox.lunchmanager.to.DishTo;
 import com.redfox.lunchmanager.to.RestaurantTo;
 import com.redfox.lunchmanager.to.UserTo;
+import com.redfox.lunchmanager.util.Dishes;
 import com.redfox.lunchmanager.util.Restaurants;
 import com.redfox.lunchmanager.util.Users;
 import org.assertj.core.matcher.AssertionMatcher;
@@ -11,6 +14,8 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
+import static com.redfox.lunchmanager.DishTestData.dishes;
+import static com.redfox.lunchmanager.RestaurantTestData.restaurant1;
 import static com.redfox.lunchmanager.RestaurantTestData.restaurants;
 import static com.redfox.lunchmanager.UserTestData.*;
 import static com.redfox.lunchmanager.VoteTestData.vote4;
@@ -66,6 +71,42 @@ class RootControllerTest extends AbstractControllerTest {
                             @Override
                             public void assertion(List<UserTo> actual) throws AssertionError {
                                 UserTestData.TO_MATCHER.assertMatch(actual, Users.getTos(user1, user2, user3));
+                            }
+                        }
+                ));
+    }
+
+    @Test
+    void getDishesForToday() throws Exception {
+        perform(get("/restaurants/100004/dishes"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(view().name("dishes"))
+                .andExpect(forwardedUrl("/WEB-INF/jsp/dishes.jsp"))
+                .andExpect(model().attribute("restaurant", Restaurants.convertToDto(restaurant1)))
+                .andExpect(model().attribute("dishes",
+                        new AssertionMatcher<List<DishTo>>() {
+                            @Override
+                            public void assertion(List<DishTo> actual) throws AssertionError {
+                                DishTestData.TO_MATCHER.assertMatch(actual, Dishes.getTos(dishes));
+                            }
+                        }
+                ));
+    }
+
+    @Test
+    void editDishes() throws Exception {
+        perform(get("/restaurants/100004/dishes/editor"))
+                .andDo(print())
+                .andExpect(status().isOk())
+                .andExpect(view().name("dishes-editor"))
+                .andExpect(forwardedUrl("/WEB-INF/jsp/dishes-editor.jsp"))
+                .andExpect(model().attribute("restaurant", Restaurants.convertToDto(restaurant1)))
+                .andExpect(model().attribute("dishes",
+                        new AssertionMatcher<List<DishTo>>() {
+                            @Override
+                            public void assertion(List<DishTo> actual) throws AssertionError {
+                                DishTestData.TO_MATCHER.assertMatch(actual, Dishes.getTos(dishes));
                             }
                         }
                 ));

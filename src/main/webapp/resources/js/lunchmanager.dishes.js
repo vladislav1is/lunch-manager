@@ -1,10 +1,14 @@
-const restaurantAjaxUrl = "admin/restaurants/";
+const dishAjaxUrl = "admin/restaurants/" + $("#restaurantId").text()  + "/dishes/";
 
 // https://stackoverflow.com/a/5064235/548473
 const ctx = {
-    ajaxUrl: restaurantAjaxUrl,
+    ajaxUrl: dishAjaxUrl,
     updateTable: function () {
-        $.get(restaurantAjaxUrl, updateTableByData);
+        $.ajax({
+            type: "GET",
+            url: dishAjaxUrl + "filter",
+            data: $("#filter").serialize()
+        }).done(updateTableByData);
     }
 }
 
@@ -15,13 +19,13 @@ $(function () {
             "info": true,
             "columns": [
                 {
+                    "data": "registered"
+                },
+                {
                     "data": "name"
                 },
                 {
-                    "defaultContent": "" +
-                        "<button type=\"button\" onclick=\"window.location.href='admin/restaurants/${id}/dishes/editor'\"\n" +
-                        "           class=\"btn btn-sm btn-secondary\"><spring:message code=\"common.edit\"/>\n" +
-                        "</button>"
+                    "data": "price"
                 },
                 {
                     "defaultContent": "Edit",
@@ -35,7 +39,7 @@ $(function () {
             "order": [
                 [
                     0,
-                    "asc"
+                    "desc"
                 ]
             ]
         })
