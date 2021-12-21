@@ -98,7 +98,7 @@
                     </div>
 
                     <div class="form-group">
-                        <label for="role">Select role</label>
+                        <label for="role"><spring:message code="user.role"/></label>
                         <select class="form-control" id="role" name="role">
                             <option value="USER" selected>USER</option>
                             <option value="ADMIN">ADMIN</option>
