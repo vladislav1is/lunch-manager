@@ -1,4 +1,7 @@
-const dishAjaxUrl = "admin/restaurants/" + $("#restaurantId").text()  + "/dishes/";
+const dishAjaxUrl = (() => {
+    let restaurantId = $(location).attr('pathname').split('/')[3];
+    return "admin/restaurants/" + restaurantId + "/dishes/";
+})();
 
 // https://stackoverflow.com/a/5064235/548473
 const ctx = {
@@ -20,6 +23,10 @@ function clearFilter() {
 $(function () {
     makeEditable(
         $("#datatable").DataTable({
+            "ajax": {
+                "url": dishAjaxUrl,
+                "dataSrc": ""
+            },
             "paging": false,
             "info": true,
             "columns": [
@@ -33,12 +40,14 @@ $(function () {
                     "data": "price"
                 },
                 {
-                    "defaultContent": "Edit",
-                    "orderable": false
+                    "orderable": false,
+                    "defaultContent": "",
+                    "render": renderEditBtn
                 },
                 {
-                    "defaultContent": "Delete",
-                    "orderable": false
+                    "orderable": false,
+                    "defaultContent": "",
+                    "render": renderDeleteBtn
                 }
             ],
             "order": [

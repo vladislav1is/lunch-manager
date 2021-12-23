@@ -4,7 +4,6 @@ import com.redfox.lunchmanager.model.Restaurant;
 import com.redfox.lunchmanager.model.Vote;
 import com.redfox.lunchmanager.service.DishService;
 import com.redfox.lunchmanager.service.RestaurantService;
-import com.redfox.lunchmanager.service.UserService;
 import com.redfox.lunchmanager.service.VoteService;
 import com.redfox.lunchmanager.to.RestaurantTo;
 import com.redfox.lunchmanager.util.Dishes;
@@ -20,12 +19,9 @@ import java.time.LocalDate;
 import java.util.List;
 
 import static com.redfox.lunchmanager.util.Restaurants.convertToDto;
-import static com.redfox.lunchmanager.util.Users.getTos;
 
 @Controller
 public class RootController {
-
-    private final UserService userService;
 
     private final VoteService voteService;
 
@@ -33,8 +29,7 @@ public class RootController {
 
     private final DishService dishService;
 
-    public RootController(UserService userService, RestaurantService restaurantService, VoteService voteService, DishService dishService) {
-        this.userService = userService;
+    public RootController(RestaurantService restaurantService, VoteService voteService, DishService dishService) {
         this.restaurantService = restaurantService;
         this.voteService = voteService;
         this.dishService = dishService;
@@ -46,8 +41,7 @@ public class RootController {
     }
 
     @GetMapping("/users")
-    public String getUsers(Model model) {
-        model.addAttribute("users", getTos(userService.getAll()));
+    public String getUsers() {
         return "users";
     }
 
@@ -65,8 +59,7 @@ public class RootController {
     }
 
     @GetMapping("/restaurants/editor")
-    public String editRestaurants(Model model) {
-        model.addAttribute("restaurants", Restaurants.getTos(restaurantService.getAll()));
+    public String editRestaurants() {
         return "restaurants-editor";
     }
 
@@ -85,10 +78,7 @@ public class RootController {
     }
 
     @GetMapping("/restaurants/{restaurantId}/dishes/editor")
-    public String editDishes(@PathVariable int restaurantId, Model model) {
-        model.addAttribute("dishes", Dishes.getTos(dishService.getAll(restaurantId)));
-        Restaurant restaurant = restaurantService.get(restaurantId);
-        model.addAttribute("restaurant", Restaurants.convertToDto(restaurant));
+    public String editDishes() {
         return "dishes-editor";
     }
 }

@@ -1,4 +1,3 @@
-<%--@elvariable id="restaurant" type="com.redfox.lunchmanager.to.RestaurantTo"--%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
@@ -45,22 +44,6 @@
                 <th></th>
             </tr>
             </thead>
-            <tbody>
-            <c:forEach var="restaurant" items="${requestScope.restaurants}">
-                <c:set var="id" value="${restaurant.id}"/>
-                <tr>
-                    <td>${restaurant.name}</td>
-                    <td>
-                        <button type="button" onclick="window.location.href='restaurants/${id}/dishes/editor'"
-                                class="btn btn-sm btn-secondary">
-                            <spring:message code="common.edit"/>
-                        </button>
-                    </td>
-                    <td><a onclick=updateRow(${restaurant.id})><span class="fa fa-pencil"></span></a></td>
-                    <td><a onclick="deleteRow(${restaurant.id})"><span class="fa fa-remove"></span></a></td>
-                </tr>
-            </c:forEach>
-            </tbody>
         </table>
     </div>
 </div>

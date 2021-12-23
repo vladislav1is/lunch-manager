@@ -1,6 +1,3 @@
-<%--@elvariable id="restaurants" type="com.redfox.lunchmanager.model.java.util.List"--%>
-<%--@elvariable id="restaurant" type="com.redfox.lunchmanager.to.RestaurantTo"--%>
-<%--@elvariable id="restaurant" type="com.redfox.lunchmanager.to.DishTo"--%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
@@ -35,7 +32,6 @@
 <div class="jumbotron pt-4">
     <div class="container">
         <h3 class="text-center"><spring:message code="dish.title"/>&nbsp${restaurant.name}</h3>
-        <div id="restaurantId" hidden>${restaurant.id}</div>
 
         <%-- https://getbootstrap.com/docs/4.0/components/card/ --%>
         <div class="card border-dark">
@@ -79,18 +75,6 @@
                 <th></th>
             </tr>
             </thead>
-            <tbody>
-            <c:forEach var="dish" items="${requestScope.dishes}">
-                <c:set var="id" value="${dish.id}"/>
-                <tr>
-                    <td>${fns:formatDate(dish.registered)}</td>
-                    <td>${dish.name}</td>
-                    <td>${dish.price}</td>
-                    <td><a onclick=updateRow(${dish.id})><span class="fa fa-pencil"></span></a></td>
-                    <td><a onclick="deleteRow(${dish.id})"><span class="fa fa-remove"></span></a></td>
-                </tr>
-            </c:forEach>
-            </tbody>
         </table>
     </div>
 </div>

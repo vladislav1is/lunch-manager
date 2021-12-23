@@ -1,4 +1,3 @@
-<%--@elvariable id="users" type="java.util.List"--%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fns" uri="http://lunch-manager.redfox.com/functions" %>
@@ -49,21 +48,6 @@
                 <th></th>
             </tr>
             </thead>
-            <tbody>
-            <c:forEach items="${users}" var="user">
-                <jsp:useBean id="user" type="com.redfox.lunchmanager.to.UserTo"/>
-                <tr data-user-enabled="${user.enabled}">
-                    <td><c:out value="${user.name}"/></td>
-                    <td><a href="mailto:${user.email}">${user.email}</a></td>
-                    <td>${user.roles}</td>
-                    <td><input type="checkbox"
-                               <c:if test="${user.enabled}">checked</c:if> onclick="enable($(this), ${user.id})"/></td>
-                    <td>${fns:formatDateTime(user.registered)}</td>
-                    <td><a onclick=updateRow(${user.id})><span class="fa fa-pencil"></span></a></td>
-                    <td><a onclick="deleteRow(${user.id})"><span class="fa fa-remove"></span></a></td>
-                </tr>
-            </c:forEach>
-            </tbody>
         </table>
     </div>
 </div>
