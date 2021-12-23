@@ -9,7 +9,6 @@ import org.springframework.web.bind.annotation.*;
 import java.time.LocalDateTime;
 import java.util.EnumSet;
 import java.util.List;
-import java.util.Set;
 
 @RestController
 @RequestMapping(value = "/admin/users", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -36,24 +35,14 @@ public class AdminUIController extends AbstractUserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void createOrUpdate(@RequestParam String id,
-                               @RequestParam String name,
-                               @RequestParam String email,
-                               @RequestParam String password,
-                               @RequestParam String role) {
-        Set<Role> roles;
-        if (role.equals("USER")) {
-            roles = EnumSet.of(Role.USER);
+    public void createOrUpdate(@RequestParam Role role, UserTo user) {
+        user.setRoles(role.equals(Role.USER) ? EnumSet.of(Role.USER) : EnumSet.of(Role.USER, Role.ADMIN));
+        user.setRegistered(LocalDateTime.now());
+        user.setEnabled(Boolean.TRUE);
+        if (user.isNew()) {
+            super.create(user);
         } else {
-            roles = EnumSet.of(Role.USER, Role.ADMIN);
-        }
-
-        Integer userId = id.isEmpty() ? null : Integer.valueOf(id);
-        UserTo userTo = new UserTo(userId, name, email, password, true, LocalDateTime.now(), roles);
-        if (userTo.isNew()) {
-            super.create(userTo);
-        } else {
-            super.update(userTo, userTo.id());
+            super.update(user, user.id());
         }
     }
 

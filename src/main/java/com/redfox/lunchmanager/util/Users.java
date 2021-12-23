@@ -19,7 +19,7 @@ public class Users {
 
     public static User convertToEntity(UserTo userTo) {
         return new User(userTo.getId(), userTo.getName(), userTo.getEmail(), userTo.getPassword(),
-                userTo.isEnabled(), userTo.getRegistered(), userTo.getRoles());
+                userTo.getEnabled(), userTo.getRegistered(), userTo.getRoles());
     }
 
     public static List<UserTo> getTos(Collection<User> users) {

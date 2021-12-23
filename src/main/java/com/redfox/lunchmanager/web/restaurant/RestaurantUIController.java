@@ -32,10 +32,7 @@ public class RestaurantUIController extends AbstractRestaurantController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void createOrUpdate(@RequestParam String id,
-                               @RequestParam String name) {
-        Integer restaurantId = id.isEmpty() ? null : Integer.valueOf(id);
-        var restaurant = new RestaurantTo(restaurantId, name, null, null);
+    public void createOrUpdate(RestaurantTo restaurant) {
         if (restaurant.isNew()) {
             super.create(restaurant);
         } else {

@@ -32,6 +32,7 @@
         <property name="formatters">
             <set>
                 <bean class="com.redfox.lunchmanager.web.converter.DateTimeFormatters.LocalDateFormatter"/>
+                <bean class="com.redfox.lunchmanager.web.converter.UserFormatters.RoleFormatter"/>
             </set>
         </property>
     </bean>

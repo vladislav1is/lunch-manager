@@ -1,7 +1,6 @@
 package com.redfox.lunchmanager.web.dish;
 
 import com.redfox.lunchmanager.to.DishTo;
-import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.lang.Nullable;
@@ -35,13 +34,7 @@ public class DishUIController extends AbstractDishController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void createOrUpdate(@PathVariable int restaurantId,
-                               @RequestParam String id,
-                               @RequestParam String name,
-                               @RequestParam long price,
-                               @RequestParam @DateTimeFormat(iso = DateTimeFormat.ISO.DATE) LocalDate registered) {
-        Integer dishId = id.isEmpty() ? null : Integer.valueOf(id);
-        var dish = new DishTo(dishId, name, price, registered);
+    public void createOrUpdate(@PathVariable int restaurantId, DishTo dish) {
         if (dish.isNew()) {
             super.create(dish, restaurantId);
         } else {

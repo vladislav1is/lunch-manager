@@ -15,14 +15,14 @@ public class UserTo extends BaseTo {
 
     private final String password;
 
-    private final boolean enabled;
+    private Boolean enabled;
 
-    private final LocalDateTime registered;
+    private LocalDateTime registered;
 
-    private final Set<Role> roles;
+    private Set<Role> roles;
 
     @ConstructorProperties({"id", "name", "email", "password", "enabled", "registered", "roles"})
-    public UserTo(Integer id, String name, String email, String password, boolean enabled, LocalDateTime registered, Set<Role> roles) {
+    public UserTo(Integer id, String name, String email, String password, Boolean enabled, LocalDateTime registered, Set<Role> roles) {
         super(id);
         this.name = name;
         this.email = email;
@@ -44,16 +44,28 @@ public class UserTo extends BaseTo {
         return password;
     }
 
-    public boolean isEnabled() {
+    public Boolean getEnabled() {
         return enabled;
+    }
+
+    public void setEnabled(Boolean enabled) {
+        this.enabled = enabled;
     }
 
     public LocalDateTime getRegistered() {
         return registered;
     }
 
+    public void setRegistered(LocalDateTime registered) {
+        this.registered = registered;
+    }
+
     public Set<Role> getRoles() {
         return roles;
+    }
+
+    public void setRoles(Set<Role> roles) {
+        this.roles = roles;
     }
 
     @Override
