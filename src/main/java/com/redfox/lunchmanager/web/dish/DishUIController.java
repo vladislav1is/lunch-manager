@@ -3,11 +3,15 @@ package com.redfox.lunchmanager.web.dish;
 import com.redfox.lunchmanager.to.DishTo;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
+import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/admin/restaurants/{restaurantId}/dishes", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -34,12 +38,19 @@ public class DishUIController extends AbstractDishController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void createOrUpdate(@PathVariable int restaurantId, DishTo dish) {
+    public ResponseEntity<String> createOrUpdate(@PathVariable int restaurantId, @Valid DishTo dish, BindingResult result) {
+        if (result.hasErrors()) {
+            String errorFieldsMsg = result.getFieldErrors().stream()
+                    .map(fe -> String.format("[%s] %s", fe.getField(), fe.getDefaultMessage()))
+                    .collect(Collectors.joining("<br>"));
+            return ResponseEntity.unprocessableEntity().body(errorFieldsMsg);
+        }
         if (dish.isNew()) {
             super.create(dish, restaurantId);
         } else {
             super.update(dish, dish.id(), restaurantId);
         }
+        return ResponseEntity.ok().build();
     }
 
     @Override

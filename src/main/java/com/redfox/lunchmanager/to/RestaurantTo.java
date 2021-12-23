@@ -1,11 +1,15 @@
 package com.redfox.lunchmanager.to;
 
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.beans.ConstructorProperties;
 import java.util.List;
 import java.util.Objects;
 
 public class RestaurantTo extends BaseTo {
 
+    @NotBlank
+    @Size(min = 2, max = 100, message = "length must be between 2 and 100 characters")
     private final String name;
 
     private final VoteTo vote;

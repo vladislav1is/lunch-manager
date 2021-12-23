@@ -2,6 +2,9 @@ package com.redfox.lunchmanager.to;
 
 import com.redfox.lunchmanager.model.Role;
 
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 import java.beans.ConstructorProperties;
 import java.time.LocalDateTime;
 import java.util.Objects;
@@ -9,10 +12,17 @@ import java.util.Set;
 
 public class UserTo extends BaseTo {
 
+    @NotBlank
+    @Size(min = 2, max = 100, message = "length must be between 2 and 100 characters")
     private final String name;
 
+    @NotBlank
+    @Size(max = 100)
+    @Email(message = "Email should be valid")
     private final String email;
 
+    @NotBlank
+    @Size(min = 5, max = 100, message = "length must be between 5 and 100 characters")
     private final String password;
 
     private Boolean enabled;
