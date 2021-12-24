@@ -16,12 +16,21 @@
 
     <beans:bean name="noopEncoder" class="org.springframework.security.crypto.password.NoOpPasswordEncoder"/>
 
+    <http>
+        <intercept-url pattern="/admin/**" access="hasRole('ADMIN')"/>
+        <intercept-url pattern="/**" access="isAuthenticated()"/>
+        <form-login/>
+        <logout/>
+        <csrf disabled="true"/>
+    </http>
+
     <authentication-manager>
         <authentication-provider>
             <password-encoder ref="noopEncoder"/>
             <user-service>
                 <user name="user@yandex.ru" password="password" authorities="ROLE_USER"/>
                 <user name="admin@gmail.com" password="admin" authorities="ROLE_ADMIN"/>
+                <user name="user1@yandex.ru" password="123456" authorities="ROLE_ADMIN"/>
             </user-service>
         </authentication-provider>
     </authentication-manager>

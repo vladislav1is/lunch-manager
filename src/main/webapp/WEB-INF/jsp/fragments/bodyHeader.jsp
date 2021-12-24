@@ -15,8 +15,8 @@
                 <button type="button" onclick="location.href='users';" class="btn btn-secondary">
                     <spring:message code="user.title"/>
                 </button>
-                <button type="button" onclick="location.href='#';" class="btn btn-secondary">
-                    <span class="fa fa-sign-in"></span>
+                <button type="button" onclick="location.href='logout';" class="btn btn-secondary">
+                    <span class="fa fa-sign-out"></span>
                 </button>
             </div>
         </div>
