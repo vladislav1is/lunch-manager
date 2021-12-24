@@ -12,8 +12,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -37,7 +35,7 @@ public class RootController {
 
     @GetMapping("/")
     public String root() {
-        return "index";
+        return "redirect:restaurants";
     }
 
     @GetMapping("/users")
@@ -63,10 +61,9 @@ public class RootController {
         return "restaurants-editor";
     }
 
-    @PostMapping("/users")
-    public String setUser(@RequestParam int userId) {
-        SecurityUtil.setAuthUserId(userId);
-        return "redirect:/restaurants";
+    @GetMapping("/login")
+    public String login() {
+        return "login";
     }
 
     @GetMapping("/restaurants/{restaurantId}/dishes")

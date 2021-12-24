@@ -34,7 +34,9 @@
             <tbody>
             <c:forEach var="restaurant" items="${restaurants}">
                 <c:set var="id" value="${restaurant.id}"/>
-                <tr data-voted="${restaurant.vote != null ? true : false}">
+                <c:set var="voted" value="${restaurant.vote != null}"/>
+                <tr data-voted="${voted ? true : false}"
+                    class="${voted ? 'font-weight-bold' : ''}">
                     <td>${restaurant.name}</td>
                     <td>
                         <button type="button" onclick="window.location.href='restaurants/${id}/dishes'"

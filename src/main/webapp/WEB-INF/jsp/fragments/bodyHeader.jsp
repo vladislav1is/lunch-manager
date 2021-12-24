@@ -8,14 +8,14 @@
                 <img src="resources/images/icon-fox.png" width="50" alt="<spring:message code="app.title"/>">
                 <spring:message code="app.title"/>
             </a>
-            <div class="btn-group ">
+            <div class="btn-group">
                 <button type="button" onclick="location.href='restaurants/editor';" class="btn btn-secondary">
                     <spring:message code="app.editor"/>
                 </button>
                 <button type="button" onclick="location.href='users';" class="btn btn-secondary">
                     <spring:message code="user.title"/>
                 </button>
-                <button type="button" onclick="location.href='logout';" class="btn btn-secondary">
+                <button type="button" onclick="location.href='logout';" class="btn btn-danger custom-btn">
                     <span class="fa fa-sign-out"></span>
                 </button>
             </div>
