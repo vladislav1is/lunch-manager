@@ -13,7 +13,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/admin/restaurants", produces = MediaType.APPLICATION_JSON_VALUE)
-public class RestaurantUIController extends AbstractRestaurantController {
+public class AdminRestaurantUIController extends AbstractRestaurantController {
 
     @Override
     @GetMapping

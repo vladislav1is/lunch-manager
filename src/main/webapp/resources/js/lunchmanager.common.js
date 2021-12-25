@@ -101,10 +101,27 @@ function renderDeleteBtn(data, type, row) {
     }
 }
 
-function renderMenuBtn(data, type, row) {
+function renderEditMenuBtn(data, type, row) {
     if (type === "display") {
         return "<button type='button' onclick=\"window.location.href='restaurants/" + row.id + "/dishes/editor'\"\n" +
             " class='btn btn-sm btn-secondary'>" + i18n["common.edit"] + "</button>";
+    }
+}
+
+function renderMenuBtn(data, type, row) {
+    if (type === "display") {
+        return "<button type='button' onclick=\"window.location.href='restaurants/" + row.id + "/dishes'\"\n" +
+            " class='btn btn-sm btn-secondary'>" + i18n["common.view"] + "</button>";
+    }
+}
+
+function renderVoteBtn(data, type, row) {
+    if (type === "display") {
+        return "<button type='button' onclick=\"window.location.href='restaurants/" + row.id + "/votes'\"\n" +
+            " class='btn btn btn-secondary'>" +
+            "<span class='fa text-light fa-plus'></span>" +
+            "<span class='fa text-white-50 fa-users'></span>" +
+            "</button>";
     }
 }
 

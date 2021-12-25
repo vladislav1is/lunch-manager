@@ -1,6 +1,6 @@
 const dishAjaxUrl = (() => {
     let restaurantId = $(location).attr('pathname').split('/')[3];
-    return "profile/restaurants/" + restaurantId + "/dishes/";
+    return "admin/restaurants/" + restaurantId + "/dishes/";
 })();
 
 // https://stackoverflow.com/a/5064235/548473
@@ -38,6 +38,16 @@ $(function () {
                 },
                 {
                     "data": "price"
+                },
+                {
+                    "orderable": false,
+                    "defaultContent": "",
+                    "render": renderEditBtn
+                },
+                {
+                    "orderable": false,
+                    "defaultContent": "",
+                    "render": renderDeleteBtn
                 }
             ],
             "order": [

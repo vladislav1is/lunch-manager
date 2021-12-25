@@ -43,11 +43,7 @@ body {
     background-color: #f5f5f5;
 }
 
-tr[data-voted="false"] {
-    background: #e9ecef;
-}
-
-tr[data-voted="true"] {
+tr.data-voted {
     background: #dee2e6;
 }
 

@@ -5,26 +5,14 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
-    <title><spring:message code="restaurant.title"/></title>
+    <title><spring:message code="restaurant.editor"/></title>
     <base href="${pageContext.request.contextPath}/"/>
 
-    <link rel="stylesheet" href="resources/css/style.css?v=2">
-    <link rel="stylesheet" href="webjars/bootstrap/4.6.0-1/css/bootstrap.min.css">
-    <link rel="stylesheet" href="webjars/noty/3.1.4/demo/font-awesome/css/font-awesome.min.css">
-    <link rel="stylesheet" href="webjars/datatables/1.10.25/css/dataTables.bootstrap4.min.css">
-    <link rel="stylesheet" href="webjars/noty/3.1.4/lib/noty.css"/>
-    <link rel="shortcut icon" href="resources/images/icon-fox.png">
-
-    <%-- http://stackoverflow.com/a/24070373/548473 --%>
-    <script src="webjars/jquery/3.6.0/jquery.min.js" defer></script>
-    <script src="webjars/bootstrap/4.6.0-1/js/bootstrap.min.js" defer></script>
-    <script src="webjars/datatables/1.10.25/js/jquery.dataTables.min.js" defer></script>
-    <script src="webjars/noty/3.1.4/lib/noty.min.js" defer></script>
-    <script src="webjars/datatables/1.10.25/js/dataTables.bootstrap4.min.js" defer></script>
+    <jsp:include page="fragments/libs.jsp"/>
 </head>
 <body>
 <script type="text/javascript" src="resources/js/lunchmanager.common.js" defer></script>
-<script type="text/javascript" src="resources/js/lunchmanager.restaurants.js" defer></script>
+<script type="text/javascript" src="resources/js/lunchmanager.restaurants-editor.js" defer></script>
 <jsp:include page="fragments/bodyHeader.jsp"/>
 
 <div class="jumbotron pt-4">

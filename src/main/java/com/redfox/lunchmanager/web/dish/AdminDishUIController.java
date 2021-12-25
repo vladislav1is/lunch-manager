@@ -15,7 +15,7 @@ import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/admin/restaurants/{restaurantId}/dishes", produces = MediaType.APPLICATION_JSON_VALUE)
-public class DishUIController extends AbstractDishController {
+public class AdminDishUIController extends AbstractDishController {
 
     @Override
     @GetMapping

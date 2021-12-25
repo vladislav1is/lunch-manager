@@ -1,4 +1,4 @@
-const restaurantAjaxUrl = "profile/restaurants/";
+const restaurantAjaxUrl = "admin/restaurants/";
 
 // https://stackoverflow.com/a/5064235/548473
 const ctx = {
@@ -24,27 +24,25 @@ $(function () {
                 {
                     "orderable": false,
                     "defaultContent": "",
-                    "render": renderMenuBtn
+                    "render": renderEditMenuBtn
                 },
                 {
                     "orderable": false,
                     "defaultContent": "",
-                    "render": renderVoteBtn
+                    "render": renderEditBtn
+                },
+                {
+                    "orderable": false,
+                    "defaultContent": "",
+                    "render": renderDeleteBtn
                 }
             ],
-            "order":
+            "order": [
                 [
-                    [
-                        0,
-                        "asc"
-                    ]
-                ],
-            "createdRow":
-                function (row, data) {
-                    if (data.vote) {
-                        $(row).attr("class", "data-voted font-weight-bold")
-                    }
-                }
+                    0,
+                    "asc"
+                ]
+            ]
         })
     );
 });

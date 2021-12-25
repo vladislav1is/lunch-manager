@@ -6,7 +6,6 @@ import com.redfox.lunchmanager.service.DishService;
 import com.redfox.lunchmanager.service.RestaurantService;
 import com.redfox.lunchmanager.service.VoteService;
 import com.redfox.lunchmanager.to.RestaurantTo;
-import com.redfox.lunchmanager.util.Dishes;
 import com.redfox.lunchmanager.util.Restaurants;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -68,14 +67,15 @@ public class RootController {
 
     @GetMapping("/restaurants/{restaurantId}/dishes")
     public String getDishesForToday(@PathVariable int restaurantId, Model model) {
-        model.addAttribute("dishes", Dishes.getTos(dishService.getBetweenHalfOpen(LocalDate.now(), LocalDate.now(), restaurantId)));
         Restaurant restaurant = restaurantService.get(restaurantId);
         model.addAttribute("restaurant", convertToDto(restaurant));
         return "dishes";
     }
 
     @GetMapping("/restaurants/{restaurantId}/dishes/editor")
-    public String editDishes() {
+    public String editDishes(@PathVariable int restaurantId, Model model) {
+        Restaurant restaurant = restaurantService.get(restaurantId);
+        model.addAttribute("restaurant", convertToDto(restaurant));
         return "dishes-editor";
     }
 }

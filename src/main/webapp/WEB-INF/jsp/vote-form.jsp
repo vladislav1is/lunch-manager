@@ -15,39 +15,43 @@
     <link rel="stylesheet" href="resources/css/style.css?v=2">
     <link rel="stylesheet" href="webjars/bootstrap/4.6.0-1/css/bootstrap.min.css">
     <link rel="stylesheet" href="webjars/noty/3.1.4/demo/font-awesome/css/font-awesome.min.css">
-    <link rel="shortcut icon" href="resources/images/icon-fox.png"></head>
+    <link rel="shortcut icon" href="resources/images/icon-fox.png">
+</head>
 <body>
 <jsp:include page="fragments/bodyHeader.jsp"/>
 <div class="jumbotron pt-4">
     <div class="container">
-        <h3><spring:message code="vote.title"/>&nbsp${restaurant.name}</h3>
+        <h3 class="text-center"><spring:message code="vote.title"/>&nbsp${restaurant.name}</h3>
 
-        <c:set var="allowed" value="${fn:canRevoteBefore(15, 0) ? '' : 'disabled'}" scope="page"/>
+        <c:set var="allowed" value="${fn:canRevoteBefore(11, 0) ? '' : 'disabled'}" scope="page"/>
+        <table class="table table-striped" id="datatable">
+
+            <thead>
+            <tr>
+                <th><spring:message code="restaurant.name"/></th>
+                <th><spring:message code="restaurant.menu"/></th>
+                <th><spring:message code="common.visitors"/></th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr>
+                <td>${restaurant.name}</td>
+                <td>
+                    <button type="button" onclick="window.location.href='restaurants/${restaurant.id}/dishes'"
+                            class="btn btn-sm btn-secondary">
+                        <spring:message code="common.view"/></button>
+                </td>
+                <td>${fns:length(votes)}</td>
+            </tr>
+            </tbody>
+        </table>
         <form method="post" action="restaurants/${restaurant.id}/votes">
-            <table class="table table-striped mt-3">
-                <thead>
-                <tr>
-                    <th><spring:message code="restaurant.name"/></th>
-                    <th><spring:message code="restaurant.menu"/></th>
-                    <th><spring:message code="common.visitors"/></th>
-                </tr>
-                </thead>
-                <tbody>
-                <tr>
-                    <td>${restaurant.name}</td>
-                    <td>
-                        <button type="button" onclick="window.location.href='restaurants/${restaurant.id}/dishes'"
-                                class="btn btn-sm btn-secondary">
-                            <spring:message code="common.view"/></button>
-                    </td>
-                    <td>${fns:length(votes)}</td>
-                </tr>
-                </tbody>
-            </table>
-            <button type="submit" ${allowed} class="btn btn-primary">
+            <button class="btn btn-primary" type="submit" ${allowed}>
+                <span class="fa fa-plus"></span>
                 <spring:message code="common.vote"/>
             </button>
-            <button type="button" onclick="window.history.back()" class="btn btn-primary">
+            <button class="btn btn-danger custom-btn" type="button" onclick="window.history.back()">
+                <span class="fa fa-remove"></span>
                 <spring:message code="common.cancel"/>
             </button>
         </form>
