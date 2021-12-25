@@ -2,7 +2,6 @@ package com.redfox.lunchmanager.web;
 
 import com.redfox.lunchmanager.model.Restaurant;
 import com.redfox.lunchmanager.model.Vote;
-import com.redfox.lunchmanager.service.DishService;
 import com.redfox.lunchmanager.service.RestaurantService;
 import com.redfox.lunchmanager.service.VoteService;
 import com.redfox.lunchmanager.to.RestaurantTo;
@@ -24,12 +23,9 @@ public class RootController {
 
     private final RestaurantService restaurantService;
 
-    private final DishService dishService;
-
-    public RootController(RestaurantService restaurantService, VoteService voteService, DishService dishService) {
+    public RootController(RestaurantService restaurantService, VoteService voteService) {
         this.restaurantService = restaurantService;
         this.voteService = voteService;
-        this.dishService = dishService;
     }
 
     @GetMapping("/")
