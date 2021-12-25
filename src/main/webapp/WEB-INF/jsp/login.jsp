@@ -33,10 +33,10 @@
         </c:if>
         <br/>
         <p>
-            <button type="submit" class="btn btn-lg btn-primary" onclick="login('user@yandex.ru', 'password')">
+            <button type="submit" class="btn btn-lg btn-primary" onclick="login('user3@gmail.com', '123456')">
                 <spring:message code="app.login"/> User
             </button>
-            <button type="submit" class="btn btn-lg btn-primary" onclick="login('admin@gmail.com', 'admin')">
+            <button type="submit" class="btn btn-lg btn-primary" onclick="login('user1@yandex.ru', '123456')">
                 <spring:message code="app.login"/> Admin
             </button>
         </p>
@@ -46,7 +46,8 @@
             <a href="http://projects.spring.io/spring-security/">Spring Security</a>,
             <a href="https://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html">Spring MVC</a>,
             <a href="http://projects.spring.io/spring-data-jpa/">Spring Data JPA</a>,
-            <a href="http://spring.io/blog/2014/05/07/preview-spring-security-test-method-security">Spring Security Test</a>,
+            <a href="http://spring.io/blog/2014/05/07/preview-spring-security-test-method-security">Spring Security
+                Test</a>,
             <a href="http://hibernate.org/orm/">Hibernate ORM</a>,
             <a href="http://hibernate.org/validator/">Hibernate Validator</a>,
             <a href="http://www.slf4j.org/">SLF4J</a>,
@@ -68,7 +69,8 @@
         </div>
     </div>
 </div>
-<div class="container lead"><spring:message code="app.description"/></div>\
+<div class="container lead"><spring:message code="app.description"/></div>
+\
 <jsp:include page="fragments/footer.jsp"/>
 <script type="text/javascript">
     function login(username, password) {
