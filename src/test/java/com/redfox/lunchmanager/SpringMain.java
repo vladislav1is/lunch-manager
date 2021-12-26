@@ -1,6 +1,5 @@
 package com.redfox.lunchmanager;
 
-import com.redfox.lunchmanager.web.SecurityUtil;
 import com.redfox.lunchmanager.web.dish.AdminDishRestController;
 import com.redfox.lunchmanager.web.restaurant.AdminRestRestaurantController;
 import com.redfox.lunchmanager.web.user.AdminRestController;
@@ -10,6 +9,7 @@ import org.springframework.context.support.GenericXmlApplicationContext;
 import java.util.Arrays;
 
 import static com.redfox.lunchmanager.RestaurantTestData.restaurant1;
+import static com.redfox.lunchmanager.TestUtil.mockAuthorize;
 import static com.redfox.lunchmanager.UserTestData.user1;
 import static java.time.LocalDate.now;
 
@@ -32,7 +32,8 @@ public class SpringMain {
             var restaurantController = appCtx.getBean(AdminRestRestaurantController.class);
             var dishController = appCtx.getBean(AdminDishRestController.class);
             var voteController = appCtx.getBean(ProfileVoteController.class);
-            SecurityUtil.setAuthUserId(user1.id());
+
+            mockAuthorize(user1);
 
             adminController.getAll().forEach(System.out::println);
             restaurantController.getAll().forEach(System.out::println);

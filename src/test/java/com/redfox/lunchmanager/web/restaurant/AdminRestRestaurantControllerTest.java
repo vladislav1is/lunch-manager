@@ -13,7 +13,10 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static com.redfox.lunchmanager.RestaurantTestData.*;
-import static com.redfox.lunchmanager.VoteTestData.vote4;
+import static com.redfox.lunchmanager.TestUtil.userHttpBasic;
+import static com.redfox.lunchmanager.UserTestData.user1;
+import static com.redfox.lunchmanager.UserTestData.user3;
+import static com.redfox.lunchmanager.VoteTestData.vote1;
 import static com.redfox.lunchmanager.util.Restaurants.convertToDto;
 import static com.redfox.lunchmanager.util.Restaurants.getTos;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -29,8 +32,22 @@ class AdminRestRestaurantControllerTest extends AbstractControllerTest {
     private RestaurantService restaurantService;
 
     @Test
+    void getUnAuth() throws Exception {
+        perform(MockMvcRequestBuilders.get(REST_URL))
+                .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    void getForbidden() throws Exception {
+        perform(MockMvcRequestBuilders.get(REST_URL)
+                .with(userHttpBasic(user3)))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
     void delete() throws Exception {
-        perform(MockMvcRequestBuilders.delete(REST_URL + RESTAURANT_ID_1))
+        perform(MockMvcRequestBuilders.delete(REST_URL + RESTAURANT_ID_1)
+                .with(userHttpBasic(user1)))
                 .andDo(print())
                 .andExpect(status().isNoContent());
         assertThrows(NotFoundException.class, () -> restaurantService.get(RESTAURANT_ID_1));
@@ -38,25 +55,28 @@ class AdminRestRestaurantControllerTest extends AbstractControllerTest {
 
     @Test
     void get() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL + RESTAURANT_ID_1))
+        perform(MockMvcRequestBuilders.get(REST_URL + RESTAURANT_ID_1)
+                .with(userHttpBasic(user1)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(TO_MATCHER.contentJson(convertToDto(restaurant1)));
+                .andExpect(TO_MATCHER.contentJson(convertToDto(restaurant1, vote1)));
     }
 
     @Test
     void getAll() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL))
+        perform(MockMvcRequestBuilders.get(REST_URL)
+                .with(userHttpBasic(user1)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(TO_MATCHER.contentJson(getTos(restaurants, vote4)));
+                .andExpect(TO_MATCHER.contentJson(getTos(restaurants, vote1)));
     }
 
     @Test
     void update() throws Exception {
         RestaurantTo updated = convertToDto(RestaurantTestData.getUpdated());
         perform(MockMvcRequestBuilders.put(REST_URL + RESTAURANT_ID_3)
+                .with(userHttpBasic(user1))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(updated)))
                 .andExpect(status().isNoContent());
@@ -68,6 +88,7 @@ class AdminRestRestaurantControllerTest extends AbstractControllerTest {
     void createWithLocation() throws Exception {
         RestaurantTo newRestaurant = convertToDto(RestaurantTestData.getNew());
         ResultActions action = perform(MockMvcRequestBuilders.post(REST_URL)
+                .with(userHttpBasic(user1))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(newRestaurant)))
                 .andExpect(status().isCreated());
@@ -82,10 +103,11 @@ class AdminRestRestaurantControllerTest extends AbstractControllerTest {
     @Test
     void getWithDishes() throws Exception {
         assumeDataJpa();
-        perform(MockMvcRequestBuilders.get(REST_URL + RESTAURANT_ID_1 + "/with-dishes"))
+        perform(MockMvcRequestBuilders.get(REST_URL + RESTAURANT_ID_1 + "/with-dishes")
+                .with(userHttpBasic(user1)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(TO_MATCHER.contentJson(convertToDto(restaurant1, restaurant1.getDishes())));
+                .andExpect(TO_MATCHER.contentJson(convertToDto(restaurant1, vote1, restaurant1.getDishes())));
     }
 }

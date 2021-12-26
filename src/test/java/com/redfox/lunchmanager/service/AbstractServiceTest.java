@@ -16,7 +16,7 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
         "classpath:spring/spring-db.xml"
 })
 @ActiveProfiles(resolver = ActiveDbProfileResolver.class)
-@Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"))
+@Sql(scripts = "classpath:db/populateDB.sql", config = @SqlConfig(encoding = "UTF-8"), executionPhase = Sql.ExecutionPhase.AFTER_TEST_METHOD)
 @ExtendWith(TimingExtension.class)
 public abstract class AbstractServiceTest {
 

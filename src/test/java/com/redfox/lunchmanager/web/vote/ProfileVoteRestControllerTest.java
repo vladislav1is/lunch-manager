@@ -1,11 +1,9 @@
 package com.redfox.lunchmanager.web.vote;
 
-import com.redfox.lunchmanager.UserTestData;
 import com.redfox.lunchmanager.service.VoteService;
 import com.redfox.lunchmanager.to.VoteTo;
 import com.redfox.lunchmanager.util.exception.NotFoundException;
 import com.redfox.lunchmanager.web.AbstractControllerTest;
-import com.redfox.lunchmanager.web.SecurityUtil;
 import com.redfox.lunchmanager.web.json.JsonUtil;
 import com.redfox.lunchmanager.web.restaurant.ProfileRestRestaurantController;
 import org.junit.jupiter.api.Test;
@@ -15,6 +13,8 @@ import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static com.redfox.lunchmanager.RestaurantTestData.RESTAURANT_ID_1;
+import static com.redfox.lunchmanager.TestUtil.userHttpBasic;
+import static com.redfox.lunchmanager.UserTestData.user1;
 import static com.redfox.lunchmanager.VoteTestData.*;
 import static com.redfox.lunchmanager.util.Votes.convertToDto;
 import static com.redfox.lunchmanager.util.Votes.getTos;
@@ -31,15 +31,23 @@ class ProfileVoteRestControllerTest extends AbstractControllerTest {
     private VoteService service;
 
     @Test
+    void getUnAuth() throws Exception {
+        perform(MockMvcRequestBuilders.get(REST_URL))
+                .andExpect(status().isUnauthorized());
+    }
+
+    @Test
     void delete() throws Exception {
-        perform(MockMvcRequestBuilders.delete(REST_URL + VOTE_ID_1))
+        perform(MockMvcRequestBuilders.delete(REST_URL + VOTE_ID_1)
+                .with(userHttpBasic(user1)))
                 .andExpect(status().isNoContent());
         assertThrows(NotFoundException.class, () -> service.get(VOTE_ID_1, RESTAURANT_ID_1));
     }
 
     @Test
     void get() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL + VOTE_ID_1))
+        perform(MockMvcRequestBuilders.get(REST_URL + VOTE_ID_1)
+                .with(userHttpBasic(user1)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -48,8 +56,8 @@ class ProfileVoteRestControllerTest extends AbstractControllerTest {
 
     @Test
     void getByDate() throws Exception {
-        SecurityUtil.setAuthUserId(UserTestData.USER_ID_1);
-        perform(MockMvcRequestBuilders.get(REST_URL + "by?localDate=" + vote1.getRegistered()))
+        perform(MockMvcRequestBuilders.get(REST_URL + "by?localDate=" + vote1.getRegistered())
+                .with(userHttpBasic(user1)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(TO_MATCHER.contentJson(convertToDto(vote1)));
@@ -57,7 +65,8 @@ class ProfileVoteRestControllerTest extends AbstractControllerTest {
 
     @Test
     void getAll() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL))
+        perform(MockMvcRequestBuilders.get(REST_URL)
+                .with(userHttpBasic(user1)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -67,6 +76,7 @@ class ProfileVoteRestControllerTest extends AbstractControllerTest {
     @Test
     void getBetween() throws Exception {
         perform(MockMvcRequestBuilders.get(REST_URL + "filter")
+                .with(userHttpBasic(user1))
                 .param("startDate", "2021-11-11")
                 .param("endDate", "2021-11-11"))
                 .andExpect(status().isOk())
@@ -76,16 +86,17 @@ class ProfileVoteRestControllerTest extends AbstractControllerTest {
 
     @Test
     void getBetweenAll() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL + "filter?startDate=&endDate="))
+        perform(MockMvcRequestBuilders.get(REST_URL + "filter?startDate=&endDate=")
+                .with(userHttpBasic(user1)))
                 .andExpect(status().isOk())
                 .andExpect(TO_MATCHER.contentJson(getTos(votes)));
     }
 
     @Test
     void update() throws Exception {
-        SecurityUtil.setAuthUserId(UserTestData.USER_ID_2);
         VoteTo updated = convertToDto(getUpdated());
         perform(MockMvcRequestBuilders.put(REST_URL + VOTE_ID_3).contentType(MediaType.APPLICATION_JSON)
+                .with(userHttpBasic(user1))
                 .content(JsonUtil.writeValue(updated)))
                 .andExpect(status().isNoContent());
 
@@ -96,6 +107,7 @@ class ProfileVoteRestControllerTest extends AbstractControllerTest {
     void createWithLocation() throws Exception {
         VoteTo newVote = convertToDto(getNew());
         ResultActions action = perform(MockMvcRequestBuilders.post(REST_URL)
+                .with(userHttpBasic(user1))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(newVote)))
                 .andExpect(status().isCreated());

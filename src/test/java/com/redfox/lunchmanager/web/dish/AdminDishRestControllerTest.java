@@ -14,6 +14,9 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static com.redfox.lunchmanager.DishTestData.*;
 import static com.redfox.lunchmanager.RestaurantTestData.RESTAURANT_ID_2;
+import static com.redfox.lunchmanager.TestUtil.userHttpBasic;
+import static com.redfox.lunchmanager.UserTestData.user1;
+import static com.redfox.lunchmanager.UserTestData.user3;
 import static com.redfox.lunchmanager.util.Dishes.convertToDto;
 import static com.redfox.lunchmanager.util.Dishes.getTos;
 import static org.junit.jupiter.api.Assertions.assertThrows;
@@ -29,15 +32,30 @@ class AdminDishRestControllerTest extends AbstractControllerTest {
     private DishService dishService;
 
     @Test
+    void getUnAuth() throws Exception {
+        perform(MockMvcRequestBuilders.get(REST_URL))
+                .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    void getForbidden() throws Exception {
+        perform(MockMvcRequestBuilders.get(REST_URL)
+                .with(userHttpBasic(user3)))
+                .andExpect(status().isForbidden());
+    }
+
+    @Test
     void delete() throws Exception {
-        perform(MockMvcRequestBuilders.delete(REST_URL + DISH_ID_3))
+        perform(MockMvcRequestBuilders.delete(REST_URL + DISH_ID_3)
+                .with(userHttpBasic(user1)))
                 .andExpect(status().isNoContent());
         assertThrows(NotFoundException.class, () -> dishService.get(DISH_ID_3, RESTAURANT_ID_2));
     }
 
     @Test
     void get() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL + DISH_ID_3))
+        perform(MockMvcRequestBuilders.get(REST_URL + DISH_ID_3)
+                .with(userHttpBasic(user1)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -46,7 +64,8 @@ class AdminDishRestControllerTest extends AbstractControllerTest {
 
     @Test
     void getAll() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL))
+        perform(MockMvcRequestBuilders.get(REST_URL)
+                .with(userHttpBasic(user1)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -56,6 +75,7 @@ class AdminDishRestControllerTest extends AbstractControllerTest {
     @Test
     void getBetween() throws Exception {
         perform(MockMvcRequestBuilders.get(REST_URL + "filter")
+                .with(userHttpBasic(user1))
                 .param("startDate", "2021-11-11")
                 .param("endDate", "2021-11-11"))
                 .andExpect(status().isOk())
@@ -65,7 +85,8 @@ class AdminDishRestControllerTest extends AbstractControllerTest {
 
     @Test
     void getBetweenAll() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL + "filter?startDate=&endDate="))
+        perform(MockMvcRequestBuilders.get(REST_URL + "filter?startDate=&endDate=")
+                .with(userHttpBasic(user1)))
                 .andExpect(status().isOk())
                 .andExpect(TO_MATCHER.contentJson(getTos(dish3, dish4)));
     }
@@ -74,6 +95,7 @@ class AdminDishRestControllerTest extends AbstractControllerTest {
     void update() throws Exception {
         DishTo updated = convertToDto(getUpdated());
         perform(MockMvcRequestBuilders.put(REST_URL + DISH_ID_3).contentType(MediaType.APPLICATION_JSON)
+                .with(userHttpBasic(user1))
                 .content(JsonUtil.writeValue(updated)))
                 .andExpect(status().isNoContent());
 
@@ -84,6 +106,7 @@ class AdminDishRestControllerTest extends AbstractControllerTest {
     void createWithLocation() throws Exception {
         DishTo newDish = convertToDto(getNew());
         ResultActions action = perform(MockMvcRequestBuilders.post(REST_URL)
+                .with(userHttpBasic(user1))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(newDish)))
                 .andExpect(status().isCreated());

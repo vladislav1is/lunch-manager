@@ -9,22 +9,31 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import static com.redfox.lunchmanager.TestUtil.userHttpBasic;
 import static com.redfox.lunchmanager.UserTestData.*;
 import static com.redfox.lunchmanager.util.Users.convertToDto;
 import static com.redfox.lunchmanager.util.Users.getTos;
-import static com.redfox.lunchmanager.web.user.ProfileRestController.REST_URL;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 class ProfileRestControllerTest extends AbstractControllerTest {
 
+    private static final String REST_URL = ProfileRestController.REST_URL + '/';
+
     @Autowired
     private UserService userService;
 
     @Test
-    void get() throws Exception {
+    void getUnAuth() throws Exception {
         perform(MockMvcRequestBuilders.get(REST_URL))
+                .andExpect(status().isUnauthorized());
+    }
+
+    @Test
+    void get() throws Exception {
+        perform(MockMvcRequestBuilders.get(REST_URL)
+                .with(userHttpBasic(user3)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(TO_MATCHER.contentJson(convertToDto(user3)));
@@ -32,7 +41,8 @@ class ProfileRestControllerTest extends AbstractControllerTest {
 
     @Test
     void delete() throws Exception {
-        perform(MockMvcRequestBuilders.delete(REST_URL))
+        perform(MockMvcRequestBuilders.delete(REST_URL)
+                .with(userHttpBasic(user3)))
                 .andExpect(status().isNoContent());
         TO_MATCHER.assertMatch(getTos(userService.getAll()), getTos(user1, user2));
     }
@@ -41,6 +51,7 @@ class ProfileRestControllerTest extends AbstractControllerTest {
     void update() throws Exception {
         UserTo updated = convertToDto(getUpdated());
         perform(MockMvcRequestBuilders.put(REST_URL).contentType(MediaType.APPLICATION_JSON)
+                .with(userHttpBasic(user3))
                 .content(JsonUtil.writeValue(updated)))
                 .andDo(print())
                 .andExpect(status().isNoContent());

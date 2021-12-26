@@ -1,19 +1,18 @@
 package com.redfox.lunchmanager.web;
 
-import com.redfox.lunchmanager.DishTestData;
 import com.redfox.lunchmanager.RestaurantTestData;
-import com.redfox.lunchmanager.to.DishTo;
 import com.redfox.lunchmanager.to.RestaurantTo;
-import com.redfox.lunchmanager.util.Dishes;
 import com.redfox.lunchmanager.util.Restaurants;
 import org.assertj.core.matcher.AssertionMatcher;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static com.redfox.lunchmanager.DishTestData.dishes;
 import static com.redfox.lunchmanager.RestaurantTestData.restaurant1;
 import static com.redfox.lunchmanager.RestaurantTestData.restaurants;
+import static com.redfox.lunchmanager.TestUtil.userAuth;
+import static com.redfox.lunchmanager.UserTestData.user1;
+import static com.redfox.lunchmanager.UserTestData.user3;
 import static com.redfox.lunchmanager.VoteTestData.vote4;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -23,7 +22,8 @@ class RootControllerTest extends AbstractControllerTest {
 
     @Test
     void getRestaurants() throws Exception {
-        perform(get("/restaurants"))
+        perform(get("/restaurants")
+                .with(userAuth(user3)))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(view().name("restaurants"))
@@ -40,7 +40,8 @@ class RootControllerTest extends AbstractControllerTest {
 
     @Test
     void editRestaurants() throws Exception {
-        perform(get("/restaurants/editor"))
+        perform(get("/restaurants/editor")
+                .with(userAuth(user1)))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(view().name("restaurants-editor"))
@@ -49,7 +50,8 @@ class RootControllerTest extends AbstractControllerTest {
 
     @Test
     void getUsers() throws Exception {
-        perform(get("/users"))
+        perform(get("/users")
+                .with(userAuth(user1)))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(view().name("users"))
@@ -57,29 +59,32 @@ class RootControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    void unAuth() throws Exception {
+        perform(get("/restaurants"))
+                .andDo(print())
+                .andExpect(status().is3xxRedirection())
+                .andExpect(redirectedUrl("http://localhost/login"));
+    }
+
+    @Test
     void getDishesForToday() throws Exception {
-        perform(get("/restaurants/100004/dishes"))
+        perform(get("/restaurants/100004/dishes")
+                .with(userAuth(user3)))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(view().name("dishes"))
                 .andExpect(forwardedUrl("/WEB-INF/jsp/dishes.jsp"))
-                .andExpect(model().attribute("restaurant", Restaurants.convertToDto(restaurant1)))
-                .andExpect(model().attribute("dishes",
-                        new AssertionMatcher<List<DishTo>>() {
-                            @Override
-                            public void assertion(List<DishTo> actual) throws AssertionError {
-                                DishTestData.TO_MATCHER.assertMatch(actual, Dishes.getTos(dishes));
-                            }
-                        }
-                ));
+                .andExpect(model().attribute("restaurant", Restaurants.convertToDto(restaurant1)));
     }
 
     @Test
     void editDishes() throws Exception {
-        perform(get("/restaurants/100004/dishes/editor"))
+        perform(get("/restaurants/100004/dishes/editor")
+                .with(userAuth(user1)))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(view().name("dishes-editor"))
-                .andExpect(forwardedUrl("/WEB-INF/jsp/dishes-editor.jsp"));
+                .andExpect(forwardedUrl("/WEB-INF/jsp/dishes-editor.jsp"))
+                .andExpect(model().attribute("restaurant", Restaurants.convertToDto(restaurant1)));
     }
 }

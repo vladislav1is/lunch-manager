@@ -3,6 +3,7 @@ package com.redfox.lunchmanager.service;
 import com.redfox.lunchmanager.VoteTestData;
 import com.redfox.lunchmanager.model.Vote;
 import com.redfox.lunchmanager.util.exception.NotFoundException;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
@@ -12,6 +13,7 @@ import java.time.LocalDate;
 import java.time.Month;
 
 import static com.redfox.lunchmanager.RestaurantTestData.*;
+import static com.redfox.lunchmanager.TestUtil.mockAuthorize;
 import static com.redfox.lunchmanager.UserTestData.USER_ID_1;
 import static com.redfox.lunchmanager.UserTestData.user1;
 import static com.redfox.lunchmanager.VoteTestData.MATCHER;
@@ -24,6 +26,11 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 public abstract class AbstractVoteServiceTest extends AbstractServiceTest {
     @Autowired
     protected VoteService service;
+
+    @BeforeEach
+    void init() {
+        mockAuthorize(user1);
+    }
 
     @Test
     void create() {

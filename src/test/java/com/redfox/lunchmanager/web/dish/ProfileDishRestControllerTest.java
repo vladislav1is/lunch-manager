@@ -8,6 +8,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static com.redfox.lunchmanager.DishTestData.*;
 import static com.redfox.lunchmanager.RestaurantTestData.RESTAURANT_ID_1;
+import static com.redfox.lunchmanager.TestUtil.userHttpBasic;
+import static com.redfox.lunchmanager.UserTestData.user3;
 import static com.redfox.lunchmanager.util.Dishes.convertToDto;
 import static com.redfox.lunchmanager.util.Dishes.getTos;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
@@ -19,8 +21,15 @@ class ProfileDishRestControllerTest extends AbstractControllerTest {
     private static final String REST_URL = ProfileRestRestaurantController.REST_URL + '/' + RESTAURANT_ID_1 + "/dishes/";
 
     @Test
+    void getUnAuth() throws Exception {
+        perform(MockMvcRequestBuilders.get(REST_URL))
+                .andExpect(status().isUnauthorized());
+    }
+
+    @Test
     void get() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL + DISH_ID_1))
+        perform(MockMvcRequestBuilders.get(REST_URL + DISH_ID_1)
+                .with(userHttpBasic(user3)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
@@ -29,7 +38,8 @@ class ProfileDishRestControllerTest extends AbstractControllerTest {
 
     @Test
     void getAll() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL))
+        perform(MockMvcRequestBuilders.get(REST_URL)
+                .with(userHttpBasic(user3)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
