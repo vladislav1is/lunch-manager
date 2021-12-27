@@ -18,7 +18,7 @@ public class Users {
     }
 
     public static User convertToEntity(UserTo userTo) {
-        return new User(userTo.getId(), userTo.getName(), userTo.getEmail(), userTo.getPassword(),
+        return new User(userTo.getId(), userTo.getName(), userTo.getEmail().toLowerCase(), userTo.getPassword(),
                 userTo.getEnabled(), userTo.getRegistered(), userTo.getRoles());
     }
 

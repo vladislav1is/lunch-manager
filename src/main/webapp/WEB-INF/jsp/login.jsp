@@ -46,8 +46,7 @@
             <a href="http://projects.spring.io/spring-security/">Spring Security</a>,
             <a href="https://docs.spring.io/spring/docs/current/spring-framework-reference/html/mvc.html">Spring MVC</a>,
             <a href="http://projects.spring.io/spring-data-jpa/">Spring Data JPA</a>,
-            <a href="http://spring.io/blog/2014/05/07/preview-spring-security-test-method-security">Spring Security
-                Test</a>,
+            <a href="http://spring.io/blog/2014/05/07/preview-spring-security-test-method-security">Spring Security Test</a>,
             <a href="http://hibernate.org/orm/">Hibernate ORM</a>,
             <a href="http://hibernate.org/validator/">Hibernate Validator</a>,
             <a href="http://www.slf4j.org/">SLF4J</a>,
@@ -70,7 +69,7 @@
     </div>
 </div>
 <div class="container lead"><spring:message code="app.description"/></div>
-\
+<br/>
 <jsp:include page="fragments/footer.jsp"/>
 <script type="text/javascript">
     function login(username, password) {
