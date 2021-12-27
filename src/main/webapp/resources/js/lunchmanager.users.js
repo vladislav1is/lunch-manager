@@ -80,7 +80,7 @@ $(function () {
             ],
             "createdRow": function (row, data, dataIndex) {
                 if (!data.enabled) {
-                    $(row).attr("data-userEnabled", false);
+                    $(row).attr("data-user-enabled", false);
                 }
             }
         })
