@@ -1,7 +1,9 @@
 package com.redfox.lunchmanager.model;
 
+import com.redfox.lunchmanager.util.DateTimeUtil;
 import org.hibernate.annotations.*;
 import org.hibernate.annotations.Cache;
+import org.springframework.format.annotation.DateTimeFormat;
 import org.springframework.util.CollectionUtils;
 
 import javax.persistence.*;
@@ -50,6 +52,7 @@ public class User extends AbstractNamedEntity {
 
     @Column(name = "registered", nullable = false, columnDefinition = "timestamp default now()")
     @NotNull
+    @DateTimeFormat(pattern = DateTimeUtil.DATE_TIME_PATTERN)
     private LocalDateTime registered;
 
     @Cache(usage = CacheConcurrencyStrategy.NONSTRICT_READ_WRITE)

@@ -55,7 +55,7 @@ $(function () {
                 "data": "registered",
                 "render": function (date, type, row) {
                     if (type === "display") {
-                        return date.substring(0, 10);
+                        return date.replace('T', ' ').substr(0, 16);
                     }
                     return date;
                 }

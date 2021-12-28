@@ -2,9 +2,11 @@ package com.redfox.lunchmanager.model;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.redfox.lunchmanager.util.DateTimeUtil;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
 import org.hibernate.validator.constraints.Range;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -34,6 +36,7 @@ public class Dish extends AbstractNamedEntity {
 
     @Column(name = "registered", nullable = false, columnDefinition = "date default now()")
     @NotNull
+    @DateTimeFormat(pattern = DateTimeUtil.DATE_PATTERN)
     private LocalDate registered;
 
     @ManyToOne(fetch = FetchType.LAZY)
@@ -41,7 +44,6 @@ public class Dish extends AbstractNamedEntity {
     @OnDelete(action = OnDeleteAction.CASCADE)
     //  https://stackoverflow.com/questions/31319358/jsonmanagedreference-vs-jsonbackreference
     @JsonBackReference
-    //  @NotNull
     private Restaurant restaurant;
 
     public Dish() {

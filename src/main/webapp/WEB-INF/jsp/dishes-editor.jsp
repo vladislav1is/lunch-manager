@@ -29,11 +29,11 @@
                     <div class="row">
                         <div class="col-3">
                             <label for="startDate"><spring:message code="dish.startDate"/></label>
-                            <input class="form-control" type="date" name="startDate" id="startDate">
+                            <input class="form-control" name="startDate" id="startDate" autocomplete="off">
                         </div>
                         <div class="col-3">
                             <label for="endDate"><spring:message code="dish.endDate"/></label>
-                            <input class="form-control" type="date" name="endDate" id="endDate">
+                            <input class="form-control" name="endDate" id="endDate" autocomplete="off">
                         </div>
                     </div>
                 </form>
@@ -81,7 +81,7 @@
 
                     <div class="form-group">
                         <label for="registered" class="col-form-label"><spring:message code="dish.registered"/></label>
-                        <input type="date" class="form-control" id="registered" name="registered"
+                        <input class="form-control" id="registered" name="registered" autocomplete="off"
                                placeholder="<spring:message code="dish.registered"/>" required>
                     </div>
 

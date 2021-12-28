@@ -1,7 +1,9 @@
 package com.redfox.lunchmanager.model;
 
+import com.redfox.lunchmanager.util.DateTimeUtil;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -39,6 +41,7 @@ public class Vote extends AbstractBaseEntity {
 
     @Column(name = "registered", nullable = false, columnDefinition = "date default now()")
     @NotNull
+    @DateTimeFormat(pattern = DateTimeUtil.DATE_PATTERN)
     private LocalDate registered;
 
     public Vote() {

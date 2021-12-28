@@ -47,11 +47,17 @@ function updateRow(id) {
                     $select.val("USER");
                 }
             } else {
-                form.find("input[name='" + key + "']").val(value);
+                form.find("input[name='" + key + "']").val(
+                    key === "registered" ? formatDate(value) : value
+                );
             }
         });
         $('#editRow').modal();
     });
+}
+
+function formatDate(date) {
+    return date.substring(0, 10);
 }
 
 function deleteRow(id) {

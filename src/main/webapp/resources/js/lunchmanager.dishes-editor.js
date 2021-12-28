@@ -27,7 +27,7 @@ $(function () {
                 "data": "registered",
                 "render": function (date, type, row) {
                     if (type === "display") {
-                        return date.substring(0, 10);
+                        return formatDate(date);
                     }
                     return date;
                 }
@@ -55,5 +55,34 @@ $(function () {
                 "desc"
             ]
         ]
+    });
+
+    //  http://xdsoft.net/jqplugins/datetimepicker/
+    var startDate = $('#startDate');
+    var endDate = $('#endDate');
+    startDate.datetimepicker({
+        timepicker: false,
+        format: 'Y-m-d',
+        formatDate: 'Y-m-d',
+        onShow: function (ct) {
+            this.setOptions({
+                maxDate: endDate.val() ? endDate.val() : false
+            })
+        }
+    });
+    endDate.datetimepicker({
+        timepicker: false,
+        format: 'Y-m-d',
+        formatDate: 'Y-m-d',
+        onShow: function (ct) {
+            this.setOptions({
+                minDate: startDate.val() ? startDate.val() : false
+            })
+        }
+    });
+
+    $('#registered').datetimepicker({
+        timepicker: false,
+        format: 'Y-m-d'
     });
 });
