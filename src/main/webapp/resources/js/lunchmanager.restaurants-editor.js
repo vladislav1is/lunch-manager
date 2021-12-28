@@ -9,40 +9,32 @@ const ctx = {
 }
 
 $(function () {
-    makeEditable(
-        $("#datatable").DataTable({
-            "ajax": {
-                "url": restaurantAjaxUrl,
-                "dataSrc": ""
+    makeEditable({
+        "columns": [
+            {
+                "data": "name"
             },
-            "paging": false,
-            "info": true,
-            "columns": [
-                {
-                    "data": "name"
-                },
-                {
-                    "orderable": false,
-                    "defaultContent": "",
-                    "render": renderEditMenuBtn
-                },
-                {
-                    "orderable": false,
-                    "defaultContent": "",
-                    "render": renderEditBtn
-                },
-                {
-                    "orderable": false,
-                    "defaultContent": "",
-                    "render": renderDeleteBtn
-                }
-            ],
-            "order": [
-                [
-                    0,
-                    "asc"
-                ]
+            {
+                "orderable": false,
+                "defaultContent": "",
+                "render": renderEditMenuBtn
+            },
+            {
+                "orderable": false,
+                "defaultContent": "",
+                "render": renderEditBtn
+            },
+            {
+                "orderable": false,
+                "defaultContent": "",
+                "render": renderDeleteBtn
+            }
+        ],
+        "order": [
+            [
+                0,
+                "asc"
             ]
-        })
-    );
+        ]
+    });
 });

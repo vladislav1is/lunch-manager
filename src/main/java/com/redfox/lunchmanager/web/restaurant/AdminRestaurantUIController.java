@@ -1,6 +1,7 @@
 package com.redfox.lunchmanager.web.restaurant;
 
 import com.redfox.lunchmanager.to.RestaurantTo;
+import com.redfox.lunchmanager.util.ValidationUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -9,7 +10,6 @@ import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/admin/restaurants", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -38,10 +38,7 @@ public class AdminRestaurantUIController extends AbstractRestaurantController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public ResponseEntity<String> createOrUpdate(@Valid RestaurantTo restaurant, BindingResult result) {
         if (result.hasErrors()) {
-            String errorFieldsMsg = result.getFieldErrors().stream()
-                    .map(fe -> String.format("[%s] %s", fe.getField(), fe.getDefaultMessage()))
-                    .collect(Collectors.joining("<br>"));
-            return ResponseEntity.unprocessableEntity().body(errorFieldsMsg);
+            return ValidationUtil.getErrorResponse(result);
         }
         if (restaurant.isNew()) {
             super.create(restaurant);

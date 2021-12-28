@@ -21,31 +21,29 @@ function clearFilter() {
 }
 
 $(function () {
-    makeEditable(
-        $("#datatable").DataTable({
-            "ajax": {
-                "url": dishAjaxUrl,
-                "dataSrc": ""
-            },
-            "paging": false,
-            "info": true,
-            "columns": [
-                {
-                    "data": "registered"
-                },
-                {
-                    "data": "name"
-                },
-                {
-                    "data": "price"
+    makeEditable({
+        "columns": [
+            {
+                "data": "registered",
+                "render": function (date, type, row) {
+                    if (type === "display") {
+                        return date.substring(0, 10);
+                    }
+                    return date;
                 }
-            ],
-            "order": [
-                [
-                    0,
-                    "desc"
-                ]
+            },
+            {
+                "data": "name"
+            },
+            {
+                "data": "price"
+            }
+        ],
+        "order": [
+            [
+                0,
+                "desc"
             ]
-        })
-    );
+        ]
+    });
 });

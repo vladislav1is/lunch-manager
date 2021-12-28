@@ -1,6 +1,7 @@
 package com.redfox.lunchmanager.web.dish;
 
 import com.redfox.lunchmanager.to.DishTo;
+import com.redfox.lunchmanager.util.ValidationUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -40,10 +41,7 @@ public class AdminDishUIController extends AbstractDishController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public ResponseEntity<String> createOrUpdate(@PathVariable int restaurantId, @Valid DishTo dish, BindingResult result) {
         if (result.hasErrors()) {
-            String errorFieldsMsg = result.getFieldErrors().stream()
-                    .map(fe -> String.format("[%s] %s", fe.getField(), fe.getDefaultMessage()))
-                    .collect(Collectors.joining("<br>"));
-            return ResponseEntity.unprocessableEntity().body(errorFieldsMsg);
+            return ValidationUtil.getErrorResponse(result);
         }
         if (dish.isNew()) {
             super.create(dish, restaurantId);
