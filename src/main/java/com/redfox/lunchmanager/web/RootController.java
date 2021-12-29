@@ -6,6 +6,8 @@ import com.redfox.lunchmanager.service.RestaurantService;
 import com.redfox.lunchmanager.service.VoteService;
 import com.redfox.lunchmanager.to.RestaurantTo;
 import com.redfox.lunchmanager.util.Restaurants;
+import org.springframework.security.access.annotation.Secured;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -33,6 +35,7 @@ public class RootController {
         return "redirect:restaurants";
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/users")
     public String getUsers() {
         return "users";
@@ -51,6 +54,7 @@ public class RootController {
         return "restaurants";
     }
 
+    @PreAuthorize("hasRole('ADMIN')")
     @GetMapping("/restaurants/editor")
     public String editRestaurants() {
         return "restaurants-editor";
@@ -68,6 +72,7 @@ public class RootController {
         return "dishes";
     }
 
+    @Secured("ROLE_ADMIN")
     @GetMapping("/restaurants/{restaurantId}/dishes/editor")
     public String editDishes(@PathVariable int restaurantId, Model model) {
         Restaurant restaurant = restaurantService.get(restaurantId);

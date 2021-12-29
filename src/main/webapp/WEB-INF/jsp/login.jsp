@@ -1,27 +1,12 @@
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
 
 <html>
 <jsp:include page="fragments/headTag.jsp"/>
 <body>
-<nav class="navbar navbar-dark bg-dark py-0">
-    <div class="container">
-        <a class="navbar-brand" href="restaurants" title="<spring:message code='app.title'/>">
-            <img src="resources/images/icon-fox.png" width="50" alt="<spring:message code='app.title'/>">
-            <spring:message code="app.title"/>
-        </a>
-        <form class="form-inline my-2" id="login_form" action="spring_security_check" method="post">
-            <div class="btn-group">
-                <input class="form-control mr-1" type="text" placeholder="Email" name="username">
-                <input class="form-control mr-1" type="password" placeholder="Password" name="password">
-                <button class="btn btn-danger custom-btn border-radius" type="submit">
-                    <span class="fa fa-sign-in"></span>
-                </button>
-            </div>
-        </form>
-    </div>
-</nav>
+<jsp:include page="fragments/bodyHeader.jsp"/>
 
 <div class="jumbotron py-0">
     <div class="container">
@@ -31,15 +16,16 @@
         <c:if test="${not empty param.message}">
             <div class="message"><spring:message code="${param.message}" text=""/></div>
         </c:if>
-        <br/>
-        <p>
-            <button type="submit" class="btn btn-lg btn-primary" onclick="login('user3@gmail.com', '123456')">
-                <spring:message code="app.login"/> User
-            </button>
-            <button type="submit" class="btn btn-lg btn-primary" onclick="login('user1@yandex.ru', '123456')">
-                <spring:message code="app.login"/> Admin
-            </button>
-        </p>
+        <sec:authorize access="isAnonymous()">
+            <div class="pt-2">
+                <button type="submit" class="btn btn-lg btn-primary mt-2" onclick="login('user3@gmail.com', '123456')">
+                    <spring:message code="app.login"/> User
+                </button>
+                <button type="submit" class="btn btn-lg btn-primary mt-2" onclick="login('user1@yandex.ru', '123456')">
+                    <spring:message code="app.login"/> Admin
+                </button>
+            </div>
+        </sec:authorize>
         <br/>
         <div class="lead py-4">
             <h5><spring:message code="app.stackTitle"/></h5>
