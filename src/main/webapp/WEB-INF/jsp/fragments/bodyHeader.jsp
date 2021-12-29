@@ -19,6 +19,7 @@
                             <spring:message code="user.title"/>
                         </button>
                     </sec:authorize>
+                    <a class="btn btn-secondary" href="profile">${userTo.name}</a>
                     <button type="button" onclick="location.href='logout';" class="btn btn-danger custom-btn">
                         <span class="fa fa-sign-out"></span>
                     </button>
