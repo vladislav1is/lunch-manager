@@ -2,6 +2,7 @@ package com.redfox.lunchmanager.model;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.redfox.lunchmanager.View;
 import com.redfox.lunchmanager.util.DateTimeUtil;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -44,6 +45,7 @@ public class Dish extends AbstractNamedEntity {
     @OnDelete(action = OnDeleteAction.CASCADE)
     //  https://stackoverflow.com/questions/31319358/jsonmanagedreference-vs-jsonbackreference
     @JsonBackReference
+    @NotNull(groups = View.Persist.class)
     private Restaurant restaurant;
 
     public Dish() {
