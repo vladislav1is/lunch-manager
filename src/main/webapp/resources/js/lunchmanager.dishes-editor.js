@@ -24,13 +24,7 @@ $(function () {
     makeEditable({
         "columns": [
             {
-                "data": "registered",
-                "render": function (date, type, row) {
-                    if (type === "display") {
-                        return formatDate(date);
-                    }
-                    return date;
-                }
+                "data": "registered"
             },
             {
                 "data": "name"

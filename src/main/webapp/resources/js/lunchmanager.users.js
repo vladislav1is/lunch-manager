@@ -23,6 +23,23 @@ function enable(chkbox, id) {
     });
 }
 
+//  http://api.jquery.com/jQuery.ajax/#using-converters
+$.ajaxSetup({
+    converters: {
+        "text json": function (stringData) {
+            let json = JSON.parse(stringData);
+            if (typeof json === 'object') {
+                $(json).each(function () {
+                    if (this.hasOwnProperty('registered')) {
+                        this.registered = this.registered.substr(0, 16).replace('T', ' ');
+                    }
+                });
+            }
+            return json;
+        }
+    }
+});
+
 // $(document).ready(function () {
 $(function () {
     makeEditable({
@@ -52,13 +69,7 @@ $(function () {
                 }
             },
             {
-                "data": "registered",
-                "render": function (date, type, row) {
-                    if (type === "display") {
-                        return date.replace('T', ' ').substr(0, 16);
-                    }
-                    return date;
-                }
+                "data": "registered"
             },
             {
                 "orderable": false,
