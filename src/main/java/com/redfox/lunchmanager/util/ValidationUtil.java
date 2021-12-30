@@ -1,6 +1,7 @@
 package com.redfox.lunchmanager.util;
 
 import com.redfox.lunchmanager.HasId;
+import com.redfox.lunchmanager.util.exception.IllegalRequestDataException;
 import com.redfox.lunchmanager.util.exception.NotFoundException;
 import org.springframework.core.NestedExceptionUtils;
 import org.springframework.http.ResponseEntity;
@@ -54,7 +55,7 @@ public final class ValidationUtil {
 
     public static void checkNew(HasId bean) {
         if (!bean.isNew()) {
-            throw new IllegalArgumentException(bean + " must be new (id=null)");
+            throw new IllegalRequestDataException(bean + " must be new (id=null)");
         }
     }
 
@@ -63,7 +64,7 @@ public final class ValidationUtil {
         if (bean.isNew()) {
             bean.setId(id);
         } else if (bean.id() != id) {
-            throw new IllegalArgumentException(bean + " must be with id=" + id);
+            throw new IllegalRequestDataException(bean + " must be new (id=null)");
         }
     }
 

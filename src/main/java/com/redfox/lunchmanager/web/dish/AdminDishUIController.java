@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.*;
 import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
-import java.util.stream.Collectors;
 
 @RestController
 @RequestMapping(value = "/admin/restaurants/{restaurantId}/dishes", produces = MediaType.APPLICATION_JSON_VALUE)
@@ -41,6 +40,7 @@ public class AdminDishUIController extends AbstractDishController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public ResponseEntity<String> createOrUpdate(@PathVariable int restaurantId, @Valid DishTo dish, BindingResult result) {
         if (result.hasErrors()) {
+            //  TODO change to exception handler
             return ValidationUtil.getErrorResponse(result);
         }
         if (dish.isNew()) {

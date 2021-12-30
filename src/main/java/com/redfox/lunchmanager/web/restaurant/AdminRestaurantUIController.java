@@ -38,6 +38,7 @@ public class AdminRestaurantUIController extends AbstractRestaurantController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public ResponseEntity<String> createOrUpdate(@Valid RestaurantTo restaurant, BindingResult result) {
         if (result.hasErrors()) {
+            //  TODO change to exception handler
             return ValidationUtil.getErrorResponse(result);
         }
         if (restaurant.isNew()) {

@@ -516,7 +516,8 @@
                         <con:parameters/>
                     </con:request>
                 </con:method>
-            </con:resource>
+            <con:method name="" id="754b23b5-7fba-454a-83d4-3b47e1d8016f" method="POST"><con:settings/><con:parameters/><con:representation type="FAULT"><con:mediaType>application/json;charset=UTF-8</con:mediaType><con:status>500</con:status><con:params/><con:element xmlns:user="http://localhost/lunch-manager/rest/admin/users">user:Fault</con:element></con:representation><con:representation type="REQUEST"><con:mediaType>application/json</con:mediaType><con:params/></con:representation><con:request name="validateWithError" id="320ee2dc-9e86-427c-b640-a98127b9ad67" mediaType="application/json" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://localhost:8080</con:endpoint><con:request>{
+	}</con:request><con:originalUri>http://localhost/lunch-manager/rest/admin/users</con:originalUri><con:credentials><con:username>admin@gmail.com</con:username><con:password>admin</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:request></con:method></con:resource>
             <con:resource name="restaurants" path="/rest/admin/restaurants" id="15d9a14e-8d61-4304-b2a8-44f457aa3e64">
                 <con:settings/>
                 <con:parameters/>

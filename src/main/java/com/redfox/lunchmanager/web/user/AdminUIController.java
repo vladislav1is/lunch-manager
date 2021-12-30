@@ -41,6 +41,7 @@ public class AdminUIController extends AbstractUserController {
     @ResponseStatus(HttpStatus.NO_CONTENT)
     public ResponseEntity<String> createOrUpdate(@RequestParam Role role, @Valid UserTo user, BindingResult result) {
         if (result.hasErrors()) {
+            //  TODO change to exception handler
             return ValidationUtil.getErrorResponse(result);
         }
         user.setRoles(role.equals(Role.USER) ? EnumSet.of(Role.USER) : EnumSet.of(Role.USER, Role.ADMIN));
