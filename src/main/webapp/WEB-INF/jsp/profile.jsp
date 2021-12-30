@@ -14,9 +14,8 @@
     <div class="container">
         <div class="row">
             <div class="col-5 offset-3">
-                <h3><spring:message code="app.profile"/> ${userTo.name}</h3>
-
-                <form:form class="form-group" modelAttribute="userTo" method="post" action="profile"
+                <h3>${userTo.name} <spring:message code="${register ? 'app.register' : 'app.profile'}"/></h3>
+                <form:form class="form-group" modelAttribute="userTo" method="post" action="${register ? 'profile/register' : 'profile'}"
                            charset="utf-8" accept-charset="UTF-8">
 
                     <form:hidden path="id"/>

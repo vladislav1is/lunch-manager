@@ -240,7 +240,14 @@
                         <con:parameterOrder/>
                     </con:request>
                 </con:method>
-            </con:resource>
+            <con:method name="" id="024a1c57-3de1-48c2-a1bc-0d756e4a1c31" method="POST"><con:settings/><con:parameters/><con:representation type="REQUEST"><con:mediaType>application/json</con:mediaType><con:params/></con:representation><con:representation type="RESPONSE"><con:mediaType>application/json;charset=UTF-8</con:mediaType><con:status>201</con:status><con:params/><con:element xmlns:prof="http://localhost/lunch-manager/rest/profile">prof:Response</con:element></con:representation><con:request name="Register" id="22469270-747f-4672-9b04-6b4e2daf95ea" mediaType="application/json" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://localhost:8080</con:endpoint><con:request>{
+	"name":"NewUser",
+	"email": "test@mail.ru",
+	"password": "test-password",
+	"enabled":true,
+	"registered":"2021-12-30T09:16:00",
+	"roles":["USER"]
+	}</con:request><con:originalUri>http://localhost/lunch-manager/rest/profile</con:originalUri><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:request></con:method></con:resource>
             <con:resource name="users" path="/rest/admin/users" id="5e620108-0ed2-42eb-bd26-552202d75a6d">
                 <con:settings/>
                 <con:parameters/>

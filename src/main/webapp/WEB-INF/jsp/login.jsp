@@ -1,4 +1,4 @@
-<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
@@ -18,10 +18,13 @@
         </c:if>
         <sec:authorize access="isAnonymous()">
             <div class="pt-2">
-                <button type="submit" class="btn btn-lg btn-primary mt-2" onclick="login('user3@gmail.com', '123456')">
+                <a class="btn btn-lg btn-secondary mt-2" href="profile/register">
+                    <spring:message code="app.register"/>&raquo;
+                </a>
+                <button type="submit" class="btn btn-lg btn-primary mt-2" onclick="login('admin@gmail.com', 'admin')">
                     <spring:message code="app.login"/> User
                 </button>
-                <button type="submit" class="btn btn-lg btn-primary mt-2" onclick="login('user1@yandex.ru', '123456')">
+                <button type="submit" class="btn btn-lg btn-primary mt-2" onclick="login('user@yandex.ru', 'password')">
                     <spring:message code="app.login"/> Admin
                 </button>
             </div>
@@ -58,10 +61,18 @@
 <br/>
 <jsp:include page="fragments/footer.jsp"/>
 <script type="text/javascript">
+    <c:if test="${not empty param.username}">
+        setCredentials("${param.username}", "");
+    </c:if>
+
     function login(username, password) {
+        setCredentials(username, password);
+        $("#login_form").submit();
+    }
+
+    function setCredentials(username, password) {
         $('input[name="username"]').val(username);
         $('input[name="password"]').val(password);
-        $("#login_form").submit();
     }
 </script>
 </body>

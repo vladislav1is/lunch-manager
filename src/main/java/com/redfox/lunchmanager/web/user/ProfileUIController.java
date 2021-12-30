@@ -1,8 +1,10 @@
 package com.redfox.lunchmanager.web.user;
 
+import com.redfox.lunchmanager.model.Role;
 import com.redfox.lunchmanager.to.UserTo;
 import com.redfox.lunchmanager.web.SecurityUtil;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -10,6 +12,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.support.SessionStatus;
 
 import javax.validation.Valid;
+import java.time.LocalDateTime;
+import java.util.EnumSet;
 
 @Controller
 @RequestMapping("/profile")
@@ -29,6 +33,26 @@ public class ProfileUIController extends AbstractUserController {
             SecurityUtil.get().update(userTo);
             status.setComplete();
             return "redirect:/restaurants";
+        }
+    }
+
+    @GetMapping("/register")
+    public String register(Model model) {
+        UserTo userTo = new UserTo(null, null, null, null, Boolean.TRUE, LocalDateTime.now(), EnumSet.of(Role.USER));
+        model.addAttribute("userTo", userTo);
+        model.addAttribute("register", true);
+        return "profile";
+    }
+
+    @PostMapping("/register")
+    public String saveRegister(@Valid UserTo userTo, BindingResult result, SessionStatus status, Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("register", true);
+            return "profile";
+        } else {
+            super.create(userTo);
+            status.setComplete();
+            return "redirect:/login?message=app.registered&username=" + userTo.getEmail();
         }
     }
 }

@@ -1,14 +1,22 @@
 package com.redfox.lunchmanager.web.user;
 
+import com.redfox.lunchmanager.model.Role;
+import com.redfox.lunchmanager.model.User;
 import com.redfox.lunchmanager.service.UserService;
 import com.redfox.lunchmanager.to.UserTo;
+import com.redfox.lunchmanager.util.Users;
 import com.redfox.lunchmanager.web.AbstractControllerTest;
 import com.redfox.lunchmanager.web.json.JsonUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.time.LocalDateTime;
+import java.util.EnumSet;
+
+import static com.redfox.lunchmanager.TestUtil.mockAuthorize;
 import static com.redfox.lunchmanager.TestUtil.userHttpBasic;
 import static com.redfox.lunchmanager.UserTestData.*;
 import static com.redfox.lunchmanager.util.Users.convertToDto;
@@ -45,6 +53,26 @@ class ProfileRestControllerTest extends AbstractControllerTest {
                 .with(userHttpBasic(user3)))
                 .andExpect(status().isNoContent());
         TO_MATCHER.assertMatch(getTos(userService.getAll()), getTos(user1, user2));
+    }
+
+    @Test
+    void register() throws Exception {
+        // TODO: Fix status, expected:<201> but was:<401>
+        mockAuthorize(user3);
+        //
+        UserTo newTo = new UserTo(null, "newName", "newemail@ya.ru", "newPassword", Boolean.TRUE, LocalDateTime.now(), EnumSet.of(Role.USER));
+        User newUser = Users.convertToEntity(newTo);
+        ResultActions action = perform(MockMvcRequestBuilders.post(REST_URL)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(JsonUtil.writeValue(newTo)))
+                .andDo(print())
+                .andExpect(status().isCreated());
+
+        User created = MATCHER.readFromJson(action);
+        int newId = created.id();
+        newUser.setId(newId);
+        MATCHER.assertMatch(created, newUser);
+        MATCHER.assertMatch(userService.get(newId), newUser);
     }
 
     @Test

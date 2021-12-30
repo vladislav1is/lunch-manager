@@ -24,9 +24,9 @@ public class UserTestData {
 
     public static final User user1 = new User(USER_ID_1, "Alex", "user1@yandex.ru", "123456",
             of(2021, Month.NOVEMBER, 2, 21, 45), USER, ADMIN);
-    public static final User user2 = new User(USER_ID_2, "Bob", "user2@mail.ru", "123456",
+    public static final User user2 = new User(USER_ID_2, "Bob", "admin@gmail.com", "admin",
             of(2021, Month.NOVEMBER, 2, 21, 45), USER, ADMIN);
-    public static final User user3 = new User(USER_ID_3, "Elvis", "user3@gmail.com", "123456",
+    public static final User user3 = new User(USER_ID_3, "Elvis", "user@yandex.ru", "password",
             of(2021, Month.NOVEMBER, 2, 21, 45), USER);
 
     public static final List<User> users = List.of(user1, user2, user3);
