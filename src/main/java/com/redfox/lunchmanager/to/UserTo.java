@@ -1,6 +1,7 @@
 package com.redfox.lunchmanager.to;
 
 import com.redfox.lunchmanager.model.Role;
+import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -31,6 +32,7 @@ public class UserTo extends BaseTo implements Serializable {
 
     private Boolean enabled;
 
+    @DateTimeFormat(iso = DateTimeFormat.ISO.DATE_TIME)
     private LocalDateTime registered;
 
     private Set<Role> roles;
