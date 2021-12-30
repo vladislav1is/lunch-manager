@@ -45,7 +45,6 @@ public class AdminUIController extends AbstractUserController {
         }
         user.setRoles(role.equals(Role.USER) ? EnumSet.of(Role.USER) : EnumSet.of(Role.USER, Role.ADMIN));
         user.setRegistered(LocalDateTime.now());
-        user.setEnabled(Boolean.TRUE);
         if (user.isNew()) {
             super.create(user);
         } else {
