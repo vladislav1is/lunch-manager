@@ -1,5 +1,7 @@
 package com.redfox.lunchmanager.web.vote;
 
+import com.redfox.lunchmanager.UserTestData;
+import com.redfox.lunchmanager.VoteTestData;
 import com.redfox.lunchmanager.service.VoteService;
 import com.redfox.lunchmanager.to.VoteTo;
 import com.redfox.lunchmanager.util.exception.NotFoundException;
@@ -15,6 +17,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import static com.redfox.lunchmanager.RestaurantTestData.RESTAURANT_ID_1;
 import static com.redfox.lunchmanager.TestUtil.userHttpBasic;
 import static com.redfox.lunchmanager.UserTestData.user1;
+import static com.redfox.lunchmanager.UserTestData.user2;
 import static com.redfox.lunchmanager.VoteTestData.*;
 import static com.redfox.lunchmanager.util.Votes.convertToDto;
 import static com.redfox.lunchmanager.util.Votes.getTos;
@@ -45,6 +48,14 @@ class ProfileVoteRestControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    void deleteNotFound() throws Exception {
+        perform(MockMvcRequestBuilders.delete(REST_URL + NOT_FOUND)
+                .with(userHttpBasic(user2)))
+                .andDo(print())
+                .andExpect(status().isUnprocessableEntity());
+    }
+
+    @Test
     void get() throws Exception {
         perform(MockMvcRequestBuilders.get(REST_URL + VOTE_ID_1)
                 .with(userHttpBasic(user1)))
@@ -52,6 +63,14 @@ class ProfileVoteRestControllerTest extends AbstractControllerTest {
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(TO_MATCHER.contentJson(convertToDto(vote1)));
+    }
+
+    @Test
+    void getNotFound() throws Exception {
+        perform(MockMvcRequestBuilders.get(REST_URL + UserTestData.NOT_FOUND)
+                .with(userHttpBasic(user1)))
+                .andDo(print())
+                .andExpect(status().isUnprocessableEntity());
     }
 
     @Test
@@ -94,7 +113,7 @@ class ProfileVoteRestControllerTest extends AbstractControllerTest {
 
     @Test
     void update() throws Exception {
-        VoteTo updated = convertToDto(getUpdated());
+        VoteTo updated = convertToDto(VoteTestData.getUpdated());
         perform(MockMvcRequestBuilders.put(REST_URL + VOTE_ID_3).contentType(MediaType.APPLICATION_JSON)
                 .with(userHttpBasic(user1))
                 .content(JsonUtil.writeValue(updated)))
@@ -105,7 +124,7 @@ class ProfileVoteRestControllerTest extends AbstractControllerTest {
 
     @Test
     void createWithLocation() throws Exception {
-        VoteTo newVote = convertToDto(getNew());
+        VoteTo newVote = convertToDto(VoteTestData.getNew());
         ResultActions action = perform(MockMvcRequestBuilders.post(REST_URL)
                 .with(userHttpBasic(user1))
                 .contentType(MediaType.APPLICATION_JSON)

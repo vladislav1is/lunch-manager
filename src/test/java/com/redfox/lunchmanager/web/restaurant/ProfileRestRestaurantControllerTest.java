@@ -6,8 +6,10 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static com.redfox.lunchmanager.RestaurantTestData.*;
+import static com.redfox.lunchmanager.RestaurantTestData.NOT_FOUND;
+import static com.redfox.lunchmanager.RestaurantTestData.TO_MATCHER;
 import static com.redfox.lunchmanager.TestUtil.userHttpBasic;
-import static com.redfox.lunchmanager.UserTestData.user3;
+import static com.redfox.lunchmanager.UserTestData.*;
 import static com.redfox.lunchmanager.VoteTestData.vote4;
 import static com.redfox.lunchmanager.util.Restaurants.convertToDto;
 import static com.redfox.lunchmanager.util.Restaurants.getTos;
@@ -33,6 +35,14 @@ class ProfileRestRestaurantControllerTest extends AbstractControllerTest {
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(TO_MATCHER.contentJson(convertToDto(restaurant1)));
+    }
+
+    @Test
+    void getNotFound() throws Exception {
+        perform(MockMvcRequestBuilders.get(REST_URL + NOT_FOUND)
+                .with(userHttpBasic(user3)))
+                .andDo(print())
+                .andExpect(status().isUnprocessableEntity());
     }
 
     @Test

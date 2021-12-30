@@ -1,6 +1,5 @@
 package com.redfox.lunchmanager.web.restaurant;
 
-import com.redfox.lunchmanager.RestaurantTestData;
 import com.redfox.lunchmanager.service.RestaurantService;
 import com.redfox.lunchmanager.to.RestaurantTo;
 import com.redfox.lunchmanager.util.exception.NotFoundException;
@@ -54,6 +53,14 @@ class AdminRestRestaurantControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    void deleteNotFound() throws Exception {
+        perform(MockMvcRequestBuilders.delete(REST_URL + NOT_FOUND)
+                .with(userHttpBasic(user1)))
+                .andDo(print())
+                .andExpect(status().isUnprocessableEntity());
+    }
+
+    @Test
     void get() throws Exception {
         perform(MockMvcRequestBuilders.get(REST_URL + RESTAURANT_ID_1)
                 .with(userHttpBasic(user1)))
@@ -61,6 +68,14 @@ class AdminRestRestaurantControllerTest extends AbstractControllerTest {
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
                 .andExpect(TO_MATCHER.contentJson(convertToDto(restaurant1, vote1)));
+    }
+
+    @Test
+    void getNotFound() throws Exception {
+        perform(MockMvcRequestBuilders.get(REST_URL + NOT_FOUND)
+                .with(userHttpBasic(user1)))
+                .andDo(print())
+                .andExpect(status().isUnprocessableEntity());
     }
 
     @Test
@@ -74,7 +89,7 @@ class AdminRestRestaurantControllerTest extends AbstractControllerTest {
 
     @Test
     void update() throws Exception {
-        RestaurantTo updated = convertToDto(RestaurantTestData.getUpdated());
+        RestaurantTo updated = convertToDto(getUpdated());
         perform(MockMvcRequestBuilders.put(REST_URL + RESTAURANT_ID_3)
                 .with(userHttpBasic(user1))
                 .contentType(MediaType.APPLICATION_JSON)
@@ -86,7 +101,7 @@ class AdminRestRestaurantControllerTest extends AbstractControllerTest {
 
     @Test
     void createWithLocation() throws Exception {
-        RestaurantTo newRestaurant = convertToDto(RestaurantTestData.getNew());
+        RestaurantTo newRestaurant = convertToDto(getNew());
         ResultActions action = perform(MockMvcRequestBuilders.post(REST_URL)
                 .with(userHttpBasic(user1))
                 .contentType(MediaType.APPLICATION_JSON)
