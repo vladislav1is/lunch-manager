@@ -13,10 +13,17 @@ import static com.redfox.lunchmanager.model.AbstractBaseEntity.START_SEQ;
 import static com.redfox.lunchmanager.model.Role.ADMIN;
 import static com.redfox.lunchmanager.model.Role.USER;
 import static java.time.LocalDateTime.of;
+import static org.assertj.core.api.Assertions.assertThat;
 
 public class UserTestData {
     public static final MatcherFactory.Matcher<User> MATCHER = MatcherFactory.usingIgnoringFieldsComparator(User.class, "registered", "password");
-    public static MatcherFactory.Matcher<UserTo> TO_MATCHER = MatcherFactory.usingEqualsComparator(UserTo.class);
+    public static MatcherFactory.Matcher<UserTo> TO_MATCHER =
+            MatcherFactory.usingAssertions(UserTo.class,
+                    //  No need use ignoringAllOverriddenEquals, see https://assertj.github.io/doc/#breaking-changes
+                    (a, e) -> assertThat(a).usingRecursiveComparison()
+                            .ignoringFields("password", "roles").isEqualTo(e),
+                    (a, e) -> assertThat(a).usingRecursiveComparison()
+                            .ignoringFields("password", "roles").isEqualTo(e));
 
     public static final int USER_ID_1 = START_SEQ + 1;
     public static final int USER_ID_2 = START_SEQ + 2;

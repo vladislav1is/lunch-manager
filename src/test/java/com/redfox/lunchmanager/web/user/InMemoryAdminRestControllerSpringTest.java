@@ -2,6 +2,7 @@ package com.redfox.lunchmanager.web.user;
 
 import com.redfox.lunchmanager.repository.inmemory.InMemoryUserRepository;
 import com.redfox.lunchmanager.to.UserTo;
+import com.redfox.lunchmanager.util.exception.IllegalRequestDataException;
 import com.redfox.lunchmanager.util.exception.NotFoundException;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -42,7 +43,7 @@ class InMemoryAdminRestControllerSpringTest {
 
     @Test
     void createNotNew() {
-        assertThrows(IllegalArgumentException.class, () -> controller.create(convertToDto(getUpdated())));
+        assertThrows(IllegalRequestDataException.class, () -> controller.create(convertToDto(getUpdated())));
     }
 
     @Test
@@ -93,6 +94,6 @@ class InMemoryAdminRestControllerSpringTest {
 
     @Test
     void updateAssureIdConsistent() {
-        assertThrows(IllegalArgumentException.class, () -> controller.update(convertToDto(getUpdated()), NOT_FOUND));
+        assertThrows(IllegalRequestDataException.class, () -> controller.update(convertToDto(getUpdated()), NOT_FOUND));
     }
 }

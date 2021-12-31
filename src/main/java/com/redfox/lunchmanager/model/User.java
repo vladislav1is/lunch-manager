@@ -1,17 +1,15 @@
 package com.redfox.lunchmanager.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
-import com.redfox.lunchmanager.util.DateTimeUtil;
-import org.hibernate.annotations.*;
 import org.hibernate.annotations.Cache;
-import org.springframework.format.annotation.DateTimeFormat;
+import org.hibernate.annotations.*;
 import org.springframework.util.CollectionUtils;
 
-import javax.persistence.*;
 import javax.persistence.Entity;
 import javax.persistence.NamedQueries;
 import javax.persistence.NamedQuery;
 import javax.persistence.Table;
+import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
@@ -55,7 +53,6 @@ public class User extends AbstractNamedEntity {
 
     @Column(name = "registered", nullable = false, columnDefinition = "timestamp default now()")
     @NotNull
-//    @DateTimeFormat(pattern = DateTimeUtil.DATE_TIME_PATTERN)
     @JsonProperty(access = JsonProperty.Access.READ_ONLY)
     private LocalDateTime registered;
 
