@@ -3,6 +3,7 @@ package com.redfox.lunchmanager;
 import com.redfox.lunchmanager.model.Role;
 import com.redfox.lunchmanager.model.User;
 import com.redfox.lunchmanager.to.UserTo;
+import com.redfox.lunchmanager.web.json.JsonUtil;
 
 import java.time.Month;
 import java.util.Collections;
@@ -45,5 +46,9 @@ public class UserTestData {
         updated.setEnabled(false);
         updated.setRoles(Collections.singletonList(ADMIN));
         return updated;
+    }
+
+    public static String jsonWithPassword(UserTo user, String password) {
+        return JsonUtil.writeAdditionProps(user, "password", password);
     }
 }

@@ -2,9 +2,10 @@ package com.redfox.lunchmanager;
 
 import com.redfox.lunchmanager.model.User;
 import com.redfox.lunchmanager.to.UserTo;
-import com.redfox.lunchmanager.util.Users;
 
 import java.io.Serial;
+
+import static com.redfox.lunchmanager.util.Users.convertToDto;
 
 public class AuthorizedUser extends org.springframework.security.core.userdetails.User {
     @Serial
@@ -14,14 +15,15 @@ public class AuthorizedUser extends org.springframework.security.core.userdetail
 
     public AuthorizedUser(User user) {
         super(user.getEmail(), user.getPassword(), user.isEnabled(), true, true, true, user.getRoles());
-        this.userTo = Users.convertToDto(user);
+        setTo(convertToDto(user));
     }
 
     public int getId() {
         return userTo.id();
     }
 
-    public void update(UserTo newTo) {
+    public void setTo(UserTo newTo) {
+        newTo.setPassword(null);
         userTo = newTo;
     }
 

@@ -28,7 +28,7 @@ public class UserTo extends BaseTo implements Serializable {
 
     @NotBlank
     @Size(min = 5, max = 100, message = "length must be between 5 and 100 characters")
-    private final String password;
+    private String password;
 
     private Boolean enabled;
 
@@ -58,6 +58,10 @@ public class UserTo extends BaseTo implements Serializable {
 
     public String getPassword() {
         return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
     }
 
     public Boolean getEnabled() {
