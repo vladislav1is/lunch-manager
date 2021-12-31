@@ -10,9 +10,9 @@ FROM votes;
 ALTER SEQUENCE global_seq RESTART WITH 100001;
 
 INSERT INTO users (name, email, password, registered)
-VALUES ('Alex', 'user1@yandex.ru', '123456', '2021-11-02 21:45:00'),
-       ('Bob', 'admin@gmail.com', 'admin', '2021-11-02 21:45:00'),
-       ('Elvis', 'user@yandex.ru', 'password', '2021-11-02 21:45:00');
+VALUES ('Alex', 'user1@yandex.ru', '{noop}123456', '2021-11-02 21:45:00'),
+       ('Bob', 'admin@gmail.com', '{noop}admin', '2021-11-02 21:45:00'),
+       ('Elvis', 'user@yandex.ru', '{noop}password', '2021-11-02 21:45:00');
 
 INSERT INTO user_roles (role, user_id)
 VALUES ('USER', 100001),

@@ -2,6 +2,7 @@ package com.redfox.lunchmanager.util;
 
 import com.redfox.lunchmanager.model.User;
 import com.redfox.lunchmanager.to.UserTo;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Arrays;
 import java.util.Collection;
@@ -32,5 +33,11 @@ public class Users {
         return Arrays.stream(users)
                 .map(Users::convertToDto)
                 .toList();
+    }
+
+    public static User prepareToSave(User user, PasswordEncoder passwordEncoder) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setEmail(user.getEmail().toLowerCase());
+        return user;
     }
 }

@@ -96,8 +96,6 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest {
                 () -> service.create(new User("  ", "mail@yandex.ru", "password", LocalDateTime.now(), Role.USER)));
         validateRootCause(ConstraintViolationException.class,
                 () -> service.create(new User("User", "  ", "password", LocalDateTime.now(), Role.USER)));
-        validateRootCause(ConstraintViolationException.class,
-                () -> service.create(new User("User", "mail@yandex.ru", "  ", LocalDateTime.now(), Role.USER)));
     }
 
     @Test
