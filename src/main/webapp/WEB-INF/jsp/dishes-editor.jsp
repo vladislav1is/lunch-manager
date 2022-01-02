@@ -8,6 +8,8 @@
 <html>
 <head>
     <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+    <jsp:include page="fragments/csrf.jsp"/>
+
     <title><spring:message code="dish.editor"/>&nbsp${restaurant.name}</title>
     <base href="${pageContext.request.contextPath}/"/>
 

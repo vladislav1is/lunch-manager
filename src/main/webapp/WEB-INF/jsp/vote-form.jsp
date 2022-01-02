@@ -5,6 +5,8 @@
 <%@ taglib prefix="fns" uri="http://java.sun.com/jsp/jstl/functions" %>
 <%@ taglib prefix="spring" uri="http://www.springframework.org/tags" %>
 <%@ taglib prefix="fn" uri="http://lunch-manager.redfox.com/functions" %>
+<%@ taglib prefix="sec" uri="http://www.springframework.org/security/tags" %>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 
 <html>
 <head>
@@ -45,16 +47,18 @@
             </tr>
             </tbody>
         </table>
-        <form method="post" action="restaurants/${restaurant.id}/votes">
-            <button class="btn btn-primary" type="submit" ${allowed}>
-                <span class="fa fa-plus"></span>
-                <spring:message code="common.vote"/>
-            </button>
-            <button class="btn btn-danger custom-btn" type="button" onclick="window.history.back()">
-                <span class="fa fa-remove"></span>
-                <spring:message code="common.cancel"/>
-            </button>
-        </form>
+        <sec:authorize access="isAuthenticated()">
+            <form:form class="form-inline my-2" action="restaurants/${restaurant.id}/votes" method="post">
+                <button class="btn btn-primary mr-1" type="submit" ${allowed}>
+                    <span class="fa fa-plus"></span>
+                    <spring:message code="common.vote"/>
+                </button>
+                <button class="btn btn-danger custom-btn mr-1" type="button" onclick="window.history.back()">
+                    <span class="fa fa-remove"></span>
+                    <spring:message code="common.cancel"/>
+                </button>
+            </form:form>
+        </sec:authorize>
     </div>
 </div>
 <jsp:include page="fragments/footer.jsp"/>
