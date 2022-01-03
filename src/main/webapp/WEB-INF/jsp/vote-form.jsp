@@ -1,5 +1,6 @@
 <%--@elvariable id="restaurants" type="com.redfox.lunchmanager.model.java.util.List"--%>
 <%--@elvariable id="restaurant" type="com.redfox.lunchmanager.to.RestaurantTo"--%>
+<%--@elvariable id="voteTo" type="com.redfox.lunchmanager.to.VoteTo"--%>
 <%@ page contentType="text/html;charset=UTF-8" %>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ taglib prefix="fns" uri="http://java.sun.com/jsp/jstl/functions" %>
@@ -25,7 +26,7 @@
     <div class="container">
         <h3 class="text-center"><spring:message code="vote.title"/>&nbsp${restaurant.name}</h3>
 
-        <c:set var="allowed" value="${fn:canRevoteBefore(11, 0) ? '' : 'disabled'}" scope="page"/>
+        <c:set var="allowed" value="${enabled ? '' : 'disabled'}" scope="page"/>
         <table class="table table-striped" id="datatable">
 
             <thead>
@@ -49,6 +50,8 @@
         </table>
         <sec:authorize access="isAuthenticated()">
             <form:form class="form-inline my-2" action="restaurants/${restaurant.id}/votes" method="post">
+                <input type="hidden" name="voteId" value="${voteTo != null ? voteTo.id : ''}"/>
+
                 <button class="btn btn-primary mr-1" type="submit" ${allowed}>
                     <span class="fa fa-plus"></span>
                     <spring:message code="common.vote"/>

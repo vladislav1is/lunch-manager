@@ -18,9 +18,4 @@
         <function-class>com.redfox.lunchmanager.util.DateTimeUtil</function-class>
         <function-signature>java.lang.String toString(java.time.LocalDateTime)</function-signature>
     </function>
-    <function>
-        <name>canRevoteBefore</name>
-        <function-class>com.redfox.lunchmanager.util.Votes</function-class>
-        <function-signature>boolean canRevoteBefore(int,int)</function-signature>
-    </function>
 </taglib>
