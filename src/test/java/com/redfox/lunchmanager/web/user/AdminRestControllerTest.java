@@ -4,7 +4,6 @@ import com.redfox.lunchmanager.service.UserService;
 import com.redfox.lunchmanager.to.UserTo;
 import com.redfox.lunchmanager.util.exception.NotFoundException;
 import com.redfox.lunchmanager.web.AbstractControllerTest;
-import com.redfox.lunchmanager.web.json.JsonUtil;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -92,7 +91,7 @@ class AdminRestControllerTest extends AbstractControllerTest {
         perform(MockMvcRequestBuilders.put(REST_URL + USER_ID_3)
                 .with(userHttpBasic(user1))
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(JsonUtil.writeValue(updated)))
+                .content(jsonWithPassword(updated, updated.getPassword())))
                 .andExpect(status().isNoContent());
 
         TO_MATCHER.assertMatch(convertToDto(userService.get(USER_ID_3)), updated);
@@ -104,7 +103,7 @@ class AdminRestControllerTest extends AbstractControllerTest {
         ResultActions action = perform(MockMvcRequestBuilders.post(REST_URL)
                 .with(userHttpBasic(user1))
                 .contentType(MediaType.APPLICATION_JSON)
-                .content(jsonWithPassword(newUser, "newPass")))
+                .content(jsonWithPassword(newUser, newUser.getPassword())))
                 .andExpect(status().isCreated());
 
         UserTo created = TO_MATCHER.readFromJson(action);
