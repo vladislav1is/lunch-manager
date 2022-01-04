@@ -2,6 +2,7 @@ package com.redfox.lunchmanager.web.dish;
 
 import com.redfox.lunchmanager.service.DishService;
 import com.redfox.lunchmanager.to.DishTo;
+import com.redfox.lunchmanager.util.exception.ErrorType;
 import com.redfox.lunchmanager.util.exception.NotFoundException;
 import com.redfox.lunchmanager.web.AbstractControllerTest;
 import com.redfox.lunchmanager.web.json.JsonUtil;
@@ -12,6 +13,8 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.time.LocalDate;
+
 import static com.redfox.lunchmanager.DishTestData.*;
 import static com.redfox.lunchmanager.RestaurantTestData.RESTAURANT_ID_2;
 import static com.redfox.lunchmanager.TestUtil.userHttpBasic;
@@ -21,8 +24,7 @@ import static com.redfox.lunchmanager.util.Dishes.convertToDto;
 import static com.redfox.lunchmanager.util.Dishes.getTos;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 class AdminDishRestControllerTest extends AbstractControllerTest {
 
@@ -132,5 +134,29 @@ class AdminDishRestControllerTest extends AbstractControllerTest {
         newDish.setId(newId);
         TO_MATCHER.assertMatch(created, newDish);
         TO_MATCHER.assertMatch(convertToDto(dishService.get(newId, RESTAURANT_ID_2)), newDish);
+    }
+
+    @Test
+    void createInvalid() throws Exception {
+        DishTo invalid = new DishTo(null, null, 200, LocalDate.now());
+        perform(MockMvcRequestBuilders.post(REST_URL)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(JsonUtil.writeValue(invalid))
+                .with(userHttpBasic(user1)))
+                .andDo(print())
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(jsonPath("$.type").value(ErrorType.VALIDATION_ERROR.name()));
+    }
+
+    @Test
+    void updateInvalid() throws Exception {
+        DishTo invalid = new DishTo(DISH_ID_1, null, 0, LocalDate.now());
+        perform(MockMvcRequestBuilders.put(REST_URL + DISH_ID_1)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(JsonUtil.writeValue(invalid))
+                .with(userHttpBasic(user1)))
+                .andDo(print())
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(jsonPath("$.type").value(ErrorType.VALIDATION_ERROR.name()));
     }
 }

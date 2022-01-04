@@ -1,7 +1,9 @@
 package com.redfox.lunchmanager.web.user;
 
+import com.redfox.lunchmanager.model.Role;
 import com.redfox.lunchmanager.service.UserService;
 import com.redfox.lunchmanager.to.UserTo;
+import com.redfox.lunchmanager.util.exception.ErrorType;
 import com.redfox.lunchmanager.util.exception.NotFoundException;
 import com.redfox.lunchmanager.web.AbstractControllerTest;
 import org.junit.jupiter.api.Test;
@@ -10,6 +12,10 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
+import java.time.LocalDateTime;
+import java.time.temporal.ChronoUnit;
+import java.util.EnumSet;
+
 import static com.redfox.lunchmanager.TestUtil.userHttpBasic;
 import static com.redfox.lunchmanager.UserTestData.*;
 import static com.redfox.lunchmanager.util.Users.convertToDto;
@@ -17,8 +23,7 @@ import static com.redfox.lunchmanager.util.Users.getTos;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 class AdminRestControllerTest extends AbstractControllerTest {
 
@@ -133,5 +138,30 @@ class AdminRestControllerTest extends AbstractControllerTest {
                 .andExpect(status().isNoContent());
 
         assertFalse(userService.get(USER_ID_1).isEnabled());
+    }
+
+    @Test
+    void createInvalid() throws Exception {
+        UserTo invalid = new UserTo(null, null, "", "newPass", Boolean.TRUE, LocalDateTime.now().truncatedTo(ChronoUnit.HOURS), EnumSet.of(Role.USER, Role.ADMIN));
+        perform(MockMvcRequestBuilders.post(REST_URL)
+                .contentType(MediaType.APPLICATION_JSON)
+                .with(userHttpBasic(user1))
+                .content(jsonWithPassword(invalid, "newPass")))
+                .andDo(print())
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(jsonPath("$.type").value(ErrorType.VALIDATION_ERROR.name()));
+    }
+
+    @Test
+    void updateInvalid() throws Exception {
+        UserTo invalid = convertToDto(user3);
+        invalid.setName("");
+        perform(MockMvcRequestBuilders.put(REST_URL + USER_ID_3)
+                .contentType(MediaType.APPLICATION_JSON)
+                .with(userHttpBasic(user1))
+                .content(jsonWithPassword(invalid, "password")))
+                .andDo(print())
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(jsonPath("$.type").value(ErrorType.VALIDATION_ERROR.name()));
     }
 }

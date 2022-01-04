@@ -247,7 +247,16 @@
 	"enabled":true,
 	"registered":"2021-12-30T09:16:00",
 	"roles":["USER"]
-	}</con:request><con:originalUri>http://localhost/lunch-manager/rest/profile</con:originalUri><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:request></con:method></con:resource>
+	}</con:request><con:originalUri>http://localhost/lunch-manager/rest/profile</con:originalUri><con:credentials><con:authType>No Authorization</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:request></con:method><con:method name="" id="45e4778a-dce1-41d7-9183-ea0891b9ebaf" method="PUT"><con:settings/><con:parameters/><con:representation type="FAULT"><con:mediaType>text/html;charset=utf-8</con:mediaType><con:status>401</con:status><con:params/><con:element>html</con:element></con:representation><con:representation type="REQUEST"><con:mediaType>application/json</con:mediaType><con:params/></con:representation><con:representation type="FAULT"><con:mediaType>application/json;charset=UTF-8</con:mediaType><con:status>422</con:status><con:params/><con:element xmlns:prof="http://localhost/lunch-manager/rest/profile">prof:Fault</con:element></con:representation><con:request name="validateWithError" id="95fca943-d32c-46c3-bc48-feb5330f0694" mediaType="application/json" postQueryString="false"><con:settings><con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting></con:settings><con:endpoint>http://localhost:8080</con:endpoint><con:request>{
+  "name": " ",
+  "email": "test@mail.ru",
+  "password": "test-password",
+  "enabled": true,
+  "registered": "2022-01-04T11:25:00",
+  "roles": [
+    "USER"
+  ]
+}</con:request><con:originalUri>http://localhost/lunch-manager/rest/profile</con:originalUri><con:credentials><con:username>user@yandex.ru</con:username><con:password>password</con:password><con:selectedAuthProfile>Basic</con:selectedAuthProfile><con:addedBasicAuthenticationTypes>Basic</con:addedBasicAuthenticationTypes><con:authType>Global HTTP Settings</con:authType></con:credentials><con:jmsConfig JMSDeliveryMode="PERSISTENT"/><con:jmsPropertyConfig/><con:parameters/></con:request></con:method></con:resource>
             <con:resource name="users" path="/rest/admin/users" id="5e620108-0ed2-42eb-bd26-552202d75a6d">
                 <con:settings/>
                 <con:parameters/>

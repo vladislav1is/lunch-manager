@@ -4,13 +4,10 @@ import com.redfox.lunchmanager.HasId;
 import com.redfox.lunchmanager.util.exception.IllegalRequestDataException;
 import com.redfox.lunchmanager.util.exception.NotFoundException;
 import org.springframework.core.NestedExceptionUtils;
-import org.springframework.http.ResponseEntity;
 import org.springframework.lang.NonNull;
-import org.springframework.validation.BindingResult;
 
 import javax.validation.*;
 import java.util.Set;
-import java.util.stream.Collectors;
 
 public final class ValidationUtil {
     private static final Validator validator;
@@ -73,13 +70,5 @@ public final class ValidationUtil {
         //  https://stackoverflow.com/a/65442410/548473
         Throwable rootCause = NestedExceptionUtils.getRootCause(t);
         return rootCause != null ? rootCause : t;
-    }
-
-    public static ResponseEntity<String> getErrorResponse(BindingResult result) {
-        return ResponseEntity.unprocessableEntity().body(
-                result.getFieldErrors().stream()
-                        .map(fe -> String.format("[%s] %s", fe.getField(), fe.getDefaultMessage()))
-                        .collect(Collectors.joining("<br>"))
-        );
     }
 }

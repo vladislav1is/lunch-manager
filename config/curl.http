@@ -63,7 +63,6 @@ Authorization: Basic user@yandex.ru password
 #        }"
 
 POST http://localhost:8080/lunch-manager/rest/profile
-Authorization: Basic user@yandex.ru password
 Content-Type: application/json
 
 {
@@ -72,6 +71,34 @@ Content-Type: application/json
   "password": "test-password",
   "enabled": true,
   "registered": "2021-12-30T09:16:00",
+  "roles": [
+    "USER"
+  ]
+}
+
+#### validate with Error
+# curl -X PUT --location "http://localhost:8080/lunch-manager/rest/profile"
+#    -H "Content-Type: application/json"
+#    -d "{
+#          \"name\": \" \",
+#          \"email\": \"test@mail.ru\",
+#          \"password\": \"test-password\",
+#          \"enabled\": true,
+#          \"registered\": \"2022-01-04T11:25:00\",
+#          \"roles\": [
+#            \"USER\"
+#          ]
+#        }"
+PUT http://localhost:8080/lunch-manager/rest/profile
+Authorization: Basic user@yandex.ru password
+Content-Type: application/json
+
+{
+  "name": " ",
+  "email": "test@mail.ru",
+  "password": "test-password",
+  "enabled": true,
+  "registered": "2022-01-04T11:25:00",
   "roles": [
     "USER"
   ]

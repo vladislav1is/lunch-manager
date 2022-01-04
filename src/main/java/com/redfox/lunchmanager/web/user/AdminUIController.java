@@ -39,11 +39,7 @@ public class AdminUIController extends AbstractUserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public ResponseEntity<String> createOrUpdate(@RequestParam Role role, @Valid UserTo user, BindingResult result) {
-        if (result.hasErrors()) {
-            //  TODO change to exception handler
-            return ValidationUtil.getErrorResponse(result);
-        }
+    public void createOrUpdate(@RequestParam Role role, @Valid UserTo user) {
         user.setRoles(role.equals(Role.USER) ? EnumSet.of(Role.USER) : EnumSet.of(Role.USER, Role.ADMIN));
         user.setRegistered(LocalDateTime.now());
         if (user.getId() == null) {
@@ -54,7 +50,6 @@ public class AdminUIController extends AbstractUserController {
         } else {
             super.update(user, user.id());
         }
-        return ResponseEntity.ok().build();
     }
 
     @Override

@@ -8,11 +8,11 @@ import java.util.Objects;
 public class DishTo extends BaseTo {
 
     @NotBlank
-    @Size(min = 2, max = 100, message = "length must be between 2 and 100 characters")
+    @Size(min = 2, max = 100)
     private final String name;
 
-    @Min(value = 10, message = "should not be less than 10")
-    @Max(value = 10000, message = "should not be greater than 10000")
+    @Min(value = 10)
+    @Max(value = 10000)
     private final long price;
 
     @NotNull

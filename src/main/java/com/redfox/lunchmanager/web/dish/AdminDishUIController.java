@@ -1,12 +1,9 @@
 package com.redfox.lunchmanager.web.dish;
 
 import com.redfox.lunchmanager.to.DishTo;
-import com.redfox.lunchmanager.util.ValidationUtil;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
 import org.springframework.lang.Nullable;
-import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
@@ -38,17 +35,12 @@ public class AdminDishUIController extends AbstractDishController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public ResponseEntity<String> createOrUpdate(@PathVariable int restaurantId, @Valid DishTo dish, BindingResult result) {
-        if (result.hasErrors()) {
-            //  TODO change to exception handler
-            return ValidationUtil.getErrorResponse(result);
-        }
+    public void createOrUpdate(@PathVariable int restaurantId, @Valid DishTo dish) {
         if (dish.isNew()) {
             super.create(dish, restaurantId);
         } else {
             super.update(dish, dish.id(), restaurantId);
         }
-        return ResponseEntity.ok().build();
     }
 
     @Override

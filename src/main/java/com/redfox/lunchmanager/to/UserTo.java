@@ -18,16 +18,16 @@ public class UserTo extends BaseTo implements Serializable {
     private static final long serialVersionUID = 1L;
 
     @NotBlank
-    @Size(min = 2, max = 100, message = "length must be between 2 and 100 characters")
-    private final String name;
+    @Size(min = 2, max = 100)
+    private String name;
 
     @NotBlank
     @Size(max = 100)
-    @Email(message = "Email should be valid")
-    private final String email;
+    @Email
+    private String email;
 
     @NotBlank
-    @Size(min = 5, max = 100, message = "length must be between 5 and 100 characters")
+    @Size(min = 5, max = 32)
     private String password;
 
     private Boolean enabled;
@@ -52,8 +52,16 @@ public class UserTo extends BaseTo implements Serializable {
         return name;
     }
 
+    public void setName(String name) {
+        this.name = name;
+    }
+
     public String getEmail() {
         return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 
     public String getPassword() {
