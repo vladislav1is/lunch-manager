@@ -24,7 +24,7 @@ tr[data-user-enabled="false"] {
     border: 1px solid #9feba6;
 }
 
-/*https://getbootstrap.com/docs/4.0/examples/sticky-footer/sticky-footer.css*/
+/* https://getbootstrap.com/docs/4.0/examples/sticky-footer/sticky-footer.css */
 html {
     position: relative;
     min-height: 100%;
@@ -48,6 +48,6 @@ tr.data-voted {
 }
 
 .btn-danger.custom-btn {
-    background-color: #E05A5f;
-    border-color: #E05A5f;
+    background-color: #e05a5f;
+    border-color: #e05a5f;
 }
