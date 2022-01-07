@@ -101,7 +101,7 @@ public class UserTo extends BaseTo implements Serializable {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         UserTo userTo = (UserTo) o;
-        return enabled == userTo.enabled &&
+        return enabled.equals(userTo.enabled) &&
                 Objects.equals(id, userTo.id) &&
                 name.equals(userTo.name) &&
                 email.equals(userTo.email) &&
