@@ -17,6 +17,8 @@ public abstract class AbstractUserController {
 
     private static final Logger log = getLogger(AbstractUserController.class);
 
+    public static final String EXCEPTION_DUPLICATE_EMAIL = "exception.user.duplicateEmail";
+
     @Autowired
     private UserService service;
 
