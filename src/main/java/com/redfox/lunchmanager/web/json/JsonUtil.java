@@ -12,6 +12,9 @@ import static com.redfox.lunchmanager.web.json.JacksonObjectMapper.getMapper;
 
 public class JsonUtil {
 
+    private JsonUtil() {
+    }
+
     public static <T> List<T> readValues(String json, Class<T> clazz) {
         ObjectReader reader = getMapper().readerFor(clazz);
         try {
