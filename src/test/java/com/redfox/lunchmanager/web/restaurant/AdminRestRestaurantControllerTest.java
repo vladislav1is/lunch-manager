@@ -2,7 +2,6 @@ package com.redfox.lunchmanager.web.restaurant;
 
 import com.redfox.lunchmanager.service.RestaurantService;
 import com.redfox.lunchmanager.to.RestaurantTo;
-import com.redfox.lunchmanager.util.exception.ErrorType;
 import com.redfox.lunchmanager.util.exception.NotFoundException;
 import com.redfox.lunchmanager.web.AbstractControllerTest;
 import com.redfox.lunchmanager.web.json.JsonUtil;
@@ -11,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import static com.redfox.lunchmanager.RestaurantTestData.*;
 import static com.redfox.lunchmanager.TestUtil.userHttpBasic;
@@ -19,6 +20,8 @@ import static com.redfox.lunchmanager.UserTestData.user3;
 import static com.redfox.lunchmanager.VoteTestData.vote1;
 import static com.redfox.lunchmanager.util.Restaurants.convertToDto;
 import static com.redfox.lunchmanager.util.Restaurants.getTos;
+import static com.redfox.lunchmanager.util.exception.ErrorType.VALIDATION_ERROR;
+import static com.redfox.lunchmanager.web.ExceptionInfoHandler.EXCEPTION_DUPLICATE_NAME;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -135,7 +138,7 @@ class AdminRestRestaurantControllerTest extends AbstractControllerTest {
                 .with(userHttpBasic(user1)))
                 .andDo(print())
                 .andExpect(status().isUnprocessableEntity())
-                .andExpect(jsonPath("$.type").value(ErrorType.VALIDATION_ERROR.name()));
+                .andExpect(jsonPath("$.type").value(VALIDATION_ERROR.name()));
     }
 
     @Test
@@ -147,6 +150,38 @@ class AdminRestRestaurantControllerTest extends AbstractControllerTest {
                 .with(userHttpBasic(user1)))
                 .andDo(print())
                 .andExpect(status().isUnprocessableEntity())
-                .andExpect(jsonPath("$.type").value(ErrorType.VALIDATION_ERROR.name()));
+                .andExpect(jsonPath("$.type").value(VALIDATION_ERROR.name()));
+    }
+
+    @Test
+    @Transactional(propagation = Propagation.NEVER)
+    void updateDuplicate() throws Exception {
+        RestaurantTo invalid = convertToDto(getUpdated());
+        invalid.setName("December");
+
+        perform(MockMvcRequestBuilders.put(REST_URL + RESTAURANT_ID_3)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(JsonUtil.writeValue(invalid))
+                .with(userHttpBasic(user1)))
+                .andDo(print())
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(errorType(VALIDATION_ERROR))
+                .andExpect(detailMessage(EXCEPTION_DUPLICATE_NAME));
+    }
+
+    @Test
+    @Transactional(propagation = Propagation.NEVER)
+    void createDuplicate() throws Exception {
+        RestaurantTo invalid = convertToDto(getNew());
+        invalid.setName("December");
+
+        perform(MockMvcRequestBuilders.post(REST_URL)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(JsonUtil.writeValue(invalid))
+                .with(userHttpBasic(user1)))
+                .andDo(print())
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(errorType(VALIDATION_ERROR))
+                .andExpect(detailMessage(EXCEPTION_DUPLICATE_NAME));
     }
 }

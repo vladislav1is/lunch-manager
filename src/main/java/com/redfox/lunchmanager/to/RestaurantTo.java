@@ -1,16 +1,18 @@
 package com.redfox.lunchmanager.to;
 
+import com.redfox.lunchmanager.HasIdAndName;
+
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
 import java.beans.ConstructorProperties;
 import java.util.List;
 import java.util.Objects;
 
-public class RestaurantTo extends BaseTo {
+public class RestaurantTo extends BaseTo implements HasIdAndName {
 
     @NotBlank
     @Size(min = 2, max = 100)
-    private final String name;
+    private String name;
 
     private final VoteTo vote;
 
@@ -25,8 +27,13 @@ public class RestaurantTo extends BaseTo {
         this.dishes = dishes;
     }
 
+    @Override
     public String getName() {
         return name;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public VoteTo getVote() {

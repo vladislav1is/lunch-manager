@@ -8,6 +8,8 @@ import com.redfox.lunchmanager.to.RestaurantTo;
 import com.redfox.lunchmanager.web.SecurityUtil;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -26,6 +28,14 @@ public abstract class AbstractRestaurantController {
 
     @Autowired
     private VoteService voteService;
+
+    @Autowired
+    private UniqueNameValidator nameValidator;
+
+    @InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        binder.addValidators(nameValidator);
+    }
 
     public RestaurantTo create(RestaurantTo restaurantTo) {
         Restaurant restaurant = convertToEntity(restaurantTo);

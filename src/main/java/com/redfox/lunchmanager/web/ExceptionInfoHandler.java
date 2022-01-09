@@ -31,9 +31,11 @@ public class ExceptionInfoHandler {
     private static final Logger log = getLogger(ExceptionInfoHandler.class);
 
     public static final String EXCEPTION_DUPLICATE_EMAIL = "exception.user.duplicateEmail";
+    public static final String EXCEPTION_DUPLICATE_NAME = "exception.restaurant.duplicateName";
 
     private static final Map<String, String> CONSTRAINS_I18N_MAP = Map.of(
-            "users_unique_email_idx", EXCEPTION_DUPLICATE_EMAIL);
+            "users_unique_email_idx", EXCEPTION_DUPLICATE_EMAIL,
+            "restaurants_unique_name_idx", EXCEPTION_DUPLICATE_NAME);
 
     private final MessageSourceAccessor messageSourceAccessor;
 
