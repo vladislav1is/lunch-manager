@@ -4,23 +4,18 @@ import com.redfox.lunchmanager.HasIdAndEmail;
 import com.redfox.lunchmanager.model.User;
 import com.redfox.lunchmanager.repository.UserRepository;
 import com.redfox.lunchmanager.web.ExceptionInfoHandler;
-import org.springframework.lang.Nullable;
 import org.springframework.stereotype.Component;
 import org.springframework.util.StringUtils;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
 
-import javax.servlet.http.HttpServletRequest;
-
 @Component
 public class UniqueMailValidator implements Validator {
 
     private final UserRepository repository;
-    private final HttpServletRequest request;
 
-    public UniqueMailValidator(UserRepository repository, @Nullable HttpServletRequest request) {
+    public UniqueMailValidator(UserRepository repository) {
         this.repository = repository;
-        this.request = request;
     }
 
     @Override
