@@ -29,11 +29,14 @@ public class UniqueNameValidator implements Validator {
     public void validate(Object target, Errors errors) {
         HasIdAndName restaurant = ((HasIdAndName) target);
         if (StringUtils.hasText(restaurant.getName())) {
-            String name = restaurant.getName();
             List<Restaurant> dbRestaurants = repository.getAll();
-            dbRestaurants.stream()
-                    .filter(r -> name.equals(r.getName()))
-                    .findFirst().ifPresent(dbRestaurantWithSameName -> errors.rejectValue("name", ExceptionInfoHandler.EXCEPTION_DUPLICATE_NAME));
+            Restaurant dbRestaurant = dbRestaurants.stream()
+                    .filter(r -> restaurant.getName().equals(r.getName()))
+                    .findFirst()
+                    .orElse(null);
+            if (dbRestaurant != null && !dbRestaurant.getId().equals(restaurant.getId())) {
+                errors.rejectValue("name", ExceptionInfoHandler.EXCEPTION_DUPLICATE_NAME);
+            }
         }
     }
 }
