@@ -2,6 +2,7 @@ package com.redfox.lunchmanager.model;
 
 
 import com.fasterxml.jackson.annotation.JsonBackReference;
+import com.redfox.lunchmanager.HasNameAndDate;
 import com.redfox.lunchmanager.View;
 import com.redfox.lunchmanager.util.DateTimeUtil;
 import org.hibernate.annotations.OnDelete;
@@ -25,7 +26,7 @@ import java.time.LocalDate;
 @Table(name = "dishes", uniqueConstraints = {
         @UniqueConstraint(columnNames = {"name", "registered", "restaurant_id"}, name = "dishes_idx")
 })
-public class Dish extends AbstractNamedEntity {
+public class Dish extends AbstractNamedEntity implements HasNameAndDate {
 
     public static final String DELETE = "Dish.delete";
     public static final String ALL_SORTED = "Dish.getAll";
@@ -69,6 +70,7 @@ public class Dish extends AbstractNamedEntity {
         this.price = price;
     }
 
+    @Override
     public LocalDate getRegistered() {
         return registered;
     }
