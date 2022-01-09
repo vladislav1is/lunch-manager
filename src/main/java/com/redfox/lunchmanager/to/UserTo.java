@@ -1,5 +1,6 @@
 package com.redfox.lunchmanager.to;
 
+import com.redfox.lunchmanager.HasIdAndEmail;
 import com.redfox.lunchmanager.model.Role;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -13,7 +14,7 @@ import java.time.LocalDateTime;
 import java.util.Objects;
 import java.util.Set;
 
-public class UserTo extends BaseTo implements Serializable {
+public class UserTo extends BaseTo implements HasIdAndEmail, Serializable {
     @Serial
     private static final long serialVersionUID = 1L;
 
@@ -56,6 +57,7 @@ public class UserTo extends BaseTo implements Serializable {
         this.name = name;
     }
 
+    @Override
     public String getEmail() {
         return email;
     }

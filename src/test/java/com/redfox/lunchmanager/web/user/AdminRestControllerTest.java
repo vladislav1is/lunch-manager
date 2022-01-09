@@ -3,7 +3,6 @@ package com.redfox.lunchmanager.web.user;
 import com.redfox.lunchmanager.model.Role;
 import com.redfox.lunchmanager.service.UserService;
 import com.redfox.lunchmanager.to.UserTo;
-import com.redfox.lunchmanager.util.exception.ErrorType;
 import com.redfox.lunchmanager.util.exception.NotFoundException;
 import com.redfox.lunchmanager.web.AbstractControllerTest;
 import org.junit.jupiter.api.Test;
@@ -11,6 +10,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.time.temporal.ChronoUnit;
@@ -20,10 +21,13 @@ import static com.redfox.lunchmanager.TestUtil.userHttpBasic;
 import static com.redfox.lunchmanager.UserTestData.*;
 import static com.redfox.lunchmanager.util.Users.convertToDto;
 import static com.redfox.lunchmanager.util.Users.getTos;
+import static com.redfox.lunchmanager.util.exception.ErrorType.VALIDATION_ERROR;
+import static com.redfox.lunchmanager.web.ExceptionInfoHandler.EXCEPTION_DUPLICATE_EMAIL;
 import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 class AdminRestControllerTest extends AbstractControllerTest {
 
@@ -149,7 +153,7 @@ class AdminRestControllerTest extends AbstractControllerTest {
                 .content(jsonWithPassword(invalid, "newPass")))
                 .andDo(print())
                 .andExpect(status().isUnprocessableEntity())
-                .andExpect(jsonPath("$.type").value(ErrorType.VALIDATION_ERROR.name()));
+                .andExpect(errorType(VALIDATION_ERROR));
     }
 
     @Test
@@ -162,6 +166,36 @@ class AdminRestControllerTest extends AbstractControllerTest {
                 .content(jsonWithPassword(invalid, "password")))
                 .andDo(print())
                 .andExpect(status().isUnprocessableEntity())
-                .andExpect(jsonPath("$.type").value(ErrorType.VALIDATION_ERROR.name()));
+                .andExpect(errorType(VALIDATION_ERROR));
+    }
+
+    @Test
+    @Transactional(propagation = Propagation.NEVER)
+    void updateDuplicate() throws Exception {
+        UserTo updated = convertToDto(user3);
+        updated.setEmail("admin@gmail.com");
+        perform(MockMvcRequestBuilders.put(REST_URL + USER_ID_3)
+                .contentType(MediaType.APPLICATION_JSON)
+                .with(userHttpBasic(user1))
+                .content(jsonWithPassword(updated, "password")))
+                .andDo(print())
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(errorType(VALIDATION_ERROR))
+                .andExpect(detailMessage(EXCEPTION_DUPLICATE_EMAIL));
+    }
+
+    @Test
+    @Transactional(propagation = Propagation.NEVER)
+    void createDuplicate() throws Exception {
+        UserTo expected = convertToDto(getNew());
+        expected.setEmail("admin@gmail.com");
+        perform(MockMvcRequestBuilders.post(REST_URL)
+                .contentType(MediaType.APPLICATION_JSON)
+                .with(userHttpBasic(user1))
+                .content(jsonWithPassword(expected, "newPass")))
+                .andDo(print())
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(errorType(VALIDATION_ERROR))
+                .andExpect(detailMessage(EXCEPTION_DUPLICATE_EMAIL));
     }
 }

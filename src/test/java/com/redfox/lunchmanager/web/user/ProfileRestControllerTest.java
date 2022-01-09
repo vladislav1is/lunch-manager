@@ -1,11 +1,8 @@
 package com.redfox.lunchmanager.web.user;
 
-import com.redfox.lunchmanager.model.Role;
 import com.redfox.lunchmanager.model.User;
 import com.redfox.lunchmanager.service.UserService;
 import com.redfox.lunchmanager.to.UserTo;
-import com.redfox.lunchmanager.util.Users;
-import com.redfox.lunchmanager.util.exception.ErrorType;
 import com.redfox.lunchmanager.web.AbstractControllerTest;
 import com.redfox.lunchmanager.web.json.JsonUtil;
 import org.junit.jupiter.api.Test;
@@ -13,17 +10,19 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
-
-import java.time.LocalDateTime;
-import java.util.EnumSet;
+import org.springframework.transaction.annotation.Propagation;
+import org.springframework.transaction.annotation.Transactional;
 
 import static com.redfox.lunchmanager.TestUtil.mockAuthorize;
 import static com.redfox.lunchmanager.TestUtil.userHttpBasic;
 import static com.redfox.lunchmanager.UserTestData.*;
 import static com.redfox.lunchmanager.util.Users.convertToDto;
 import static com.redfox.lunchmanager.util.Users.getTos;
+import static com.redfox.lunchmanager.util.exception.ErrorType.VALIDATION_ERROR;
+import static com.redfox.lunchmanager.web.ExceptionInfoHandler.EXCEPTION_DUPLICATE_EMAIL;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 class ProfileRestControllerTest extends AbstractControllerTest {
 
@@ -60,8 +59,8 @@ class ProfileRestControllerTest extends AbstractControllerTest {
         // TODO: Fix status, expected:<201> but was:<401>
         mockAuthorize(user3);
         //
-        UserTo newTo = new UserTo(null, "newName", "newemail@ya.ru", "newPassword", Boolean.TRUE, LocalDateTime.now(), EnumSet.of(Role.USER));
-        User newUser = Users.convertToEntity(newTo);
+        User newUser = getNew();
+        UserTo newTo = convertToDto(newUser);
         ResultActions action = perform(MockMvcRequestBuilders.post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(JsonUtil.writeValue(newTo)))
@@ -98,7 +97,7 @@ class ProfileRestControllerTest extends AbstractControllerTest {
                 .content(JsonUtil.writeValue(newTo)))
                 .andDo(print())
                 .andExpect(status().isUnprocessableEntity())
-                .andExpect(jsonPath("$.type").value(ErrorType.VALIDATION_ERROR.name()));
+                .andExpect(errorType(VALIDATION_ERROR));
     }
 
     @Test
@@ -110,6 +109,20 @@ class ProfileRestControllerTest extends AbstractControllerTest {
                 .content(JsonUtil.writeValue(updatedTo)))
                 .andDo(print())
                 .andExpect(status().isUnprocessableEntity())
-                .andExpect(jsonPath("$.type").value(ErrorType.VALIDATION_ERROR.name()));
+                .andExpect(errorType(VALIDATION_ERROR));
+    }
+
+    @Test
+    @Transactional(propagation = Propagation.NEVER)
+    void updateDuplicate() throws Exception {
+        UserTo updated = convertToDto(getUpdated());
+        updated.setEmail("admin@gmail.com");
+        perform(MockMvcRequestBuilders.put(REST_URL).contentType(MediaType.APPLICATION_JSON)
+                .with(userHttpBasic(user3))
+                .content(JsonUtil.writeValue(updated)))
+                .andDo(print())
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(errorType(VALIDATION_ERROR))
+                .andExpect(detailMessage(EXCEPTION_DUPLICATE_EMAIL));
     }
 }

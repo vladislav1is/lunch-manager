@@ -5,6 +5,8 @@ import com.redfox.lunchmanager.service.UserService;
 import com.redfox.lunchmanager.to.UserTo;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 
 import java.util.List;
 
@@ -17,10 +19,16 @@ public abstract class AbstractUserController {
 
     private static final Logger log = getLogger(AbstractUserController.class);
 
-    public static final String EXCEPTION_DUPLICATE_EMAIL = "exception.user.duplicateEmail";
-
     @Autowired
     private UserService service;
+
+    @Autowired
+    private UniqueMailValidator emailValidator;
+
+    @InitBinder
+    protected void initBinder(WebDataBinder binder) {
+        binder.addValidators(emailValidator);
+    }
 
     public UserTo create(UserTo userTo) {
         User user = convertToEntity(userTo);

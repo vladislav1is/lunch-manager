@@ -1,6 +1,7 @@
 package com.redfox.lunchmanager.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
+import com.redfox.lunchmanager.HasIdAndEmail;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.*;
 import org.springframework.util.CollectionUtils;
@@ -29,7 +30,7 @@ import java.util.Set;
 @Table(name = "users", uniqueConstraints = {
         @UniqueConstraint(columnNames = "email", name = "users_email_key")
 })
-public class User extends AbstractNamedEntity {
+public class User extends AbstractNamedEntity implements HasIdAndEmail {
 
     public static final String DELETE = "User.delete";
     public static final String BY_EMAIL = "User.getByEmail";
@@ -93,6 +94,7 @@ public class User extends AbstractNamedEntity {
         setRoles(roles);
     }
 
+    @Override
     public String getEmail() {
         return email;
     }

@@ -6,7 +6,7 @@ import com.redfox.lunchmanager.util.exception.ErrorType;
 import com.redfox.lunchmanager.util.exception.IllegalRequestDataException;
 import com.redfox.lunchmanager.util.exception.NotFoundException;
 import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
+import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.core.Ordered;
 import org.springframework.core.annotation.Order;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -20,18 +20,40 @@ import org.springframework.web.bind.annotation.RestControllerAdvice;
 import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 
 import javax.servlet.http.HttpServletRequest;
+import java.util.Map;
 
 import static com.redfox.lunchmanager.util.exception.ErrorType.*;
+import static org.slf4j.LoggerFactory.getLogger;
 
 @RestControllerAdvice(annotations = RestController.class)
 @Order(Ordered.HIGHEST_PRECEDENCE + 5)
 public class ExceptionInfoHandler {
-    private static Logger log = LoggerFactory.getLogger(ExceptionInfoHandler.class);
+    private static final Logger log = getLogger(ExceptionInfoHandler.class);
+
+    public static final String EXCEPTION_DUPLICATE_EMAIL = "exception.user.duplicateEmail";
+
+    private static final Map<String, String> CONSTRAINS_I18N_MAP = Map.of(
+            "users_unique_email_idx", EXCEPTION_DUPLICATE_EMAIL);
+
+    private final MessageSourceAccessor messageSourceAccessor;
+
+    public ExceptionInfoHandler(MessageSourceAccessor messageSourceAccessor) {
+        this.messageSourceAccessor = messageSourceAccessor;
+    }
 
     //  http://stackoverflow.com/a/22358422/548473
     @ResponseStatus(HttpStatus.UNPROCESSABLE_ENTITY)
     @ExceptionHandler(NotFoundException.class)
     public ErrorInfo handleError(HttpServletRequest req, NotFoundException e) {
+        String rootMsg = ValidationUtil.getRootCause(e).getMessage();
+        if (rootMsg != null) {
+            String lowerCaseMsg = rootMsg.toLowerCase();
+            for (Map.Entry<String, String> entry : CONSTRAINS_I18N_MAP.entrySet()) {
+                if (lowerCaseMsg.contains(entry.getKey())) {
+                    return logAndGetErrorInfo(req, e, false, VALIDATION_ERROR, messageSourceAccessor.getMessage(entry.getValue()));
+                }
+            }
+        }
         return logAndGetErrorInfo(req, e, false, DATA_NOT_FOUND);
     }
 
@@ -45,7 +67,7 @@ public class ExceptionInfoHandler {
     @ExceptionHandler(BindException.class)
     public ErrorInfo bindValidationError(HttpServletRequest req, BindException e) {
         String[] details = e.getBindingResult().getFieldErrors().stream()
-                .map(fe -> String.format("[%s] %s", fe.getField(), fe.getDefaultMessage()))
+                .map(messageSourceAccessor::getMessage)
                 .toArray(String[]::new);
 
         return logAndGetErrorInfo(req, e, false, VALIDATION_ERROR, details);
