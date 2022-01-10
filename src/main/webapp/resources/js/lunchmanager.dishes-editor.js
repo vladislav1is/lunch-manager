@@ -51,9 +51,11 @@ $(function () {
         ]
     });
 
+    $.datetimepicker.setLocale(localeCode);
+
     //  http://xdsoft.net/jqplugins/datetimepicker/
-    var startDate = $('#startDate');
-    var endDate = $('#endDate');
+    let startDate = $('#startDate');
+    let endDate = $('#endDate');
     startDate.datetimepicker({
         timepicker: false,
         format: 'Y-m-d',
