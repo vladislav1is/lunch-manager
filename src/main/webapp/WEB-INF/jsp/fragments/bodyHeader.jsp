@@ -31,7 +31,7 @@
                                             <spring:message code="user.title"/>
                                         </button>
                                     </sec:authorize>
-                                    <a class="btn btn-secondary" href="profile">${userTo.name}</a>
+                                    <a class="btn btn-secondary" href="profile"><sec:authentication property="principal.userTo.name"/></a>
                                     <button class="btn btn-danger custom-btn" type="submit">
                                         <span class="fa fa-sign-out"></span>
                                     </button>

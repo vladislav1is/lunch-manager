@@ -1,6 +1,5 @@
 package com.redfox.lunchmanager.web;
 
-import com.redfox.lunchmanager.AuthorizedUser;
 import com.redfox.lunchmanager.util.ValidationUtil;
 import com.redfox.lunchmanager.util.exception.ErrorType;
 import org.slf4j.Logger;
@@ -44,12 +43,6 @@ public class GlobalExceptionHandler {
                         "typeMessage", messageSourceAccessor.getMessage(errorType.getErrorCode()),
                         "status", httpStatus));
         mav.setStatus(httpStatus);
-
-        //  Interceptor is not invoked, put userTo
-        AuthorizedUser authorizedUser = SecurityUtil.safeGet();
-        if (authorizedUser != null) {
-            mav.addObject("userTo", authorizedUser.getUserTo());
-        }
         return mav;
     }
 }
