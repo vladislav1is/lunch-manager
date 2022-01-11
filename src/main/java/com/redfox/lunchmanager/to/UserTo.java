@@ -2,6 +2,7 @@ package com.redfox.lunchmanager.to;
 
 import com.redfox.lunchmanager.HasIdAndEmail;
 import com.redfox.lunchmanager.model.Role;
+import com.redfox.lunchmanager.util.validation.NoHtml;
 import org.springframework.format.annotation.DateTimeFormat;
 
 import javax.validation.constraints.Email;
@@ -20,11 +21,13 @@ public class UserTo extends BaseTo implements HasIdAndEmail, Serializable {
 
     @NotBlank
     @Size(min = 2, max = 100)
+    @NoHtml
     private String name;
 
     @NotBlank
     @Size(max = 100)
     @Email
+    @NoHtml //  https://stackoverflow.com/questions/17480809
     private String email;
 
     @NotBlank

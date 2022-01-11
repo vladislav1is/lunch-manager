@@ -1,12 +1,13 @@
 package com.redfox.lunchmanager.web.dish;
 
+import com.redfox.lunchmanager.View;
 import com.redfox.lunchmanager.to.DishTo;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.lang.Nullable;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.time.LocalDate;
 import java.util.List;
 
@@ -35,7 +36,7 @@ public class AdminDishUIController extends AbstractDishController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void createOrUpdate(@PathVariable int restaurantId, @Valid DishTo dish) {
+    public void createOrUpdate(@Validated(View.Web.class) DishTo dish, @PathVariable int restaurantId) {
         if (dish.isNew()) {
             super.create(dish, restaurantId);
         } else {

@@ -1,7 +1,8 @@
 package com.redfox.lunchmanager.model;
 
-
 import com.redfox.lunchmanager.HasIdAndName;
+import com.redfox.lunchmanager.View;
+import com.redfox.lunchmanager.util.validation.NoHtml;
 
 import javax.persistence.Column;
 import javax.persistence.MappedSuperclass;
@@ -14,6 +15,7 @@ public abstract class AbstractNamedEntity extends AbstractBaseEntity implements 
     @NotBlank
     @Size(min = 2, max = 100)
     @Column(name = "name", nullable = false)
+    @NoHtml(groups = {View.Web.class})
     protected String name;
 
     protected AbstractNamedEntity() {

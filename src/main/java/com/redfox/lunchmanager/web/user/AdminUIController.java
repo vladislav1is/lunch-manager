@@ -1,12 +1,13 @@
 package com.redfox.lunchmanager.web.user;
 
+import com.redfox.lunchmanager.View;
 import com.redfox.lunchmanager.model.Role;
 import com.redfox.lunchmanager.to.UserTo;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.EnumSet;
 import java.util.List;
@@ -36,7 +37,7 @@ public class AdminUIController extends AbstractUserController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void createOrUpdate(@RequestParam Role role, @Valid UserTo userTo) {
+    public void createOrUpdate(@Validated(View.Web.class) UserTo userTo, @RequestParam Role role) {
         userTo.setRoles(role.equals(Role.USER) ? EnumSet.of(Role.USER) : EnumSet.of(Role.USER, Role.ADMIN));
         userTo.setRegistered(LocalDateTime.now());
         if (userTo.getId() == null) {

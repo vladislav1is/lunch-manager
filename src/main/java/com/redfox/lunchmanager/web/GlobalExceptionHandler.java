@@ -1,6 +1,6 @@
 package com.redfox.lunchmanager.web;
 
-import com.redfox.lunchmanager.util.ValidationUtil;
+import com.redfox.lunchmanager.util.validation.ValidationUtil;
 import com.redfox.lunchmanager.util.exception.ErrorType;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;

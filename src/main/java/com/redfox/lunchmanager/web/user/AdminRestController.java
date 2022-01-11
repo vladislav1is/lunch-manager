@@ -1,13 +1,14 @@
 package com.redfox.lunchmanager.web.user;
 
+import com.redfox.lunchmanager.View;
 import com.redfox.lunchmanager.to.UserTo;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -45,12 +46,12 @@ public class AdminRestController extends AbstractUserController {
     @Override
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@Valid @RequestBody UserTo user, @PathVariable int id) {
+    public void update(@Validated(View.Web.class) @RequestBody UserTo user, @PathVariable int id) {
         super.update(user, id);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<UserTo> createWithLocation(@Valid @RequestBody UserTo user) {
+    public ResponseEntity<UserTo> createWithLocation(@Validated(View.Web.class) @RequestBody UserTo user) {
         var created = super.create(user);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL + "/{id}")

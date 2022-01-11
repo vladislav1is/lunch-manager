@@ -1,11 +1,12 @@
 package com.redfox.lunchmanager.web.restaurant;
 
+import com.redfox.lunchmanager.View;
 import com.redfox.lunchmanager.to.RestaurantTo;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
-import javax.validation.Valid;
 import java.util.List;
 
 @RestController
@@ -33,7 +34,7 @@ public class AdminRestaurantUIController extends AbstractRestaurantController {
 
     @PostMapping
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void createOrUpdate(@Valid RestaurantTo restaurant) {
+    public void createOrUpdate(@Validated(View.Web.class) RestaurantTo restaurant) {
         if (restaurant.isNew()) {
             super.create(restaurant);
         } else {

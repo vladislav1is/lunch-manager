@@ -17,8 +17,8 @@ import org.springframework.util.Assert;
 import java.util.List;
 
 import static com.redfox.lunchmanager.util.Users.prepareToSave;
-import static com.redfox.lunchmanager.util.ValidationUtil.checkNotFound;
-import static com.redfox.lunchmanager.util.ValidationUtil.checkNotFoundWithId;
+import static com.redfox.lunchmanager.util.validation.ValidationUtil.checkNotFound;
+import static com.redfox.lunchmanager.util.validation.ValidationUtil.checkNotFoundWithId;
 
 @Service("userService")
 @Scope(proxyMode = ScopedProxyMode.TARGET_CLASS)

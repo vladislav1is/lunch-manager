@@ -8,7 +8,7 @@ import org.springframework.stereotype.Service;
 
 import java.util.List;
 
-import static com.redfox.lunchmanager.util.ValidationUtil.checkNotFoundWithId;
+import static com.redfox.lunchmanager.util.validation.ValidationUtil.checkNotFoundWithId;
 
 @Service
 public class RestaurantService {

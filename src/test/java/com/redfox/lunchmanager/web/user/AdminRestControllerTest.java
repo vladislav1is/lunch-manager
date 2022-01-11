@@ -170,6 +170,19 @@ class AdminRestControllerTest extends AbstractControllerTest {
     }
 
     @Test
+    void updateHtmlUnsafe() throws Exception {
+        UserTo updated = convertToDto(user3);
+        updated.setName("<script>alert(123)</script>");
+        perform(MockMvcRequestBuilders.put(REST_URL + USER_ID_3)
+                .contentType(MediaType.APPLICATION_JSON)
+                .with(userHttpBasic(user1))
+                .content(jsonWithPassword(updated, "password1")))
+                .andDo(print())
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(errorType(VALIDATION_ERROR));
+    }
+
+    @Test
     @Transactional(propagation = Propagation.NEVER)
     void updateDuplicate() throws Exception {
         UserTo updated = convertToDto(user3);

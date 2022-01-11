@@ -1,6 +1,6 @@
 package com.redfox.lunchmanager.web;
 
-import com.redfox.lunchmanager.util.ValidationUtil;
+import com.redfox.lunchmanager.util.validation.ValidationUtil;
 import com.redfox.lunchmanager.util.exception.ErrorInfo;
 import com.redfox.lunchmanager.util.exception.ErrorType;
 import com.redfox.lunchmanager.util.exception.IllegalRequestDataException;

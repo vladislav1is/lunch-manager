@@ -11,8 +11,8 @@ import org.springframework.lang.Nullable;
 import java.time.LocalDate;
 import java.util.List;
 
-import static com.redfox.lunchmanager.util.ValidationUtil.assureIdConsistent;
-import static com.redfox.lunchmanager.util.ValidationUtil.checkNew;
+import static com.redfox.lunchmanager.util.validation.ValidationUtil.assureIdConsistent;
+import static com.redfox.lunchmanager.util.validation.ValidationUtil.checkNew;
 import static com.redfox.lunchmanager.util.Votes.*;
 import static org.slf4j.LoggerFactory.getLogger;
 

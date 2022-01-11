@@ -13,6 +13,8 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDateTime;
+
 import static com.redfox.lunchmanager.RestaurantTestData.*;
 import static com.redfox.lunchmanager.TestUtil.userHttpBasic;
 import static com.redfox.lunchmanager.UserTestData.user1;
@@ -151,6 +153,19 @@ class AdminRestRestaurantControllerTest extends AbstractControllerTest {
                 .andDo(print())
                 .andExpect(status().isUnprocessableEntity())
                 .andExpect(jsonPath("$.type").value(VALIDATION_ERROR.name()));
+    }
+
+    @Test
+    void updateHtmlUnsafe() throws Exception {
+        RestaurantTo invalid = convertToDto(getUpdated());
+        invalid.setName("<script>alert(123)</script>");
+        perform(MockMvcRequestBuilders.put(REST_URL + RESTAURANT_ID_3)
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(JsonUtil.writeValue(invalid))
+                .with(userHttpBasic(user1)))
+                .andDo(print())
+                .andExpect(status().isUnprocessableEntity())
+                .andExpect(errorType(VALIDATION_ERROR));
     }
 
     @Test

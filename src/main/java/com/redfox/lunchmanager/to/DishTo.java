@@ -1,6 +1,7 @@
 package com.redfox.lunchmanager.to;
 
 import com.redfox.lunchmanager.HasNameAndDate;
+import com.redfox.lunchmanager.util.validation.NoHtml;
 
 import javax.validation.constraints.*;
 import java.beans.ConstructorProperties;
@@ -11,6 +12,7 @@ public class DishTo extends BaseTo implements HasNameAndDate {
 
     @NotBlank
     @Size(min = 2, max = 100)
+    @NoHtml
     private String name;
 
     @Min(value = 10)

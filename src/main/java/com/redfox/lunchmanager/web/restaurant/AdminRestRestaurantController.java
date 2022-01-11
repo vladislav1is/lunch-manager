@@ -1,13 +1,14 @@
 package com.redfox.lunchmanager.web.restaurant;
 
+import com.redfox.lunchmanager.View;
 import com.redfox.lunchmanager.to.RestaurantTo;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
-import javax.validation.Valid;
 import java.net.URI;
 import java.util.List;
 
@@ -39,12 +40,12 @@ public class AdminRestRestaurantController extends AbstractRestaurantController 
     @Override
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@Valid @RequestBody RestaurantTo restaurant, @PathVariable int id) {
+    public void update(@Validated(View.Web.class) @RequestBody RestaurantTo restaurant, @PathVariable int id) {
         super.update(restaurant, id);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<RestaurantTo> createWithLocation(@Valid @RequestBody RestaurantTo restaurant) {
+    public ResponseEntity<RestaurantTo> createWithLocation(@Validated(View.Web.class) @RequestBody RestaurantTo restaurant) {
         var created = super.create(restaurant);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL + "/{id}")

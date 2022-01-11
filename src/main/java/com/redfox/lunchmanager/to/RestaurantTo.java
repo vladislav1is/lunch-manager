@@ -1,6 +1,7 @@
 package com.redfox.lunchmanager.to;
 
 import com.redfox.lunchmanager.HasIdAndName;
+import com.redfox.lunchmanager.util.validation.NoHtml;
 
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Size;
@@ -12,6 +13,7 @@ public class RestaurantTo extends BaseTo implements HasIdAndName {
 
     @NotBlank
     @Size(min = 2, max = 100)
+    @NoHtml
     private String name;
 
     private final VoteTo vote;

@@ -2,7 +2,7 @@ package com.redfox.lunchmanager.repository.jdbc;
 
 import com.redfox.lunchmanager.model.Dish;
 import com.redfox.lunchmanager.repository.DishRepository;
-import com.redfox.lunchmanager.util.ValidationUtil;
+import com.redfox.lunchmanager.util.validation.ValidationUtil;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;

@@ -15,8 +15,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 import static com.redfox.lunchmanager.util.Restaurants.*;
-import static com.redfox.lunchmanager.util.ValidationUtil.assureIdConsistent;
-import static com.redfox.lunchmanager.util.ValidationUtil.checkNew;
+import static com.redfox.lunchmanager.util.validation.ValidationUtil.assureIdConsistent;
+import static com.redfox.lunchmanager.util.validation.ValidationUtil.checkNew;
 import static org.slf4j.LoggerFactory.getLogger;
 
 public abstract class AbstractRestaurantController {

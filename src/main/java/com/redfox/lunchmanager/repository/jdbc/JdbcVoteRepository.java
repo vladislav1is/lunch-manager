@@ -4,7 +4,7 @@ import com.redfox.lunchmanager.model.Restaurant;
 import com.redfox.lunchmanager.model.User;
 import com.redfox.lunchmanager.model.Vote;
 import com.redfox.lunchmanager.repository.VoteRepository;
-import com.redfox.lunchmanager.util.ValidationUtil;
+import com.redfox.lunchmanager.util.validation.ValidationUtil;
 import com.redfox.lunchmanager.web.SecurityUtil;
 import org.springframework.dao.support.DataAccessUtils;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;

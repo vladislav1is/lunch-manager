@@ -2,6 +2,8 @@ package com.redfox.lunchmanager.model;
 
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.redfox.lunchmanager.HasIdAndEmail;
+import com.redfox.lunchmanager.View;
+import com.redfox.lunchmanager.util.validation.NoHtml;
 import org.hibernate.annotations.Cache;
 import org.hibernate.annotations.*;
 import org.springframework.util.CollectionUtils;
@@ -40,6 +42,7 @@ public class User extends AbstractNamedEntity implements HasIdAndEmail {
     @Email
     @NotBlank
     @Size(max = 100)
+    @NoHtml(groups = {View.Web.class})  //  https://stackoverflow.com/questions/17480809
     private String email;
 
     @Column(name = "password", nullable = false)

@@ -8,7 +8,7 @@ import org.springframework.test.context.jdbc.Sql;
 import org.springframework.test.context.jdbc.SqlConfig;
 import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
-import static com.redfox.lunchmanager.util.ValidationUtil.getRootCause;
+import static com.redfox.lunchmanager.util.validation.ValidationUtil.getRootCause;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringJUnitConfig(locations = {

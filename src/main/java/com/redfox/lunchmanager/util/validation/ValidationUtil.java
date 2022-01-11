@@ -1,4 +1,4 @@
-package com.redfox.lunchmanager.util;
+package com.redfox.lunchmanager.util.validation;
 
 import com.redfox.lunchmanager.HasId;
 import com.redfox.lunchmanager.util.exception.ErrorType;

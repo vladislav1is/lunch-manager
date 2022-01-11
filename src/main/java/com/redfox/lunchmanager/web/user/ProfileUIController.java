@@ -1,20 +1,20 @@
 package com.redfox.lunchmanager.web.user;
 
 import com.redfox.lunchmanager.AuthorizedUser;
+import com.redfox.lunchmanager.View;
 import com.redfox.lunchmanager.model.Role;
 import com.redfox.lunchmanager.to.UserTo;
-import com.redfox.lunchmanager.web.SecurityUtil;
 import org.springframework.security.core.annotation.AuthenticationPrincipal;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.support.SessionStatus;
 
-import javax.validation.Valid;
 import java.time.LocalDateTime;
 import java.util.EnumSet;
 
@@ -29,7 +29,7 @@ public class ProfileUIController extends AbstractUserController {
     }
 
     @PostMapping
-    public String updateProfile(@Valid UserTo userTo, BindingResult result, SessionStatus status, @AuthenticationPrincipal AuthorizedUser authUser) {
+    public String updateProfile(@Validated(View.Web.class) UserTo userTo, BindingResult result, SessionStatus status, @AuthenticationPrincipal AuthorizedUser authUser) {
         if (result.hasErrors()) {
             return "profile";
         }
@@ -48,7 +48,7 @@ public class ProfileUIController extends AbstractUserController {
     }
 
     @PostMapping("/register")
-    public String saveRegister(@Valid UserTo userTo, BindingResult result, SessionStatus status, Model model) {
+    public String saveRegister(@Validated(View.Web.class) UserTo userTo, BindingResult result, SessionStatus status, Model model) {
         if (result.hasErrors()) {
             model.addAttribute("register", true);
             return "profile";
