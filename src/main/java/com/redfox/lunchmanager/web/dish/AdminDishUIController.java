@@ -7,10 +7,12 @@ import org.springframework.http.MediaType;
 import org.springframework.lang.Nullable;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.time.LocalDate;
 import java.util.List;
 
+@ApiIgnore
 @RestController
 @RequestMapping(value = "/admin/restaurants/{restaurantId}/dishes", produces = MediaType.APPLICATION_JSON_VALUE)
 public class AdminDishUIController extends AbstractDishController {

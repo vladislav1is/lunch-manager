@@ -7,11 +7,13 @@ import com.redfox.lunchmanager.util.Votes;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import springfox.documentation.annotations.ApiIgnore;
 
 import java.time.LocalDate;
 
 import static com.redfox.lunchmanager.util.Restaurants.convertToDto;
 
+@ApiIgnore
 @Controller
 @RequestMapping("/restaurants/{restaurantId}/votes")
 public class ProfileVoteController extends AbstractVoteController {
