@@ -1,5 +1,6 @@
-package com.redfox.lunchmanager;
+package com.redfox.lunchmanager.web.user;
 
+import com.redfox.lunchmanager.MatcherFactory;
 import com.redfox.lunchmanager.model.Role;
 import com.redfox.lunchmanager.model.User;
 import com.redfox.lunchmanager.to.UserTo;

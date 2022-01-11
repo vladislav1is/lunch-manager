@@ -12,7 +12,7 @@ import java.util.List;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import static com.redfox.lunchmanager.UserTestData.*;
+import static com.redfox.lunchmanager.web.user.UserTestData.*;
 import static com.redfox.lunchmanager.model.AbstractBaseEntity.START_SEQ;
 import static org.slf4j.LoggerFactory.getLogger;
 

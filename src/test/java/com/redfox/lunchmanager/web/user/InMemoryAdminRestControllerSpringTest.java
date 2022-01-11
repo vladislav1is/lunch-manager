@@ -11,7 +11,7 @@ import org.springframework.test.context.junit.jupiter.SpringJUnitConfig;
 
 import java.util.List;
 
-import static com.redfox.lunchmanager.UserTestData.*;
+import static com.redfox.lunchmanager.web.user.UserTestData.*;
 import static com.redfox.lunchmanager.util.Users.convertToDto;
 import static com.redfox.lunchmanager.util.Users.getTos;
 import static org.junit.jupiter.api.Assertions.assertNull;

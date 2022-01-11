@@ -1,11 +1,12 @@
-package com.redfox.lunchmanager;
+package com.redfox.lunchmanager.web.restaurant;
 
+import com.redfox.lunchmanager.MatcherFactory;
 import com.redfox.lunchmanager.model.Restaurant;
 import com.redfox.lunchmanager.to.RestaurantTo;
 
 import java.util.List;
 
-import static com.redfox.lunchmanager.DishTestData.*;
+import static com.redfox.lunchmanager.web.dish.DishTestData.*;
 import static com.redfox.lunchmanager.model.AbstractBaseEntity.START_SEQ;
 import static org.assertj.core.api.Assertions.assertThat;
 

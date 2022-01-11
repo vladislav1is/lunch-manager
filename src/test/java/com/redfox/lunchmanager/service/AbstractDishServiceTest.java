@@ -10,9 +10,9 @@ import org.springframework.dao.DataAccessException;
 import javax.validation.ConstraintViolationException;
 import java.time.LocalDate;
 
-import static com.redfox.lunchmanager.DishTestData.*;
-import static com.redfox.lunchmanager.RestaurantTestData.RESTAURANT_ID_1;
-import static com.redfox.lunchmanager.RestaurantTestData.RESTAURANT_ID_2;
+import static com.redfox.lunchmanager.web.dish.DishTestData.*;
+import static com.redfox.lunchmanager.web.restaurant.RestaurantTestData.RESTAURANT_ID_1;
+import static com.redfox.lunchmanager.web.restaurant.RestaurantTestData.RESTAURANT_ID_2;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class AbstractDishServiceTest extends AbstractServiceTest {

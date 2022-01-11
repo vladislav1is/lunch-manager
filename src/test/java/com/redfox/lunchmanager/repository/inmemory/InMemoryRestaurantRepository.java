@@ -8,7 +8,7 @@ import java.util.Comparator;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.redfox.lunchmanager.RestaurantTestData.restaurants;
+import static com.redfox.lunchmanager.web.restaurant.RestaurantTestData.restaurants;
 import static com.redfox.lunchmanager.model.AbstractBaseEntity.START_SEQ;
 
 @Repository

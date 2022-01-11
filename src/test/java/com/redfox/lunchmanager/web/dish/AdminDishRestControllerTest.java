@@ -17,11 +17,11 @@ import org.springframework.transaction.annotation.Transactional;
 import java.time.LocalDate;
 import java.time.Month;
 
-import static com.redfox.lunchmanager.DishTestData.*;
-import static com.redfox.lunchmanager.RestaurantTestData.RESTAURANT_ID_2;
+import static com.redfox.lunchmanager.web.dish.DishTestData.*;
+import static com.redfox.lunchmanager.web.restaurant.RestaurantTestData.RESTAURANT_ID_2;
 import static com.redfox.lunchmanager.TestUtil.userHttpBasic;
-import static com.redfox.lunchmanager.UserTestData.user1;
-import static com.redfox.lunchmanager.UserTestData.user3;
+import static com.redfox.lunchmanager.web.user.UserTestData.user1;
+import static com.redfox.lunchmanager.web.user.UserTestData.user3;
 import static com.redfox.lunchmanager.util.Dishes.convertToDto;
 import static com.redfox.lunchmanager.util.Dishes.getTos;
 import static com.redfox.lunchmanager.util.exception.ErrorType.VALIDATION_ERROR;

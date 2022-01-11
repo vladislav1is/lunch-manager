@@ -9,7 +9,7 @@ import org.springframework.dao.DataAccessException;
 import javax.validation.ConstraintViolationException;
 import java.util.List;
 
-import static com.redfox.lunchmanager.RestaurantTestData.*;
+import static com.redfox.lunchmanager.web.restaurant.RestaurantTestData.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class AbstractRestaurantServiceTest extends AbstractServiceTest {

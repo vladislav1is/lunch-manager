@@ -1,7 +1,7 @@
 package com.redfox.lunchmanager.service.datajpa;
 
-import com.redfox.lunchmanager.RestaurantTestData;
-import com.redfox.lunchmanager.VoteTestData;
+import com.redfox.lunchmanager.web.restaurant.RestaurantTestData;
+import com.redfox.lunchmanager.web.vote.VoteTestData;
 import com.redfox.lunchmanager.model.Vote;
 import com.redfox.lunchmanager.service.AbstractVoteServiceTest;
 import com.redfox.lunchmanager.util.exception.NotFoundException;
@@ -10,9 +10,9 @@ import org.junit.jupiter.api.Test;
 import org.springframework.test.context.ActiveProfiles;
 
 import static com.redfox.lunchmanager.Profiles.DATAJPA;
-import static com.redfox.lunchmanager.RestaurantTestData.RESTAURANT_ID_1;
-import static com.redfox.lunchmanager.RestaurantTestData.restaurant1;
-import static com.redfox.lunchmanager.VoteTestData.*;
+import static com.redfox.lunchmanager.web.restaurant.RestaurantTestData.RESTAURANT_ID_1;
+import static com.redfox.lunchmanager.web.restaurant.RestaurantTestData.restaurant1;
+import static com.redfox.lunchmanager.web.vote.VoteTestData.*;
 
 @ActiveProfiles(DATAJPA)
 class DataJpaVoteServiceTest extends AbstractVoteServiceTest {

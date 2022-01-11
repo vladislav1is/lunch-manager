@@ -5,12 +5,12 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import static com.redfox.lunchmanager.RestaurantTestData.*;
-import static com.redfox.lunchmanager.RestaurantTestData.NOT_FOUND;
-import static com.redfox.lunchmanager.RestaurantTestData.TO_MATCHER;
+import static com.redfox.lunchmanager.web.restaurant.RestaurantTestData.*;
+import static com.redfox.lunchmanager.web.restaurant.RestaurantTestData.NOT_FOUND;
+import static com.redfox.lunchmanager.web.restaurant.RestaurantTestData.TO_MATCHER;
 import static com.redfox.lunchmanager.TestUtil.userHttpBasic;
-import static com.redfox.lunchmanager.UserTestData.*;
-import static com.redfox.lunchmanager.VoteTestData.vote4;
+import static com.redfox.lunchmanager.web.user.UserTestData.*;
+import static com.redfox.lunchmanager.web.vote.VoteTestData.vote4;
 import static com.redfox.lunchmanager.util.Restaurants.convertToDto;
 import static com.redfox.lunchmanager.util.Restaurants.getTos;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;

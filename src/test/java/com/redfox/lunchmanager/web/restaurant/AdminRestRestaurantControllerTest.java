@@ -13,13 +13,11 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.time.LocalDateTime;
-
-import static com.redfox.lunchmanager.RestaurantTestData.*;
+import static com.redfox.lunchmanager.web.restaurant.RestaurantTestData.*;
 import static com.redfox.lunchmanager.TestUtil.userHttpBasic;
-import static com.redfox.lunchmanager.UserTestData.user1;
-import static com.redfox.lunchmanager.UserTestData.user3;
-import static com.redfox.lunchmanager.VoteTestData.vote1;
+import static com.redfox.lunchmanager.web.user.UserTestData.user1;
+import static com.redfox.lunchmanager.web.user.UserTestData.user3;
+import static com.redfox.lunchmanager.web.vote.VoteTestData.vote1;
 import static com.redfox.lunchmanager.util.Restaurants.convertToDto;
 import static com.redfox.lunchmanager.util.Restaurants.getTos;
 import static com.redfox.lunchmanager.util.exception.ErrorType.VALIDATION_ERROR;

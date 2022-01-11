@@ -10,7 +10,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static com.redfox.lunchmanager.Profiles.HEROKU;
 import static com.redfox.lunchmanager.TestUtil.userHttpBasic;
-import static com.redfox.lunchmanager.UserTestData.*;
+import static com.redfox.lunchmanager.web.user.UserTestData.*;
 import static com.redfox.lunchmanager.util.Users.convertToDto;
 import static com.redfox.lunchmanager.util.exception.UpdateRestrictionException.EXCEPTION_UPDATE_RESTRICTION;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;

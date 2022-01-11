@@ -1,5 +1,6 @@
-package com.redfox.lunchmanager;
+package com.redfox.lunchmanager.web.vote;
 
+import com.redfox.lunchmanager.MatcherFactory;
 import com.redfox.lunchmanager.model.Vote;
 import com.redfox.lunchmanager.to.VoteTo;
 
@@ -8,8 +9,8 @@ import java.time.Month;
 import java.time.temporal.ChronoUnit;
 import java.util.List;
 
-import static com.redfox.lunchmanager.RestaurantTestData.*;
-import static com.redfox.lunchmanager.UserTestData.*;
+import static com.redfox.lunchmanager.web.restaurant.RestaurantTestData.*;
+import static com.redfox.lunchmanager.web.user.UserTestData.*;
 import static com.redfox.lunchmanager.model.AbstractBaseEntity.START_SEQ;
 
 public class VoteTestData {

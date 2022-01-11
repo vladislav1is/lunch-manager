@@ -1,6 +1,6 @@
 package com.redfox.lunchmanager.service.datajpa;
 
-import com.redfox.lunchmanager.RestaurantTestData;
+import com.redfox.lunchmanager.web.restaurant.RestaurantTestData;
 import com.redfox.lunchmanager.model.Restaurant;
 import com.redfox.lunchmanager.service.AbstractRestaurantServiceTest;
 import com.redfox.lunchmanager.util.exception.NotFoundException;
@@ -8,7 +8,7 @@ import org.junit.jupiter.api.Test;
 import org.springframework.test.context.ActiveProfiles;
 
 import static com.redfox.lunchmanager.Profiles.DATAJPA;
-import static com.redfox.lunchmanager.RestaurantTestData.*;
+import static com.redfox.lunchmanager.web.restaurant.RestaurantTestData.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @ActiveProfiles(DATAJPA)

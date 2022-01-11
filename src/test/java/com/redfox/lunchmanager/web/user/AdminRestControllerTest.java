@@ -18,7 +18,7 @@ import java.time.temporal.ChronoUnit;
 import java.util.EnumSet;
 
 import static com.redfox.lunchmanager.TestUtil.userHttpBasic;
-import static com.redfox.lunchmanager.UserTestData.*;
+import static com.redfox.lunchmanager.web.user.UserTestData.*;
 import static com.redfox.lunchmanager.util.Users.convertToDto;
 import static com.redfox.lunchmanager.util.Users.getTos;
 import static com.redfox.lunchmanager.util.exception.ErrorType.VALIDATION_ERROR;

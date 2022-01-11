@@ -8,9 +8,9 @@ import org.springframework.context.support.GenericXmlApplicationContext;
 
 import java.util.Arrays;
 
-import static com.redfox.lunchmanager.RestaurantTestData.restaurant1;
+import static com.redfox.lunchmanager.web.restaurant.RestaurantTestData.restaurant1;
 import static com.redfox.lunchmanager.TestUtil.mockAuthorize;
-import static com.redfox.lunchmanager.UserTestData.user1;
+import static com.redfox.lunchmanager.web.user.UserTestData.user1;
 import static java.time.LocalDate.now;
 
 /**

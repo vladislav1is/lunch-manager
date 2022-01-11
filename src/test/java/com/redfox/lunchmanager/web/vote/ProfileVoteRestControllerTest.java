@@ -1,7 +1,6 @@
 package com.redfox.lunchmanager.web.vote;
 
-import com.redfox.lunchmanager.UserTestData;
-import com.redfox.lunchmanager.VoteTestData;
+import com.redfox.lunchmanager.web.user.UserTestData;
 import com.redfox.lunchmanager.service.VoteService;
 import com.redfox.lunchmanager.to.VoteTo;
 import com.redfox.lunchmanager.util.exception.NotFoundException;
@@ -14,11 +13,11 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import static com.redfox.lunchmanager.RestaurantTestData.RESTAURANT_ID_1;
+import static com.redfox.lunchmanager.web.restaurant.RestaurantTestData.RESTAURANT_ID_1;
 import static com.redfox.lunchmanager.TestUtil.userHttpBasic;
-import static com.redfox.lunchmanager.UserTestData.user1;
-import static com.redfox.lunchmanager.UserTestData.user2;
-import static com.redfox.lunchmanager.VoteTestData.*;
+import static com.redfox.lunchmanager.web.user.UserTestData.user1;
+import static com.redfox.lunchmanager.web.user.UserTestData.user2;
+import static com.redfox.lunchmanager.web.vote.VoteTestData.*;
 import static com.redfox.lunchmanager.util.Votes.convertToDto;
 import static com.redfox.lunchmanager.util.Votes.getTos;
 import static org.junit.jupiter.api.Assertions.assertThrows;

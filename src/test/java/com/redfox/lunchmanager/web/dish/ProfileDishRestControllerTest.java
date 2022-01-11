@@ -6,10 +6,10 @@ import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import static com.redfox.lunchmanager.DishTestData.*;
-import static com.redfox.lunchmanager.RestaurantTestData.RESTAURANT_ID_1;
+import static com.redfox.lunchmanager.web.dish.DishTestData.*;
+import static com.redfox.lunchmanager.web.restaurant.RestaurantTestData.RESTAURANT_ID_1;
 import static com.redfox.lunchmanager.TestUtil.userHttpBasic;
-import static com.redfox.lunchmanager.UserTestData.user3;
+import static com.redfox.lunchmanager.web.user.UserTestData.user3;
 import static com.redfox.lunchmanager.util.Dishes.convertToDto;
 import static com.redfox.lunchmanager.util.Dishes.getTos;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;

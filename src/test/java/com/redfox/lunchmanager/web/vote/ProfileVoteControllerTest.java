@@ -8,11 +8,11 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static com.redfox.lunchmanager.RestaurantTestData.RESTAURANT_ID_1;
-import static com.redfox.lunchmanager.RestaurantTestData.restaurant1;
+import static com.redfox.lunchmanager.web.restaurant.RestaurantTestData.RESTAURANT_ID_1;
+import static com.redfox.lunchmanager.web.restaurant.RestaurantTestData.restaurant1;
 import static com.redfox.lunchmanager.TestUtil.userAuth;
-import static com.redfox.lunchmanager.UserTestData.user3;
-import static com.redfox.lunchmanager.VoteTestData.*;
+import static com.redfox.lunchmanager.web.user.UserTestData.user3;
+import static com.redfox.lunchmanager.web.vote.VoteTestData.*;
 import static com.redfox.lunchmanager.util.Votes.getTos;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;

@@ -1,6 +1,6 @@
 package com.redfox.lunchmanager.service;
 
-import com.redfox.lunchmanager.VoteTestData;
+import com.redfox.lunchmanager.web.vote.VoteTestData;
 import com.redfox.lunchmanager.model.Vote;
 import com.redfox.lunchmanager.util.exception.NotFoundException;
 import org.junit.jupiter.api.BeforeEach;
@@ -12,15 +12,15 @@ import javax.validation.ConstraintViolationException;
 import java.time.LocalDate;
 import java.time.Month;
 
-import static com.redfox.lunchmanager.RestaurantTestData.*;
+import static com.redfox.lunchmanager.web.restaurant.RestaurantTestData.*;
 import static com.redfox.lunchmanager.TestUtil.mockAuthorize;
-import static com.redfox.lunchmanager.UserTestData.USER_ID_1;
-import static com.redfox.lunchmanager.UserTestData.user1;
-import static com.redfox.lunchmanager.VoteTestData.MATCHER;
-import static com.redfox.lunchmanager.VoteTestData.NOT_FOUND;
-import static com.redfox.lunchmanager.VoteTestData.getNew;
-import static com.redfox.lunchmanager.VoteTestData.getUpdated;
-import static com.redfox.lunchmanager.VoteTestData.*;
+import static com.redfox.lunchmanager.web.user.UserTestData.USER_ID_1;
+import static com.redfox.lunchmanager.web.user.UserTestData.user1;
+import static com.redfox.lunchmanager.web.vote.VoteTestData.MATCHER;
+import static com.redfox.lunchmanager.web.vote.VoteTestData.NOT_FOUND;
+import static com.redfox.lunchmanager.web.vote.VoteTestData.getNew;
+import static com.redfox.lunchmanager.web.vote.VoteTestData.getUpdated;
+import static com.redfox.lunchmanager.web.vote.VoteTestData.*;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class AbstractVoteServiceTest extends AbstractServiceTest {

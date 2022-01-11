@@ -12,7 +12,7 @@ import java.time.LocalDateTime;
 import java.time.Month;
 import java.util.List;
 
-import static com.redfox.lunchmanager.UserTestData.*;
+import static com.redfox.lunchmanager.web.user.UserTestData.*;
 import static java.time.LocalDateTime.of;
 import static org.junit.jupiter.api.Assertions.*;
 

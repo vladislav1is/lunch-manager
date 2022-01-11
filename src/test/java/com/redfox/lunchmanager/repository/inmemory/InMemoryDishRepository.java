@@ -10,8 +10,8 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Predicate;
 import java.util.stream.Collectors;
 
-import static com.redfox.lunchmanager.DishTestData.*;
-import static com.redfox.lunchmanager.RestaurantTestData.*;
+import static com.redfox.lunchmanager.web.dish.DishTestData.*;
+import static com.redfox.lunchmanager.web.restaurant.RestaurantTestData.*;
 import static com.redfox.lunchmanager.util.DateTimeUtil.isBetweenHalfOpen;
 
 @Repository

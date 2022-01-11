@@ -1,6 +1,6 @@
 package com.redfox.lunchmanager.web;
 
-import com.redfox.lunchmanager.RestaurantTestData;
+import com.redfox.lunchmanager.web.restaurant.RestaurantTestData;
 import com.redfox.lunchmanager.to.RestaurantTo;
 import com.redfox.lunchmanager.util.Restaurants;
 import org.assertj.core.matcher.AssertionMatcher;
@@ -8,12 +8,12 @@ import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static com.redfox.lunchmanager.RestaurantTestData.restaurant1;
-import static com.redfox.lunchmanager.RestaurantTestData.restaurants;
+import static com.redfox.lunchmanager.web.restaurant.RestaurantTestData.restaurant1;
+import static com.redfox.lunchmanager.web.restaurant.RestaurantTestData.restaurants;
 import static com.redfox.lunchmanager.TestUtil.userAuth;
-import static com.redfox.lunchmanager.UserTestData.user1;
-import static com.redfox.lunchmanager.UserTestData.user3;
-import static com.redfox.lunchmanager.VoteTestData.vote4;
+import static com.redfox.lunchmanager.web.user.UserTestData.user1;
+import static com.redfox.lunchmanager.web.user.UserTestData.user3;
+import static com.redfox.lunchmanager.web.vote.VoteTestData.vote4;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;

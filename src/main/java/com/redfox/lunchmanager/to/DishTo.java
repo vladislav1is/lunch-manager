@@ -1,19 +1,15 @@
 package com.redfox.lunchmanager.to;
 
 import com.redfox.lunchmanager.HasNameAndDate;
-import com.redfox.lunchmanager.util.validation.NoHtml;
 
-import javax.validation.constraints.*;
+import javax.validation.constraints.Max;
+import javax.validation.constraints.Min;
+import javax.validation.constraints.NotNull;
 import java.beans.ConstructorProperties;
 import java.time.LocalDate;
 import java.util.Objects;
 
-public class DishTo extends BaseTo implements HasNameAndDate {
-
-    @NotBlank
-    @Size(min = 2, max = 100)
-    @NoHtml
-    private String name;
+public class DishTo extends NamedTo implements HasNameAndDate {
 
     @Min(value = 10)
     @Max(value = 10000)
@@ -24,19 +20,9 @@ public class DishTo extends BaseTo implements HasNameAndDate {
 
     @ConstructorProperties({"id", "name", "price", "registered"})
     public DishTo(Integer id, String name, long price, LocalDate registered) {
-        super(id);
-        this.name = name;
+        super(id, name);
         this.price = price;
         this.registered = registered;
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    public void setName(String name) {
-        this.name = name;
     }
 
     public long getPrice() {

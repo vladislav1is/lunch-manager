@@ -1,14 +1,14 @@
 package com.redfox.lunchmanager.web.json;
 
-import com.redfox.lunchmanager.RestaurantTestData;
-import com.redfox.lunchmanager.UserTestData;
+import com.redfox.lunchmanager.web.restaurant.RestaurantTestData;
+import com.redfox.lunchmanager.web.user.UserTestData;
 import com.redfox.lunchmanager.model.Restaurant;
 import com.redfox.lunchmanager.model.User;
 import org.junit.jupiter.api.Test;
 
 import java.util.List;
 
-import static com.redfox.lunchmanager.RestaurantTestData.*;
+import static com.redfox.lunchmanager.web.restaurant.RestaurantTestData.*;
 import static com.redfox.lunchmanager.util.Users.convertToDto;
 import static org.hamcrest.CoreMatchers.containsString;
 import static org.hamcrest.CoreMatchers.not;
