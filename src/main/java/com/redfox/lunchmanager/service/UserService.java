@@ -1,12 +1,17 @@
 package com.redfox.lunchmanager.service;
 
 import com.redfox.lunchmanager.AuthorizedUser;
+import com.redfox.lunchmanager.Profiles;
+import com.redfox.lunchmanager.model.AbstractBaseEntity;
 import com.redfox.lunchmanager.model.User;
 import com.redfox.lunchmanager.repository.UserRepository;
+import com.redfox.lunchmanager.util.exception.UpdateRestrictionException;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
+import org.springframework.core.env.Environment;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -27,6 +32,14 @@ public class UserService implements UserDetailsService {
     private final UserRepository repository;
     private final PasswordEncoder passwordEncoder;
 
+    private boolean modificationRestriction;
+
+    @Autowired
+    @SuppressWarnings("deprecation")
+    public void setEnvironment(Environment environment) {
+        modificationRestriction = environment.acceptsProfiles(Profiles.HEROKU);
+    }
+
     public UserService(UserRepository repository, PasswordEncoder passwordEncoder) {
         this.repository = repository;
         this.passwordEncoder = passwordEncoder;
@@ -44,6 +57,7 @@ public class UserService implements UserDetailsService {
 
     @CacheEvict(value = "users", allEntries = true)
     public void delete(int id) {
+        checkModificationAllowed(id);
         checkNotFoundWithId(repository.delete(id), id);
     }
 
@@ -64,12 +78,14 @@ public class UserService implements UserDetailsService {
     @CacheEvict(value = "users", allEntries = true)
     public void update(User user) {
         Assert.notNull(user, "user must not be null");
+        checkModificationAllowed(user.id());
         checkNotFoundWithId(prepareAndSave(user), user.id());
     }
 
     @CacheEvict(value = "users", allEntries = true)
     @Transactional
     public void enable(int id, boolean enabled) {
+        checkModificationAllowed(id);
         User user = get(id);
         user.setEnabled(enabled);
         repository.save(user);  //  !! need only for JDBC implementation
@@ -82,5 +98,11 @@ public class UserService implements UserDetailsService {
             throw new UsernameNotFoundException("User " + email + " is not found");
         }
         return new AuthorizedUser(user);
+    }
+
+    protected void checkModificationAllowed(int id) {
+        if (modificationRestriction && id < AbstractBaseEntity.START_SEQ + 4) {
+            throw new UpdateRestrictionException();
+        }
     }
 }

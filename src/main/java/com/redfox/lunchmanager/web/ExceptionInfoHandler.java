@@ -1,10 +1,7 @@
 package com.redfox.lunchmanager.web;
 
+import com.redfox.lunchmanager.util.exception.*;
 import com.redfox.lunchmanager.util.validation.ValidationUtil;
-import com.redfox.lunchmanager.util.exception.ErrorInfo;
-import com.redfox.lunchmanager.util.exception.ErrorType;
-import com.redfox.lunchmanager.util.exception.IllegalRequestDataException;
-import com.redfox.lunchmanager.util.exception.NotFoundException;
 import org.slf4j.Logger;
 import org.springframework.context.support.MessageSourceAccessor;
 import org.springframework.core.Ordered;
@@ -47,6 +44,11 @@ public class ExceptionInfoHandler {
     @ExceptionHandler(NotFoundException.class)
     public ResponseEntity<ErrorInfo> handleError(HttpServletRequest req, NotFoundException e) {
         return logAndGetErrorInfo(req, e, false, DATA_NOT_FOUND);
+    }
+
+    @ExceptionHandler(ApplicationException.class)
+    public ResponseEntity<ErrorInfo> updateRestrictionError(HttpServletRequest req, ApplicationException appEx) {
+        return logAndGetErrorInfo(req, appEx, false, appEx.getType(), messageSourceAccessor.getMessage(appEx.getMsgCode()));
     }
 
     @ExceptionHandler(DataIntegrityViolationException.class)
