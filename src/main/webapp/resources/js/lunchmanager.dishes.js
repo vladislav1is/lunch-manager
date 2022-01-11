@@ -1,5 +1,9 @@
 const dishAjaxUrl = (() => {
-    let restaurantId = $(location).attr('pathname').split('/')[3];
+    let url = $(location).attr('pathname');
+    let regexp = /restaurants\/\d+\/dishes/;
+    let result = url.match(regexp)[0];
+
+    let restaurantId = result.split('/')[1];
     return "profile/restaurants/" + restaurantId + "/dishes/";
 })();
 
