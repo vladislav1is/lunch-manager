@@ -3,7 +3,7 @@
 Менеджер обеда
 ===============================
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/4da67edcf85b4d068d42bbe2483c3b3d)](https://www.codacy.com/gh/vladislav1is/lunch-manager/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=vladislav1is/lunch-manager&amp;utm_campaign=Badge_Grade)
-[![Build Status](https://app.travis-ci.com/vladislav1is/lunch-manager.svg?branch=master)](https://app.travis-ci.com/vladislav1is/lunch-manager)
+[![Build Status](https://app.travis-ci.com/vladislav1is/lunch-manager.svg?branch=main)](https://app.travis-ci.com/vladislav1is/lunch-manager)
 
 ##### Выпускной проект стажировки [Java Online Projects](https://javaops.ru/view/topjava)
 - Исходный код взят из **TopJava**
@@ -329,4 +329,4 @@ cd lunch-manager
 - **ADMIN**: admin@gmail.com, пароль: admin
 - **USER**: user@yandex.ru, пароль: password
 
-[https://restvotes.herokuapp.com/api](https://restvotes.herokuapp.com/api)
+[http://lunch-manager.herokuapp.com](http://lunch-manager.herokuapp.com)

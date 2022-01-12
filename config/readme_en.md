@@ -3,7 +3,8 @@
 Lunch manager
 ===============================
 [![Codacy Badge](https://app.codacy.com/project/badge/Grade/4da67edcf85b4d068d42bbe2483c3b3d)](https://www.codacy.com/gh/vladislav1is/lunch-manager/dashboard?utm_source=github.com&amp;utm_medium=referral&amp;utm_content=vladislav1is/lunch-manager&amp;utm_campaign=Badge_Grade)
-[![Build Status](https://app.travis-ci.com/vladislav1is/lunch-manager.svg?branch=master)](https://app.travis-ci.com/vladislav1is/lunch-manager)
+[![Build Status](https://app.travis-ci.com/vladislav1is/lunch-manager.svg?branch=main)](https://app.travis-ci.com/vladislav1is/lunch-manager)
+
 ##### Graduation internship project of [Java Online Projects](https://javaops.ru/view/topjava)
 - Source code taken from **TopJava**
 - **Lunch manager** was based on this repository
@@ -285,4 +286,4 @@ Demo users:
 - **ADMIN**: admin@gmail.com, password: admin
 - **USER**: user@yandex.ru, password: password
 
-[https://restvotes.herokuapp.com/api](https://restvotes.herokuapp.com/api)
+[http://lunch-manager.herokuapp.com](http://lunch-manager.herokuapp.com)
