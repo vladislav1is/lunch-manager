@@ -1,0 +1,2 @@
+# lunch-manager
+[![Codacy Badge](https://api.codacy.com/project/badge/Grade/4f6884825c9242cf84cba983a3a9965f)](https://app.codacy.com/gh/vladislav1is/lunch-manager?utm_source=github.com&utm_medium=referral&utm_content=vladislav1is/lunch-manager&utm_campaign=Badge_Grade_Settings)
