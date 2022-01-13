@@ -142,9 +142,8 @@ function renderMenuBtn(data, type, row) {
 function renderVoteBtn(data, type, row) {
     if (type === "display") {
         return "<button type='button' onclick=\"window.location.href='restaurants/" + row.id + "/votes'\"\n" +
-            " class='btn btn btn-secondary'>" +
-            "<span class='fa text-light fa-plus'></span>" +
-            "<span class='fa text-white-50 fa-users'></span>" +
+            " class='btn btn-sm btn-secondary'>" +
+            "<span class='fa text-light fa-plus'></span>&nbsp&nbsp<span class='fa text-white-50 fa-users'></span>" +
             "</button>";
     }
 }

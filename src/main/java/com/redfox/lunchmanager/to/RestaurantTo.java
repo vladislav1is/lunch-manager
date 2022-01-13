@@ -6,20 +6,20 @@ import java.util.Objects;
 
 public class RestaurantTo extends NamedTo {
 
-    private final VoteTo vote;
+    private final VoteTo voteTo;
 
     private final List<DishTo> dishes;
 
     @ConstructorProperties({"id", "name", "vote", "dishes"})
     //  https://www.logicbig.com/tutorials/misc/jackson/constructor-properties.html
-    public RestaurantTo(Integer id, String name, VoteTo vote, List<DishTo> dishes) {
+    public RestaurantTo(Integer id, String name, VoteTo voteTo, List<DishTo> dishes) {
         super(id, name);
-        this.vote = vote;
+        this.voteTo = voteTo;
         this.dishes = dishes;
     }
 
-    public VoteTo getVote() {
-        return vote;
+    public VoteTo getVoteTo() {
+        return voteTo;
     }
 
     public List<DishTo> getDishes() {
@@ -33,13 +33,13 @@ public class RestaurantTo extends NamedTo {
         RestaurantTo that = (RestaurantTo) o;
         return Objects.equals(id, that.id) &&
                 name.equals(that.name) &&
-                Objects.equals(vote, that.vote) &&
+                Objects.equals(voteTo, that.voteTo) &&
                 Objects.equals(dishes, that.dishes);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, name, vote, dishes);
+        return Objects.hash(id, name, voteTo, dishes);
     }
 
     @Override
@@ -47,7 +47,7 @@ public class RestaurantTo extends NamedTo {
         return "RestaurantTo{" +
                 "id=" + id +
                 ", name='" + name + '\'' +
-                ", vote=" + vote +
+                ", voteTo=" + voteTo +
                 ", dishes=" + dishes +
                 '}';
     }

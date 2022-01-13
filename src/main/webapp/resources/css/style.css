@@ -56,3 +56,7 @@ tr.data-voted {
     background-color: #e05a5f;
     border-color: #e05a5f;
 }
+
+input.width {
+    max-width: 175px;
+}

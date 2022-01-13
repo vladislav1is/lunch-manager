@@ -43,11 +43,11 @@
                                        method="post">
                                 <div class="input-group my-2">
                                     <label>
-                                        <input class="form-control mr-1" type="text" placeholder="Email"
+                                        <input class="form-control mr-1 login width" type="text" placeholder="Email"
                                                name="username">
                                     </label>
                                     <label>
-                                        <input class="form-control mr-1" type="password" placeholder="Password"
+                                        <input class="form-control mr-1 login width" type="password" placeholder="Password"
                                                name="password">
                                     </label>
                                     <button class="btn btn-danger custom-btn" type="submit">
