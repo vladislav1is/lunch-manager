@@ -152,7 +152,7 @@ curl samples (application deployed at application context `lunch-manager`).
 * #### get Dish
 `curl -X GET --location http://localhost:8080/lunch-manager/rest/restaurants/100004/dishes/100009 --user user@yandex.ru:password`
 
-* #### get All Dishes
+* #### get Dishes For Today
 `curl -X GET --location http://localhost:8080/lunch-manager/rest/restaurants/100004/dishes --user user@yandex.ru:password`
 
 ### Vote resources

@@ -22,9 +22,8 @@ public class ProfileDishRestController extends AbstractDishController {
         return super.get(id, restaurantId);
     }
 
-    @Override
     @GetMapping
-    public List<DishTo> getAll(@PathVariable int restaurantId) {
+    public List<DishTo> getDishesForToday(@PathVariable int restaurantId) {
         return super.getBetween(LocalDate.now(), LocalDate.now(), restaurantId);
     }
 }

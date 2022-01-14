@@ -45,7 +45,7 @@ class ProfileDishRestControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    void getAll() throws Exception {
+    void getDishesForToday() throws Exception {
         perform(MockMvcRequestBuilders.get(REST_URL)
                 .with(userHttpBasic(user3)))
                 .andExpect(status().isOk())

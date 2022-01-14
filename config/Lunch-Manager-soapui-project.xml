@@ -1284,7 +1284,7 @@
                                 <con:params/>
                                 <con:element>Response</con:element>
                             </con:representation>
-                            <con:request name="GetAll" id="5ba07d0d-019a-4fb4-90e7-ce7ac8997286" mediaType="application/json">
+                            <con:representation type="RESPONSE"><con:mediaType xsi:nil="true"/><con:status>0</con:status><con:params/><con:element>data</con:element></con:representation><con:request name="GetForToday" id="5ba07d0d-019a-4fb4-90e7-ce7ac8997286" mediaType="application/json">
                                 <con:settings>
                                     <con:setting id="com.eviware.soapui.impl.wsdl.WsdlRequest@request-headers">&lt;xml-fragment/></con:setting>
                                 </con:settings>
