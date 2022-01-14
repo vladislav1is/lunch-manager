@@ -34,7 +34,7 @@ $(function () {
             ],
         "createdRow":
             function (row, data) {
-                if (data.vote) {
+                if (data.voteTo) {
                     $(row).attr("class", "data-voted font-weight-bold")
                 }
             }
