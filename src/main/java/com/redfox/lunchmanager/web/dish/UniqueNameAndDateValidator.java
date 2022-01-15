@@ -11,6 +11,8 @@ import org.springframework.validation.Validator;
 
 import javax.servlet.http.HttpServletRequest;
 import java.util.List;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 
 import static com.redfox.lunchmanager.web.ExceptionInfoHandler.EXCEPTION_DUPLICATE_NAME_AND_DATE;
 
@@ -35,8 +37,13 @@ public class UniqueNameAndDateValidator implements Validator {
         HasNameAndDate dish = ((HasNameAndDate) target);
         if (StringUtils.hasText(dish.getName()) && dish.getRegistered() != null) {
             String url = request.getRequestURL().toString();
-            String[] urlComponents = url.split("/");
-            int restaurantId = Integer.parseInt(urlComponents[6]);
+            Pattern pattern = Pattern.compile("restaurants/(\\d+)/dishes");
+            Matcher matcher = pattern.matcher(url);
+            int restaurantId = 0;
+            while (matcher.find()) {
+                String[] urlComponents = url.substring(matcher.start(), matcher.end()).split("/");
+                restaurantId = Integer.parseInt(urlComponents[1]);
+            }
             List<Dish> dbDishes = repository.getAll(restaurantId);
             Dish dbDish = dbDishes.stream()
                     .filter(d -> d.getName().equals(dish.getName()) && d.getRegistered().equals(dish.getRegistered()))
