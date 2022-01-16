@@ -108,17 +108,17 @@ Content-Type: application/json
 ###### Restaurant resources
 ########################################################################################################################
 
-### get Restaurant:100004
+### get Restaurant
 # curl -X GET --location "http://localhost:8080/lunch-manager/rest/restaurants/100004" --user user@yandex.ru:password
 GET http://localhost:8080/lunch-manager/rest/restaurants/100004
 Authorization: Basic user@yandex.ru password
 
-### get All Restaurants
+### get all Restaurants
 # curl -X GET --location "http://localhost:8080/lunch-manager/rest/restaurants" --user user@yandex.ru:password
 GET http://localhost:8080/lunch-manager/rest/restaurants
 Authorization: Basic user@yandex.ru password
 
-### get Restaurant:100004 with Dishes
+### get Restaurant with Dishes for Today
 # curl -X GET --location "http://localhost:8080/lunch-manager/rest/restaurants/100004/with-dishes" --user user@yandex.ru:password
 GET http://localhost:8080/lunch-manager/rest/restaurants/100004/with-dishes
 Authorization: Basic user@yandex.ru password
@@ -127,7 +127,7 @@ Authorization: Basic user@yandex.ru password
 ######### Dish resources
 ########################################################################################################################
 
-### get Dish:100009
+### get Dish
 # curl -X GET --location "http://localhost:8080/lunch-manager/rest/restaurants/100004/dishes/100009" --user user@yandex.ru:password
 GET http://localhost:8080/lunch-manager/rest/restaurants/100004/dishes/100009
 Authorization: Basic user@yandex.ru password
@@ -156,12 +156,12 @@ Content-Type: application/json
   "registered": "2021-11-06"
 }
 
-### delete Vote:100020
+### delete Vote
 # curl -X DELETE --location "http://localhost:8080/lunch-manager/rest/restaurants/100004/votes/100020 --user user@yandex.ru:password"
 DELETE http://localhost:8080/lunch-manager/rest/restaurants/100004/votes/100020
 Authorization: Basic user@yandex.ru password
 
-### update Vote:100016
+### update Vote
 # curl -X PUT --location "http://localhost:8080/lunch-manager/rest/restaurants/100004/votes/100016"
 #    -H "Content-Type: application/json"
 #    -d "{
@@ -176,17 +176,17 @@ Content-Type: application/json
   "registered": "2021-10-06"
 }
 
-### get Vote:100017
+### get Vote
 # curl -X GET --location "http://localhost:8080/lunch-manager/rest/restaurants/100004/votes/100017" --user user@yandex.ru:password
 GET http://localhost:8080/lunch-manager/rest/restaurants/100004/votes/100017
 Authorization: Basic user@yandex.ru password
 
-### get All Votes
+### get all Votes
 # curl -X GET --location "http://localhost:8080/lunch-manager/rest/restaurants/100004/votes" --user user@yandex.ru:password
 GET http://localhost:8080/lunch-manager/rest/restaurants/100004/votes
 Authorization: Basic user@yandex.ru password
 
-### get Votes Between:2021-11-11&2021-11-11
+### get Votes between 2021-11-11 and 2021-11-11
 # curl -X GET --location "http://localhost:8080/lunch-manager/rest/restaurants/100004/votes/filter?startDate=2021-11-11&endDate=2021-11-11" --user user@yandex.ru:password
 GET http://localhost:8080/lunch-manager/rest/restaurants/100004/votes/filter?startDate=2021-11-11&endDate=2021-11-11
 Authorization: Basic user@yandex.ru password
@@ -224,12 +224,12 @@ Content-Type: application/json
   ]
 }
 
-### delete User:100019
+### delete User
 # curl -X DELETE --location "http://localhost:8080/lunch-manager/rest/admin/users/100019" --user admin@gmail.com:admin
 DELETE http://localhost:8080/lunch-manager/rest/admin/users/100019
 Authorization: Basic admin@gmail.com admin
 
-### update User:100001
+### update User
 # curl -X PUT --location "http://localhost:8080/lunch-manager/rest/admin/users/100001"
 #    -H "Content-Type: application/json"
 #    -d "{
@@ -258,17 +258,17 @@ Content-Type: application/json
   ]
 }
 
-### get User:user1@yandex.ru
+### get User by user1@yandex.ru
 # curl -X GET --location "http://localhost:8080/lunch-manager/rest/admin/users/by?email=user1@yandex.ru" --user admin@gmail.com:admin
 GET http://localhost:8080/lunch-manager/rest/admin/users/by?email=user1@yandex.ru
 Authorization: Basic admin@gmail.com admin
 
-### get User:100001
+### get User
 # curl -X GET --location "http://localhost:8080/lunch-manager/rest/admin/users/100001" --user admin@gmail.com:admin
 GET http://localhost:8080/lunch-manager/rest/admin/users/100001
 Authorization: Basic admin@gmail.com admin
 
-### get All Users
+### get all Users
 # curl -X GET --location "http://localhost:8080/lunch-manager/rest/admin/users" --user admin@gmail.com:admin
 GET http://localhost:8080/lunch-manager/rest/admin/users
 Authorization: Basic admin@gmail.com admin
@@ -305,12 +305,12 @@ Content-Type: application/json
   "dishes": null
 }
 
-### delete Restaurant:100006
+### delete Restaurant
 # curl -X DELETE --location "http://localhost:8080/lunch-manager/rest/admin/restaurants/100006" --user admin@gmail.com:admin
 DELETE http://localhost:8080/lunch-manager/rest/admin/restaurants/100006
 Authorization: Basic admin@gmail.com admin
 
-### update Restaurant:100005
+### update Restaurant
 # curl -X PUT --location "http://localhost:8080/lunch-manager/rest/admin/restaurants/100005"
 #    -H "Content-Type: application/json"
 #    -d "{
@@ -327,19 +327,19 @@ Content-Type: application/json
   "dishes": null
 }
 
-### get Restaurant:100004
+### get Restaurant
 # curl -X GET --location "http://localhost:8080/lunch-manager/rest/admin/restaurants/100004" --user admin@gmail.com:admin
 GET http://localhost:8080/lunch-manager/rest/admin/restaurants/100004
 Authorization: Basic admin@gmail.com admin
 
-### get All Restaurants
+### get all Restaurants
 # curl -X GET --location "http://localhost:8080/lunch-manager/rest/admin/restaurants" --user admin@gmail.com:admin
 GET http://localhost:8080/lunch-manager/rest/admin/restaurants
 Authorization: Basic admin@gmail.com admin
 
-### get Restaurant:100004 with dishes
-# curl -X GET --location "http://localhost:8080/lunch-manager/rest/admin/restaurants/100004/with-dishes" --user admin@gmail.com:admin
-GET http://localhost:8080/lunch-manager/rest/admin/restaurants/100004/with-dishes
+### get Restaurant with Dishes by Date
+# curl -X GET --location "http://localhost:8080/lunch-manager/rest/admin/restaurants/100005/with-dishes?date=2021-11-11" --user admin@gmail.com:admin
+GET http://localhost:8080/lunch-manager/rest/admin/restaurants/100005/with-dishes?date=2021-11-11
 Authorization: Basic admin@gmail.com admin
 
 ########################################################################################################################
@@ -365,12 +365,12 @@ Content-Type: application/json
   "registered": "2021-11-27"
 }
 
-### delete Dish:100019
+### delete Dish
 # curl -X DELETE --location "http://localhost:8080/lunch-manager/rest/admin/restaurants/100004/dishes/100019" --user admin@gmail.com:admin
 DELETE http://localhost:8080/lunch-manager/rest/admin/restaurants/100004/dishes/100019
 Authorization: Basic admin@gmail.com admin
 
-### update Dish:100009
+### update Dish
 # curl -X PUT --location "http://localhost:8080/lunch-manager/rest/admin/restaurants/100004/dishes/100009"
 #    -H "Content-Type: application/json"
 #    -d "{
@@ -389,17 +389,17 @@ Content-Type: application/json
   "registered": "2021-11-13"
 }
 
-### get Dish:100009
+### get Dish
 # curl -X GET --location "http://localhost:8080/lunch-manager/rest/admin/restaurants/100004/dishes/100009" --user admin@gmail.com:admin
 GET http://localhost:8080/lunch-manager/rest/admin/restaurants/100004/dishes/100009
 Authorization: Basic admin@gmail.com admin
 
-### get All Dishes
+### get all Dishes
 # curl -X GET --location "http://localhost:8080/lunch-manager/rest/admin/restaurants/100004/dishes" --user admin@gmail.com:admin
 GET http://localhost:8080/lunch-manager/rest/admin/restaurants/100004/dishes
 Authorization: Basic admin@gmail.com admin
 
-### get Dishes Between:2021-11-27&2021-11-27
+### get Dishes between 2021-11-27 and 2021-11-27
 # curl -X GET --location "http://localhost:8080/lunch-manager/rest/admin/restaurants/100004/dishes/filter?startDate=2021-11-27&endDate=2021-11-27" --user admin@gmail.com:admin
 GET http://localhost:8080/lunch-manager/rest/admin/restaurants/100004/dishes/filter?startDate=2021-11-27&endDate=2021-11-27
 Authorization: Basic admin@gmail.com admin

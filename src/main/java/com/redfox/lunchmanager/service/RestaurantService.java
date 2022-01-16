@@ -6,6 +6,7 @@ import org.springframework.cache.annotation.CacheEvict;
 import org.springframework.cache.annotation.Cacheable;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import static com.redfox.lunchmanager.util.validation.ValidationUtil.checkNotFoundWithId;
@@ -43,7 +44,7 @@ public class RestaurantService {
         checkNotFoundWithId(repository.save(restaurant), restaurant.getId());
     }
 
-    public Restaurant getWithDishes(int id) {
-        return checkNotFoundWithId(repository.getWithDishes(id), id);
+    public Restaurant getWithDishesByDate(int id, LocalDate localDate) {
+        return checkNotFoundWithId(repository.getWithDishesByDate(id, localDate), id);
     }
 }

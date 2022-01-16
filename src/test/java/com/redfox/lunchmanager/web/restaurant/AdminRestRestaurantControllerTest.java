@@ -70,7 +70,7 @@ class AdminRestRestaurantControllerTest extends AbstractControllerTest {
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(TO_MATCHER.contentJson(convertToDto(restaurant1, vote1)));
+                .andExpect(TO_MATCHER.contentJson(convertToDto(restaurant1)));
     }
 
     @Test
@@ -119,14 +119,15 @@ class AdminRestRestaurantControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    void getWithDishes() throws Exception {
+    void getWithDishesByDate() throws Exception {
         assumeDataJpa();
-        perform(MockMvcRequestBuilders.get(REST_URL + RESTAURANT_ID_1 + "/with-dishes")
-                .with(userHttpBasic(user1)))
+        perform(MockMvcRequestBuilders.get(REST_URL + RESTAURANT_ID_2 + "/with-dishes")
+                .with(userHttpBasic(user1))
+                .param("date", "2021-11-11"))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(TO_MATCHER.contentJson(convertToDto(restaurant1, vote1, restaurant1.getDishes())));
+                .andExpect(TO_MATCHER.contentJson(convertToDto(restaurant2, restaurant2.getDishes())));
     }
 
     @Test

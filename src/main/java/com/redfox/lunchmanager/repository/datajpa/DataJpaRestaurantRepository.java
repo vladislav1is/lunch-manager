@@ -7,6 +7,7 @@ import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @Repository
@@ -45,7 +46,7 @@ public class DataJpaRestaurantRepository implements RestaurantRepository {
     }
 
     @Override
-    public Restaurant getWithDishes(int id) {
-        return crudRepository.getWithDishes(id);
+    public Restaurant getWithDishesByDate(int id, LocalDate localDate) {
+        return crudRepository.getWithDishesByDate(id, localDate);
     }
 }

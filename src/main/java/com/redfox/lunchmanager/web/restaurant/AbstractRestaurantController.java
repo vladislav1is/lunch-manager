@@ -54,12 +54,7 @@ public abstract class AbstractRestaurantController {
     public RestaurantTo get(int id) {
         log.info("get {}", id);
         Restaurant restaurant = restaurantService.get(id);
-        Vote vote = voteService.getByDate(LocalDate.now(), SecurityUtil.authUserId());
-        if (vote != null) {
-            return convertToDto(restaurant, vote);
-        } else {
-            return convertToDto(restaurant);
-        }
+        return convertToDto(restaurant);
     }
 
     public List<RestaurantTo> getAll() {
@@ -79,14 +74,9 @@ public abstract class AbstractRestaurantController {
         restaurantService.update(restaurant);
     }
 
-    public RestaurantTo getWithDishes(int id) {
-        log.info("getWithMeals {}", id);
-        Restaurant restaurant = restaurantService.getWithDishes(id);
-        Vote vote = voteService.getByDate(LocalDate.now(), SecurityUtil.authUserId());
-        if (vote != null) {
-            return convertToDto(restaurant, vote, restaurant.getDishes());
-        } else {
-            return convertToDto(restaurant, restaurant.getDishes());
-        }
+    public RestaurantTo getWithDishesByDate(LocalDate localDate, int id) {
+        log.info("getWithDishesByDate {} for restaurant {}", localDate, id);
+        Restaurant restaurant = restaurantService.getWithDishesByDate(id, localDate);
+        return convertToDto(restaurant, restaurant.getDishes());
     }
 }

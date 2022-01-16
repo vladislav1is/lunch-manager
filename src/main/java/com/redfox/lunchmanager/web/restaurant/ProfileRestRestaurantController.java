@@ -7,6 +7,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
+import java.time.LocalDate;
 import java.util.List;
 
 @RestController
@@ -27,9 +28,8 @@ public class ProfileRestRestaurantController extends AbstractRestaurantControlle
         return super.getAll();
     }
 
-    @Override
     @GetMapping("/{id}/with-dishes")
-    public RestaurantTo getWithDishes(@PathVariable int id) {
-        return super.getWithDishes(id);
+    public RestaurantTo getWithDishesForToday(@PathVariable int id) {
+        return super.getWithDishesByDate(LocalDate.now(), id);
     }
 }

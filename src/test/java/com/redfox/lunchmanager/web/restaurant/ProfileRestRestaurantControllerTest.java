@@ -55,7 +55,7 @@ class ProfileRestRestaurantControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    void getWithDishes() throws Exception {
+    void getWithDishesForToday() throws Exception {
         assumeDataJpa();
         perform(MockMvcRequestBuilders.get(REST_URL + RESTAURANT_ID_1 + "/with-dishes")
                 .with(userHttpBasic(user3)))

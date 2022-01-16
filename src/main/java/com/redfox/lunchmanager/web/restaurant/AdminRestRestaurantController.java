@@ -5,12 +5,15 @@ import com.redfox.lunchmanager.to.RestaurantTo;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
+import org.springframework.lang.Nullable;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
+import java.time.LocalDate;
 import java.util.List;
+import java.util.Objects;
 
 @RestController
 @RequestMapping(value = AdminRestRestaurantController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
@@ -55,7 +58,7 @@ public class AdminRestRestaurantController extends AbstractRestaurantController 
 
     @Override
     @GetMapping("/{id}/with-dishes")
-    public RestaurantTo getWithDishes(@PathVariable int id) {
-        return super.getWithDishes(id);
+    public RestaurantTo getWithDishesByDate(@RequestParam @Nullable LocalDate date, @PathVariable int id) {
+        return super.getWithDishesByDate(Objects.isNull(date) ? LocalDate.now() : date, id);
     }
 }

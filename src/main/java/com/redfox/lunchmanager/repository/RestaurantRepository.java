@@ -2,6 +2,7 @@ package com.redfox.lunchmanager.repository;
 
 import com.redfox.lunchmanager.model.Restaurant;
 
+import java.time.LocalDate;
 import java.util.List;
 
 public interface RestaurantRepository {
@@ -17,7 +18,7 @@ public interface RestaurantRepository {
     // ORDERED name
     List<Restaurant> getAll();
 
-    default Restaurant getWithDishes(int id) {
+    default Restaurant getWithDishesByDate(int id, LocalDate localDate) {
         throw new UnsupportedOperationException();
     }
 }
