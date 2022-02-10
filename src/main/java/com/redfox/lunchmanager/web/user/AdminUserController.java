@@ -1,25 +1,22 @@
-package com.redfox.lunchmanager.web.restaurant;
+package com.redfox.lunchmanager.web.user;
 
 import com.redfox.lunchmanager.View;
-import com.redfox.lunchmanager.to.RestaurantTo;
+import com.redfox.lunchmanager.to.UserTo;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
-import org.springframework.lang.Nullable;
 import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
 import java.net.URI;
-import java.time.LocalDate;
 import java.util.List;
-import java.util.Objects;
 
 @RestController
-@RequestMapping(value = AdminRestRestaurantController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-public class AdminRestRestaurantController extends AbstractRestaurantController {
+@RequestMapping(value = AdminUserController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+public class AdminUserController extends AbstractUserController {
 
-    public static final String REST_URL = "/rest/admin/restaurants";
+    protected static final String REST_URL = "/rest/admin/users";
 
     @Override
     @DeleteMapping("/{id}")
@@ -30,26 +27,32 @@ public class AdminRestRestaurantController extends AbstractRestaurantController 
 
     @Override
     @GetMapping("/{id}")
-    public RestaurantTo get(@PathVariable int id) {
+    public UserTo get(@PathVariable int id) {
         return super.get(id);
     }
 
     @Override
+    @GetMapping("/by")
+    public UserTo getByMail(@RequestParam String email) {
+        return super.getByMail(email);
+    }
+
+    @Override
     @GetMapping
-    public List<RestaurantTo> getAll() {
+    public List<UserTo> getAll() {
         return super.getAll();
     }
 
     @Override
     @PutMapping(value = "/{id}", consumes = MediaType.APPLICATION_JSON_VALUE)
     @ResponseStatus(HttpStatus.NO_CONTENT)
-    public void update(@Validated(View.Web.class) @RequestBody RestaurantTo restaurant, @PathVariable int id) {
-        super.update(restaurant, id);
+    public void update(@Validated(View.Web.class) @RequestBody UserTo user, @PathVariable int id) {
+        super.update(user, id);
     }
 
     @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
-    public ResponseEntity<RestaurantTo> createWithLocation(@Validated(View.Web.class) @RequestBody RestaurantTo restaurant) {
-        var created = super.create(restaurant);
+    public ResponseEntity<UserTo> createWithLocation(@Validated(View.Web.class) @RequestBody UserTo user) {
+        var created = super.create(user);
         URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
                 .path(REST_URL + "/{id}")
                 .buildAndExpand(created.getId()).toUri();
@@ -57,8 +60,9 @@ public class AdminRestRestaurantController extends AbstractRestaurantController 
     }
 
     @Override
-    @GetMapping("/{id}/with-dishes")
-    public RestaurantTo getWithDishesByDate(@RequestParam @Nullable LocalDate date, @PathVariable int id) {
-        return super.getWithDishesByDate(Objects.isNull(date) ? LocalDate.now() : date, id);
+    @PatchMapping("/{id}")
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void enable(@PathVariable int id, @RequestParam boolean enabled) {
+        super.enable(id, enabled);
     }
 }

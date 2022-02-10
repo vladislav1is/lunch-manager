@@ -19,19 +19,19 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @Disabled
-class InMemoryAdminRestControllerTest {
+class InMemoryAdminUserControllerTest {
 
-    private static final Logger log = LoggerFactory.getLogger(InMemoryAdminRestControllerTest.class);
+    private static final Logger log = LoggerFactory.getLogger(InMemoryAdminUserControllerTest.class);
 
     private static ConfigurableApplicationContext appCtx;
-    private static AdminRestController controller;
+    private static AdminUserController controller;
     private static InMemoryUserRepository repository;
 
     @BeforeAll
     static void beforeClass() {
         appCtx = new ClassPathXmlApplicationContext("spring/inmemory.xml");
         log.info("\n{}\n", Arrays.toString(appCtx.getBeanDefinitionNames()));
-        controller = appCtx.getBean(AdminRestController.class);
+        controller = appCtx.getBean(AdminUserController.class);
         repository = appCtx.getBean(InMemoryUserRepository.class);
     }
 

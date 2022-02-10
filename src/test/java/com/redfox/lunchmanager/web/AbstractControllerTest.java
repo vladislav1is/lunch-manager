@@ -21,6 +21,7 @@ import javax.annotation.PostConstruct;
 
 import java.util.Locale;
 
+import static org.springframework.core.env.Profiles.*;
 import static org.springframework.security.test.web.servlet.setup.SecurityMockMvcConfigurers.springSecurity;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 
@@ -53,7 +54,7 @@ public abstract class AbstractControllerTest {
     protected MessageSourceAccessor messageSourceAccessor;
 
     public void assumeDataJpa() {
-        Assumptions.assumeTrue(env.acceptsProfiles(org.springframework.core.env.Profiles.of(Profiles.DATAJPA)), "DATA-JPA only");
+        Assumptions.assumeTrue(env.acceptsProfiles(of(Profiles.DATAJPA)), "DATA-JPA only");
     }
 
     @PostConstruct

@@ -11,8 +11,8 @@ import java.time.LocalDate;
 import java.util.List;
 
 @RestController
-@RequestMapping(value = ProfileDishRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-public class ProfileDishRestController extends AbstractDishController {
+@RequestMapping(value = ProfileDishController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+public class ProfileDishController extends AbstractDishController {
 
     protected static final String REST_URL = "/rest/restaurants/{restaurantId}/dishes";
 

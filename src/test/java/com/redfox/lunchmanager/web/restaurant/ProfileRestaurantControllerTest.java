@@ -1,24 +1,25 @@
-package com.redfox.lunchmanager.web.dish;
+package com.redfox.lunchmanager.web.restaurant;
 
 import com.redfox.lunchmanager.web.AbstractControllerTest;
-import com.redfox.lunchmanager.web.restaurant.ProfileRestRestaurantController;
 import org.junit.jupiter.api.Test;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
-import static com.redfox.lunchmanager.web.dish.DishTestData.*;
-import static com.redfox.lunchmanager.web.restaurant.RestaurantTestData.RESTAURANT_ID_1;
+import static com.redfox.lunchmanager.web.restaurant.RestaurantTestData.*;
+import static com.redfox.lunchmanager.web.restaurant.RestaurantTestData.NOT_FOUND;
+import static com.redfox.lunchmanager.web.restaurant.RestaurantTestData.TO_MATCHER;
 import static com.redfox.lunchmanager.TestUtil.userHttpBasic;
-import static com.redfox.lunchmanager.web.user.UserTestData.user3;
-import static com.redfox.lunchmanager.util.Dishes.convertToDto;
-import static com.redfox.lunchmanager.util.Dishes.getTos;
+import static com.redfox.lunchmanager.web.user.UserTestData.*;
+import static com.redfox.lunchmanager.web.vote.VoteTestData.vote4;
+import static com.redfox.lunchmanager.util.Restaurants.convertToDto;
+import static com.redfox.lunchmanager.util.Restaurants.getTos;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-class ProfileDishRestControllerTest extends AbstractControllerTest {
+class ProfileRestaurantControllerTest extends AbstractControllerTest {
 
-    private static final String REST_URL = ProfileRestRestaurantController.REST_URL + '/' + RESTAURANT_ID_1 + "/dishes/";
+    private static final String REST_URL = ProfileRestaurantController.REST_URL + '/';
 
     @Test
     void getUnAuth() throws Exception {
@@ -28,12 +29,12 @@ class ProfileDishRestControllerTest extends AbstractControllerTest {
 
     @Test
     void get() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL + DISH_ID_1)
+        perform(MockMvcRequestBuilders.get(REST_URL + RESTAURANT_ID_1)
                 .with(userHttpBasic(user3)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(TO_MATCHER.contentJson(convertToDto(dish1)));
+                .andExpect(TO_MATCHER.contentJson(convertToDto(restaurant1)));
     }
 
     @Test
@@ -45,12 +46,22 @@ class ProfileDishRestControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    void getDishesForToday() throws Exception {
+    void getAll() throws Exception {
         perform(MockMvcRequestBuilders.get(REST_URL)
+                .with(userHttpBasic(user3)))
+                .andExpect(status().isOk())
+                .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
+                .andExpect(TO_MATCHER.contentJson(getTos(restaurants, vote4)));
+    }
+
+    @Test
+    void getWithDishesForToday() throws Exception {
+        assumeDataJpa();
+        perform(MockMvcRequestBuilders.get(REST_URL + RESTAURANT_ID_1 + "/with-dishes")
                 .with(userHttpBasic(user3)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(TO_MATCHER.contentJson(getTos(dish1, dish2)));
+                .andExpect(TO_MATCHER.contentJson(convertToDto(restaurant1, restaurant1.getDishes())));
     }
 }

@@ -5,7 +5,7 @@ import com.redfox.lunchmanager.to.DishTo;
 import com.redfox.lunchmanager.util.exception.NotFoundException;
 import com.redfox.lunchmanager.web.AbstractControllerTest;
 import com.redfox.lunchmanager.web.json.JsonUtil;
-import com.redfox.lunchmanager.web.restaurant.AdminRestRestaurantController;
+import com.redfox.lunchmanager.web.restaurant.AdminRestaurantController;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -32,9 +32,9 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.content;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-class AdminDishRestControllerTest extends AbstractControllerTest {
+class AdminDishControllerTest extends AbstractControllerTest {
 
-    private static final String REST_URL = AdminRestRestaurantController.REST_URL + '/' + RESTAURANT_ID_2 + "/dishes/";
+    private static final String REST_URL = AdminRestaurantController.REST_URL + '/' + RESTAURANT_ID_2 + "/dishes/";
 
     @Autowired
     private DishService dishService;

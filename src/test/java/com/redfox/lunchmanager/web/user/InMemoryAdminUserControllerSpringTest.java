@@ -18,10 +18,10 @@ import static org.junit.jupiter.api.Assertions.assertNull;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 @SpringJUnitConfig(locations = {"classpath:spring/inmemory.xml"})
-class InMemoryAdminRestControllerSpringTest {
+class InMemoryAdminUserControllerSpringTest {
 
     @Autowired
-    private AdminRestController controller;
+    private AdminUserController controller;
     @Autowired
     private InMemoryUserRepository repository;
 

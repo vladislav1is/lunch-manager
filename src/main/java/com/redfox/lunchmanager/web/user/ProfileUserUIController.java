@@ -22,7 +22,7 @@ import java.util.EnumSet;
 @ApiIgnore
 @Controller
 @RequestMapping("/profile")
-public class ProfileUIController extends AbstractUserController {
+public class ProfileUserUIController extends AbstractUserController {
 
     @GetMapping
     public String profile(ModelMap model, @AuthenticationPrincipal AuthorizedUser authUser) {

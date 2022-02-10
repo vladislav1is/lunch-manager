@@ -15,8 +15,8 @@ import springfox.documentation.annotations.ApiIgnore;
 import java.net.URI;
 
 @RestController
-@RequestMapping(value = ProfileRestController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
-public class ProfileRestController extends AbstractUserController {
+@RequestMapping(value = ProfileUserController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
+public class ProfileUserController extends AbstractUserController {
 
     protected static final String REST_URL = "/rest/profile";
 

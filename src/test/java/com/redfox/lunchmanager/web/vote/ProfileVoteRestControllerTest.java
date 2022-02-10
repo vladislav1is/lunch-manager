@@ -6,7 +6,7 @@ import com.redfox.lunchmanager.to.VoteTo;
 import com.redfox.lunchmanager.util.exception.NotFoundException;
 import com.redfox.lunchmanager.web.AbstractControllerTest;
 import com.redfox.lunchmanager.web.json.JsonUtil;
-import com.redfox.lunchmanager.web.restaurant.ProfileRestRestaurantController;
+import com.redfox.lunchmanager.web.restaurant.ProfileRestaurantController;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.MediaType;
@@ -27,7 +27,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class ProfileVoteRestControllerTest extends AbstractControllerTest {
 
-    private static final String REST_URL = ProfileRestRestaurantController.REST_URL + '/' + RESTAURANT_ID_1 + "/votes/";
+    private static final String REST_URL = ProfileRestaurantController.REST_URL + '/' + RESTAURANT_ID_1 + "/votes/";
 
     @Autowired
     private VoteService service;

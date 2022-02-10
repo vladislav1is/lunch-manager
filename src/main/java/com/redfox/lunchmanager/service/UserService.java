@@ -1,7 +1,6 @@
 package com.redfox.lunchmanager.service;
 
 import com.redfox.lunchmanager.AuthorizedUser;
-import com.redfox.lunchmanager.Profiles;
 import com.redfox.lunchmanager.model.AbstractBaseEntity;
 import com.redfox.lunchmanager.model.User;
 import com.redfox.lunchmanager.repository.UserRepository;
@@ -12,6 +11,7 @@ import org.springframework.cache.annotation.Cacheable;
 import org.springframework.context.annotation.Scope;
 import org.springframework.context.annotation.ScopedProxyMode;
 import org.springframework.core.env.Environment;
+import org.springframework.core.env.Profiles;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
@@ -21,6 +21,7 @@ import org.springframework.util.Assert;
 
 import java.util.List;
 
+import static com.redfox.lunchmanager.Profiles.HEROKU;
 import static com.redfox.lunchmanager.util.Users.prepareToSave;
 import static com.redfox.lunchmanager.util.validation.ValidationUtil.checkNotFound;
 import static com.redfox.lunchmanager.util.validation.ValidationUtil.checkNotFoundWithId;
@@ -35,9 +36,8 @@ public class UserService implements UserDetailsService {
     private boolean modificationRestriction;
 
     @Autowired
-    @SuppressWarnings("deprecation")
     public void setEnvironment(Environment environment) {
-        modificationRestriction = environment.acceptsProfiles(Profiles.HEROKU);
+        modificationRestriction = environment.acceptsProfiles(Profiles.of(HEROKU));
     }
 
     public UserService(UserRepository repository, PasswordEncoder passwordEncoder) {

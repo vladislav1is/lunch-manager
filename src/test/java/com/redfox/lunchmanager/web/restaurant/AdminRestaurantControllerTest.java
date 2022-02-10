@@ -26,9 +26,9 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
-class AdminRestRestaurantControllerTest extends AbstractControllerTest {
+class AdminRestaurantControllerTest extends AbstractControllerTest {
 
-    private static final String REST_URL = AdminRestRestaurantController.REST_URL + '/';
+    private static final String REST_URL = AdminRestaurantController.REST_URL + '/';
 
     @Autowired
     private RestaurantService restaurantService;
