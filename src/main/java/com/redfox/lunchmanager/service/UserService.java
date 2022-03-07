@@ -65,9 +65,9 @@ public class UserService implements UserDetailsService {
         return checkNotFoundWithId(repository.get(id), id);
     }
 
-    public User getByEmail(String email) {
+    public User getBy(String email) {
         Assert.notNull(email, "email must not be null");
-        return checkNotFound(repository.getByEmail(email), "email=" + email);
+        return checkNotFound(repository.getBy(email), "email=" + email);
     }
 
     @Cacheable("users")
@@ -93,7 +93,7 @@ public class UserService implements UserDetailsService {
 
     @Override
     public AuthorizedUser loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = repository.getByEmail(email.toLowerCase());
+        User user = repository.getBy(email.toLowerCase());
         if (user == null) {
             throw new UsernameNotFoundException("User " + email + " is not found");
         }

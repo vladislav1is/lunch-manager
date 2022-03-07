@@ -15,18 +15,19 @@ public interface CrudVoteRepository extends JpaRepository<Vote, Integer> {
     @Transactional
     @Modifying
     @Query(name = Vote.DELETE)
-    int delete(@Param("id") int id, @Param("restaurantId") int restaurantId);
+    int deleteBy(@Param("id") int id, @Param("restaurantId") int restaurantId);
 
-    @Query(name = Vote.BY_DATE)
-    Vote getByDate(@Param("voteDate") LocalDate voteDate, @Param("userId") int userId);
+    @Transactional
+    @Modifying
+    @Query(name = Vote.DELETE_ALL_BY_RESTAURANT_ID)
+    int deleteAllBy(@Param("restaurantId") int restaurantId);
 
-    @Query(name = Vote.ALL_SORTED)
-    List<Vote> getAll(@Param("restaurantId") int restaurantId);
+    @Query(name = Vote.ALL_SORTED_BY_USER_ID)
+    List<Vote> getAllBy(@Param("userId") int userId);
 
-    @Query(name = Vote.GET_BETWEEN)
-    List<Vote> getBetweenHalfOpen(@Param("startDate") LocalDate startDate, @Param("endDate") LocalDate endDate,
-                                  @Param("restaurantId") int restaurantId);
+    @Query(name = Vote.BY_DATE_AND_USER_ID)
+    Vote getBy(@Param("voteDate") LocalDate voteDate, @Param("userId") int userId);
 
-    @Query("SELECT v FROM Vote v JOIN FETCH v.restaurant WHERE v.id = ?1 and v.restaurant.id = ?2")
-    Vote getWithRestaurant(int id, int restaurantId);
+    @Query("SELECT COUNT(v) FROM Vote v WHERE v.voteDate=:voteDate AND v.restaurantId=:restaurantId")
+    int countBy(@Param("voteDate") LocalDate voteDate, @Param("restaurantId") int restaurantId);
 }

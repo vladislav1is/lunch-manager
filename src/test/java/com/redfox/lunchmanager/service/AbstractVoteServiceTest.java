@@ -1,117 +1,114 @@
 package com.redfox.lunchmanager.service;
 
-import com.redfox.lunchmanager.web.vote.VoteTestData;
 import com.redfox.lunchmanager.model.Vote;
+import com.redfox.lunchmanager.repository.VoteRepository;
+import com.redfox.lunchmanager.util.Votes;
+import com.redfox.lunchmanager.util.exception.DataConflictException;
 import com.redfox.lunchmanager.util.exception.NotFoundException;
+import com.redfox.lunchmanager.web.restaurant.RestaurantTestData;
+import com.redfox.lunchmanager.web.vote.VoteTestData;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.dao.DataAccessException;
 
 import javax.validation.ConstraintViolationException;
 import java.time.LocalDate;
+import java.time.LocalTime;
 import java.time.Month;
 
-import static com.redfox.lunchmanager.web.restaurant.RestaurantTestData.*;
 import static com.redfox.lunchmanager.TestUtil.mockAuthorize;
-import static com.redfox.lunchmanager.web.user.UserTestData.USER_ID_1;
-import static com.redfox.lunchmanager.web.user.UserTestData.user1;
-import static com.redfox.lunchmanager.web.vote.VoteTestData.MATCHER;
+import static com.redfox.lunchmanager.web.restaurant.RestaurantTestData.*;
+import static com.redfox.lunchmanager.web.user.UserTestData.*;
 import static com.redfox.lunchmanager.web.vote.VoteTestData.NOT_FOUND;
-import static com.redfox.lunchmanager.web.vote.VoteTestData.getNew;
-import static com.redfox.lunchmanager.web.vote.VoteTestData.getUpdated;
 import static com.redfox.lunchmanager.web.vote.VoteTestData.*;
-import static org.junit.jupiter.api.Assertions.assertThrows;
+import static org.junit.jupiter.api.Assertions.*;
 
 public abstract class AbstractVoteServiceTest extends AbstractServiceTest {
     @Autowired
     protected VoteService service;
 
+    @Autowired
+    private VoteRepository repository;
+
     @BeforeEach
     void init() {
-        mockAuthorize(user1);
+        mockAuthorize(admin1);
     }
 
     @Test
-    void create() {
-        Vote created = service.create(getNew(), RESTAURANT_ID_1);
+    void createToday() {
+        Vote created = service.createToday(MCDONALDS_ID, USER_ID_3);
         int newId = created.id();
-        Vote newVote = getNew();
+        Vote newVote = VoteTestData.getNew();
         newVote.setId(newId);
-        MATCHER.assertMatch(created, newVote);
-        MATCHER.assertMatch(service.get(newId, RESTAURANT_ID_1), newVote);
+        VOTE_MATCHER.assertMatch(created, newVote);
+        VOTE_MATCHER.assertMatch(service.getBy(LocalDate.now(), USER_ID_3), newVote);
     }
 
     @Test
     void duplicateCreate() {
-        assertThrows(DataAccessException.class, () ->
-                service.create(new Vote(user1, restaurant1, LocalDate.now()), RESTAURANT_ID_1));
+        assertThrows(DataConflictException.class, () -> service.createToday(MCDONALDS_ID, ADMIN_ID_1));
     }
 
     @Test
-    void delete() {
-        service.delete(VOTE_ID_1, RESTAURANT_ID_1);
-        assertThrows(NotFoundException.class, () -> service.get(VOTE_ID_1, RESTAURANT_ID_1));
+    void updateTodayBeforeDeadline() {
+        Votes.setDeadline(LocalTime.MAX);
+        Vote updated = VoteTestData.getUpdated();
+        service.updateToday(updated.getUserId(), updated.getRestaurantId(), false);
+        VOTE_MATCHER.assertMatch(service.getBy(LocalDate.now(), ADMIN_ID_2), updated);
     }
 
     @Test
-    void deleteNotFound() {
-        assertThrows(NotFoundException.class, () -> service.delete(NOT_FOUND, RESTAURANT_ID_1));
+    void updateTodayAfterDeadline() {
+        Votes.setDeadline(LocalTime.MIN);
+        Vote updated = VoteTestData.getUpdated();
+        assertThrows(DataConflictException.class, () -> service.updateToday(updated.getUserId(), updated.getRestaurantId(), false));
     }
 
     @Test
-    void deleteNotOwn() {
-        assertThrows(NotFoundException.class, () -> service.delete(VOTE_ID_3, RESTAURANT_ID_2));
+    void deleteTodayBeforeDeadline() {
+        Votes.setDeadline(LocalTime.MAX);
+        service.updateToday(ADMIN_ID_1, YAKITORIYA_ID, true);
+        assertNull(service.getBy(LocalDate.now(), ADMIN_ID_1));
     }
 
     @Test
-    void get() {
-        Vote actual = service.get(VOTE_ID_2, RESTAURANT_ID_1);
-        MATCHER.assertMatch(actual, vote2);
+    void deleteTodayAfterDeadline() {
+        Votes.setDeadline(LocalTime.MIN);
+        assertThrows(DataConflictException.class, () -> service.updateToday(ADMIN_ID_1, YAKITORIYA_ID, true));
     }
 
     @Test
-    void getNotFound() {
-        assertThrows(NotFoundException.class, () -> service.get(NOT_FOUND, RESTAURANT_ID_1));
+    void deleteAll() {
+        service.deleteAll(YAKITORIYA_ID);
+        assertThrows(NotFoundException.class, () -> service.deleteAll(NOT_FOUND));
     }
 
     @Test
-    void getNotOwn() {
-        assertThrows(NotFoundException.class, () -> service.get(VOTE_ID_4, RESTAURANT_ID_1));
+    void deleteAllNotFound() {
+        assertThrows(NotFoundException.class, () -> service.deleteAll(RestaurantTestData.NOT_FOUND));
     }
 
     @Test
     void getByDate() {
-        Vote actual = service.getByDate(LocalDate.of(2021, Month.NOVEMBER, 11), USER_ID_1);
-        VoteTestData.MATCHER.assertMatch(actual, vote2);
+        Vote actual = service.getBy(LocalDate.of(2021, Month.NOVEMBER, 11), ADMIN_ID_1);
+        System.out.println(actual);
+        VOTE_MATCHER.assertMatch(actual, vote2);
     }
 
     @Test
     void getAll() {
-        MATCHER.assertMatch(service.getAll(RESTAURANT_ID_1), votes);
+        VOTE_MATCHER.assertMatch(service.getAll(ADMIN_ID_1), votes);
     }
 
     @Test
-    void getBetweenHalfOpen() {
-        MATCHER.assertMatch(service.getBetweenHalfOpen(
-                LocalDate.of(2021, Month.NOVEMBER, 11),
-                LocalDate.of(2021, Month.NOVEMBER, 11), RESTAURANT_ID_1), vote2);
+    void createWithException() {
+        validateRootCause(ConstraintViolationException.class, () -> repository.save(new Vote(admin1, yakitoriya, null), YAKITORIYA_ID));
     }
 
     @Test
-    void getBetweenWithNullDates() {
-        MATCHER.assertMatch(service.getBetweenHalfOpen(null, null, RESTAURANT_ID_1), votes);
-    }
-
-    @Test
-    void update() {
-        Vote updated = getUpdated();
-        service.update(updated, RESTAURANT_ID_2);
-        MATCHER.assertMatch(service.get(VOTE_ID_3, RESTAURANT_ID_2), getUpdated());
-    }
-
-    @Test
-    void createWithException() throws Exception {
-        validateRootCause(ConstraintViolationException.class, () -> service.create(new Vote(user1, restaurant1, null), RESTAURANT_ID_1));
+    void countByDate() {
+        int actual = service.countBy(LocalDate.now(), YAKITORIYA_ID);
+        assertEquals(2, actual);
     }
 }

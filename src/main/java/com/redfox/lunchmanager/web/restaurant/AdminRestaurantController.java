@@ -58,7 +58,7 @@ public class AdminRestaurantController extends AbstractRestaurantController {
 
     @Override
     @GetMapping("/{id}/with-dishes")
-    public RestaurantTo getWithDishesByDate(@RequestParam @Nullable LocalDate date, @PathVariable int id) {
-        return super.getWithDishesByDate(Objects.isNull(date) ? LocalDate.now() : date, id);
+    public RestaurantTo getWithDishesBy(@RequestParam @Nullable LocalDate date, @PathVariable int id) {
+        return super.getWithDishesBy(Objects.isNull(date) ? LocalDate.now() : date, id);
     }
 }

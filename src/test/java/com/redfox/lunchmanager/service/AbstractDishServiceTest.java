@@ -11,8 +11,8 @@ import javax.validation.ConstraintViolationException;
 import java.time.LocalDate;
 
 import static com.redfox.lunchmanager.web.dish.DishTestData.*;
-import static com.redfox.lunchmanager.web.restaurant.RestaurantTestData.RESTAURANT_ID_1;
-import static com.redfox.lunchmanager.web.restaurant.RestaurantTestData.RESTAURANT_ID_2;
+import static com.redfox.lunchmanager.web.restaurant.RestaurantTestData.YAKITORIYA_ID;
+import static com.redfox.lunchmanager.web.restaurant.RestaurantTestData.DODO_PIZZA_ID;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 public abstract class AbstractDishServiceTest extends AbstractServiceTest {
@@ -21,86 +21,86 @@ public abstract class AbstractDishServiceTest extends AbstractServiceTest {
 
     @Test
     void create() {
-        Dish created = service.create(getNew(), RESTAURANT_ID_1);
+        Dish created = service.create(getNew(), YAKITORIYA_ID);
         int newId = created.id();
         Dish newDish = getNew();
         newDish.setId(newId);
-        MATCHER.assertMatch(created, newDish);
-        MATCHER.assertMatch(service.get(newId, RESTAURANT_ID_1), newDish);
+        DISH_MATCHER.assertMatch(created, newDish);
+        DISH_MATCHER.assertMatch(service.get(newId, YAKITORIYA_ID), newDish);
     }
 
     @Test
     void duplicateCreate() {
         assertThrows(DataAccessException.class, () ->
-                service.create(new Dish(dish1.getName(), dish1.getPrice(), dish1.getRegistered()), RESTAURANT_ID_1));
+                service.create(new Dish(yakitoriya_1.getName(), yakitoriya_1.getPrice(), yakitoriya_1.getRegistered()), YAKITORIYA_ID));
     }
 
     @Test
     void delete() {
-        service.delete(DISH_ID_1, RESTAURANT_ID_1);
-        assertThrows(NotFoundException.class, () -> service.get(DISH_ID_1, RESTAURANT_ID_1));
+        service.delete(YAKITORIYA_ID_1, YAKITORIYA_ID);
+        assertThrows(NotFoundException.class, () -> service.get(YAKITORIYA_ID_1, YAKITORIYA_ID));
     }
 
     @Test
     void deleteNotFound() {
-        assertThrows(NotFoundException.class, () -> service.delete(NOT_FOUND, RESTAURANT_ID_1));
+        assertThrows(NotFoundException.class, () -> service.delete(NOT_FOUND, YAKITORIYA_ID));
     }
 
     @Test
     void deleteNotOwn() {
-        assertThrows(NotFoundException.class, () -> service.delete(DISH_ID_1, RESTAURANT_ID_2));
+        assertThrows(NotFoundException.class, () -> service.delete(YAKITORIYA_ID_1, DODO_PIZZA_ID));
     }
 
     @Test
     void get() {
-        Dish actual = service.get(DISH_ID_1, RESTAURANT_ID_1);
-        MATCHER.assertMatch(actual, dish1);
+        Dish actual = service.get(YAKITORIYA_ID_1, YAKITORIYA_ID);
+        DISH_MATCHER.assertMatch(actual, yakitoriya_1);
     }
 
     @Test
     void getNotFound() {
-        assertThrows(NotFoundException.class, () -> service.get(NOT_FOUND, RESTAURANT_ID_1));
+        assertThrows(NotFoundException.class, () -> service.get(NOT_FOUND, YAKITORIYA_ID));
     }
 
     @Test
     void getNotOwn() {
-        assertThrows(NotFoundException.class, () -> service.get(DISH_ID_1, RESTAURANT_ID_2));
+        assertThrows(NotFoundException.class, () -> service.get(YAKITORIYA_ID_1, DODO_PIZZA_ID));
     }
 
     @Test
     void getAll() {
-        MATCHER.assertMatch(service.getAll(RESTAURANT_ID_1), dishes);
+        DISH_MATCHER.assertMatch(service.getAll(YAKITORIYA_ID), dishes);
     }
 
     @Test
     void getBetweenHalfOpen() {
-        MATCHER.assertMatch(service.getBetweenHalfOpen(LocalDate.now(), LocalDate.now(), RESTAURANT_ID_1), dish1, dish2);
+        DISH_MATCHER.assertMatch(service.getBetweenBy(LocalDate.now(), LocalDate.now(), YAKITORIYA_ID), yakitoriya_1, yakitoriya_2);
     }
 
     @Test
     void getBetweenWithNullDates() {
-        MATCHER.assertMatch(service.getBetweenHalfOpen(null, null, RESTAURANT_ID_1), dishes);
+        DISH_MATCHER.assertMatch(service.getBetweenBy(null, null, YAKITORIYA_ID), dishes);
     }
 
     @Test
     void update() {
         Dish updated = getUpdated();
-        service.update(updated, RESTAURANT_ID_2);
-        MATCHER.assertMatch(service.get(DISH_ID_3, RESTAURANT_ID_2), getUpdated());
+        service.update(updated, DODO_PIZZA_ID);
+        DISH_MATCHER.assertMatch(service.get(DODO_PIZZA_ID_1, DODO_PIZZA_ID), getUpdated());
     }
 
     @Test
     void updateNotOwn() {
-        NotFoundException exception = assertThrows(NotFoundException.class, () -> service.update(getUpdated(), RESTAURANT_ID_1));
-        Assertions.assertEquals("Not found entity with id=" + DISH_ID_3, exception.getMessage());
-        MATCHER.assertMatch(service.get(DISH_ID_3, RESTAURANT_ID_2), dish3);
+        NotFoundException exception = assertThrows(NotFoundException.class, () -> service.update(getUpdated(), YAKITORIYA_ID));
+        Assertions.assertEquals("Not found entity with id=" + DODO_PIZZA_ID_1, exception.getMessage());
+        DISH_MATCHER.assertMatch(service.get(DODO_PIZZA_ID_1, DODO_PIZZA_ID), dodoPizza_1);
     }
 
     @Test
     void createWithException() throws Exception {
-        validateRootCause(ConstraintViolationException.class, () -> service.create(new Dish("", 1000, LocalDate.now()), RESTAURANT_ID_1));
-        validateRootCause(ConstraintViolationException.class, () -> service.create(new Dish("Name", 9, LocalDate.now()), RESTAURANT_ID_1));
-        validateRootCause(ConstraintViolationException.class, () -> service.create(new Dish("Name", 10001, LocalDate.now()), RESTAURANT_ID_1));
-        validateRootCause(ConstraintViolationException.class, () -> service.create(new Dish("Name", 1050, null), RESTAURANT_ID_1));
+        validateRootCause(ConstraintViolationException.class, () -> service.create(new Dish("", 1000, LocalDate.now()), YAKITORIYA_ID));
+        validateRootCause(ConstraintViolationException.class, () -> service.create(new Dish("Name", 9, LocalDate.now()), YAKITORIYA_ID));
+        validateRootCause(ConstraintViolationException.class, () -> service.create(new Dish("Name", 100001, LocalDate.now()), YAKITORIYA_ID));
+        validateRootCause(ConstraintViolationException.class, () -> service.create(new Dish("Name", 1050, null), YAKITORIYA_ID));
     }
 }

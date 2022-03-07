@@ -157,23 +157,23 @@ curl samples (application deployed at application context `lunch-manager`).
 
 ### Vote resources
 
-* #### create Vote
-`curl -X POST -d '{"registered":"2021-11-06"}' -H "Content-Type: application/json" --location http://localhost:8080/lunch-manager/rest/restaurants/100004/votes --user user@yandex.ru:password`
+* #### vote today
+`curl -X POST -H 'Content-Type: application/json' --location "http://localhost:8080/lunch-manager/rest/votes?restaurantId=100004 --user user@yandex.ru:password`
 
-* #### delete Vote
-`curl -X DELETE --location http://localhost:8080/lunch-manager/rest/restaurants/100004/votes/100020 --user user@yandex.ru:password`
+* #### re-vote today
+`curl -X PUT -H 'Content-Type: application/json' --location "http://localhost:8080/lunch-manager/rest/votes?restaurantId=100004 --user user@yandex.ru:password`
 
-* #### update Vote
-`curl -X PUT -d '{"registered":"2021-10-06"}' -H "Content-Type: application/json" --location http://localhost:8080/lunch-manager/rest/restaurants/100004/votes/100016 --user user@yandex.ru:password`
+* #### delete today
+`curl -X DELETE --location http://localhost:8080/lunch-manager/rest/votes --user user@yandex.ru:password`
 
-* #### get Vote
-`curl -X GET --location http://localhost:8080/lunch-manager/rest/restaurants/100004/votes/100017 --user user@yandex.ru:password`
+* #### get own Vote by Date
+`curl -X GET --location http://localhost:8080/lunch-manager/rest/votes/by-date?voteDate=2021-11-11 --user user@yandex.ru:password`
 
-* #### get all Votes
-`curl -X GET --location http://localhost:8080/lunch-manager/rest/restaurants/100004/votes --user user@yandex.ru:password`
+* #### get own Votes
+`curl -X GET --location http://localhost:8080/lunch-manager/rest/votes --user user@yandex.ru:password`
 
-* #### get Votes between 2021-11-11 and 2021-11-11
-`curl -X GET --location http://localhost:8080/lunch-manager/rest/restaurants/100004/votes/filter?startDate=2021-11-11&endDate=2021-11-11 --user user@yandex.ru:password`
+* #### count Restaurant Votes
+`curl -X GET --location http://localhost:8080/lunch-manager/rest/votes/count?voteDate=2021-11-11&restaurantId=100004 --user user@yandex.ru:password`
 
 ## Admin resources
 
@@ -199,7 +199,7 @@ curl samples (application deployed at application context `lunch-manager`).
 * #### get all Users
 `curl -X GET --location http://localhost:8080/lunch-manager/rest/admin/users --user admin@gmail.com:admin --user admin@gmail.com:admin`
 
-#### validate with Error
+* #### validate with Error
 `curl -s -X POST -d '{}' -H 'Content-Type: application/json' http://localhost:8080/lunch-manager/rest/admin/users --user admin@gmail.com:admin`
 
 ### Restaurant resources

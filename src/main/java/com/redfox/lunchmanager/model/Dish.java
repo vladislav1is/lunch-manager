@@ -33,7 +33,7 @@ public class Dish extends AbstractNamedEntity implements HasNameAndDate {
     public static final String GET_BETWEEN = "Dish.getBetween";
 
     @Column(name = "price", nullable = false)
-    @Range(min = 10, max = 10000)
+    @Range(min = 10, max = 100_000)
     private long price;
 
     @Column(name = "registered", nullable = false, columnDefinition = "date default now()")

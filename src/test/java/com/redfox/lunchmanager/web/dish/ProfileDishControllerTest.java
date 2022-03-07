@@ -7,7 +7,7 @@ import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static com.redfox.lunchmanager.web.dish.DishTestData.*;
-import static com.redfox.lunchmanager.web.restaurant.RestaurantTestData.RESTAURANT_ID_1;
+import static com.redfox.lunchmanager.web.restaurant.RestaurantTestData.YAKITORIYA_ID;
 import static com.redfox.lunchmanager.TestUtil.userHttpBasic;
 import static com.redfox.lunchmanager.web.user.UserTestData.user3;
 import static com.redfox.lunchmanager.util.Dishes.convertToDto;
@@ -18,7 +18,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 class ProfileDishControllerTest extends AbstractControllerTest {
 
-    private static final String REST_URL = ProfileRestaurantController.REST_URL + '/' + RESTAURANT_ID_1 + "/dishes/";
+    private static final String REST_URL = ProfileRestaurantController.REST_URL + '/' + YAKITORIYA_ID + "/dishes/";
 
     @Test
     void getUnAuth() throws Exception {
@@ -28,12 +28,12 @@ class ProfileDishControllerTest extends AbstractControllerTest {
 
     @Test
     void get() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL + DISH_ID_1)
+        perform(MockMvcRequestBuilders.get(REST_URL + YAKITORIYA_ID_1)
                 .with(userHttpBasic(user3)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(TO_MATCHER.contentJson(convertToDto(dish1)));
+                .andExpect(DISH_TO_MATCHER.contentJson(convertToDto(yakitoriya_1)));
     }
 
     @Test
@@ -51,6 +51,6 @@ class ProfileDishControllerTest extends AbstractControllerTest {
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(TO_MATCHER.contentJson(getTos(dish1, dish2)));
+                .andExpect(DISH_TO_MATCHER.contentJson(getTos(yakitoriya_1, yakitoriya_2)));
     }
 }

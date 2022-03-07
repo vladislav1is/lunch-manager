@@ -19,7 +19,7 @@ public interface DishRepository {
     List<Dish> getAll(int restaurantId);
 
     // ORDERED date desc
-    List<Dish> getBetweenHalfOpen(LocalDate startDate, LocalDate endDate, int restaurantId);
+    List<Dish> getBetweenBy(LocalDate startDate, LocalDate endDate, int restaurantId);
 
     default Dish getWithRestaurant(int id, int restaurantId) {
         throw new UnsupportedOperationException();

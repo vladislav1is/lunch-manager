@@ -26,8 +26,9 @@ public class UniqueMailValidator implements Validator {
     @Override
     public void validate(Object target, Errors errors) {
         HasIdAndEmail user = ((HasIdAndEmail) target);
-        if (StringUtils.hasText(user.getEmail())) {
-            User dbUser = repository.getByEmail(user.getEmail().toLowerCase());
+        String email = user.getEmail();
+        if (StringUtils.hasText(email)) {
+            User dbUser = repository.getBy(email.toLowerCase());
             if (dbUser != null && !dbUser.getId().equals(user.getId())) {
                 errors.rejectValue("email", ExceptionInfoHandler.EXCEPTION_DUPLICATE_EMAIL);
             }

@@ -20,9 +20,9 @@ public class DataJpaDishRepository implements DishRepository {
         this.crudRestaurantRepository = crudRestaurantRepository;
     }
 
-    @Override
     @Transactional
     @Modifying
+    @Override
     public Dish save(Dish dish, int restaurantId) {
         if (!dish.isNew() && get(dish.id(), restaurantId) == null) {
             return null;
@@ -49,7 +49,7 @@ public class DataJpaDishRepository implements DishRepository {
     }
 
     @Override
-    public List<Dish> getBetweenHalfOpen(LocalDate startDate, LocalDate endDate, int restaurantId) {
+    public List<Dish> getBetweenBy(LocalDate startDate, LocalDate endDate, int restaurantId) {
         return crudDishRepository.getBetweenHalfOpen(startDate, endDate, restaurantId);
     }
 

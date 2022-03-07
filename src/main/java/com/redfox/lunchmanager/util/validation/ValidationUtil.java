@@ -42,6 +42,10 @@ public final class ValidationUtil {
         checkNotFound(found, "id=" + id);
     }
 
+    public static void checkNotFoundWithId(boolean found, int id, int restaurantId) {
+        checkNotFound(found, "id=" + id + " and restaurantId=" + restaurantId);
+    }
+
     public static <T> T checkNotFound(T object, String msg) {
         checkNotFound(object != null, msg);
         return object;

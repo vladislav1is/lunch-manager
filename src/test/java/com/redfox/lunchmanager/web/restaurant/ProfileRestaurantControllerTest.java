@@ -7,7 +7,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import static com.redfox.lunchmanager.web.restaurant.RestaurantTestData.*;
 import static com.redfox.lunchmanager.web.restaurant.RestaurantTestData.NOT_FOUND;
-import static com.redfox.lunchmanager.web.restaurant.RestaurantTestData.TO_MATCHER;
+import static com.redfox.lunchmanager.web.restaurant.RestaurantTestData.RESTAURANT_TO_MATCHER;
 import static com.redfox.lunchmanager.TestUtil.userHttpBasic;
 import static com.redfox.lunchmanager.web.user.UserTestData.*;
 import static com.redfox.lunchmanager.web.vote.VoteTestData.vote4;
@@ -29,12 +29,12 @@ class ProfileRestaurantControllerTest extends AbstractControllerTest {
 
     @Test
     void get() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL + RESTAURANT_ID_1)
+        perform(MockMvcRequestBuilders.get(REST_URL + YAKITORIYA_ID)
                 .with(userHttpBasic(user3)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(TO_MATCHER.contentJson(convertToDto(restaurant1)));
+                .andExpect(RESTAURANT_TO_MATCHER.contentJson(convertToDto(yakitoriya)));
     }
 
     @Test
@@ -51,17 +51,17 @@ class ProfileRestaurantControllerTest extends AbstractControllerTest {
                 .with(userHttpBasic(user3)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(TO_MATCHER.contentJson(getTos(restaurants, vote4)));
+                .andExpect(RESTAURANT_TO_MATCHER.contentJson(getTos(restaurants, vote4)));
     }
 
     @Test
     void getWithDishesForToday() throws Exception {
         assumeDataJpa();
-        perform(MockMvcRequestBuilders.get(REST_URL + RESTAURANT_ID_1 + "/with-dishes")
+        perform(MockMvcRequestBuilders.get(REST_URL + YAKITORIYA_ID + "/with-dishes")
                 .with(userHttpBasic(user3)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(TO_MATCHER.contentJson(convertToDto(restaurant1, restaurant1.getDishes())));
+                .andExpect(RESTAURANT_TO_MATCHER.contentJson(convertToDto(yakitoriya, yakitoriya.getDishes())));
     }
 }

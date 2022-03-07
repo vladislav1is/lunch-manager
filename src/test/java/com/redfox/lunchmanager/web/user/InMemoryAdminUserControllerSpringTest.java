@@ -37,8 +37,8 @@ class InMemoryAdminUserControllerSpringTest {
         Integer newId = created.getId();
         UserTo newUser = convertToDto(getNew());
         newUser.setId(newId);
-        TO_MATCHER.assertMatch(created, newUser);
-        TO_MATCHER.assertMatch(controller.get(newId), newUser);
+        USER_TO_MATCHER.assertMatch(created, newUser);
+        USER_TO_MATCHER.assertMatch(controller.get(newId), newUser);
     }
 
     @Test
@@ -48,8 +48,8 @@ class InMemoryAdminUserControllerSpringTest {
 
     @Test
     void delete() {
-        controller.delete(USER_ID_1);
-        assertNull(repository.get(USER_ID_1));
+        controller.delete(ADMIN_ID_1);
+        assertNull(repository.get(ADMIN_ID_1));
     }
 
     @Test
@@ -59,8 +59,8 @@ class InMemoryAdminUserControllerSpringTest {
 
     @Test
     void get() {
-        UserTo user = controller.get(USER_ID_1);
-        TO_MATCHER.assertMatch(user, convertToDto(user1));
+        UserTo user = controller.get(ADMIN_ID_1);
+        USER_TO_MATCHER.assertMatch(user, convertToDto(admin1));
     }
 
     @Test
@@ -70,26 +70,26 @@ class InMemoryAdminUserControllerSpringTest {
 
     @Test
     void getByMail() {
-        UserTo user = controller.getByMail(user3.getEmail());
-        TO_MATCHER.assertMatch(user, convertToDto(user3));
+        UserTo user = controller.getBy(user3.getEmail());
+        USER_TO_MATCHER.assertMatch(user, convertToDto(user3));
     }
 
     @Test
     void getByMailNotFound() {
-        assertThrows(NotFoundException.class, () -> controller.getByMail("mail"));
+        assertThrows(NotFoundException.class, () -> controller.getBy("mail"));
     }
 
     @Test
     void getAll() {
         List<UserTo> all = controller.getAll();
-        TO_MATCHER.assertMatch(all, getTos(users));
+        USER_TO_MATCHER.assertMatch(all, getTos(users));
     }
 
     @Test
     void update() {
         UserTo user = convertToDto(getUpdated());
         controller.update(user, USER_ID_3);
-        TO_MATCHER.assertMatch(controller.get(USER_ID_3), convertToDto(getUpdated()));
+        USER_TO_MATCHER.assertMatch(controller.get(USER_ID_3), convertToDto(getUpdated()));
     }
 
     @Test

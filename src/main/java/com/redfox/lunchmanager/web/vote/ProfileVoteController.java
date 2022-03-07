@@ -1,49 +1,56 @@
 package com.redfox.lunchmanager.web.vote;
 
-import com.redfox.lunchmanager.model.Restaurant;
-import com.redfox.lunchmanager.service.RestaurantService;
 import com.redfox.lunchmanager.to.VoteTo;
-import com.redfox.lunchmanager.util.Votes;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.MediaType;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-import springfox.documentation.annotations.ApiIgnore;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 
+import java.net.URI;
 import java.time.LocalDate;
+import java.util.List;
 
-import static com.redfox.lunchmanager.util.Restaurants.convertToDto;
-
-@ApiIgnore
-@Controller
-@RequestMapping("/restaurants/{restaurantId}/votes")
+@RestController
+@RequestMapping(value = ProfileVoteController.REST_URL, produces = MediaType.APPLICATION_JSON_VALUE)
 public class ProfileVoteController extends AbstractVoteController {
 
-    private final RestaurantService restaurantService;
+    protected static final String REST_URL = "/rest/votes";
 
-    public ProfileVoteController(RestaurantService restaurantService) {
-        this.restaurantService = restaurantService;
+    @PostMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<VoteTo> voteToday(@RequestParam int restaurantId) {
+        var created = super.createToday(restaurantId);
+        URI uriOfNewResource = ServletUriComponentsBuilder.fromCurrentContextPath()
+                .path(REST_URL + "/{id}")
+                .buildAndExpand(restaurantId, created.getId()).toUri();
+        return ResponseEntity.created(uriOfNewResource).body(created);
+    }
+
+    @PutMapping(consumes = MediaType.APPLICATION_JSON_VALUE)
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void revoteToday(@RequestParam int restaurantId) {
+        super.updateToday(restaurantId);
+    }
+
+    @DeleteMapping
+    @ResponseStatus(HttpStatus.NO_CONTENT)
+    public void deleteToday() {
+        super.deleteToday();
+    }
+
+    @GetMapping("/by-date")
+    public VoteTo getOwnByDate(@RequestParam LocalDate voteDate) {
+        return super.getBy(voteDate);
     }
 
     @GetMapping
-    public String getVotesForToday(@PathVariable int restaurantId, Model model) {
-        model.addAttribute("votes", super.getBetween(LocalDate.now(), LocalDate.now(), restaurantId));
-        Restaurant restaurant = restaurantService.get(restaurantId);
-        model.addAttribute("restaurant", convertToDto(restaurant));
-
-        VoteTo voteTo = super.getByDate(LocalDate.now());
-        model.addAttribute("voteTo", voteTo);
-        model.addAttribute("enabled", Votes.canRevoteBefore(11, 0) || voteTo == null);
-        return "vote-form";
+    public List<VoteTo> getAllOwn() {
+        return super.getAll();
     }
 
-    @PostMapping
-    public String updateOrCreate(@PathVariable int restaurantId, @RequestParam String voteId) {
-        var newVote = new VoteTo(null, LocalDate.now());
-        if (!voteId.isEmpty()) {
-            super.update(newVote, Integer.parseInt(voteId), restaurantId);
-        } else {
-            super.create(newVote, restaurantId);
-        }
-        return "redirect:/restaurants";
+    @Override
+    @GetMapping("/count")
+    public int countBy(@RequestParam LocalDate voteDate, @RequestParam int restaurantId) {
+        return super.countBy(voteDate, restaurantId);
     }
 }

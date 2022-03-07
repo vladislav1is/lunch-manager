@@ -26,21 +26,21 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest {
         int newId = created.id();
         User newUser = getNew();
         newUser.setId(newId);
-        MATCHER.assertMatch(created, newUser);
-        MATCHER.assertMatch(service.get(newId), newUser);
+        USER_MATCHER.assertMatch(created, newUser);
+        USER_MATCHER.assertMatch(service.get(newId), newUser);
     }
 
     @Test
     void duplicateMailCreate() {
         assertThrows(DataAccessException.class, () ->
-                service.create(new User(null, "Duplicate", user2.getEmail(), "newPass",
+                service.create(new User(null, "Duplicate", admin2.getEmail(), "newPass",
                         of(2021, Month.NOVEMBER, 2, 21, 45), Role.USER)));
     }
 
     @Test
     void delete() {
-        service.delete(USER_ID_1);
-        assertThrows(NotFoundException.class, () -> service.get(USER_ID_1));
+        service.delete(ADMIN_ID_1);
+        assertThrows(NotFoundException.class, () -> service.get(ADMIN_ID_1));
     }
 
     @Test
@@ -50,8 +50,8 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest {
 
     @Test
     void get() {
-        User user = service.get(USER_ID_1);
-        MATCHER.assertMatch(user, user1);
+        User user = service.get(ADMIN_ID_1);
+        USER_MATCHER.assertMatch(user, admin1);
     }
 
     @Test
@@ -61,26 +61,26 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest {
 
     @Test
     void getByEmail() {
-        User user = service.getByEmail(user3.getEmail());
-        MATCHER.assertMatch(user, user3);
+        User user = service.getBy(user3.getEmail());
+        USER_MATCHER.assertMatch(user, user3);
     }
 
     @Test
     void getByEmailNotFound() {
-        assertThrows(NotFoundException.class, () -> service.getByEmail("mail"));
+        assertThrows(NotFoundException.class, () -> service.getBy("mail"));
     }
 
     @Test
     void getAll() {
         List<User> all = service.getAll();
-        MATCHER.assertMatch(all, users);
+        USER_MATCHER.assertMatch(all, users);
     }
 
     @Test
     void update() {
         User user = getUpdated();
         service.update(user);
-        MATCHER.assertMatch(service.get(USER_ID_3), getUpdated());
+        USER_MATCHER.assertMatch(service.get(USER_ID_3), getUpdated());
     }
 
     @Test
@@ -100,9 +100,9 @@ public abstract class AbstractUserServiceTest extends AbstractServiceTest {
 
     @Test
     void enable() {
-        service.enable(USER_ID_1, false);
-        assertFalse(service.get(USER_ID_1).isEnabled());
-        service.enable(USER_ID_1, true);
-        assertTrue(service.get(USER_ID_1).isEnabled());
+        service.enable(ADMIN_ID_1, false);
+        assertFalse(service.get(ADMIN_ID_1).isEnabled());
+        service.enable(ADMIN_ID_1, true);
+        assertTrue(service.get(ADMIN_ID_1).isEnabled());
     }
 }

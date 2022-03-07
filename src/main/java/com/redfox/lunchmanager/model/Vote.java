@@ -1,5 +1,6 @@
 package com.redfox.lunchmanager.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.redfox.lunchmanager.util.DateTimeUtil;
 import org.hibernate.annotations.OnDelete;
 import org.hibernate.annotations.OnDeleteAction;
@@ -10,52 +11,58 @@ import javax.validation.constraints.NotNull;
 import java.time.LocalDate;
 
 @NamedQueries({
-        @NamedQuery(name = Vote.DELETE, query = "DELETE FROM Vote v WHERE v.id=:id AND v.restaurant.id=:restaurantId"),
-        @NamedQuery(name = Vote.BY_DATE, query = "SELECT v FROM Vote v WHERE v.registered=:voteDate AND v.user.id=:userId"),
-        @NamedQuery(name = Vote.ALL_SORTED, query = "SELECT v FROM Vote v WHERE v.restaurant.id=:restaurantId ORDER BY v.registered DESC"),
-        @NamedQuery(name = Vote.GET_BETWEEN, query = """
-                    SELECT v FROM Vote v 
-                    WHERE v.restaurant.id=:restaurantId AND v.registered >= :startDate AND v.registered < :endDate ORDER BY v.registered DESC
-                """),
+        @NamedQuery(name = Vote.DELETE, query = "DELETE FROM Vote v WHERE v.id=:id AND v.restaurantId=:restaurantId"),
+        @NamedQuery(name = Vote.DELETE_ALL_BY_RESTAURANT_ID, query = "DELETE FROM Vote v WHERE v.restaurantId=:restaurantId"),
+        @NamedQuery(name = Vote.BY_DATE_AND_USER_ID, query = "SELECT v FROM Vote v WHERE v.voteDate=:voteDate AND v.userId=:userId"),
+        @NamedQuery(name = Vote.ALL_SORTED_BY_USER_ID, query = "SELECT v FROM Vote v WHERE v.user.id=:userId ORDER BY v.voteDate DESC")
 })
 @Entity
 @Table(name = "votes", uniqueConstraints = {
-        @UniqueConstraint(columnNames = {"user_id", "registered"}, name = "votes_idx")
+        @UniqueConstraint(columnNames = {"user_id", "vote_date"}, name = "votes_idx")
 })
 public class Vote extends AbstractBaseEntity {
 
     public static final String DELETE = "Vote.delete";
-    public static final String BY_DATE = "Vote.getByDate";
-    public static final String ALL_SORTED = "Vote.getAll";
-    public static final String GET_BETWEEN = "Vote.getBetween";
+    public static final String DELETE_ALL_BY_RESTAURANT_ID = "Vote.deleteAllByRestaurantId";
+    public static final String BY_DATE_AND_USER_ID = "Vote.getByDateAndUserId";
+    public static final String ALL_SORTED_BY_USER_ID = "Vote.getAllByUserId";
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "user_id", nullable = false)
+    @JoinColumn(name = "user_id", insertable = false, updatable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
     private User user;
 
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name = "restaurant_id", nullable = false)
+    @Column(name = "user_id")
+    private int userId;
+
+    @ManyToOne(fetch = FetchType.LAZY)
+    //  https://stackoverflow.com/a/44539145/548473
+    @JoinColumn(name = "restaurant_id", insertable = false, updatable = false)
     @OnDelete(action = OnDeleteAction.CASCADE)
+    @JsonIgnore
     private Restaurant restaurant;
 
-    @Column(name = "registered", nullable = false, columnDefinition = "date default now()")
-    @NotNull
+    @Column(name = "restaurant_id")
+    private int restaurantId;
+
+    @Column(name = "vote_date", nullable = false, columnDefinition = "date default now()")
     @DateTimeFormat(pattern = DateTimeUtil.DATE_PATTERN)
-    private LocalDate registered;
+    @NotNull
+    private LocalDate voteDate;
 
     public Vote() {
     }
 
-    public Vote(User user, Restaurant restaurant, LocalDate registered) {
-        this(null, user, restaurant, registered);
+    public Vote(User user, Restaurant restaurant, LocalDate voteDate) {
+        this(null, user, restaurant, voteDate);
     }
 
-    public Vote(Integer id, User user, Restaurant restaurant, LocalDate registered) {
+    public Vote(Integer id, User user, Restaurant restaurant, LocalDate voteDate) {
         super(id);
         this.user = user;
         this.restaurant = restaurant;
-        this.registered = registered;
+        this.voteDate = voteDate;
     }
 
     public User getUser() {
@@ -74,21 +81,37 @@ public class Vote extends AbstractBaseEntity {
         this.restaurant = restaurant;
     }
 
-    public LocalDate getRegistered() {
-        return registered;
+    public LocalDate getVoteDate() {
+        return voteDate;
     }
 
-    public void setRegistered(LocalDate registered) {
-        this.registered = registered;
+    public void setVoteDate(LocalDate voteDate) {
+        this.voteDate = voteDate;
+    }
+
+    public int getUserId() {
+        return userId;
+    }
+
+    public void setUserId(int userId) {
+        this.userId = userId;
+    }
+
+    public int getRestaurantId() {
+        return restaurantId;
+    }
+
+    public void setRestaurantId(int restaurantId) {
+        this.restaurantId = restaurantId;
     }
 
     @Override
     public String toString() {
         return "Vote{" +
                 "id=" + id +
-                ", user=" + user +
-                ", restaurant=" + restaurant +
-                ", registered=" + registered +
+                ", userId=" + userId +
+                ", restaurantId=" + restaurantId +
+                ", voteDate=" + voteDate +
                 '}';
     }
 }

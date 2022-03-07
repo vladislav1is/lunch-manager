@@ -4,6 +4,7 @@ import com.redfox.lunchmanager.model.Restaurant;
 import com.redfox.lunchmanager.repository.RestaurantRepository;
 import com.redfox.lunchmanager.util.validation.ValidationUtil;
 import org.springframework.dao.support.DataAccessUtils;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
@@ -34,11 +35,11 @@ public class JdbcRestaurantRepository implements RestaurantRepository {
                 .withTableName("restaurants");
     }
 
-    @Override
     @Transactional
+    @Modifying
+    @Override
     public Restaurant save(Restaurant restaurant) {
         ValidationUtil.validate(restaurant);
-
         BeanPropertySqlParameterSource parameterSource = new BeanPropertySqlParameterSource(restaurant);
         if (restaurant.isNew()) {
             Number newKey = insertRestaurant.executeAndReturnKey(parameterSource);
@@ -50,8 +51,9 @@ public class JdbcRestaurantRepository implements RestaurantRepository {
         return restaurant;
     }
 
-    @Override
     @Transactional
+    @Modifying
+    @Override
     public boolean delete(int id) {
         return jdbcTemplate.update("DELETE FROM restaurants WHERE id=?", id) != 0;
     }

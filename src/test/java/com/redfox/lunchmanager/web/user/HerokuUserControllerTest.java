@@ -12,19 +12,20 @@ import org.springframework.test.context.ActiveProfiles;
 import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.io.IOException;
+import java.util.Objects;
 
 import static com.redfox.lunchmanager.Profiles.HEROKU;
 import static com.redfox.lunchmanager.TestUtil.userHttpBasic;
-import static com.redfox.lunchmanager.web.user.UserTestData.*;
 import static com.redfox.lunchmanager.util.Users.convertToDto;
 import static com.redfox.lunchmanager.util.exception.UpdateRestrictionException.EXCEPTION_UPDATE_RESTRICTION;
+import static com.redfox.lunchmanager.web.user.UserTestData.*;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @ActiveProfiles(HEROKU)
-class HerokuRestControllerTest extends AbstractControllerTest {
+class HerokuUserControllerTest extends AbstractControllerTest {
 
-    private static final String REST_URL = AdminRestController.REST_URL + '/';
+    private static final String REST_URL = AdminUserController.REST_URL + '/';
 
     //  Set DATABASE_URL environment for heroku profile
     static {
@@ -34,7 +35,7 @@ class HerokuRestControllerTest extends AbstractControllerTest {
             String herokuDbUrl = String.format("postgres://%s:%s@%s",
                     propertySource.getProperty("database.username"),
                     propertySource.getProperty("database.password"),
-                    ((String) propertySource.getProperty("database.url")).substring(18));
+                    ((String) Objects.requireNonNull(propertySource.getProperty("database.url"))).substring(18));
             System.out.println(herokuDbUrl);
 
             System.setProperty("DATABASE_URL", herokuDbUrl);
@@ -46,7 +47,7 @@ class HerokuRestControllerTest extends AbstractControllerTest {
     @Test
     void delete() throws Exception {
         perform(MockMvcRequestBuilders.delete(REST_URL + USER_ID_3)
-                .with(userHttpBasic(user1)))
+                .with(userHttpBasic(admin1)))
                 .andDo(print())
                 .andExpect(errorType(ErrorType.VALIDATION_ERROR))
                 .andExpect(detailMessage(EXCEPTION_UPDATE_RESTRICTION))
@@ -58,7 +59,7 @@ class HerokuRestControllerTest extends AbstractControllerTest {
         UserTo updated = convertToDto(getUpdated());
         perform(MockMvcRequestBuilders.put(REST_URL + USER_ID_3)
                 .contentType(MediaType.APPLICATION_JSON)
-                .with(userHttpBasic(user1))
+                .with(userHttpBasic(admin1))
                 .content(jsonWithPassword(updated, updated.getPassword())))
                 .andExpect(errorType(ErrorType.VALIDATION_ERROR))
                 .andExpect(detailMessage(EXCEPTION_UPDATE_RESTRICTION))

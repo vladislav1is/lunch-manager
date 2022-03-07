@@ -10,19 +10,26 @@ import java.util.List;
 
 public class Votes {
 
+    public static int EMPTY = 0;
+    public static LocalTime deadline = LocalTime.of(11, 0);
+
     public Votes() {
     }
 
-    public static boolean canRevoteBefore(int hour, int minute) {
-        return LocalTime.now().isBefore(LocalTime.of(hour, minute));
+    public static void setDeadline(LocalTime deadline) {
+        Votes.deadline = deadline;
+    }
+
+    public static boolean canVoteAfter(LocalTime voteTime) {
+        return LocalTime.now().isAfter(voteTime);
     }
 
     public static VoteTo convertToDto(Vote vote) {
-        return new VoteTo(vote.getId(), vote.getRegistered());
+        return new VoteTo(vote.getId(), vote.getVoteDate());
     }
 
     public static Vote convertToEntity(VoteTo voteTo) {
-        return new Vote(voteTo.getId(), null, null, voteTo.getRegistered());
+        return new Vote(voteTo.getId(), null, null, voteTo.getVoteDate());
     }
 
     public static List<VoteTo> getTos(Collection<Vote> votes) {

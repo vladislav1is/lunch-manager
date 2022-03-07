@@ -17,28 +17,27 @@ import static java.time.LocalDateTime.of;
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class UserTestData {
-    public static final MatcherFactory.Matcher<User> MATCHER = MatcherFactory.usingIgnoringFieldsComparator(User.class, "registered", "password");
-    public static MatcherFactory.Matcher<UserTo> TO_MATCHER =
-            MatcherFactory.usingAssertions(UserTo.class,
-                    //  No need use ignoringAllOverriddenEquals, see https://assertj.github.io/doc/#breaking-changes
-                    (a, e) -> assertThat(a).usingRecursiveComparison()
-                            .ignoringFields("password", "roles").isEqualTo(e),
-                    (a, e) -> assertThat(a).usingRecursiveComparison()
-                            .ignoringFields("password", "roles").isEqualTo(e));
+    public static final MatcherFactory.Matcher<User> USER_MATCHER = MatcherFactory.usingIgnoringFieldsComparator(User.class, "registered", "password");
+    public static MatcherFactory.Matcher<UserTo> USER_TO_MATCHER = MatcherFactory.usingAssertions(UserTo.class,
+            //  No need use ignoringAllOverriddenEquals, see https://assertj.github.io/doc/#breaking-changes
+            (a, e) -> assertThat(a).usingRecursiveComparison()
+                    .ignoringFields("password", "roles").isEqualTo(e),
+            (a, e) -> assertThat(a).usingRecursiveComparison()
+                    .ignoringFields("password", "roles").isEqualTo(e));
 
-    public static final int USER_ID_1 = START_SEQ + 1;
-    public static final int USER_ID_2 = START_SEQ + 2;
+    public static final int ADMIN_ID_1 = START_SEQ + 1;
+    public static final int ADMIN_ID_2 = START_SEQ + 2;
     public static final int USER_ID_3 = START_SEQ + 3;
     public static final int NOT_FOUND = START_SEQ;
 
-    public static final User user1 = new User(USER_ID_1, "Alex", "user1@yandex.ru", "123456",
+    public static final User admin1 = new User(ADMIN_ID_1, "Alex", "user1@yandex.ru", "123456",
             of(2021, Month.NOVEMBER, 2, 21, 45), USER, ADMIN);
-    public static final User user2 = new User(USER_ID_2, "Bob", "admin@gmail.com", "admin",
+    public static final User admin2 = new User(ADMIN_ID_2, "Bob", "admin@gmail.com", "admin",
             of(2021, Month.NOVEMBER, 2, 21, 45), USER, ADMIN);
     public static final User user3 = new User(USER_ID_3, "Elvis", "user@yandex.ru", "password",
             of(2021, Month.NOVEMBER, 2, 21, 45), USER);
 
-    public static final List<User> users = List.of(user1, user2, user3);
+    public static final List<User> users = List.of(admin1, admin2, user3);
 
     public static User getNew() {
         return new User(null, "CreatedUser", "user4@mail.ru", "123456",

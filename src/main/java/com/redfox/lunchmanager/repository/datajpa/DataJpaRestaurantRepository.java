@@ -20,9 +20,9 @@ public class DataJpaRestaurantRepository implements RestaurantRepository {
         this.crudRepository = crudRepository;
     }
 
-    @Override
     @Transactional
     @Modifying
+    @Override
     public Restaurant save(Restaurant restaurant) {
         if (!restaurant.isNew() && get(restaurant.id()) == null) {
             return null;
@@ -46,7 +46,7 @@ public class DataJpaRestaurantRepository implements RestaurantRepository {
     }
 
     @Override
-    public Restaurant getWithDishesByDate(int id, LocalDate localDate) {
+    public Restaurant getWithDishesBy(int id, LocalDate localDate) {
         return crudRepository.getWithDishesByDate(id, localDate);
     }
 }

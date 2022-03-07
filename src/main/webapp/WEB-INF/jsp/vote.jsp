@@ -21,6 +21,8 @@
     <link rel="shortcut icon" href="resources/images/icon-fox.png">
 </head>
 <body>
+<script type="text/javascript" src="resources/js/lunchmanager.common.js" defer></script>
+<script type="text/javascript" src="resources/js/lunchmanager.restaurant-vote.js" defer></script>
 <jsp:include page="fragments/bodyHeader.jsp"/>
 <div class="jumbotron pt-4">
     <div class="container">
@@ -28,7 +30,6 @@
 
         <c:set var="allowed" value="${enabled ? '' : 'disabled'}" scope="page"/>
         <table class="table table-striped" id="datatable">
-
             <thead>
             <tr>
                 <th><spring:message code="restaurant.name"/></th>
@@ -44,13 +45,14 @@
                             class="btn btn-sm btn-secondary">
                         <spring:message code="common.view"/></button>
                 </td>
-                <td>${fns:length(votes)}</td>
+                <td>${restaurant.votes}</td>
+                <td></td>
             </tr>
             </tbody>
         </table>
         <sec:authorize access="isAuthenticated()">
-            <form:form class="form-inline my-2" action="restaurants/${restaurant.id}/votes" method="post">
-                <input type="hidden" name="voteId" value="${voteTo != null ? voteTo.id : ''}"/>
+            <form:form class="form-inline my-2" action="restaurants/${restaurant.id}/vote" method="post">
+                <input type="hidden" name="voteId" value="${restaurant.voteTo != null ? restaurant.voteTo.id : ''}"/>
 
                 <button class="btn btn-primary mr-1" type="submit" ${allowed}>
                     <span class="fa fa-plus"></span>

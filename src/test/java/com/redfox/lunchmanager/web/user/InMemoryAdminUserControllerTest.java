@@ -23,13 +23,12 @@ class InMemoryAdminUserControllerTest {
 
     private static final Logger log = LoggerFactory.getLogger(InMemoryAdminUserControllerTest.class);
 
-    private static ConfigurableApplicationContext appCtx;
     private static AdminUserController controller;
     private static InMemoryUserRepository repository;
 
     @BeforeAll
     static void beforeClass() {
-        appCtx = new ClassPathXmlApplicationContext("spring/inmemory.xml");
+        ConfigurableApplicationContext appCtx = new ClassPathXmlApplicationContext("spring/inmemory.xml");
         log.info("\n{}\n", Arrays.toString(appCtx.getBeanDefinitionNames()));
         controller = appCtx.getBean(AdminUserController.class);
         repository = appCtx.getBean(InMemoryUserRepository.class);
@@ -62,8 +61,8 @@ class InMemoryAdminUserControllerTest {
 
     @Test
     public void delete() {
-        controller.delete(USER_ID_1);
-        Assertions.assertNull(repository.get(USER_ID_1));
+        controller.delete(ADMIN_ID_1);
+        Assertions.assertNull(repository.get(ADMIN_ID_1));
     }
 
     @Test
@@ -73,7 +72,7 @@ class InMemoryAdminUserControllerTest {
 
     @Test
     public void get() {
-        assertEquals(convertToDto(user1), controller.get(USER_ID_1));
+        assertEquals(convertToDto(admin1), controller.get(ADMIN_ID_1));
     }
 
     @Test
@@ -83,12 +82,12 @@ class InMemoryAdminUserControllerTest {
 
     @Test
     public void getByMail() {
-        assertEquals(convertToDto(user3), controller.getByMail(user3.getEmail()));
+        assertEquals(convertToDto(user3), controller.getBy(user3.getEmail()));
     }
 
     @Test
     public void getByMailNotFound() {
-        assertThrows(NotFoundException.class, () -> controller.getByMail("mail"));
+        assertThrows(NotFoundException.class, () -> controller.getBy("mail"));
     }
 
     @Test

@@ -4,6 +4,7 @@ import com.redfox.lunchmanager.model.Dish;
 import com.redfox.lunchmanager.repository.DishRepository;
 import com.redfox.lunchmanager.util.validation.ValidationUtil;
 import org.springframework.dao.support.DataAccessUtils;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
@@ -35,8 +36,9 @@ public class JdbcDishRepository implements DishRepository {
                 .withTableName("dishes");
     }
 
-    @Override
     @Transactional
+    @Modifying
+    @Override
     public Dish save(Dish dish, int restaurantId) {
         ValidationUtil.validate(dish);
 
@@ -57,8 +59,9 @@ public class JdbcDishRepository implements DishRepository {
         return dish;
     }
 
-    @Override
     @Transactional
+    @Modifying
+    @Override
     public boolean delete(int id, int restaurantId) {
         return jdbcTemplate.update("DELETE FROM dishes WHERE id=? AND restaurant_id=?", id, restaurantId) != 0;
     }
@@ -77,7 +80,7 @@ public class JdbcDishRepository implements DishRepository {
     }
 
     @Override
-    public List<Dish> getBetweenHalfOpen(LocalDate startDate, LocalDate endDate, int restaurantId) {
+    public List<Dish> getBetweenBy(LocalDate startDate, LocalDate endDate, int restaurantId) {
         return jdbcTemplate.query("""
                 SELECT * FROM dishes WHERE restaurant_id=? AND registered >= ? AND registered < ? 
                 ORDER BY registered DESC""", ROW_MAPPER, restaurantId, startDate, endDate);

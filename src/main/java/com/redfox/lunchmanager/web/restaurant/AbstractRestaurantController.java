@@ -8,6 +8,7 @@ import com.redfox.lunchmanager.to.RestaurantTo;
 import com.redfox.lunchmanager.web.SecurityUtil;
 import org.slf4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 
@@ -57,9 +58,10 @@ public abstract class AbstractRestaurantController {
         return convertToDto(restaurant);
     }
 
+    @Transactional
     public List<RestaurantTo> getAll() {
         log.info("getAll");
-        Vote vote = voteService.getByDate(LocalDate.now(), SecurityUtil.authUserId());
+        Vote vote = voteService.getBy(LocalDate.now(), SecurityUtil.authUserId());
         if (vote != null) {
             return getTos(restaurantService.getAll(), vote);
         } else {
@@ -74,9 +76,22 @@ public abstract class AbstractRestaurantController {
         restaurantService.update(restaurant);
     }
 
-    public RestaurantTo getWithDishesByDate(LocalDate localDate, int id) {
+    public RestaurantTo getWithDishesBy(LocalDate localDate, int id) {
         log.info("getWithDishesByDate {} for restaurant {}", localDate, id);
-        Restaurant restaurant = restaurantService.getWithDishesByDate(id, localDate);
+        Restaurant restaurant = restaurantService.getWithDishesBy(id, localDate);
         return convertToDto(restaurant, restaurant.getDishes());
+    }
+
+    @Transactional
+    public RestaurantTo getWithUserVote(int id) {
+        log.info("getWithUserVote {}", id);
+        Restaurant restaurant = restaurantService.get(id);
+        int votesCount = voteService.countBy(LocalDate.now(), id);
+        Vote vote = voteService.getBy(LocalDate.now(), SecurityUtil.authUserId());
+        if (vote != null) {
+            return convertToDto(restaurant, vote, votesCount);
+        } else {
+            return convertToDto(restaurant, votesCount);
+        }
     }
 }

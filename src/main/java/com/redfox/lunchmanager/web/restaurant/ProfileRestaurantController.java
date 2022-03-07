@@ -30,6 +30,6 @@ public class ProfileRestaurantController extends AbstractRestaurantController {
 
     @GetMapping("/{id}/with-dishes")
     public RestaurantTo getWithDishesForToday(@PathVariable int id) {
-        return super.getWithDishesByDate(LocalDate.now(), id);
+        return super.getWithDishesBy(LocalDate.now(), id);
     }
 }

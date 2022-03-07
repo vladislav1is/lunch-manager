@@ -51,45 +51,45 @@ class AdminUserControllerTest extends AbstractControllerTest {
 
     @Test
     void get() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL + USER_ID_1)
-                .with(userHttpBasic(user1)))
+        perform(MockMvcRequestBuilders.get(REST_URL + ADMIN_ID_1)
+                .with(userHttpBasic(admin1)))
                 .andExpect(status().isOk())
                 .andDo(print())
                 //  https://jira.spring.io/browse/SPR-14472
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(TO_MATCHER.contentJson(convertToDto(user1)));
+                .andExpect(USER_TO_MATCHER.contentJson(convertToDto(admin1)));
     }
 
     @Test
     void getNotFound() throws Exception {
         perform(MockMvcRequestBuilders.get(REST_URL + NOT_FOUND)
-                .with(userHttpBasic(user1)))
+                .with(userHttpBasic(admin1)))
                 .andDo(print())
                 .andExpect(status().isUnprocessableEntity());
     }
 
     @Test
     void getByEmail() throws Exception {
-        perform(MockMvcRequestBuilders.get(REST_URL + "by?email=" + user1.getEmail())
-                .with(userHttpBasic(user1)))
+        perform(MockMvcRequestBuilders.get(REST_URL + "by?email=" + admin1.getEmail())
+                .with(userHttpBasic(admin1)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(TO_MATCHER.contentJson(convertToDto(user1)));
+                .andExpect(USER_TO_MATCHER.contentJson(convertToDto(admin1)));
     }
 
     @Test
     void delete() throws Exception {
-        perform(MockMvcRequestBuilders.delete(REST_URL + USER_ID_1)
-                .with(userHttpBasic(user2)))
+        perform(MockMvcRequestBuilders.delete(REST_URL + ADMIN_ID_1)
+                .with(userHttpBasic(admin2)))
                 .andDo(print())
                 .andExpect(status().isNoContent());
-        assertThrows(NotFoundException.class, () -> userService.get(USER_ID_1));
+        assertThrows(NotFoundException.class, () -> userService.get(ADMIN_ID_1));
     }
 
     @Test
     void deleteNotFound() throws Exception {
         perform(MockMvcRequestBuilders.delete(REST_URL + NOT_FOUND)
-                .with(userHttpBasic(user1)))
+                .with(userHttpBasic(admin1)))
                 .andDo(print())
                 .andExpect(status().isUnprocessableEntity());
     }
@@ -98,50 +98,50 @@ class AdminUserControllerTest extends AbstractControllerTest {
     void update() throws Exception {
         UserTo updated = convertToDto(getUpdated());
         perform(MockMvcRequestBuilders.put(REST_URL + USER_ID_3)
-                .with(userHttpBasic(user1))
+                .with(userHttpBasic(admin1))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonWithPassword(updated, updated.getPassword())))
                 .andExpect(status().isNoContent());
 
-        TO_MATCHER.assertMatch(convertToDto(userService.get(USER_ID_3)), updated);
+        USER_TO_MATCHER.assertMatch(convertToDto(userService.get(USER_ID_3)), updated);
     }
 
     @Test
     void createWithLocation() throws Exception {
         UserTo newUser = convertToDto(getNew());
         ResultActions action = perform(MockMvcRequestBuilders.post(REST_URL)
-                .with(userHttpBasic(user1))
+                .with(userHttpBasic(admin1))
                 .contentType(MediaType.APPLICATION_JSON)
                 .content(jsonWithPassword(newUser, newUser.getPassword())))
                 .andExpect(status().isCreated());
 
-        UserTo created = TO_MATCHER.readFromJson(action);
+        UserTo created = USER_TO_MATCHER.readFromJson(action);
         int newId = created.getId();
         newUser.setId(newId);
-        TO_MATCHER.assertMatch(created, newUser);
-        TO_MATCHER.assertMatch(convertToDto(userService.get(newId)), newUser);
+        USER_TO_MATCHER.assertMatch(created, newUser);
+        USER_TO_MATCHER.assertMatch(convertToDto(userService.get(newId)), newUser);
     }
 
     @Test
     void getAll() throws Exception {
         perform(MockMvcRequestBuilders.get(REST_URL)
-                .with(userHttpBasic(user1)))
+                .with(userHttpBasic(admin1)))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(TO_MATCHER.contentJson(getTos(user1, user2, user3)));
+                .andExpect(USER_TO_MATCHER.contentJson(getTos(admin1, admin2, user3)));
     }
 
     @Test
     void enable() throws Exception {
-        perform(MockMvcRequestBuilders.patch(REST_URL + USER_ID_1)
-                .with(userHttpBasic(user1))
+        perform(MockMvcRequestBuilders.patch(REST_URL + ADMIN_ID_1)
+                .with(userHttpBasic(admin1))
                 .param("enabled", "false")
                 .contentType(MediaType.APPLICATION_JSON))
                 .andDo(print())
                 .andExpect(status().isNoContent());
 
-        assertFalse(userService.get(USER_ID_1).isEnabled());
+        assertFalse(userService.get(ADMIN_ID_1).isEnabled());
     }
 
     @Test
@@ -149,7 +149,7 @@ class AdminUserControllerTest extends AbstractControllerTest {
         UserTo invalid = new UserTo(null, null, "", "newPass", Boolean.TRUE, LocalDateTime.now().truncatedTo(ChronoUnit.HOURS), EnumSet.of(Role.USER, Role.ADMIN));
         perform(MockMvcRequestBuilders.post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
-                .with(userHttpBasic(user1))
+                .with(userHttpBasic(admin1))
                 .content(jsonWithPassword(invalid, "newPass")))
                 .andDo(print())
                 .andExpect(status().isUnprocessableEntity())
@@ -162,7 +162,7 @@ class AdminUserControllerTest extends AbstractControllerTest {
         invalid.setName("");
         perform(MockMvcRequestBuilders.put(REST_URL + USER_ID_3)
                 .contentType(MediaType.APPLICATION_JSON)
-                .with(userHttpBasic(user1))
+                .with(userHttpBasic(admin1))
                 .content(jsonWithPassword(invalid, "password")))
                 .andDo(print())
                 .andExpect(status().isUnprocessableEntity())
@@ -175,7 +175,7 @@ class AdminUserControllerTest extends AbstractControllerTest {
         updated.setName("<script>alert(123)</script>");
         perform(MockMvcRequestBuilders.put(REST_URL + USER_ID_3)
                 .contentType(MediaType.APPLICATION_JSON)
-                .with(userHttpBasic(user1))
+                .with(userHttpBasic(admin1))
                 .content(jsonWithPassword(updated, "password1")))
                 .andDo(print())
                 .andExpect(status().isUnprocessableEntity())
@@ -189,7 +189,7 @@ class AdminUserControllerTest extends AbstractControllerTest {
         updated.setEmail("admin@gmail.com");
         perform(MockMvcRequestBuilders.put(REST_URL + USER_ID_3)
                 .contentType(MediaType.APPLICATION_JSON)
-                .with(userHttpBasic(user1))
+                .with(userHttpBasic(admin1))
                 .content(jsonWithPassword(updated, "password")))
                 .andDo(print())
                 .andExpect(status().isUnprocessableEntity())
@@ -204,7 +204,7 @@ class AdminUserControllerTest extends AbstractControllerTest {
         expected.setEmail("admin@gmail.com");
         perform(MockMvcRequestBuilders.post(REST_URL)
                 .contentType(MediaType.APPLICATION_JSON)
-                .with(userHttpBasic(user1))
+                .with(userHttpBasic(admin1))
                 .content(jsonWithPassword(expected, "newPass")))
                 .andDo(print())
                 .andExpect(status().isUnprocessableEntity())

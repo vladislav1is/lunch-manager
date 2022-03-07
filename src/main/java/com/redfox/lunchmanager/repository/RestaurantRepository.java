@@ -18,7 +18,7 @@ public interface RestaurantRepository {
     // ORDERED name
     List<Restaurant> getAll();
 
-    default Restaurant getWithDishesByDate(int id, LocalDate localDate) {
+    default Restaurant getWithDishesBy(int id, LocalDate localDate) {
         throw new UnsupportedOperationException();
     }
 }

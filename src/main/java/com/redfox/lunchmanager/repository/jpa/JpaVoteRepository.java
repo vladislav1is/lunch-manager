@@ -6,6 +6,7 @@ import com.redfox.lunchmanager.model.Vote;
 import com.redfox.lunchmanager.repository.VoteRepository;
 import com.redfox.lunchmanager.web.SecurityUtil;
 import org.springframework.dao.support.DataAccessUtils;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -21,8 +22,9 @@ public class JpaVoteRepository implements VoteRepository {
     @PersistenceContext
     private EntityManager em;
 
-    @Override
     @Transactional
+    @Modifying
+    @Override
     public Vote save(Vote vote, int restaurantId) {
         vote.setUser(em.getReference(User.class, SecurityUtil.authUserId()));
         vote.setRestaurant(em.getReference(Restaurant.class, restaurantId));
@@ -35,8 +37,9 @@ public class JpaVoteRepository implements VoteRepository {
         return em.merge(vote);
     }
 
-    @Override
     @Transactional
+    @Modifying
+    @Override
     public boolean delete(int id, int restaurantId) {
         return em.createNamedQuery(Vote.DELETE)
                 .setParameter("id", id)
@@ -44,15 +47,18 @@ public class JpaVoteRepository implements VoteRepository {
                 .executeUpdate() != 0;
     }
 
+    @Transactional
+    @Modifying
     @Override
-    public Vote get(int id, int restaurantId) {
-        var vote = em.find(Vote.class, id);
-        return vote != null && vote.getRestaurant().id() == restaurantId ? vote : null;
+    public boolean deleteAllBy(int restaurantId) {
+        return em.createNamedQuery(Vote.DELETE_ALL_BY_RESTAURANT_ID)
+                .setParameter("restaurantId", restaurantId)
+                .executeUpdate() != 0;
     }
 
     @Override
-    public Vote getByDate(LocalDate voteDate, int userId) {
-        var votes = em.createNamedQuery(Vote.BY_DATE, Vote.class)
+    public Vote getBy(LocalDate voteDate, int userId) {
+        var votes = em.createNamedQuery(Vote.BY_DATE_AND_USER_ID, Vote.class)
                 .setParameter("voteDate", voteDate)
                 .setParameter("userId", userId)
                 .getResultList();
@@ -60,18 +66,21 @@ public class JpaVoteRepository implements VoteRepository {
     }
 
     @Override
-    public List<Vote> getAll(int restaurantId) {
-        return em.createNamedQuery(Vote.ALL_SORTED, Vote.class)
-                .setParameter("restaurantId", restaurantId)
+    public List<Vote> getAll(int userId) {
+        return em.createNamedQuery(Vote.ALL_SORTED_BY_USER_ID, Vote.class)
+                .setParameter("userId", userId)
                 .getResultList();
     }
 
     @Override
-    public List<Vote> getBetweenHalfOpen(LocalDate startDate, LocalDate endDate, int restaurantId) {
-        return em.createNamedQuery(Vote.GET_BETWEEN, Vote.class)
+    public int countBy(LocalDate voteDate, int restaurantId) {
+        Object result = em.createNativeQuery("SELECT COUNT(*) FROM votes v WHERE vote_date=:voteDate AND v.restaurant_id=:restaurantId")
+                .setParameter("voteDate", voteDate)
                 .setParameter("restaurantId", restaurantId)
-                .setParameter("startDate", startDate)
-                .setParameter("endDate", endDate)
-                .getResultList();
+                .getSingleResult();
+        if (result != null) {
+            return Integer.parseInt(result.toString());
+        }
+        return 0;
     }
 }

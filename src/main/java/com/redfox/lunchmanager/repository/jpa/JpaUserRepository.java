@@ -4,6 +4,7 @@ import com.redfox.lunchmanager.model.User;
 import com.redfox.lunchmanager.repository.UserRepository;
 import org.hibernate.jpa.QueryHints;
 import org.springframework.dao.support.DataAccessUtils;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -27,8 +28,9 @@ public class JpaUserRepository implements UserRepository {
     @PersistenceContext
     private EntityManager em;
 
-    @Override
     @Transactional
+    @Modifying
+    @Override
     public User save(User user) {
         if (user.isNew()) {
             em.persist(user);
@@ -39,8 +41,9 @@ public class JpaUserRepository implements UserRepository {
         return em.merge(user);
     }
 
-    @Override
     @Transactional
+    @Modifying
+    @Override
     public boolean delete(int id) {
 /*
         User ref = em.getReference(User.class, id);
@@ -61,7 +64,7 @@ public class JpaUserRepository implements UserRepository {
     }
 
     @Override
-    public User getByEmail(String email) {
+    public User getBy(String email) {
         var users = em.createNamedQuery(User.BY_EMAIL, User.class)
                 .setParameter(1, email)
                 //    https://stackoverflow.com/questions/55921415/hint-hint-pass-distinct-through-reduces-the-amount-of-entities-returned-per-page#answer-63537865

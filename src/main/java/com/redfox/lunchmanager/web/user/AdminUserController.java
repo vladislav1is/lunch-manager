@@ -33,8 +33,8 @@ public class AdminUserController extends AbstractUserController {
 
     @Override
     @GetMapping("/by")
-    public UserTo getByMail(@RequestParam String email) {
-        return super.getByMail(email);
+    public UserTo getBy(@RequestParam String email) {
+        return super.getBy(email);
     }
 
     @Override

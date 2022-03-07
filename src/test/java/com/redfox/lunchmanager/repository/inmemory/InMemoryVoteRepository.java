@@ -7,56 +7,49 @@ import org.springframework.stereotype.Repository;
 import java.time.LocalDate;
 import java.util.*;
 import java.util.concurrent.ConcurrentHashMap;
-import java.util.function.Predicate;
-import java.util.stream.Collectors;
 
 import static com.redfox.lunchmanager.web.restaurant.RestaurantTestData.*;
 import static com.redfox.lunchmanager.web.user.UserTestData.*;
-import static com.redfox.lunchmanager.util.DateTimeUtil.isBetweenHalfOpen;
 import static java.time.LocalDate.now;
 
 @Repository
 public class InMemoryVoteRepository implements VoteRepository {
 
     // Map restaurantId -> votes
-    private final Map<Integer, InMemoryBaseRepository<Vote>> usersVotes = new ConcurrentHashMap<>();
+    private final Map<Integer, InMemoryBaseRepository<Vote>> restaurantVotes = new ConcurrentHashMap<>();
 
     {
-        save(new Vote(user1, restaurant1, now()), restaurant1.getId());
-        save(new Vote(user2, restaurant4, now()), restaurant4.getId());
-        save(new Vote(user3, restaurant3, now()), restaurant3.getId());
+        save(new Vote(admin1, yakitoriya, now()), yakitoriya.getId());
+        save(new Vote(admin2, teremok, now()), teremok.getId());
+        save(new Vote(user3, mcdonalds, now()), mcdonalds.getId());
     }
 
     @Override
     public Vote save(Vote vote, int restaurantId) {
         Objects.requireNonNull(vote, "vote must not be null");
-        var votes = usersVotes.computeIfAbsent(restaurantId, rid -> new InMemoryBaseRepository<>());
+        var votes = restaurantVotes.computeIfAbsent(restaurantId, rid -> new InMemoryBaseRepository<>());
         return votes.save(vote);
     }
 
     @Override
     public boolean delete(int id, int restaurantId) {
-        var votes = usersVotes.get(restaurantId);
+        var votes = restaurantVotes.get(restaurantId);
         return votes != null && votes.delete(id);
     }
 
     @Override
-    public Vote get(int id, int restaurantId) {
-        var votes = usersVotes.get(restaurantId);
-        return votes == null ? null : votes.get(id);
+    public boolean deleteAllBy(int restaurantId) {
+        return restaurantVotes.remove(restaurantId) != null;
     }
 
-    @Override
-    public Vote getByDate(LocalDate voteDate, int userId) {
-        Objects.requireNonNull(voteDate, "voteDate must not be null");
-        var repositories = usersVotes.values();
+    public Vote getBy(LocalDate voteDate, int userId) {
         Vote vote = null;
-        for (InMemoryBaseRepository<Vote> repository : repositories) {
+        for (InMemoryBaseRepository<Vote> repository : restaurantVotes.values()) {
             vote = repository.getCollection().stream()
-                    .filter(v -> v.getRegistered().equals(voteDate) && v.getUser().id() == userId)
+                    .filter(v -> v.getVoteDate().equals(voteDate) && v.getUser().id() == userId)
                     .findFirst()
                     .orElse(null);
-            if (vote != null) {
+            if (Objects.nonNull(vote)) {
                 break;
             }
         }
@@ -64,21 +57,23 @@ public class InMemoryVoteRepository implements VoteRepository {
     }
 
     @Override
-    public List<Vote> getAll(int restaurantId) {
-        return filterByPredicate(restaurantId, item -> true);
+    public List<Vote> getAll(int userId) {
+        return filterByPredicate(userId);
     }
 
-    private List<Vote> filterByPredicate(int restaurantId, Predicate<Vote> filter) {
-        var votes = usersVotes.get(restaurantId);
-        return votes == null ? Collections.emptyList() :
-                votes.getCollection().stream()
-                        .filter(filter)
-                        .sorted(Comparator.comparing(Vote::getRegistered).reversed())
-                        .collect(Collectors.toList());
+    private List<Vote> filterByPredicate(int userId) {
+        List<Vote> votes = new ArrayList<>();
+        for (InMemoryBaseRepository<Vote> repository : restaurantVotes.values()) {
+            votes.addAll(repository.getCollection().stream()
+                    .filter(v -> v.getUser().id() == userId)
+                    .toList());
+        }
+        return votes;
     }
 
     @Override
-    public List<Vote> getBetweenHalfOpen(LocalDate startDate, LocalDate endDate, int restaurantId) {
-        return filterByPredicate(restaurantId, item -> isBetweenHalfOpen(item.getRegistered(), startDate, endDate));
+    public int countBy(LocalDate voteDate, int restaurantId) {
+        var votes = restaurantVotes.computeIfAbsent(restaurantId, rid -> new InMemoryBaseRepository<>());
+        return votes.getCollection().size();
     }
 }

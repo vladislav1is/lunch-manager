@@ -57,8 +57,8 @@ public abstract class AbstractDishController {
     }
 
     public List<DishTo> getBetween(@Nullable LocalDate startDate, @Nullable LocalDate endDate, int restaurantId) {
-        log.info("getBetween dates({} - {}) for restaurant {}", startDate, endDate, restaurantId);
-        return getTos(service.getBetweenHalfOpen(startDate, endDate, restaurantId));
+        log.info("getBetween ({} - {}) for restaurant {}", startDate, endDate, restaurantId);
+        return getTos(service.getBetweenBy(startDate, endDate, restaurantId));
     }
 
     public void update(DishTo dishTo, int id, int restaurantId) {

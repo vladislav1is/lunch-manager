@@ -15,7 +15,7 @@ public interface UserRepository {
     User get(int id);
 
     // null if not found
-    User getByEmail(String email);
+    User getBy(String email);
 
     // ORDERED name email
     List<User> getAll();

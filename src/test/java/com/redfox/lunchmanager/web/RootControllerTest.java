@@ -1,19 +1,12 @@
 package com.redfox.lunchmanager.web;
 
-import com.redfox.lunchmanager.web.restaurant.RestaurantTestData;
-import com.redfox.lunchmanager.to.RestaurantTo;
 import com.redfox.lunchmanager.util.Restaurants;
-import org.assertj.core.matcher.AssertionMatcher;
 import org.junit.jupiter.api.Test;
 
-import java.util.List;
-
-import static com.redfox.lunchmanager.web.restaurant.RestaurantTestData.restaurant1;
-import static com.redfox.lunchmanager.web.restaurant.RestaurantTestData.restaurants;
 import static com.redfox.lunchmanager.TestUtil.userAuth;
-import static com.redfox.lunchmanager.web.user.UserTestData.user1;
+import static com.redfox.lunchmanager.web.restaurant.RestaurantTestData.yakitoriya;
+import static com.redfox.lunchmanager.web.user.UserTestData.admin1;
 import static com.redfox.lunchmanager.web.user.UserTestData.user3;
-import static com.redfox.lunchmanager.web.vote.VoteTestData.vote4;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
 import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.print;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
@@ -27,21 +20,13 @@ class RootControllerTest extends AbstractControllerTest {
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(view().name("restaurants"))
-                .andExpect(forwardedUrl("/WEB-INF/jsp/restaurants.jsp"))
-                .andExpect(model().attribute("restaurants",
-                        new AssertionMatcher<List<RestaurantTo>>() {
-                            @Override
-                            public void assertion(List<RestaurantTo> actual) throws AssertionError {
-                                RestaurantTestData.TO_MATCHER.assertMatch(actual, Restaurants.getTos(restaurants, vote4));
-                            }
-                        }
-                ));
+                .andExpect(forwardedUrl("/WEB-INF/jsp/restaurants.jsp"));
     }
 
     @Test
     void editRestaurants() throws Exception {
         perform(get("/restaurants/editor")
-                .with(userAuth(user1)))
+                .with(userAuth(admin1)))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(view().name("restaurants-editor"))
@@ -51,7 +36,7 @@ class RootControllerTest extends AbstractControllerTest {
     @Test
     void getUsers() throws Exception {
         perform(get("/users")
-                .with(userAuth(user1)))
+                .with(userAuth(admin1)))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(view().name("users"))
@@ -67,24 +52,24 @@ class RootControllerTest extends AbstractControllerTest {
     }
 
     @Test
-    void getDishesForToday() throws Exception {
+    void getDishesToday() throws Exception {
         perform(get("/restaurants/100004/dishes")
                 .with(userAuth(user3)))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(view().name("dishes"))
                 .andExpect(forwardedUrl("/WEB-INF/jsp/dishes.jsp"))
-                .andExpect(model().attribute("restaurant", Restaurants.convertToDto(restaurant1)));
+                .andExpect(model().attribute("restaurant", Restaurants.convertToDto(yakitoriya)));
     }
 
     @Test
     void editDishes() throws Exception {
         perform(get("/restaurants/100004/dishes/editor")
-                .with(userAuth(user1)))
+                .with(userAuth(admin1)))
                 .andDo(print())
                 .andExpect(status().isOk())
                 .andExpect(view().name("dishes-editor"))
                 .andExpect(forwardedUrl("/WEB-INF/jsp/dishes-editor.jsp"))
-                .andExpect(model().attribute("restaurant", Restaurants.convertToDto(restaurant1)));
+                .andExpect(model().attribute("restaurant", Restaurants.convertToDto(yakitoriya)));
     }
 }

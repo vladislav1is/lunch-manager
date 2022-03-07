@@ -6,12 +6,12 @@ import com.redfox.lunchmanager.web.user.AdminUserController;
 import com.redfox.lunchmanager.web.vote.ProfileVoteController;
 import org.springframework.context.support.GenericXmlApplicationContext;
 
+import java.time.LocalDate;
 import java.util.Arrays;
 
-import static com.redfox.lunchmanager.web.restaurant.RestaurantTestData.restaurant1;
 import static com.redfox.lunchmanager.TestUtil.mockAuthorize;
-import static com.redfox.lunchmanager.web.user.UserTestData.user1;
-import static java.time.LocalDate.now;
+import static com.redfox.lunchmanager.web.restaurant.RestaurantTestData.yakitoriya;
+import static com.redfox.lunchmanager.web.user.UserTestData.admin1;
 
 /**
  * @see <a href="http://lunch-manager.herokuapp.com">Demo application</a>
@@ -33,12 +33,12 @@ public class SpringMain {
             var dishController = appCtx.getBean(AdminDishController.class);
             var voteController = appCtx.getBean(ProfileVoteController.class);
 
-            mockAuthorize(user1);
+            mockAuthorize(admin1);
 
             adminController.getAll().forEach(System.out::println);
             restaurantController.getAll().forEach(System.out::println);
-            dishController.getAll(restaurant1.id()).forEach(System.out::println);
-            System.out.println(voteController.getByDate(now()));
+            dishController.getAll(yakitoriya.id()).forEach(System.out::println);
+            System.out.println(voteController.getBy(LocalDate.now()));
         }
     }
 }

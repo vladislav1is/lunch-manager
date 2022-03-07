@@ -51,9 +51,9 @@ CREATE TABLE votes
     id            INTEGER PRIMARY KEY DEFAULT nextval('global_seq'),
     user_id       INTEGER                           NOT NULL,
     restaurant_id INTEGER                           NOT NULL,
-    registered    DATE                DEFAULT now() NOT NULL,
+    vote_date    DATE                DEFAULT now() NOT NULL,
     FOREIGN KEY (user_id) REFERENCES users (id) ON DELETE CASCADE,
     FOREIGN KEY (restaurant_id) REFERENCES restaurants (id) ON DELETE CASCADE
 );
 
-CREATE UNIQUE INDEX votes_idx ON votes (user_id, registered);
+CREATE UNIQUE INDEX votes_idx ON votes (user_id, vote_date);

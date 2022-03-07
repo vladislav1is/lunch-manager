@@ -141,54 +141,40 @@ Authorization: Basic user@yandex.ru password
 ############ Vote resources
 ########################################################################################################################
 
-### create Vote
-# curl -X POST --location "http://localhost:8080/lunch-manager/rest/restaurants/100004/votes"
+### vote today
+# curl -X POST --location "http://localhost:8080/lunch-manager/rest/votes?restaurantId=100004"
 #    -H "Content-Type: application/json"
-#    -d "{
-#          \"registered\": \"2021-11-06\"
-#        }"
 #    --user user@yandex.ru:password
-POST http://localhost:8080/lunch-manager/rest/restaurants/100004/votes
+POST http://localhost:8080/lunch-manager/rest/votes?restaurantId=100004
 Authorization: Basic user@yandex.ru password
 Content-Type: application/json
 
-{
-  "registered": "2021-11-06"
-}
-
-### delete Vote
-# curl -X DELETE --location "http://localhost:8080/lunch-manager/rest/restaurants/100004/votes/100020 --user user@yandex.ru:password"
-DELETE http://localhost:8080/lunch-manager/rest/restaurants/100004/votes/100020
-Authorization: Basic user@yandex.ru password
-
-### update Vote
-# curl -X PUT --location "http://localhost:8080/lunch-manager/rest/restaurants/100004/votes/100016"
+### re-vote today
+# curl -X PUT --location "http://localhost:8080/lunch-manager/rest/votes?restaurantId=100004"
 #    -H "Content-Type: application/json"
-#    -d "{
-#          \"registered\": \"2021-10-06\"
-#        }"
 #    --user user@yandex.ru:password
-PUT http://localhost:8080/lunch-manager/rest/restaurants/100004/votes/100016
+PUT http://localhost:8080/lunch-manager/rest/votes?restaurantId=100006
 Authorization: Basic user@yandex.ru password
 Content-Type: application/json
 
-{
-  "registered": "2021-10-06"
-}
-
-### get Vote
-# curl -X GET --location "http://localhost:8080/lunch-manager/rest/restaurants/100004/votes/100017" --user user@yandex.ru:password
-GET http://localhost:8080/lunch-manager/rest/restaurants/100004/votes/100017
+### delete today
+# curl -X DELETE --location "http://localhost:8080/lunch-manager/rest/votes --user user@yandex.ru:password"
+DELETE http://localhost:8080/lunch-manager/rest/votes
 Authorization: Basic user@yandex.ru password
 
-### get all Votes
-# curl -X GET --location "http://localhost:8080/lunch-manager/rest/restaurants/100004/votes" --user user@yandex.ru:password
-GET http://localhost:8080/lunch-manager/rest/restaurants/100004/votes
+### get own Vote by Date
+# curl -X GET --location "http://localhost:8080/lunch-manager/rest/votes/by-date?voteDate=2021-11-11" --user user@yandex.ru:password
+GET http://localhost:8080/lunch-manager/rest/votes/by-date?voteDate=2021-11-11
 Authorization: Basic user@yandex.ru password
 
-### get Votes between 2021-11-11 and 2021-11-11
-# curl -X GET --location "http://localhost:8080/lunch-manager/rest/restaurants/100004/votes/filter?startDate=2021-11-11&endDate=2021-11-11" --user user@yandex.ru:password
-GET http://localhost:8080/lunch-manager/rest/restaurants/100004/votes/filter?startDate=2021-11-11&endDate=2021-11-11
+### get own Votes
+# curl -X GET --location "http://localhost:8080/lunch-manager/rest/votes" --user user@yandex.ru:password
+GET http://localhost:8080/lunch-manager/rest/votes
+Authorization: Basic user@yandex.ru password
+
+### count Restaurant Votes
+# curl -X GET --location "http://localhost:8080/lunch-manager/rest/votes/count?voteDate=2021-11-11&restaurantId=100004" --user user@yandex.ru:password
+GET http://localhost:8080/lunch-manager/rest/votes/count?voteDate=2021-11-11&restaurantId=100004
 Authorization: Basic user@yandex.ru password
 
 ########################################################################################################################

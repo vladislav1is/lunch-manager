@@ -18,14 +18,14 @@ import static org.junit.jupiter.api.Assertions.assertThrows;
 class DataJpaRestaurantServiceTest extends AbstractRestaurantServiceTest {
     @Test
     void getWithDishesByDate() {
-        Restaurant restaurant = service.getWithDishesByDate(RESTAURANT_ID_1, LocalDate.now());
-        WITH_DISHES_MATCHER.assertMatch(restaurant, restaurant1);
-        DishTestData.MATCHER.assertMatch(restaurant.getDishes(), DishTestData.dishes);
+        Restaurant restaurant = service.getWithDishesBy(YAKITORIYA_ID, LocalDate.now());
+        RESTAURANT_WITH_DISHES_MATCHER.assertMatch(restaurant, yakitoriya);
+        DishTestData.DISH_MATCHER.assertMatch(restaurant.getDishes(), DishTestData.dishes);
     }
 
     @Test
     void getWithDishesNotFound() {
         assertThrows(NotFoundException.class,
-                () -> service.getWithDishesByDate(RestaurantTestData.NOT_FOUND, LocalDate.now()));
+                () -> service.getWithDishesBy(RestaurantTestData.NOT_FOUND, LocalDate.now()));
     }
 }

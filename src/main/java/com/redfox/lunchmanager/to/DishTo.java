@@ -12,7 +12,7 @@ import java.util.Objects;
 public class DishTo extends NamedTo implements HasNameAndDate {
 
     @Min(value = 10)
-    @Max(value = 10000)
+    @Max(value = 100_000)
     private final long price;
 
     @NotNull

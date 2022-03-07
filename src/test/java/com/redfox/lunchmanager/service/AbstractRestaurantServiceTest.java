@@ -22,20 +22,20 @@ public abstract class AbstractRestaurantServiceTest extends AbstractServiceTest 
         int newId = created.id();
         Restaurant newRestaurant = getNew();
         newRestaurant.setId(newId);
-        MATCHER.assertMatch(created, newRestaurant);
-        MATCHER.assertMatch(service.get(newId), newRestaurant);
+        RESTAURANT_MATCHER.assertMatch(created, newRestaurant);
+        RESTAURANT_MATCHER.assertMatch(service.get(newId), newRestaurant);
     }
 
     @Test
     void duplicateNameCreate() {
         assertThrows(DataAccessException.class, () ->
-                service.create(new Restaurant(null, "October")));
+                service.create(new Restaurant(null, yakitoriya.getName())));
     }
 
     @Test
     void delete() {
-        service.delete(RESTAURANT_ID_1);
-        assertThrows(NotFoundException.class, () -> service.get(RESTAURANT_ID_1));
+        service.delete(YAKITORIYA_ID);
+        assertThrows(NotFoundException.class, () -> service.get(YAKITORIYA_ID));
     }
 
     @Test
@@ -45,8 +45,8 @@ public abstract class AbstractRestaurantServiceTest extends AbstractServiceTest 
 
     @Test
     void get() {
-        Restaurant restaurant = service.get(RESTAURANT_ID_1);
-        MATCHER.assertMatch(restaurant, restaurant1);
+        Restaurant restaurant = service.get(YAKITORIYA_ID);
+        RESTAURANT_MATCHER.assertMatch(restaurant, yakitoriya);
     }
 
     @Test
@@ -57,14 +57,14 @@ public abstract class AbstractRestaurantServiceTest extends AbstractServiceTest 
     @Test
     void getAll() {
         List<Restaurant> all = service.getAll();
-        MATCHER.assertMatch(all, restaurant1, restaurant5, restaurant4, restaurant3, restaurant2);
+        RESTAURANT_MATCHER.assertMatch(all, mcdonalds, starbucks, dodoPizza, teremok, yakitoriya);
     }
 
     @Test
     void update() {
         Restaurant restaurant = getUpdated();
         service.update(restaurant);
-        MATCHER.assertMatch(service.get(RESTAURANT_ID_3), getUpdated());
+        RESTAURANT_MATCHER.assertMatch(service.get(MCDONALDS_ID), getUpdated());
     }
 
     @Test

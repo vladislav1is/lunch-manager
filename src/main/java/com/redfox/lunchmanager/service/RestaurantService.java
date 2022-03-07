@@ -9,7 +9,7 @@ import org.springframework.stereotype.Service;
 import java.time.LocalDate;
 import java.util.List;
 
-import static com.redfox.lunchmanager.util.validation.ValidationUtil.checkNotFoundWithId;
+import static com.redfox.lunchmanager.util.validation.ValidationUtil.*;
 
 @Service
 public class RestaurantService {
@@ -22,6 +22,7 @@ public class RestaurantService {
 
     @CacheEvict(value = "restaurants", allEntries = true)
     public Restaurant create(Restaurant restaurant) {
+        checkNew(restaurant);
         return repository.save(restaurant);
     }
 
@@ -41,10 +42,10 @@ public class RestaurantService {
 
     @CacheEvict(value = "restaurants", allEntries = true)
     public void update(Restaurant restaurant) {
-        checkNotFoundWithId(repository.save(restaurant), restaurant.getId());
+        checkNotFoundWithId(repository.save(restaurant), restaurant.id());
     }
 
-    public Restaurant getWithDishesByDate(int id, LocalDate localDate) {
-        return checkNotFoundWithId(repository.getWithDishesByDate(id, localDate), id);
+    public Restaurant getWithDishesBy(int id, LocalDate localDate) {
+        return checkNotFoundWithId(repository.getWithDishesBy(id, localDate), id);
     }
 }

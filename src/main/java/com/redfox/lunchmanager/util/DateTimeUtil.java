@@ -18,16 +18,21 @@ public final class DateTimeUtil {
     // DB doesn't support LocalDate.MIN/MAX
     private static final LocalDate MIN_DATE = LocalDate.of(1, 1, 1);
     private static final LocalDate MAX_DATE = LocalDate.of(3000, 1, 1);
+    private static final LocalDate NOW = LocalDate.now();
 
     private DateTimeUtil() {
     }
 
-    public static LocalDate atStartOfDayOrMin(LocalDate localDate) {
+    public static LocalDate atDayOrNow(LocalDate localDate) {
+        return localDate != null ? localDate.atStartOfDay().toLocalDate() : NOW;
+    }
+
+    public static LocalDate atDayOrMin(LocalDate localDate) {
         return localDate != null ? localDate.atStartOfDay().toLocalDate() : MIN_DATE;
     }
 
-    public static LocalDate atStartOfNextDayOrMax(LocalDate localDate) {
-        return localDate != null ? localDate.plus(1, ChronoUnit.DAYS).atStartOfDay().toLocalDate() : MAX_DATE;
+    public static LocalDate atNextDayOrMax(LocalDate localDate) {
+        return localDate != null ? localDate.plus(1, ChronoUnit.DAYS): MAX_DATE;
     }
 
     public static <T extends Comparable<T>> boolean isBetweenHalfOpen(T value, @Nullable T start, @Nullable T end) {

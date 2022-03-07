@@ -6,16 +6,16 @@ import java.util.Objects;
 
 public class VoteTo extends BaseTo {
 
-    private final LocalDate registered;
+    private final LocalDate voteDate;
 
-    @ConstructorProperties({"id", "registered"})
-    public VoteTo(Integer id, LocalDate registered) {
+    @ConstructorProperties({"id", "voteDate"})
+    public VoteTo(Integer id, LocalDate voteDate) {
         super(id);
-        this.registered = registered;
+        this.voteDate = voteDate;
     }
 
-    public LocalDate getRegistered() {
-        return registered;
+    public LocalDate getVoteDate() {
+        return voteDate;
     }
 
     @Override
@@ -23,19 +23,19 @@ public class VoteTo extends BaseTo {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
         VoteTo voteTo = (VoteTo) o;
-        return Objects.equals(id, voteTo.id) && registered.equals(voteTo.registered);
+        return Objects.equals(id, voteTo.id) && voteDate.equals(voteTo.voteDate);
     }
 
     @Override
     public int hashCode() {
-        return Objects.hash(id, registered);
+        return Objects.hash(id, voteDate);
     }
 
     @Override
     public String toString() {
         return "VoteTo{" +
                 "id=" + id +
-                ", registered=" + registered +
+                ", voteDate=" + voteDate +
                 '}';
     }
 }

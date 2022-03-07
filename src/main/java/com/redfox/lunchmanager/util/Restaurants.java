@@ -16,28 +16,37 @@ public class Restaurants {
     }
 
     public static RestaurantTo convertToDto(Restaurant restaurant) {
-        return new RestaurantTo(restaurant.getId(), restaurant.getName(), null, null);
+        return new RestaurantTo(restaurant.getId(), restaurant.getName(), null, null, 0);
+    }
+
+    public static RestaurantTo convertToDto(Restaurant restaurant, Integer votes) {
+        return new RestaurantTo(restaurant.getId(), restaurant.getName(), null, null, votes);
     }
 
     public static RestaurantTo convertToDto(Restaurant restaurant, List<Dish> dishes) {
-        return new RestaurantTo(restaurant.getId(), restaurant.getName(), null, Dishes.getTos(dishes));
+        return new RestaurantTo(restaurant.getId(), restaurant.getName(), null, Dishes.getTos(dishes), 0);
     }
 
     public static RestaurantTo convertToDto(Restaurant restaurant, @NonNull Vote vote) {
         Integer restaurantId = restaurant.getId();
         if (restaurantId.equals(vote.getRestaurant().getId())) {
-            return new RestaurantTo(restaurantId, restaurant.getName(), Votes.convertToDto(vote), null);
+            return new RestaurantTo(restaurantId, restaurant.getName(), Votes.convertToDto(vote), null, 0);
         } else {
-            return new RestaurantTo(restaurantId, restaurant.getName(), null, null);
+            return new RestaurantTo(restaurantId, restaurant.getName(), null, null, 0);
         }
+    }
+
+    public static RestaurantTo convertToDto(Restaurant restaurant, Vote vote, Integer votes) {
+        Integer restaurantId = restaurant.getId();
+        return new RestaurantTo(restaurantId, restaurant.getName(), Votes.convertToDto(vote), null, votes);
     }
 
     public static RestaurantTo convertToDto(Restaurant restaurant, @NonNull Vote vote, List<Dish> dishes) {
         Integer restaurantId = restaurant.getId();
         if (restaurantId.equals(vote.getRestaurant().getId())) {
-            return new RestaurantTo(restaurantId, restaurant.getName(), Votes.convertToDto(vote), Dishes.getTos(dishes));
+            return new RestaurantTo(restaurantId, restaurant.getName(), Votes.convertToDto(vote), Dishes.getTos(dishes), 0);
         } else {
-            return new RestaurantTo(restaurantId, restaurant.getName(), null, Dishes.getTos(dishes));
+            return new RestaurantTo(restaurantId, restaurant.getName(), null, Dishes.getTos(dishes), 0);
         }
     }
 
@@ -60,6 +69,12 @@ public class Restaurants {
     public static List<RestaurantTo> getTos(Collection<Restaurant> restaurants, Vote vote) {
         return restaurants.stream()
                 .map(restaurant -> convertToDto(restaurant, vote))
+                .toList();
+    }
+
+    public static List<RestaurantTo> getTos(Collection<Restaurant> restaurants, Vote vote, Integer votes) {
+        return restaurants.stream()
+                .map(restaurant -> convertToDto(restaurant, vote, votes))
                 .toList();
     }
 }

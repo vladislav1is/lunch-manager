@@ -19,9 +19,9 @@ public class DataJpaUserRepository implements UserRepository {
         this.crudRepository = crudRepository;
     }
 
-    @Override
     @Transactional
     @Modifying
+    @Override
     public User save(User user) {
         if (!user.isNew() && get(user.id()) == null) {
             return null;
@@ -40,7 +40,7 @@ public class DataJpaUserRepository implements UserRepository {
     }
 
     @Override
-    public User getByEmail(String email) {
+    public User getBy(String email) {
         return crudRepository.getByEmail(email);
     }
 

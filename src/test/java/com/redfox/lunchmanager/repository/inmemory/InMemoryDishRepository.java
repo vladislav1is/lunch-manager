@@ -21,13 +21,13 @@ public class InMemoryDishRepository implements DishRepository {
     private final Map<Integer, InMemoryBaseRepository<Dish>> dishes = new ConcurrentHashMap<>();
 
     {
-        save(dish1, restaurant1.getId());
-        save(dish2, restaurant1.getId());
-        save(dish3, restaurant2.getId());
-        save(dish4, restaurant2.getId());
-        save(dish5, restaurant3.getId());
-        save(dish6, restaurant3.getId());
-        save(dish7, restaurant3.getId());
+        save(yakitoriya_1, yakitoriya.getId());
+        save(yakitoriya_2, yakitoriya.getId());
+        save(dodoPizza_1, dodoPizza.getId());
+        save(dodoPizza_2, dodoPizza.getId());
+        save(mcdonalds_1, mcdonalds.getId());
+        save(mcdonalds_2, mcdonalds.getId());
+        save(mcdonalds_3, mcdonalds.getId());
     }
 
     @Override
@@ -64,7 +64,7 @@ public class InMemoryDishRepository implements DishRepository {
     }
 
     @Override
-    public List<Dish> getBetweenHalfOpen(LocalDate startDate, LocalDate endDate, int restaurantId) {
+    public List<Dish> getBetweenBy(LocalDate startDate, LocalDate endDate, int restaurantId) {
         return filterByPredicate(restaurantId, item -> isBetweenHalfOpen(item.getRegistered(), startDate, endDate));
     }
 }

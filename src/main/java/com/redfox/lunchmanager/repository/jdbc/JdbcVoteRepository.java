@@ -5,11 +5,11 @@ import com.redfox.lunchmanager.model.User;
 import com.redfox.lunchmanager.model.Vote;
 import com.redfox.lunchmanager.repository.VoteRepository;
 import com.redfox.lunchmanager.util.validation.ValidationUtil;
-import com.redfox.lunchmanager.web.SecurityUtil;
 import org.springframework.dao.support.DataAccessUtils;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.jdbc.core.BeanPropertyRowMapper;
 import org.springframework.jdbc.core.JdbcTemplate;
-import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
+import org.springframework.jdbc.core.namedparam.BeanPropertySqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
 import org.springframework.jdbc.core.simple.SimpleJdbcInsert;
 import org.springframework.stereotype.Repository;
@@ -38,26 +38,21 @@ public class JdbcVoteRepository implements VoteRepository {
                 .withTableName("votes");
     }
 
-    @Override
     @Transactional
+    @Modifying
+    @Override
     public Vote save(Vote vote, int restaurantId) {
         ValidationUtil.validate(vote);
-
-        int userId = SecurityUtil.authUserId();
-        MapSqlParameterSource map = new MapSqlParameterSource()
-                .addValue("id", vote.getId())
-                .addValue("userId", userId)
-                .addValue("restaurantId", restaurantId)
-                .addValue("registered", vote.getRegistered());
+        BeanPropertySqlParameterSource parameterSource = new BeanPropertySqlParameterSource(vote);
         if (vote.isNew()) {
-            Number newKey = insertVote.executeAndReturnKey(map);
+            Number newKey = insertVote.executeAndReturnKey(parameterSource);
             vote.setId(newKey.intValue());
         } else if (namedParameterJdbcTemplate.update("""
-                UPDATE votes SET user_id=:userId, restaurant_id=:restaurantId, registered=:registered
-                WHERE id=:id""", map) == 0) {
+                UPDATE votes SET user_id=:userId, restaurant_id=:restaurantId, vote_date=:voteDate
+                WHERE id=:id""", parameterSource) == 0) {
             return null;
         }
-        setUser(vote, userId);
+        setUser(vote, vote.getUserId());
         setRestaurant(vote, restaurantId);
         return vote;
     }
@@ -66,11 +61,11 @@ public class JdbcVoteRepository implements VoteRepository {
         if (vote != null && userId != 0) {
             List<User> users = jdbcTemplate.query("""
                     SELECT * FROM users u LEFT JOIN votes v ON u.id=v.user_id
-                    WHERE user_id=? AND v.registered=?""", (rs, i) -> {
+                    WHERE user_id=? AND v.vote_date=?""", (rs, i) -> {
                 User user = new User();
                 user.setId(rs.getInt("id"));
                 return user;
-            }, userId, vote.getRegistered());
+            }, userId, vote.getVoteDate());
             vote.setUser(DataAccessUtils.singleResult(users));
         }
     }
@@ -79,31 +74,32 @@ public class JdbcVoteRepository implements VoteRepository {
         if (vote != null && restaurantId != 0) {
             List<Restaurant> restaurants = jdbcTemplate.query("""
                     SELECT * FROM restaurants r LEFT JOIN votes v ON r.id=v.restaurant_id
-                    WHERE restaurant_id=? AND v.registered=?""", (rs, i) -> {
+                    WHERE restaurant_id=? AND v.vote_date=?""", (rs, i) -> {
                 Restaurant restaurant = new Restaurant();
                 restaurant.setId(rs.getInt("id"));
                 return restaurant;
-            }, restaurantId, vote.getRegistered());
+            }, restaurantId, vote.getVoteDate());
             vote.setRestaurant(DataAccessUtils.singleResult(restaurants));
         }
     }
 
-    @Override
     @Transactional
+    @Modifying
+    @Override
     public boolean delete(int id, int restaurantId) {
         return jdbcTemplate.update("DELETE FROM votes WHERE id=? AND restaurant_id=?", id, restaurantId) != 0;
     }
 
+    @Transactional
+    @Modifying
     @Override
-    public Vote get(int id, int restaurantId) {
-        var votes = jdbcTemplate.query("SELECT * FROM votes WHERE id=? AND restaurant_id=?",
-                ROW_MAPPER, id, restaurantId);
-        return DataAccessUtils.singleResult(votes);
+    public boolean deleteAllBy(int restaurantId) {
+        return jdbcTemplate.update("DELETE FROM votes WHERE restaurant_id=?", restaurantId) != 0;
     }
 
     @Override
-    public Vote getByDate(LocalDate voteDate, int userId) {
-        var votes = jdbcTemplate.query("SELECT * FROM votes WHERE registered=? AND user_id=?",
+    public Vote getBy(LocalDate voteDate, int userId) {
+        var votes = jdbcTemplate.query("SELECT * FROM votes WHERE vote_date=? AND user_id=?",
                 ROW_MAPPER, voteDate, userId);
         var vote = DataAccessUtils.singleResult(votes);
         setRestaurant(vote, voteDate, userId);
@@ -114,7 +110,7 @@ public class JdbcVoteRepository implements VoteRepository {
         if (vote != null) {
             List<Restaurant> restaurants = jdbcTemplate.query("""
                     SELECT * FROM restaurants r LEFT JOIN votes v ON r.id=v.restaurant_id
-                    WHERE v.user_id=? AND v.registered=?""", (rs, i) -> {
+                    WHERE v.user_id=? AND v.vote_date=?""", (rs, i) -> {
                 Restaurant restaurant = new Restaurant();
                 restaurant.setId(rs.getInt("id"));
                 return restaurant;
@@ -124,15 +120,14 @@ public class JdbcVoteRepository implements VoteRepository {
     }
 
     @Override
-    public List<Vote> getAll(int restaurantId) {
-        return jdbcTemplate.query("SELECT * FROM votes WHERE restaurant_id=? ORDER BY registered DESC",
-                ROW_MAPPER, restaurantId);
+    public List<Vote> getAll(int userId) {
+        return jdbcTemplate.query("SELECT * FROM votes WHERE user_id=? ORDER BY vote_date DESC",
+                ROW_MAPPER, userId);
     }
 
     @Override
-    public List<Vote> getBetweenHalfOpen(LocalDate startDate, LocalDate endDate, int restaurantId) {
-        return jdbcTemplate.query("SELECT * FROM votes WHERE restaurant_id=? AND registered >= ? AND registered < ? " +
-                        "ORDER BY registered DESC",
-                ROW_MAPPER, restaurantId, startDate, endDate);
+    public int countBy(LocalDate voteDate, int restaurantId) {
+        Integer votesNum = jdbcTemplate.queryForObject("SELECT COUNT(*) FROM votes WHERE vote_date=? AND restaurant_id=?", Integer.class, voteDate, restaurantId);
+        return votesNum == null ? 0 : votesNum;
     }
 }

@@ -43,7 +43,7 @@ class ProfileUserControllerTest extends AbstractControllerTest {
                 .with(userHttpBasic(user3)))
                 .andExpect(status().isOk())
                 .andExpect(content().contentTypeCompatibleWith(MediaType.APPLICATION_JSON))
-                .andExpect(TO_MATCHER.contentJson(convertToDto(user3)));
+                .andExpect(USER_TO_MATCHER.contentJson(convertToDto(user3)));
     }
 
     @Test
@@ -51,7 +51,7 @@ class ProfileUserControllerTest extends AbstractControllerTest {
         perform(MockMvcRequestBuilders.delete(REST_URL)
                 .with(userHttpBasic(user3)))
                 .andExpect(status().isNoContent());
-        TO_MATCHER.assertMatch(getTos(userService.getAll()), getTos(user1, user2));
+        USER_TO_MATCHER.assertMatch(getTos(userService.getAll()), getTos(admin1, admin2));
     }
 
     @Test
@@ -67,11 +67,11 @@ class ProfileUserControllerTest extends AbstractControllerTest {
                 .andDo(print())
                 .andExpect(status().isCreated());
 
-        User created = MATCHER.readFromJson(action);
+        User created = USER_MATCHER.readFromJson(action);
         int newId = created.id();
         newUser.setId(newId);
-        MATCHER.assertMatch(created, newUser);
-        MATCHER.assertMatch(userService.get(newId), newUser);
+        USER_MATCHER.assertMatch(created, newUser);
+        USER_MATCHER.assertMatch(userService.get(newId), newUser);
     }
 
     @Test
@@ -83,7 +83,7 @@ class ProfileUserControllerTest extends AbstractControllerTest {
                 .andDo(print())
                 .andExpect(status().isNoContent());
 
-        TO_MATCHER.assertMatch(convertToDto(userService.get(USER_ID_3)), updated);
+        USER_TO_MATCHER.assertMatch(convertToDto(userService.get(USER_ID_3)), updated);
     }
 
     @Test

@@ -49,9 +49,9 @@ public abstract class AbstractUserController {
         return convertToDto(service.get(id));
     }
 
-    public UserTo getByMail(String email) {
+    public UserTo getBy(String email) {
         log.info("getByEmail {}", email);
-        return convertToDto(service.getByEmail(email));
+        return convertToDto(service.getBy(email));
     }
 
     public List<UserTo> getAll() {

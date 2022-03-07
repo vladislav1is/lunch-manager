@@ -22,23 +22,22 @@ VALUES ('USER', 100001),
        ('USER', 100003);
 
 INSERT INTO restaurants (name)
-VALUES ('August'),
-       ('September'),
-       ('October'),
-       ('November'),
-       ('December');
+VALUES ('Якитория'),
+       ('Додо Пицца'),
+       ('McDonalds'),
+       ('Теремок'),
+       ('Starbucks');
 
 INSERT INTO dishes (name, price, registered, restaurant_id)
-VALUES ('roast pork', 250, now(), 100004),
-       ('fish and chips', 350, now(), 100004),
-       ('roast vegetables', 130, '2021-11-11', 100005),
-       ('roast turkey', 210, '2021-11-11', 100005),
-       ('tomato soup', 150, '2021-11-11', 100006),
-       ('pizza', 180, '2021-11-11', 100006),
-       ('pasta', 175, '2021-11-11', 100006);
+VALUES ('Калифорния', 55700, now(), 100004),
+       ('Ролл Лосось-карамель', 49900, now(), 100004),
+       ('Карбонара', 71900, '2021-11-11', 100005),
+       ('Пепперони', 64900, '2021-11-11', 100005),
+       ('Картофель Фри', 12800, '2021-11-11', 100006),
+       ('Двойной Чизбургер', 12500, '2021-11-11', 100006),
+       ('Чикенбургер', 5300, '2021-11-11', 100006);
 
-INSERT INTO votes (restaurant_id, user_id, registered)
+INSERT INTO votes (restaurant_id, user_id, vote_date)
 VALUES (100004, 100001, now()),
        (100004, 100001, '2021-11-11'),
-       (100004, 100002, now()),
-       (100006, 100003, now());
+       (100004, 100002, now());

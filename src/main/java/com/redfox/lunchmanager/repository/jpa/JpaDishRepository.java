@@ -3,6 +3,7 @@ package com.redfox.lunchmanager.repository.jpa;
 import com.redfox.lunchmanager.model.Dish;
 import com.redfox.lunchmanager.model.Restaurant;
 import com.redfox.lunchmanager.repository.DishRepository;
+import org.springframework.data.jpa.repository.Modifying;
 import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -18,8 +19,9 @@ public class JpaDishRepository implements DishRepository {
     @PersistenceContext
     private EntityManager em;
 
-    @Override
     @Transactional
+    @Modifying
+    @Override
     public Dish save(Dish dish, int restaurantId) {
         dish.setRestaurant(em.getReference(Restaurant.class, restaurantId));
         if (dish.isNew()) {
@@ -31,8 +33,9 @@ public class JpaDishRepository implements DishRepository {
         return em.merge(dish);
     }
 
-    @Override
     @Transactional
+    @Modifying
+    @Override
     public boolean delete(int id, int restaurantId) {
         return em.createNamedQuery(Dish.DELETE)
                 .setParameter("id", id)
@@ -54,7 +57,7 @@ public class JpaDishRepository implements DishRepository {
     }
 
     @Override
-    public List<Dish> getBetweenHalfOpen(LocalDate startDate, LocalDate endDate, int restaurantId) {
+    public List<Dish> getBetweenBy(LocalDate startDate, LocalDate endDate, int restaurantId) {
         return em.createNamedQuery(Dish.GET_BETWEEN, Dish.class)
                 .setParameter("restaurantId", restaurantId)
                 .setParameter("startDate", startDate)
